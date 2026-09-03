@@ -9,11 +9,6 @@ import styles from './page.module.css';
 
 type BiosPhase = 'bios' | 'linuxBoot' | 'shell';
 
-type BiosHistoryEntry = {
-  prompt: string;
-  output: string | null;
-};
-
 export default function BiosPage() {
   const DEBUG_AUDIO = true;
   const dotTimeoutsRef = useRef<number[]>([]);
@@ -37,9 +32,12 @@ export default function BiosPage() {
   const [phase, setPhase] = useState<BiosPhase>('bios');
   const [promptReady, setPromptReady] = useState(false);
   const [biosInput, setBiosInput] = useState('');
-  const [biosHistory, setBiosHistory] = useState<BiosHistoryEntry[]>([]);
+  const [biosCommandHistory, setBiosCommandHistory] = useState<string[]>([]);
   const [biosHistoryIndex, setBiosHistoryIndex] = useState(0);
   const [tmpBiosPrompt, setTmpBiosPrompt] = useState('');
+  const [biosFailCount, setBiosFailCount] = useState(0);
+  const [biosError, setBiosError] = useState<string | null>(null);
+  const [biosHint, setBiosHint] = useState<string | null>(null);
   const [linuxLines, setLinuxLines] = useState<string[]>([]);
 
   // Volume global des effets sonores (0.0 à 1.0)
@@ -848,7 +846,7 @@ export default function BiosPage() {
 
   useEffect(() => {
     bootContentRef.current?.scrollTo({ top: bootContentRef.current.scrollHeight });
-  }, [biosHistory]);
+  }, [biosError, biosHint]);
 
   const executeBiosCommand = () => {
     const raw = biosInput;
@@ -859,26 +857,31 @@ export default function BiosPage() {
     const rest = firstSpace === -1 ? '' : trimmed.slice(firstSpace + 1).trim();
 
     if (!trimmed) {
-      setBiosHistory((history) => [...history, { prompt: '', output: null }]);
       setBiosInput('');
       setBiosHistoryIndex(0);
       return;
     }
 
     if (command === 'start' && !rest) {
-      setBiosHistory((history) => [...history, { prompt: raw, output: null }]);
+      setBiosFailCount(0);
+      setBiosError(null);
+      setBiosHint(null);
       setBiosInput('');
       setBiosHistoryIndex(0);
       setPhase('linuxBoot');
       return;
     }
 
-    setBiosHistory((history) => [
-      ...history,
-      { prompt: raw, output: `${firstWord}: command not found` },
-    ]);
+    setBiosCommandHistory((history) => [...history, raw]);
+    const nextFailCount = biosFailCount + 1;
+    setBiosFailCount(nextFailCount);
+    setBiosError(`${firstWord}: command not found`);
+    setBiosHint(nextFailCount >= 2 ? 'Hint: type start to start.' : null);
     setBiosInput('');
     setBiosHistoryIndex(0);
+    window.setTimeout(() => {
+      biosInputRef.current?.focus();
+    }, 0);
   };
 
   const handleBiosKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -893,7 +896,7 @@ export default function BiosPage() {
       return;
     }
 
-    const historyPrompts = biosHistory.filter((entry) => entry.prompt.trim().length > 0);
+    const historyPrompts = biosCommandHistory.filter((entry) => entry.trim().length > 0);
 
     if (event.key === 'ArrowUp') {
       event.preventDefault();
@@ -901,15 +904,15 @@ export default function BiosPage() {
       if (biosHistoryIndex === 0) {
         setTmpBiosPrompt(biosInput);
       }
-      const nextIndex =
-        historyPrompts.length - 1 > biosHistoryIndex ? biosHistoryIndex + 1 : biosHistoryIndex;
-      const lastPrompt = historyPrompts[historyPrompts.length - nextIndex].prompt;
+      const nextIndex = Math.min(biosHistoryIndex + 1, historyPrompts.length);
+      const entry = historyPrompts[historyPrompts.length - nextIndex];
+      if (entry === undefined) return;
       setBiosHistoryIndex(nextIndex);
-      setBiosInput(lastPrompt);
+      setBiosInput(entry);
       window.setTimeout(() => {
         const inputElement = biosInputRef.current;
         if (inputElement) {
-          inputElement.setSelectionRange(lastPrompt.length, lastPrompt.length);
+          inputElement.setSelectionRange(entry.length, entry.length);
         }
       }, 0);
       return;
@@ -917,20 +920,24 @@ export default function BiosPage() {
 
     if (event.key === 'ArrowDown') {
       event.preventDefault();
-      if (!historyPrompts.length) return;
       if (biosHistoryIndex <= 1) {
         setBiosInput(tmpBiosPrompt);
         setBiosHistoryIndex(0);
         return;
       }
       const nextIndex = biosHistoryIndex - 1;
-      const lastPrompt = historyPrompts[historyPrompts.length - nextIndex].prompt;
+      const entry = historyPrompts[historyPrompts.length - nextIndex];
+      if (entry === undefined) {
+        setBiosInput(tmpBiosPrompt);
+        setBiosHistoryIndex(0);
+        return;
+      }
       setBiosHistoryIndex(nextIndex);
-      setBiosInput(lastPrompt);
+      setBiosInput(entry);
       window.setTimeout(() => {
         const inputElement = biosInputRef.current;
         if (inputElement) {
-          inputElement.setSelectionRange(lastPrompt.length, lastPrompt.length);
+          inputElement.setSelectionRange(entry.length, entry.length);
         }
       }, 0);
     }
@@ -1000,15 +1007,6 @@ export default function BiosPage() {
                 </li>
               ))}
             </ul>
-            {biosHistory.map((entry, index) => (
-              <div key={`${entry.prompt}-${index}`}>
-                <div className={styles.promptStatic}>
-                  <span className={styles.promptText}>root@pigeons-studio:~$</span>
-                  <span className={styles.promptTyped}>{entry.prompt}</span>
-                </div>
-                {entry.output ? <div className={styles.promptOutput}>{entry.output}</div> : null}
-              </div>
-            ))}
             <div
               className={styles.prompt}
               style={{ '--prompt-delay': `${bootSequence.promptDelay}s` } as CSSProperties}
@@ -1033,6 +1031,10 @@ export default function BiosPage() {
                   aria-label="BIOS prompt"
                 />
               </span>
+            </div>
+            <div className={styles.promptFeedback} aria-live="polite">
+              <div className={styles.promptOutput}>{biosError || '\u00a0'}</div>
+              <div className={styles.promptHint}>{biosHint || '\u00a0'}</div>
             </div>
             <div
               className={styles.returnLink}

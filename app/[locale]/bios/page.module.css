@@ -225,9 +225,25 @@
   min-height: 1em;
 }
 
-.promptOutput {
-  color: #fb5655;
+.promptFeedback {
+  min-height: calc(2.4em + 4px);
+}
+
+.promptOutput,
+.promptHint {
+  min-height: 1.2em;
+  line-height: 1.2;
   margin-top: 2px;
+}
+
+.promptOutput {
+  color: #ff4d4d;
+  text-shadow: 0 0 8px rgba(255, 70, 70, 0.55);
+}
+
+.promptHint {
+  color: #ffb347;
+  text-shadow: 0 0 8px rgba(255, 179, 71, 0.4);
 }
 
 .promptInput {
@@ -521,13 +537,18 @@
       0 0 8px rgba(80, 217, 255, 0.3);
   }
 
-  .promptStatic,
-  .promptOutput {
+  .promptStatic {
     font-size: 14px;
     font-weight: 700;
     text-shadow:
       0 0 4px rgba(80, 217, 255, 0.5),
       0 0 8px rgba(80, 217, 255, 0.3);
+  }
+
+  .promptOutput,
+  .promptHint {
+    font-size: 14px;
+    font-weight: 700;
   }
 
   .promptText {

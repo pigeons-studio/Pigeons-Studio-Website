@@ -327,38 +327,42 @@ export default function LinuxTerminal() {
       if (promptHistoryIndex === 0) {
         setTmpPrompt(prompt);
       }
-      const nextIndex =
-        history.length - 1 > promptHistoryIndex ? promptHistoryIndex + 1 : promptHistoryIndex;
-      const lastPrompt = history[history.length - nextIndex].prompt;
+      const nextIndex = Math.min(promptHistoryIndex + 1, history.length);
+      const entry = history[history.length - nextIndex];
+      if (!entry) return;
       setPromptHistoryIndex(nextIndex);
-      setPrompt(lastPrompt);
+      setPrompt(entry.prompt);
       window.setTimeout(() => {
         const inputElement = inputRef.current;
         if (inputElement) {
           inputElement.focus();
-          inputElement.setSelectionRange(lastPrompt.length, lastPrompt.length);
+          inputElement.setSelectionRange(entry.prompt.length, entry.prompt.length);
         }
       }, 0);
     }
     if (event.key === 'ArrowDown') {
       event.preventDefault();
       const history = oldPrompts.filter((entry) => !isWhitespaces(entry.prompt));
-      if (!history.length) return;
       if (promptHistoryIndex <= 1) {
         setPrompt(tmpPrompt);
         setPromptHistoryIndex(0);
       } else {
         const nextIndex = promptHistoryIndex - 1;
-        const lastPrompt = history[history.length - nextIndex].prompt;
-        setPromptHistoryIndex(nextIndex);
-        setPrompt(lastPrompt);
-        window.setTimeout(() => {
-          const inputElement = inputRef.current;
-          if (inputElement) {
-            inputElement.focus();
-            inputElement.setSelectionRange(lastPrompt.length, lastPrompt.length);
-          }
-        }, 0);
+        const entry = history[history.length - nextIndex];
+        if (!entry) {
+          setPrompt(tmpPrompt);
+          setPromptHistoryIndex(0);
+        } else {
+          setPromptHistoryIndex(nextIndex);
+          setPrompt(entry.prompt);
+          window.setTimeout(() => {
+            const inputElement = inputRef.current;
+            if (inputElement) {
+              inputElement.focus();
+              inputElement.setSelectionRange(entry.prompt.length, entry.prompt.length);
+            }
+          }, 0);
+        }
       }
     }
     if (event.ctrlKey && event.key === 'c') {
