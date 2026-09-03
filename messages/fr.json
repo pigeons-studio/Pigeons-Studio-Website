@@ -17,31 +17,144 @@
       "viewShop": "Voir la boutique"
     },
     "footer": {
-      "description": "Ingénierie électronique, PCB, embarqué & robots.\nMatériel audio et artistique.",
+      "description": "Direction créative, dispositifs robotiques et son spatialisé.\nMatériel audio et artistique.",
       "navigation": "Navigation",
       "information": "Informations",
       "rights": "Tous droits réservés."
     },
     "about": "À propos",
     "cgv": "CGV",
-    "legal": "Mentions légales"
+    "legal": "Mentions légales",
+    "todo": {
+      "label": "À compléter"
+    }
   },
   "home": {
-    "badge": "Ingénierie • France",
+    "badge": "Direction créative • Art, robotique & son",
     "title": "Pigeons Studio",
-    "subtitle": "Conception de PCB, programmation embarquée, électronique et robots. Du prototype à l'industrialisation.",
+    "duoLine": "Koo Des (NSDOS) × Julien Thomas",
+    "duoCaption": "Un duo à parité : direction artistique et direction technique.",
+    "subtitle": "Direction créative, dispositifs robotiques et son spatialisé. Nous transformons le geste en musique, en mouvement et en expérience collective.",
+    "todo": {
+      "valueProposition": "Value proposition à valider avec Koo et Julien",
+      "identity": "Logo et identité visuelle à fournir"
+    },
     "heroSplit": {
       "services": "Création d’objets audio, capteurs et éléments de design pour la scène.",
       "shop": "Matériel audio & artistique — modules, capteurs, objets."
     },
     "sections": {
+      "duo": {
+        "title": "Le duo",
+        "subtitle": "Deux directions complémentaires, présentées à parité.",
+        "koo": {
+          "name": "Koo Des (NSDOS)",
+          "role": "Direction artistique & musicale",
+          "description": "Conception du système sonore, traduction musicale du geste, écriture et performance. Une pratique au croisement de la musique électronique, du mouvement et des technologies."
+        },
+        "julien": {
+          "name": "Julien Thomas",
+          "role": "Direction technique & systèmes",
+          "description": "Architecture système, intégration hardware, électronique embarquée et dispositifs interactifs spatialisés. Conception des capteurs, des robots et des chaînes temps réel."
+        },
+        "todo": {
+          "portraitKoo": "Portrait HD de Koo (studio + scène)",
+          "portraitJulien": "Portrait HD de Julien (studio + scène)",
+          "duoPhotos": "Photos du duo ensemble",
+          "bios": "Bios complètes, bio courte (100 mots) et bio longue (400 mots)"
+        }
+      },
+      "capabilities": {
+        "title": "Dispositifs & capacités",
+        "subtitle": "Des systèmes développés en interne, déployables en performance comme en installation.",
+        "items": {
+          "sensors": {
+            "title": "Capteurs portables AS-SIMT",
+            "description": "Dispositifs portés qui captent le mouvement et renvoient un retour sonore et haptique en temps réel.",
+            "features": [
+              "Écran embarqué",
+              "Centrale de mouvement 9 axes",
+              "Transducteurs à conduction osseuse"
+            ]
+          },
+          "robots": {
+            "title": "Robots quadrupèdes Unitree Go2",
+            "description": "Corps sonores mobiles porteurs d’enceintes directionnelles, chorégraphiés dans l’espace.",
+            "features": [
+              "Enceintes directionnelles embarquées",
+              "Chorégraphie et trajectoires",
+              "Pilotage temps réel"
+            ]
+          },
+          "translation": {
+            "title": "Traduction geste → son",
+            "description": "Chaîne temps réel qui transforme un geste capté en matière musicale.",
+            "features": [
+              "Captation et mapping",
+              "Transfert timbral",
+              "Corpus sonore"
+            ]
+          },
+          "spatial": {
+            "title": "Son spatialisé & interface live",
+            "description": "Diffusion multicanale et visualisation du système en direct.",
+            "features": [
+              "Diffusion spatialisée",
+              "Interface de visualisation",
+              "Captation macro"
+            ]
+          },
+          "modes": {
+            "title": "Deux modes de déploiement",
+            "description": "Le même dispositif existe en version performée et en version autonome.",
+            "features": [
+              "Activation live",
+              "Installation autonome",
+              "Enregistrement et rejeu"
+            ]
+          }
+        },
+        "todo": {
+          "media": "Photos et vidéos des dispositifs en action",
+          "rider": "Rider technique et configuration live type",
+          "inventory": "Liste exhaustive des capteurs et instruments (marque, modèle, fonction)",
+          "software": "Description fonctionnelle des logiciels maison (EightOS)",
+          "networks": "Réseaux et protocoles utilisés (LoRa, autres)"
+        }
+      },
+      "shop": {
+        "title": "Boutique",
+        "subtitle": "Matériel audio et artistique",
+        "products": {
+          "as-simt": {
+            "name": "Capteur AS-SIMT",
+            "description": "Capteur de mouvement haptico-sonore"
+          },
+          "audio": {
+            "name": "Module Audio I2S",
+            "description": "Module audio multi-canal embarqué"
+          },
+          "pcb": {
+            "name": "PCB Custom",
+            "description": "Conception sur mesure"
+          }
+        },
+        "price": {
+          "coming": "À venir",
+          "quote": "Sur devis"
+        }
+      },
       "services": {
         "title": "Services",
         "items": {
           "pcb": {
             "title": "Création d’objets audio",
             "description": "Objets et modules sur mesure pour la scène et l’installation.",
-            "features": ["Synthés/contrôleurs", "Modules sonores", "Pièces uniques"]
+            "features": [
+              "Synthés/contrôleurs",
+              "Modules sonores",
+              "Pièces uniques"
+            ]
           },
           "electronics": {
             "title": "Capteurs & interaction",
@@ -90,28 +203,6 @@
           }
         }
       },
-      "shop": {
-        "title": "Boutique",
-        "subtitle": "Matériel audio et artistique",
-        "products": {
-          "as-simt": {
-            "name": "Capteur AS-SIMT",
-            "description": "Capteur de mouvement haptico-sonore"
-          },
-          "audio": {
-            "name": "Module Audio I2S",
-            "description": "Module audio multi-canal embarqué"
-          },
-          "pcb": {
-            "name": "PCB Custom",
-            "description": "Conception sur mesure"
-          }
-        },
-        "price": {
-          "coming": "À venir",
-          "quote": "Sur devis"
-        }
-      },
       "projects": {
         "title": "Projets & Réalisations",
         "items": {
@@ -127,10 +218,17 @@
             "title": "Installations interactives",
             "description": "Dispositifs scéniques pilotés en temps réel, synchronisation audio‑lumière avec retours capteurs. Électronique et firmware dédiés pour modulations et effets."
           }
+        },
+        "todo": {
+          "timeline": "Liste chronologique complète des projets (titre, année, lieu, type)",
+          "showreel": "Sélection des meilleures captations vidéo pour le showreel"
         }
       },
       "expertise": {
-        "title": "Expertise & Stack"
+        "title": "Expertise & Stack",
+        "todo": {
+          "perPerson": "Champs d’expertise détaillés pour Koo et pour Julien"
+        }
       },
       "process": {
         "title": "Approche",
@@ -141,21 +239,35 @@
           "industrialization": "Industrialisation — validation, documentation, transfert."
         }
       },
-      "collaborations": {
-        "title": "Collaborations",
-        "nsdos": {
-          "title": "NSDOS",
-          "description": "Collaboration artistique sur les capteurs de mouvement AS-SIMT / EightOS, utilisés dans la plupart des performances de l'artiste."
+      "references": {
+        "title": "Références",
+        "subtitle": "Collaborations, présentations et couverture presse.",
+        "brands": {
+          "title": "Collaborations marques",
+          "description": "Projets menés avec des marques sur des dispositifs sur mesure, de la conception à l’activation."
         },
-        "festivals": {
-          "title": "Festivals & Institutions",
+        "institutions": {
+          "title": "Festivals & institutions",
           "description": "Présentations à la Biennale de Gwangju, IMPACT (Théâtre de Liège), HOT‑SHOP 14 (ECCO Leather) et autres événements internationaux."
+        },
+        "press": {
+          "title": "Revue de presse",
+          "description": "Articles, citations et logos médias."
+        },
+        "todo": {
+          "brands": "Détail des collaborations marques réalisées et droits d’usage des visuels",
+          "press": "Revue de presse existante (articles, citations, logos médias)",
+          "discography": "Discographie complète avec liens streaming"
         }
       },
       "contact": {
         "title": "Contact",
-        "description": "Discuter de votre projet. Réponse rapide, devis gratuit.",
-        "email": "Email"
+        "description": "Marques, institutions, robotique et IA : parlons de votre projet. Réponse rapide.",
+        "email": "Email",
+        "todo": {
+          "structure": "Nom de structure juridique du duo",
+          "billing": "Coordonnées bancaires et de facturation"
+        }
       }
     }
   },

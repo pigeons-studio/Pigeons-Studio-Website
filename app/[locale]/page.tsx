@@ -36,6 +36,10 @@ export default async function HomePage({
         url: baseUrl,
         email: 'contact@punkhazard.org',
         description: t('subtitle'),
+        founder: [
+          { '@type': 'Person', name: t('sections.duo.koo.name') },
+          { '@type': 'Person', name: t('sections.duo.julien.name') },
+        ],
         address: {
           '@type': 'PostalAddress',
           addressCountry: 'FR',

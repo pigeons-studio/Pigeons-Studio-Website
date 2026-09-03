@@ -24,6 +24,10 @@ ADMIN_PASSWORD=your-secure-password
 # Google OAuth (optionnel)
 GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+# Google Search Console (optionnel)
+# Uniquement le token, pas la balise <meta> complète
+GOOGLE_SITE_VERIFICATION=your-google-site-verification-token
 ```
 
 ## Configuration Resend
@@ -41,6 +45,69 @@ Le formulaire de contact est configuré pour faciliter les réponses :
 - **Répondre directement** : Quand vous recevez un email de contact, cliquez simplement sur "Répondre" dans votre client email (Gmail, Outlook, etc.). L'email sera automatiquement envoyé au client qui a rempli le formulaire.
 - **Format des emails** : Les emails reçus contiennent toutes les informations du formulaire (nom, email, sujet, message) dans un format clair et structuré.
 - **Sujet des emails** : Les emails sont préfixés avec `[Contact]` pour faciliter le tri dans votre boîte de réception.
+
+## Google Search Console (`GOOGLE_SITE_VERIFICATION`)
+
+Cette variable sert à **prouver à Google que vous êtes propriétaire du site**. Next.js l’injecte dans le `<head>` sous la forme :
+
+```html
+<meta name="google-site-verification" content="VOTRE_TOKEN" />
+```
+
+Sans ce token, Google Search Console ne peut pas valider la propriété du domaine (méthode « balise HTML »). Ce n’est **pas** lié à Google OAuth (`GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET`).
+
+### Obtenir le token
+
+L’écran actuel de Search Console **n’affiche pas « Balise HTML » en premier**. La méthode recommandée est « Fichier HTML ». La balise meta est cachée plus bas.
+
+1. Ouvrez [Google Search Console](https://search.google.com/search-console)
+2. Cliquez sur **Ajouter une propriété** (sélecteur de propriété en haut à gauche → **Ajouter une propriété**)
+3. L’écran propose **deux cartes**. Prenez celle de **droite** : **Préfixe d’URL**
+   - **Ne prenez pas** la carte de gauche **Domaine** (`pigeons.studio`) : elle ne propose que la validation DNS, jamais la balise HTML
+4. Saisissez l’URL complète, avec `https://`, par exemple :
+   ```
+   https://pigeons.studio
+   ```
+   Puis **Continuer**
+5. Search Console propose d’abord **Fichier HTML** (méthode recommandée). **Ignorez-la**.
+6. Faites défiler jusqu’à **Autres méthodes de validation** (parfois **Autres méthodes de vérification** ; en anglais : *Other verification methods*)
+7. Cliquez sur **Balise HTML** (*HTML tag*)
+8. Google affiche une balise du type :
+   ```html
+   <meta name="google-site-verification" content="AbCdEfGhIjKlMnOpQrStUvWxYz0123456789" />
+   ```
+9. Copiez **uniquement** la valeur de `content` (ici `AbCdEfGhIjKlMnOpQrStUvWxYz0123456789`), pas la balise entière
+
+Si vous avez déjà créé une propriété **Domaine**, ajoutez une **nouvelle** propriété en **Préfixe d’URL**. Vous ne pourrez pas basculer vers la balise HTML sur la propriété Domaine.
+
+**La propriété est déjà dans Search Console** (écran Overview, Performance / Indexing) : le wizard d’ajout n’apparaît plus. Pour récupérer le token :
+
+1. Dans le menu de gauche, cliquez sur **Settings** (engrenage, tout en bas)
+2. Ouvrez **Ownership verification** (Validation de la propriété)
+3. Dépliez **Balise HTML** / **HTML tag**
+4. Copiez uniquement la valeur `content=` de la balise affichée
+
+### Renseigner la variable
+
+Dans `.env.local` (développement) et dans **Vercel → Settings → Environment Variables** (production) :
+
+```env
+GOOGLE_SITE_VERIFICATION=AbCdEfGhIjKlMnOpQrStUvWxYz0123456789
+```
+
+Redéployez ensuite le site. Search Console vérifie la **page en ligne** : le token doit donc être présent en production avant de cliquer sur **Valider**.
+
+### Après validation
+
+1. Dans Search Console, cliquez sur **Valider**
+2. Soumettez le sitemap : `https://pigeons.studio/sitemap.xml`
+3. Vous pouvez laisser `GOOGLE_SITE_VERIFICATION` en place : Google peut revérifier la propriété plus tard
+
+### Dépannage
+
+- **« Balise de validation introuvable »** : le token n’est pas encore déployé, ou vous avez collé la balise HTML entière au lieu du seul token
+- **Mauvais type de propriété** : utilisez « Préfixe d’URL » (`https://pigeons.studio`) pour cette méthode. La propriété « Domaine » (`pigeons.studio`) se valide par DNS, pas par cette variable
+- **www vs sans www / http vs https** : l’URL de la propriété doit correspondre exactement à celle servie en production
 
 ## Internationalisation (i18n)
 
@@ -88,6 +155,10 @@ Pour un guide détaillé étape par étape avec Google Workspace, consultez **[S
    - Activez l'API Google+ / Google Identity
    - Créez des identifiants OAuth 2.0
    - Ajoutez `http://localhost:3000/api/auth/callback/google` comme URI de redirection
+
+3. Pour Google Search Console (`GOOGLE_SITE_VERIFICATION`) :
+   - Voir la section [Google Search Console](#google-search-console-google_site_verification) ci-dessus
+   - Coller uniquement le token de la balise HTML, puis déployer avant de valider
 
 ### Base de données (optionnel)
 

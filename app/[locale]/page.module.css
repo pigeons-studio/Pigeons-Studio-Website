@@ -76,6 +76,59 @@
   font-weight: 400;
 }
 
+.duoLine {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin: 0 0 8px 0;
+  color: var(--foreground);
+}
+
+.duoCaption {
+  font-size: 14px;
+  opacity: 0.65;
+  margin: 0 0 20px 0;
+}
+
+.todoStack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 24px;
+}
+
+.hero .todoStack {
+  align-items: center;
+  margin-top: 28px;
+}
+
+.todoStackTight {
+  margin-top: 12px;
+}
+
+.memberRole {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 13px;
+  color: var(--accent-cyan);
+  margin: 0 0 10px 0;
+}
+
+.portraitPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  text-align: center;
+}
+
 /* Hero split cards */
 .heroSplit {
   display: grid;

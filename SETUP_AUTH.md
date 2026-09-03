@@ -108,6 +108,10 @@ ADMIN_PASSWORD=votre-mot-de-passe-securise
 # Google OAuth (depuis Google Cloud Console)
 GOOGLE_CLIENT_ID=votre-client-id-copie-etape-2
 GOOGLE_CLIENT_SECRET=votre-client-secret-copie-etape-2
+
+# Google Search Console (optionnel, voir section dédiée plus bas)
+# Uniquement le token content=, pas la balise <meta> complète
+GOOGLE_SITE_VERIFICATION=votre-token-search-console
 ```
 
 **Remplacez :**
@@ -116,6 +120,7 @@ GOOGLE_CLIENT_SECRET=votre-client-secret-copie-etape-2
 - `votre-mot-de-passe-securise` : Un mot de passe fort (minimum 12 caractères, avec majuscules, minuscules, chiffres et symboles)
 - `votre-client-id-copie-etape-2` : Le Client ID copié à l'étape 2.4
 - `votre-client-secret-copie-etape-2` : Le Client Secret copié à l'étape 2.4
+- `votre-token-search-console` : Le token Search Console (voir la section dédiée)
 
 ---
 
@@ -234,6 +239,67 @@ Assurez-vous que votre domaine pointe bien vers Vercel :
 
 ---
 
+## 🔍 Vérification Google Search Console (`GOOGLE_SITE_VERIFICATION`)
+
+Cette variable n’a **rien à voir avec OAuth / NextAuth**. Elle sert uniquement à prouver à Google Search Console que vous êtes propriétaire du site, via une balise meta dans le `<head>` :
+
+```html
+<meta name="google-site-verification" content="VOTRE_TOKEN" />
+```
+
+Le layout Next.js lit `process.env.GOOGLE_SITE_VERIFICATION` et génère cette balise automatiquement.
+
+### Obtenir le token
+
+L’écran actuel **n’affiche pas « Balise HTML » en premier**. Google propose d’abord « Fichier HTML ». La balise meta est sous **Autres méthodes de validation**.
+
+1. Allez sur [Google Search Console](https://search.google.com/search-console)
+2. Sélecteur de propriété (haut gauche) → **Ajouter une propriété**
+3. Prenez la carte de **droite** : **Préfixe d’URL**
+   - **Pas** la carte **Domaine** à gauche (`pigeons.studio`) : elle n’offre que le DNS
+4. Saisissez l’URL complète :
+   ```
+   https://pigeons.studio
+   ```
+   Puis **Continuer**
+5. Ignorez **Fichier HTML** (méthode recommandée en haut)
+6. Descendez jusqu’à **Autres méthodes de validation** / **Autres méthodes de vérification** (*Other verification methods*)
+7. Cliquez sur **Balise HTML** (*HTML tag*)
+8. Google affiche quelque chose comme :
+   ```html
+   <meta name="google-site-verification" content="AbCdEfGhIjKlMnOpQrStUvWxYz0123456789" />
+   ```
+9. Copiez **uniquement** le token (`AbCdEfGhIjKlMnOpQrStUvWxYz0123456789`), pas la balise `<meta>` entière
+
+Si une propriété **Domaine** existe déjà, créez une **nouvelle** propriété **Préfixe d’URL**. La balise HTML n’apparaît jamais sur une propriété Domaine.
+
+**La propriété est déjà ouverte** (Overview avec Performance / Indexing) : le wizard d’ajout n’apparaît plus. Allez dans **Settings** (engrenage, bas du menu gauche) → **Ownership verification** → **Balise HTML**, puis copiez uniquement le `content=`.
+
+### Ajouter la variable
+
+Dans `.env.local` :
+
+```env
+GOOGLE_SITE_VERIFICATION=AbCdEfGhIjKlMnOpQrStUvWxYz0123456789
+```
+
+En production (Vercel) : **Settings** > **Environment Variables** > ajoutez la même clé, puis **redéployez**. Search Console lit le site **en ligne** : sans déploiement, la validation échoue.
+
+### Valider puis soumettre le sitemap
+
+1. Une fois le déploiement terminé, cliquez sur **Valider** dans Search Console
+2. Soumettez le sitemap : `https://pigeons.studio/sitemap.xml`
+
+Laissez la variable en place après validation : Google peut revérifier la propriété plus tard.
+
+### Erreurs fréquentes
+
+- Coller toute la balise HTML au lieu du seul `content`
+- Valider avant que le nouveau déploiement soit en ligne
+- Créer une propriété « Domaine » (validation DNS) au lieu d’un « Préfixe d’URL »
+
+---
+
 ## 🆘 Dépannage
 
 ### Erreur : "Invalid client secret"
@@ -266,6 +332,7 @@ Assurez-vous que votre domaine pointe bien vers Vercel :
 - [Google OAuth 2.0 Documentation](https://developers.google.com/identity/protocols/oauth2)
 - [Google Cloud Console](https://console.cloud.google.com/)
 - [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables)
+- [Google Search Console](https://search.google.com/search-console)
 
 ---
 
@@ -278,3 +345,4 @@ Assurez-vous que votre domaine pointe bien vers Vercel :
 - [ ] Les URLs de redirection sont correctement configurées dans Google Cloud Console
 - [ ] Les permissions du fichier `.env.local` sont restrictives (`chmod 600`)
 - [ ] Les variables d'environnement sont configurées dans Vercel pour la production
+- [ ] `GOOGLE_SITE_VERIFICATION` est renseigné (token Search Console uniquement) et le site est validé en production

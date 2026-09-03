@@ -17,31 +17,144 @@
       "viewShop": "View shop"
     },
     "footer": {
-      "description": "Electronic engineering, PCB, embedded systems & robots.\nAudio and artistic equipment.",
+      "description": "Creative direction, robotic devices and spatial sound.\nAudio and artistic equipment.",
       "navigation": "Navigation",
       "information": "Information",
       "rights": "All rights reserved."
     },
     "about": "About",
     "cgv": "Terms",
-    "legal": "Legal Notice"
+    "legal": "Legal Notice",
+    "todo": {
+      "label": "To be completed"
+    }
   },
   "home": {
-    "badge": "Engineering • France",
+    "badge": "Creative direction • Art, robotics & sound",
     "title": "Pigeons Studio",
-    "subtitle": "PCB design, embedded programming, electronics and robots. From prototype to industrialization.",
+    "duoLine": "Koo Des (NSDOS) × Julien Thomas",
+    "duoCaption": "A duo on equal footing: artistic direction and technical direction.",
+    "subtitle": "Creative direction, robotic devices and spatial sound. We turn gesture into music, movement and collective experience.",
+    "todo": {
+      "valueProposition": "Value proposition to be validated with Koo and Julien",
+      "identity": "Logo and visual identity to be provided"
+    },
     "heroSplit": {
       "services": "Audio objects, sensors and design elements for the stage.",
       "shop": "Audio & art gear — modules, sensors, objects."
     },
     "sections": {
+      "duo": {
+        "title": "The duo",
+        "subtitle": "Two complementary directions, presented on equal footing.",
+        "koo": {
+          "name": "Koo Des (NSDOS)",
+          "role": "Artistic & musical direction",
+          "description": "Sound system design, musical translation of gesture, writing and performance. A practice at the crossroads of electronic music, movement and technology."
+        },
+        "julien": {
+          "name": "Julien Thomas",
+          "role": "Technical direction & systems",
+          "description": "System architecture, hardware integration, embedded electronics and spatial interactive devices. Design of the sensors, robots and real-time pipelines."
+        },
+        "todo": {
+          "portraitKoo": "HD portrait of Koo (studio + stage)",
+          "portraitJulien": "HD portrait of Julien (studio + stage)",
+          "duoPhotos": "Photos of the duo together",
+          "bios": "Full bios, short bio (100 words) and long bio (400 words)"
+        }
+      },
+      "capabilities": {
+        "title": "Devices & capabilities",
+        "subtitle": "Systems developed in-house, deployable in performance as well as installation.",
+        "items": {
+          "sensors": {
+            "title": "AS-SIMT wearable sensors",
+            "description": "Worn devices that capture motion and return sonic and haptic feedback in real time.",
+            "features": [
+              "Embedded screen",
+              "9-axis motion unit",
+              "Bone-conduction transducers"
+            ]
+          },
+          "robots": {
+            "title": "Unitree Go2 quadruped robots",
+            "description": "Mobile sound bodies carrying directional speakers, choreographed through the space.",
+            "features": [
+              "Embedded directional speakers",
+              "Choreography and trajectories",
+              "Real-time control"
+            ]
+          },
+          "translation": {
+            "title": "Gesture → sound translation",
+            "description": "A real-time pipeline that turns a captured gesture into musical material.",
+            "features": [
+              "Capture and mapping",
+              "Timbral transfer",
+              "Sonic corpus"
+            ]
+          },
+          "spatial": {
+            "title": "Spatial sound & live interface",
+            "description": "Multichannel diffusion and live visualization of the system.",
+            "features": [
+              "Spatial diffusion",
+              "Visualization interface",
+              "Macro capture"
+            ]
+          },
+          "modes": {
+            "title": "Two deployment modes",
+            "description": "The same device exists as a performed version and as an autonomous one.",
+            "features": [
+              "Live activation",
+              "Autonomous installation",
+              "Recording and replay"
+            ]
+          }
+        },
+        "todo": {
+          "media": "Photos and videos of the devices in action",
+          "rider": "Technical rider and typical live configuration",
+          "inventory": "Exhaustive list of sensors and instruments (brand, model, function)",
+          "software": "Functional description of the in-house software (EightOS)",
+          "networks": "Networks and protocols used (LoRa, others)"
+        }
+      },
+      "shop": {
+        "title": "Shop",
+        "subtitle": "Audio and artistic equipment",
+        "products": {
+          "as-simt": {
+            "name": "AS-SIMT Sensor",
+            "description": "Haptic-sonic motion sensor"
+          },
+          "audio": {
+            "name": "I2S Audio Module",
+            "description": "Multi-channel embedded audio module"
+          },
+          "pcb": {
+            "name": "Custom PCB",
+            "description": "Custom design"
+          }
+        },
+        "price": {
+          "coming": "Coming soon",
+          "quote": "On quote"
+        }
+      },
       "services": {
         "title": "Services",
         "items": {
           "pcb": {
             "title": "Audio Object Creation",
             "description": "Custom objects and modules for stage and installation.",
-            "features": ["Synths/controllers", "Sound modules", "Unique pieces"]
+            "features": [
+              "Synths/controllers",
+              "Sound modules",
+              "Unique pieces"
+            ]
           },
           "electronics": {
             "title": "Sensors & Interaction",
@@ -90,28 +203,6 @@
           }
         }
       },
-      "shop": {
-        "title": "Shop",
-        "subtitle": "Audio and artistic equipment",
-        "products": {
-          "as-simt": {
-            "name": "AS-SIMT Sensor",
-            "description": "Haptic-sonic motion sensor"
-          },
-          "audio": {
-            "name": "I2S Audio Module",
-            "description": "Multi-channel embedded audio module"
-          },
-          "pcb": {
-            "name": "Custom PCB",
-            "description": "Custom design"
-          }
-        },
-        "price": {
-          "coming": "Coming soon",
-          "quote": "On quote"
-        }
-      },
       "projects": {
         "title": "Projects & Achievements",
         "items": {
@@ -127,10 +218,17 @@
             "title": "Interactive Installations",
             "description": "Real-time controlled stage devices, audio-light synchronization with sensor feedback. Dedicated electronics and firmware for modulations and effects."
           }
+        },
+        "todo": {
+          "timeline": "Full chronological list of projects (title, year, place, type)",
+          "showreel": "Selection of the best video captures for the showreel"
         }
       },
       "expertise": {
-        "title": "Expertise & Stack"
+        "title": "Expertise & Stack",
+        "todo": {
+          "perPerson": "Detailed fields of expertise for Koo and for Julien"
+        }
       },
       "process": {
         "title": "Approach",
@@ -141,21 +239,35 @@
           "industrialization": "Industrialization — validation, documentation, transfer."
         }
       },
-      "collaborations": {
-        "title": "Collaborations",
-        "nsdos": {
-          "title": "NSDOS",
-          "description": "Artistic collaboration on AS-SIMT / EightOS motion sensors, used in most of the artist's performances."
+      "references": {
+        "title": "References",
+        "subtitle": "Collaborations, presentations and press coverage.",
+        "brands": {
+          "title": "Brand collaborations",
+          "description": "Projects run with brands on custom devices, from design to activation."
         },
-        "festivals": {
-          "title": "Festivals & Institutions",
+        "institutions": {
+          "title": "Festivals & institutions",
           "description": "Presentations at Gwangju Biennale, IMPACT (Théâtre de Liège), HOT‑SHOP 14 (ECCO Leather) and other international events."
+        },
+        "press": {
+          "title": "Press coverage",
+          "description": "Articles, quotes and media logos."
+        },
+        "todo": {
+          "brands": "Details of completed brand collaborations and image usage rights",
+          "press": "Existing press coverage (articles, quotes, media logos)",
+          "discography": "Full discography with streaming links"
         }
       },
       "contact": {
         "title": "Contact",
-        "description": "Discuss your project. Quick response, free quote.",
-        "email": "Email"
+        "description": "Brands, institutions, robotics and AI: let's talk about your project. Quick response.",
+        "email": "Email",
+        "todo": {
+          "structure": "Legal entity name for the duo",
+          "billing": "Bank and billing details"
+        }
       }
     }
   },

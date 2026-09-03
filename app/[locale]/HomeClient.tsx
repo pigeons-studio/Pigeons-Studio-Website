@@ -7,6 +7,7 @@ import { Link, useRouter } from '@/i18n/routing';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import ProductCarousel from '@/app/components/ProductCarousel';
+import TodoBadge from '@/app/components/TodoBadge';
 import { Product } from '@/app/components/ProductCard';
 import productsData from '@/data/products.json';
 import styles from './page.module.css';
@@ -243,9 +244,15 @@ export default function HomeClient() {
           >
             <span className={styles.glitchTitleText}>{t('title')}</span>
           </h1>
+          <p className={styles.duoLine}>{t('duoLine')}</p>
+          <p className={styles.duoCaption}>{t('duoCaption')}</p>
           <p className={`${styles.subtitle} ${styles.terminalLine}`}>
             {t('subtitle')}
           </p>
+          <div className={styles.todoStack}>
+            <TodoBadge detail={t('todo.valueProposition')} />
+            <TodoBadge detail={t('todo.identity')} />
+          </div>
           <div className={styles.heroSplit}>
             <Link href="/shop" className={styles.splitCard}>
               <div className={styles.splitImage}>
@@ -286,6 +293,62 @@ export default function HomeClient() {
       </header>
 
       <main>
+        <section id="duo" className={styles.section}>
+          <div className={styles.container}>
+            <h2 className={styles.sectionTitle}>{t('sections.duo.title')}</h2>
+            <p className={styles.sectionSubtitle}>{t('sections.duo.subtitle')}</p>
+            <div className={`${styles.grid} ${styles.gridTwoCols}`}>
+              <div className={styles.card}>
+                <div className={styles.portraitPlaceholder}>
+                  <TodoBadge detail={t('sections.duo.todo.portraitKoo')} />
+                </div>
+                <h3>{t('sections.duo.koo.name')}</h3>
+                <p className={styles.memberRole}>{t('sections.duo.koo.role')}</p>
+                <p>{t('sections.duo.koo.description')}</p>
+              </div>
+              <div className={styles.card}>
+                <div className={styles.portraitPlaceholder}>
+                  <TodoBadge detail={t('sections.duo.todo.portraitJulien')} />
+                </div>
+                <h3>{t('sections.duo.julien.name')}</h3>
+                <p className={styles.memberRole}>{t('sections.duo.julien.role')}</p>
+                <p>{t('sections.duo.julien.description')}</p>
+              </div>
+            </div>
+            <div className={styles.todoStack}>
+              <TodoBadge detail={t('sections.duo.todo.duoPhotos')} />
+              <TodoBadge detail={t('sections.duo.todo.bios')} />
+            </div>
+          </div>
+        </section>
+
+        <section id="capacites" className={styles.sectionAlt}>
+          <div className={styles.container}>
+            <h2 className={styles.sectionTitle}>{t('sections.capabilities.title')}</h2>
+            <p className={styles.sectionSubtitle}>{t('sections.capabilities.subtitle')}</p>
+            <div className={styles.grid}>
+              {(['sensors', 'robots', 'translation', 'spatial', 'modes'] as const).map((key) => (
+                <div key={key} className={styles.card}>
+                  <h3>{t(`sections.capabilities.items.${key}.title`)}</h3>
+                  <p>{t(`sections.capabilities.items.${key}.description`)}</p>
+                  <ul>
+                    {t.raw(`sections.capabilities.items.${key}.features`).map((feature: string, i: number) => (
+                      <li key={i}>{feature}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <div className={styles.todoStack}>
+              <TodoBadge detail={t('sections.capabilities.todo.media')} />
+              <TodoBadge detail={t('sections.capabilities.todo.rider')} />
+              <TodoBadge detail={t('sections.capabilities.todo.inventory')} />
+              <TodoBadge detail={t('sections.capabilities.todo.software')} />
+              <TodoBadge detail={t('sections.capabilities.todo.networks')} />
+            </div>
+          </div>
+        </section>
+
         <section id="shop" className={styles.section}>
           <div className={styles.container}>
             <h2 className={styles.sectionTitle}>{t('sections.shop.title')}</h2>
@@ -465,6 +528,10 @@ export default function HomeClient() {
                 <p>{t('sections.projects.items.installations.description')}</p>
               </div>
             </div>
+            <div className={styles.todoStack}>
+              <TodoBadge detail={t('sections.projects.todo.timeline')} />
+              <TodoBadge detail={t('sections.projects.todo.showreel')} />
+            </div>
           </div>
         </section>
 
@@ -494,6 +561,9 @@ export default function HomeClient() {
               <span className={styles.chip}>Unitree Go2</span>
               <span className={styles.chip}>Unitree SDK</span>
             </div>
+            <div className={styles.todoStack}>
+              <TodoBadge detail={t('sections.expertise.todo.perPerson')} />
+            </div>
           </div>
         </section>
 
@@ -521,18 +591,32 @@ export default function HomeClient() {
           </div>
         </section>
 
-        <section id="partenaires" className={styles.section}>
+        <section id="references" className={styles.section}>
           <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>{t('sections.collaborations.title')}</h2>
-            <div className={`${styles.grid} ${styles.gridTwoCols}`}>
+            <h2 className={styles.sectionTitle}>{t('sections.references.title')}</h2>
+            <p className={styles.sectionSubtitle}>{t('sections.references.subtitle')}</p>
+            <div className={styles.grid}>
               <div className={styles.card}>
-                <h3>{t('sections.collaborations.nsdos.title')}</h3>
-                <p>{t('sections.collaborations.nsdos.description')}</p>
+                <h3>{t('sections.references.brands.title')}</h3>
+                <p>{t('sections.references.brands.description')}</p>
+                <div className={`${styles.todoStack} ${styles.todoStackTight}`}>
+                  <TodoBadge detail={t('sections.references.todo.brands')} />
+                </div>
               </div>
               <div className={styles.card}>
-                <h3>{t('sections.collaborations.festivals.title')}</h3>
-                <p>{t('sections.collaborations.festivals.description')}</p>
+                <h3>{t('sections.references.institutions.title')}</h3>
+                <p>{t('sections.references.institutions.description')}</p>
               </div>
+              <div className={styles.card}>
+                <h3>{t('sections.references.press.title')}</h3>
+                <p>{t('sections.references.press.description')}</p>
+                <div className={`${styles.todoStack} ${styles.todoStackTight}`}>
+                  <TodoBadge detail={t('sections.references.todo.press')} />
+                </div>
+              </div>
+            </div>
+            <div className={styles.todoStack}>
+              <TodoBadge detail={t('sections.references.todo.discography')} />
             </div>
           </div>
         </section>
@@ -553,6 +637,10 @@ export default function HomeClient() {
               <span>{t('sections.contact.email')}</span>
               <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
             </p>
+            <div className={styles.todoStack}>
+              <TodoBadge detail={t('sections.contact.todo.structure')} />
+              <TodoBadge detail={t('sections.contact.todo.billing')} />
+            </div>
           </div>
         </section>
       </main>
