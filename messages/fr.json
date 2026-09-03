@@ -50,7 +50,15 @@
         "koo": {
           "name": "Koo Des (NSDOS)",
           "role": "Direction artistique & musicale",
-          "description": "Conception du système sonore, traduction musicale du geste, écriture et performance. Une pratique au croisement de la musique électronique, du mouvement et des technologies."
+          "description": "Danseur, musicien, performeur et chercheur, formé à l’International Dance Academy de Paris après avoir commencé le hip-hop dans la rue. Surnommé le « hacker de la techno » par la presse française, il capte des données vivantes sur le corps en mouvement et les injecte dans la structure de la techno. Direction artistique, conception du système sonore et traduction musicale du geste.",
+          "releases": {
+            "title": "Sélection discographique",
+            "items": [
+              "Intuition — données de mouvement captées en Alaska",
+              "Clubbing Sequence — musique répondant au mouvement des danseurs",
+              "Micro Club — le corps en contexte contraint"
+            ]
+          }
         },
         "julien": {
           "name": "Julien Thomas",
@@ -61,7 +69,8 @@
           "portraitKoo": "Portrait HD de Koo (studio + scène)",
           "portraitJulien": "Portrait HD de Julien (studio + scène)",
           "duoPhotos": "Photos du duo ensemble",
-          "bios": "Bios complètes, bio courte (100 mots) et bio longue (400 mots)"
+          "bios": "Bios complètes, bio courte (100 mots) et bio longue (400 mots)",
+          "tattoo": "Arbitrage à faire avec Koo : publier ou non la machine à tatouer détournée en instrument"
         }
       },
       "capabilities": {
@@ -118,8 +127,32 @@
           "media": "Photos et vidéos des dispositifs en action",
           "rider": "Rider technique et configuration live type",
           "inventory": "Liste exhaustive des capteurs et instruments (marque, modèle, fonction)",
-          "software": "Description fonctionnelle des logiciels maison (EightOS)",
+          "software": "Description fonctionnelle des outils temps réel internes du studio",
           "networks": "Réseaux et protocoles utilisés (LoRa, autres)"
+        }
+      },
+      "ecosystem": {
+        "title": "Écosystème ouvert",
+        "subtitle": "Des projets open source auxquels le duo contribue, hors périmètre du studio.",
+        "eightos": {
+          "title": "EightOS (∞OS)",
+          "description": "Système d’exploitation open source pour le bodymind, co-créé par Koo Des et Dmitry Paranyushkin, sous licence CC BY-SA 4.0 depuis 2015. La pratique s’appuie sur l’expérience physique directe pour ancrer ses principes au niveau des réflexes.",
+          "features": [
+            "Adaptabilité et variabilité fractale",
+            "Confluence, intégrité, friction",
+            "Résilience et modularité"
+          ],
+          "linkLabel": "Voir 8os.io",
+          "linkUrl": "https://8os.io/"
+        },
+        "selfsense": {
+          "title": "SelfSense",
+          "description": "Application et capteurs qui entraînent la variabilité fractale du mouvement, de la respiration et du rythme cardiaque, avec un retour en direct sur la fractalité du geste.",
+          "features": [
+            "Entraînement fractal du mouvement",
+            "Retour en direct sur le geste",
+            "Variabilité cardiaque et respiration"
+          ]
         }
       },
       "shop": {
@@ -208,7 +241,7 @@
         "items": {
           "as-simt": {
             "title": "Capteurs de mouvement AS-SIMT / EightOS",
-            "description": "Capteurs portables transformant le mouvement en retours visuels, haptiques et sonores en temps réel. Utilisés par l'artiste NSDOS dans ses performances. Présentations à la Biennale de Gwangju, IMPACT (Théâtre de Liège) et HOT‑SHOP 14 (ECCO Leather)."
+            "description": "Capteurs portables transformant le mouvement en retours visuels, haptiques et sonores en temps réel. Développés par Julien et joués par Koo sur scène. Présentations à la Biennale de Gwangju, IMPACT (Théâtre de Liège) et HOT‑SHOP 14 (ECCO Leather)."
           },
           "go2": {
             "title": "Performance robotique Go2 (Unitree)",
@@ -248,16 +281,20 @@
         },
         "institutions": {
           "title": "Festivals & institutions",
-          "description": "Présentations à la Biennale de Gwangju, IMPACT (Théâtre de Liège), HOT‑SHOP 14 (ECCO Leather) et autres événements internationaux."
+          "description": "Présentations à Mutek (Mexico, Montréal, Tokyo), la BIAN de Montréal, la Biennale de Gwangju, la Triennale de Milan, le Martin Gropius Bau (Berlin, programme Breathe), IMPACT (Théâtre de Liège) et HOT‑SHOP 14 (ECCO Leather)."
         },
         "press": {
           "title": "Revue de presse",
-          "description": "Articles, citations et logos médias."
+          "description": "La presse française qualifie Koo Des de « hacker de la techno ». Son parcours est documenté sur la fiche de résidence Villa Albertine."
         },
         "todo": {
           "brands": "Détail des collaborations marques réalisées et droits d’usage des visuels",
           "press": "Revue de presse existante (articles, citations, logos médias)",
-          "discography": "Discographie complète avec liens streaming"
+          "discography": "Liens streaming des sorties et discographie exhaustive"
+        },
+        "residencies": {
+          "title": "Résidences & partenaires",
+          "description": "Résidence Villa Albertine à La Nouvelle-Orléans en 2023 autour du projet S.E.L.M. (Send Everyday Life Movement), avec l’institut Matrice et le laboratoire ETHICS de l’Université Catholique de Lille."
         }
       },
       "contact": {
@@ -328,22 +365,26 @@
   },
   "softwares": {
     "title": "Logiciels",
-    "subtitle": "Firmwares flashables en ligne et logiciels PC sous licence.",
+    "subtitle": "Applications web, firmwares flashables en ligne et logiciels PC sous licence.",
     "sections": {
+      "webapps": "Applications web",
       "firmwares": "Firmwares embarqués",
       "desktop": "Logiciels PC"
     },
     "cards": {
       "boardLabel": "Carte cible",
       "licenseLabel": "Licence",
+      "urlLabel": "Adresse",
       "includesData": "Inclut deja la partition data du projet",
-      "openFlasher": "Ouvrir le flasheur"
+      "openFlasher": "Ouvrir le flasheur",
+      "openApp": "Ouvrir l'application"
     },
     "states": {
       "loading": "Chargement des logiciels...",
       "loadingConfig": "Chargement de la configuration...",
       "noFirmware": "Aucun firmware n'est disponible pour le moment.",
-      "noDesktop": "Aucun logiciel PC n'est disponible pour le moment."
+      "noDesktop": "Aucun logiciel PC n'est disponible pour le moment.",
+      "noWebapp": "Aucune application web n'est disponible pour le moment."
     },
     "desktopStatus": {
       "coming_soon": "Bientôt disponible",
@@ -554,24 +595,46 @@
   },
   "about": {
     "title": "À propos",
-    "subtitle": "Pigeons Studio — Ingénierie électronique, PCB, embarqué & robots",
+    "subtitle": "Pigeons Studio — Koo Des (NSDOS) × Julien Thomas, direction créative, robotique et son spatialisé",
     "sections": {
       "mission": {
         "title": "Notre mission",
-        "content": "Pigeons Studio conçoit et développe des solutions électroniques sur mesure pour les projets artistiques, interactifs et scéniques. Du prototype à l'industrialisation, nous accompagnons vos idées de la conception à la réalisation."
+        "content": "Pigeons Studio réunit à parité une direction artistique et une direction technique. Nous concevons des dispositifs où le geste devient musique, mouvement et expérience collective, pour la scène, l’installation et les marques. De la recherche au déploiement, nous portons le projet de la conception à la réalisation."
       },
-      "expertise": {
-        "title": "Expertise",
-        "content": "Spécialisés dans la conception de PCB, la programmation embarquée et l'intégration robotique, nous travaillons avec des technologies modernes (STM32, ESP32, ROS/ROS2) pour créer des dispositifs innovants adaptés aux arts vivants et aux installations interactives."
+      "koo": {
+        "title": "Koo Des (NSDOS)",
+        "content": "Artiste pluridisciplinaire français né en 1984 à Paris, également connu sous le nom de Kirikoo Des. Après des études à l’International Dance Academy de Paris, il cherche à créer les sons sur lesquels poser ses mouvements et à imaginer un ordre sonore alternatif. Surnommé le « hacker de la techno » par la presse française, il détourne les outils technologiques pour relier machines et matière : il collecte des données vivantes à l’aide de capteurs posés sur son corps dansant, de dispositifs interactifs et de programmes de coding créatif, puis les injecte dans le squelette rectiligne de la techno pour en faire une matrice organique. Son travail l’a mené au Royaume-Uni, en Italie, au Japon, en Alaska et en Indonésie, à travers performances, workshops et masterclasses."
+      },
+      "julien": {
+        "title": "Julien Thomas",
+        "content": "Direction technique et architecture système. Conception électronique et PCB, programmation embarquée, intégration robotique et dispositifs interactifs spatialisés. Il développe la plateforme matérielle AS-SIMT : des capteurs portables associant écran, centrale de mouvement 9 axes et transducteurs à conduction osseuse, ainsi que les chaînes temps réel qui relient capteurs, son et robots."
+      },
+      "eightos": {
+        "title": "EightOS",
+        "content": "EightOS (∞OS) est un système d’exploitation open source pour le bodymind, co-créé par Koo Des et Dmitry Paranyushkin, sous licence CC BY-SA 4.0 depuis 2015. La pratique explore les dynamiques naturelles et les technologies du soi autour de principes d’adaptabilité, de variabilité fractale, de confluence, d’intégrité, de friction, de résilience et de modularité, en privilégiant l’expérience physique directe. Elle se prolonge dans SelfSense, une application et des capteurs qui entraînent la variabilité fractale du mouvement, de la respiration et du rythme cardiaque. EightOS est un projet distinct de Pigeons Studio, à ne pas confondre avec la plateforme matérielle AS-SIMT."
       },
       "collaborations": {
-        "title": "Collaborations",
-        "content": "Nous collaborons avec des artistes, des institutions et des festivals internationaux. Nos capteurs de mouvement AS-SIMT / EightOS sont utilisés par l'artiste NSDOS dans ses performances et ont été présentés lors d'événements majeurs comme la Biennale de Gwangju, IMPACT (Théâtre de Liège) et HOT‑SHOP 14 (ECCO Leather)."
+        "title": "Collaborations & institutions",
+        "content": "Le travail du duo a été présenté à Mutek (Mexico, Montréal, Tokyo), à la BIAN de Montréal, à la Biennale de Gwangju, à la Triennale de Milan, au Martin Gropius Bau de Berlin dans le cadre du programme Breathe, à IMPACT (Théâtre de Liège) et lors de HOT‑SHOP 14 (ECCO Leather). En 2023, Koo Des a été résident de la Villa Albertine à La Nouvelle-Orléans pour le projet S.E.L.M. (Send Everyday Life Movement), avec l’institut Matrice et le laboratoire ETHICS de l’Université Catholique de Lille."
       },
       "approach": {
         "title": "Approche",
-        "content": "Notre méthodologie allie recherche, développement et création artistique. Nous privilégions les solutions open source, la documentation complète et l'accompagnement personnalisé pour chaque projet."
+        "content": "Notre méthodologie allie recherche, développement et création artistique. Nous privilégions les solutions open source, la documentation complète et l’accompagnement personnalisé pour chaque projet."
       }
+    },
+    "sources": {
+      "title": "Sources",
+      "villaAlbertine": {
+        "label": "Fiche de résidence Villa Albertine — NSDOS",
+        "url": "https://villa-albertine.org/va/residents/nsdos/"
+      },
+      "eightos": {
+        "label": "EightOS — 8os.io",
+        "url": "https://8os.io/"
+      }
+    },
+    "todo": {
+      "julienBio": "Bio détaillée de Julien : formation, dates clés et projets antérieurs"
     }
   },
   "cgv": {

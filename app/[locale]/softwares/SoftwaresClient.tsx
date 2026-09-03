@@ -10,6 +10,7 @@ import styles from './page.module.css';
 
 type Locale = 'fr' | 'en';
 type DesktopSoftware = Extract<PublicSoftware, { kind: 'desktop' }>;
+type WebappSoftware = Extract<PublicSoftware, { kind: 'webapp' }>;
 type FlashStatus = 'idle' | 'waiting_for_port' | 'dialog_ready' | 'loading' | 'erasing' | 'installing' | 'configuring' | 'finished' | 'error';
 
 type FirmwareManifest = {
@@ -215,6 +216,10 @@ function localize(text: LocalizedText, locale: Locale): string {
   return locale === 'en' ? text.en : text.fr;
 }
 
+function displayUrl(url: string): string {
+  return url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+}
+
 function statusClassName(status: FlashStatus): string {
   switch (status) {
     case 'waiting_for_port':
@@ -328,6 +333,10 @@ export default function SoftwaresClient() {
   );
   const desktopSoftwares = useMemo(
     () => softwaresCatalog.filter((software): software is DesktopSoftware => software.kind === 'desktop'),
+    []
+  );
+  const webappSoftwares = useMemo(
+    () => softwaresCatalog.filter((software): software is WebappSoftware => software.kind === 'webapp'),
     []
   );
 
@@ -1928,6 +1937,35 @@ export default function SoftwaresClient() {
 
   return (
     <>
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>{t('sections.webapps')}</h2>
+        {webappSoftwares.length === 0 && <p className={styles.infoText}>{t('states.noWebapp')}</p>}
+        {webappSoftwares.length > 0 && (
+          <div className={styles.grid}>
+            {webappSoftwares.map((software) => (
+              <article key={software.id} className={styles.card}>
+                <div>
+                  <h3 className={styles.cardTitle}>{localize(software.name, locale)}</h3>
+                  <p className={styles.cardDescription}>{localize(software.description, locale)}</p>
+                </div>
+                <p className={styles.cardMeta}>
+                  <strong>{t('cards.urlLabel')}:</strong> {displayUrl(software.url)}
+                </p>
+                <p className={styles.badge}>{localize(software.stack, locale)}</p>
+                <a
+                  className={`${styles.primaryButton} ${styles.linkButton}`}
+                  href={software.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t('cards.openApp')}
+                </a>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>{t('sections.firmwares')}</h2>
         {firmwareSoftwares.length === 0 && <p className={styles.infoText}>{t('states.noFirmware')}</p>}

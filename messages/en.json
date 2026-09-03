@@ -50,7 +50,15 @@
         "koo": {
           "name": "Koo Des (NSDOS)",
           "role": "Artistic & musical direction",
-          "description": "Sound system design, musical translation of gesture, writing and performance. A practice at the crossroads of electronic music, movement and technology."
+          "description": "Dancer, musician, performer and researcher, trained at the International Dance Academy in Paris after starting out with street hip-hop. Nicknamed the “techno hacker” by the French press, he collects living data from the moving body and injects it into the structure of techno. Artistic direction, sound system design and musical translation of gesture.",
+          "releases": {
+            "title": "Selected releases",
+            "items": [
+              "Intuition — movement data captured in Alaska",
+              "Clubbing Sequence — music responding to the motion of dancers",
+              "Micro Club — the body under constrained conditions"
+            ]
+          }
         },
         "julien": {
           "name": "Julien Thomas",
@@ -61,7 +69,8 @@
           "portraitKoo": "HD portrait of Koo (studio + stage)",
           "portraitJulien": "HD portrait of Julien (studio + stage)",
           "duoPhotos": "Photos of the duo together",
-          "bios": "Full bios, short bio (100 words) and long bio (400 words)"
+          "bios": "Full bios, short bio (100 words) and long bio (400 words)",
+          "tattoo": "Decision to be made with Koo: whether to publish the tattoo machine repurposed as an instrument"
         }
       },
       "capabilities": {
@@ -118,8 +127,32 @@
           "media": "Photos and videos of the devices in action",
           "rider": "Technical rider and typical live configuration",
           "inventory": "Exhaustive list of sensors and instruments (brand, model, function)",
-          "software": "Functional description of the in-house software (EightOS)",
+          "software": "Functional description of the studio’s in-house real-time tools",
           "networks": "Networks and protocols used (LoRa, others)"
+        }
+      },
+      "ecosystem": {
+        "title": "Open ecosystem",
+        "subtitle": "Open source projects the duo contributes to, outside the studio’s own scope.",
+        "eightos": {
+          "title": "EightOS (∞OS)",
+          "description": "An open source operating system for the bodymind, co-created by Koo Des and Dmitry Paranyushkin, under a CC BY-SA 4.0 licence since 2015. The practice relies on direct physical experience to embed its principles at the level of reflexes.",
+          "features": [
+            "Adaptability and fractal variability",
+            "Confluence, integrity, friction",
+            "Resilience and modularity"
+          ],
+          "linkLabel": "Visit 8os.io",
+          "linkUrl": "https://8os.io/"
+        },
+        "selfsense": {
+          "title": "SelfSense",
+          "description": "An app and trackers that entrain fractal variability in movement, breathing and heart rate, with live feedback on the fractality of gesture.",
+          "features": [
+            "Fractal movement entrainment",
+            "Live feedback on gesture",
+            "Heart rate variability and breathing"
+          ]
         }
       },
       "shop": {
@@ -208,7 +241,7 @@
         "items": {
           "as-simt": {
             "title": "AS-SIMT / EightOS Motion Sensors",
-            "description": "Portable sensors transforming movement into real-time visual, haptic and sonic feedback. Used by artist NSDOS in performances. Presented at Gwangju Biennale, IMPACT (Théâtre de Liège) and HOT‑SHOP 14 (ECCO Leather)."
+            "description": "Wearable sensors turning movement into real-time visual, haptic and sonic feedback. Built by Julien and played on stage by Koo. Presented at Gwangju Biennale, IMPACT (Théâtre de Liège) and HOT‑SHOP 14 (ECCO Leather)."
           },
           "go2": {
             "title": "Go2 (Unitree) Robotic Performance",
@@ -248,16 +281,20 @@
         },
         "institutions": {
           "title": "Festivals & institutions",
-          "description": "Presentations at Gwangju Biennale, IMPACT (Théâtre de Liège), HOT‑SHOP 14 (ECCO Leather) and other international events."
+          "description": "Presentations at Mutek (Mexico, Montreal, Tokyo), BIAN Montreal, Gwangju Biennale, Triennale di Milano, Martin Gropius Bau (Berlin, Breathe programme), IMPACT (Théâtre de Liège) and HOT‑SHOP 14 (ECCO Leather)."
         },
         "press": {
           "title": "Press coverage",
-          "description": "Articles, quotes and media logos."
+          "description": "The French press calls Koo Des the “techno hacker”. His path is documented on the Villa Albertine residency page."
         },
         "todo": {
           "brands": "Details of completed brand collaborations and image usage rights",
           "press": "Existing press coverage (articles, quotes, media logos)",
-          "discography": "Full discography with streaming links"
+          "discography": "Streaming links for the releases and exhaustive discography"
+        },
+        "residencies": {
+          "title": "Residencies & partners",
+          "description": "Villa Albertine residency in New Orleans in 2023 around the S.E.L.M. project (Send Everyday Life Movement), with the Matrice institute and the ETHICS lab of the Catholic University of Lille."
         }
       },
       "contact": {
@@ -328,22 +365,26 @@
   },
   "softwares": {
     "title": "Softwares",
-    "subtitle": "Online flashable firmwares and licensed desktop software.",
+    "subtitle": "Web apps, online flashable firmwares and licensed desktop software.",
     "sections": {
+      "webapps": "Web apps",
       "firmwares": "Embedded firmwares",
       "desktop": "Desktop software"
     },
     "cards": {
       "boardLabel": "Target board",
       "licenseLabel": "License",
+      "urlLabel": "Address",
       "includesData": "Already includes the project data partition",
-      "openFlasher": "Open flasher"
+      "openFlasher": "Open flasher",
+      "openApp": "Open the app"
     },
     "states": {
       "loading": "Loading softwares...",
       "loadingConfig": "Loading configuration...",
       "noFirmware": "No firmware is currently available.",
-      "noDesktop": "No desktop software is currently available."
+      "noDesktop": "No desktop software is currently available.",
+      "noWebapp": "No web app is currently available."
     },
     "desktopStatus": {
       "coming_soon": "Coming soon",
@@ -554,24 +595,46 @@
   },
   "about": {
     "title": "About",
-    "subtitle": "Pigeons Studio — Electronic engineering, PCB, embedded systems & robots",
+    "subtitle": "Pigeons Studio — Koo Des (NSDOS) × Julien Thomas, creative direction, robotics and spatial sound",
     "sections": {
       "mission": {
         "title": "Our mission",
-        "content": "Pigeons Studio designs and develops custom electronic solutions for artistic, interactive and stage projects. From prototype to industrialization, we accompany your ideas from conception to realization."
+        "content": "Pigeons Studio brings together an artistic direction and a technical direction on equal footing. We design devices where gesture becomes music, movement and collective experience, for the stage, for installation and for brands. From research to deployment, we carry the project from conception to realization."
       },
-      "expertise": {
-        "title": "Expertise",
-        "content": "Specialized in PCB design, embedded programming and robotic integration, we work with modern technologies (STM32, ESP32, ROS/ROS2) to create innovative devices adapted to performing arts and interactive installations."
+      "koo": {
+        "title": "Koo Des (NSDOS)",
+        "content": "A French multidisciplinary artist born in 1984 in Paris, also known as Kirikoo Des. After studying at the International Dance Academy in Paris, he set out to create the sounds on which to place his movements and to imagine an alternative sound order. Nicknamed the “techno hacker” by the French press, he distorts technological tools to link machines and matter: he collects living data using sensors on his dancing body, interactive devices and creative coding programs, then injects it into the rectilinear skeleton of techno to make an organic matrix. His work has taken him to the United Kingdom, Italy, Japan, Alaska and Indonesia, through performances, workshops and masterclasses."
+      },
+      "julien": {
+        "title": "Julien Thomas",
+        "content": "Technical direction and system architecture. Electronic and PCB design, embedded programming, robotic integration and spatial interactive devices. He develops the AS-SIMT hardware platform: wearable sensors combining a screen, a 9-axis motion unit and bone-conduction transducers, along with the real-time pipelines that connect sensors, sound and robots."
+      },
+      "eightos": {
+        "title": "EightOS",
+        "content": "EightOS (∞OS) is an open source operating system for the bodymind, co-created by Koo Des and Dmitry Paranyushkin, under a CC BY-SA 4.0 licence since 2015. The practice investigates natural dynamics and technologies of the self around principles of adaptability, fractal variability, confluence, integrity, friction, resilience and modularity, favouring direct physical experience. It extends into SelfSense, an app and trackers that entrain fractal variability in movement, breathing and heart rate. EightOS is a project distinct from Pigeons Studio and should not be confused with the AS-SIMT hardware platform."
       },
       "collaborations": {
-        "title": "Collaborations",
-        "content": "We collaborate with artists, institutions and international festivals. Our AS-SIMT / EightOS motion sensors are used by artist NSDOS in performances and have been presented at major events such as Gwangju Biennale, IMPACT (Théâtre de Liège) and HOT‑SHOP 14 (ECCO Leather)."
+        "title": "Collaborations & institutions",
+        "content": "The duo’s work has been presented at Mutek (Mexico, Montreal, Tokyo), BIAN Montreal, Gwangju Biennale, Triennale di Milano, Martin Gropius Bau in Berlin as part of the Breathe programme, IMPACT (Théâtre de Liège) and HOT‑SHOP 14 (ECCO Leather). In 2023, Koo Des was a Villa Albertine resident in New Orleans for the S.E.L.M. project (Send Everyday Life Movement), with the Matrice institute and the ETHICS lab of the Catholic University of Lille."
       },
       "approach": {
         "title": "Approach",
         "content": "Our methodology combines research, development and artistic creation. We favor open source solutions, complete documentation and personalized support for each project."
       }
+    },
+    "sources": {
+      "title": "Sources",
+      "villaAlbertine": {
+        "label": "Villa Albertine residency page — NSDOS",
+        "url": "https://villa-albertine.org/va/residents/nsdos/"
+      },
+      "eightos": {
+        "label": "EightOS — 8os.io",
+        "url": "https://8os.io/"
+      }
+    },
+    "todo": {
+      "julienBio": "Detailed bio for Julien: training, key dates and earlier projects"
     }
   },
   "cgv": {

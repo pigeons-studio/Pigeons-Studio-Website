@@ -3,7 +3,7 @@ export type LocalizedText = Record<Locale, string>;
 
 type SoftwareBase = {
   id: string;
-  kind: 'firmware' | 'desktop';
+  kind: 'firmware' | 'desktop' | 'webapp';
   name: LocalizedText;
   description: LocalizedText;
 };
@@ -39,9 +39,32 @@ export type DesktopSoftware = SoftwareBase & {
   status: 'coming_soon' | 'available';
 };
 
-export type PublicSoftware = FirmwareSoftware | DesktopSoftware;
+export type WebappSoftware = SoftwareBase & {
+  kind: 'webapp';
+  url: string;
+  stack: LocalizedText;
+};
+
+export type PublicSoftware = FirmwareSoftware | DesktopSoftware | WebappSoftware;
 
 export const softwaresCatalog: PublicSoftware[] = [
+  {
+    id: 'ortholab',
+    kind: 'webapp',
+    name: {
+      fr: 'OrthoLab',
+      en: 'OrthoLab',
+    },
+    description: {
+      fr: "Visualiseur 3D en projection isométrique qui rend les objets ambigus et réversibles, à la manière du cube de Necker. Rendu fil de fer, nuage de points ou solide, import de modèles OBJ, STL, GLB et PLY, effets glitch et CRT réactifs au son, export MP4 et PNG. Tout tourne dans le navigateur, sans serveur.",
+      en: 'Isometric 3D viewer that turns objects into ambiguous, reversible shapes in the spirit of the Necker cube. Wireframe, point cloud or solid rendering, OBJ, STL, GLB and PLY model import, audio-reactive glitch and CRT effects, MP4 and PNG export. Everything runs in the browser, with no server.',
+    },
+    url: 'https://ortholab.pigeons.studio',
+    stack: {
+      fr: 'Next.js, Three.js, WebGL',
+      en: 'Next.js, Three.js, WebGL',
+    },
+  },
   {
     id: 'i2s-esp32-sd',
     kind: 'firmware',

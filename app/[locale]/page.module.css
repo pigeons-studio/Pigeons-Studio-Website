@@ -369,6 +369,28 @@ a.secondary {
   padding-left: 18px;
 }
 
+.releasesTitle {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin: 16px 0 6px 0;
+}
+
+.externalLink {
+  display: inline-block;
+  margin-top: 14px;
+  padding-bottom: 1px;
+  border-bottom: 1px solid rgba(52, 211, 255, 0.5);
+  color: var(--accent-cyan);
+  font-size: 14px;
+}
+
+.externalLink:hover {
+  border-bottom-color: var(--accent-cyan);
+}
+
 .chips {
   display: flex;
   flex-wrap: wrap;

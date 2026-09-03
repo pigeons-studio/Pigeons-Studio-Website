@@ -120,6 +120,14 @@
   opacity: 0.9;
 }
 
+/* Rendu bouton sur une balise <a> : lien externe vers une application web. */
+.linkButton {
+  display: block;
+  margin-top: auto;
+  text-align: center;
+  text-decoration: none;
+}
+
 .confirmFlashButton {
   background: #dc2626;
   color: #ffffff;

@@ -305,6 +305,12 @@ export default function HomeClient() {
                 <h3>{t('sections.duo.koo.name')}</h3>
                 <p className={styles.memberRole}>{t('sections.duo.koo.role')}</p>
                 <p>{t('sections.duo.koo.description')}</p>
+                <p className={styles.releasesTitle}>{t('sections.duo.koo.releases.title')}</p>
+                <ul>
+                  {t.raw('sections.duo.koo.releases.items').map((item: string, i: number) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
               </div>
               <div className={styles.card}>
                 <div className={styles.portraitPlaceholder}>
@@ -318,6 +324,7 @@ export default function HomeClient() {
             <div className={styles.todoStack}>
               <TodoBadge detail={t('sections.duo.todo.duoPhotos')} />
               <TodoBadge detail={t('sections.duo.todo.bios')} />
+              <TodoBadge detail={t('sections.duo.todo.tattoo')} />
             </div>
           </div>
         </section>
@@ -345,6 +352,41 @@ export default function HomeClient() {
               <TodoBadge detail={t('sections.capabilities.todo.inventory')} />
               <TodoBadge detail={t('sections.capabilities.todo.software')} />
               <TodoBadge detail={t('sections.capabilities.todo.networks')} />
+            </div>
+          </div>
+        </section>
+
+        <section id="ecosysteme" className={styles.section}>
+          <div className={styles.container}>
+            <h2 className={styles.sectionTitle}>{t('sections.ecosystem.title')}</h2>
+            <p className={styles.sectionSubtitle}>{t('sections.ecosystem.subtitle')}</p>
+            <div className={`${styles.grid} ${styles.gridTwoCols}`}>
+              <div className={styles.card}>
+                <h3>{t('sections.ecosystem.eightos.title')}</h3>
+                <p>{t('sections.ecosystem.eightos.description')}</p>
+                <ul>
+                  {t.raw('sections.ecosystem.eightos.features').map((feature: string, i: number) => (
+                    <li key={i}>{feature}</li>
+                  ))}
+                </ul>
+                <a
+                  className={styles.externalLink}
+                  href={t('sections.ecosystem.eightos.linkUrl')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t('sections.ecosystem.eightos.linkLabel')}
+                </a>
+              </div>
+              <div className={styles.card}>
+                <h3>{t('sections.ecosystem.selfsense.title')}</h3>
+                <p>{t('sections.ecosystem.selfsense.description')}</p>
+                <ul>
+                  {t.raw('sections.ecosystem.selfsense.features').map((feature: string, i: number) => (
+                    <li key={i}>{feature}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </section>
@@ -606,6 +648,10 @@ export default function HomeClient() {
               <div className={styles.card}>
                 <h3>{t('sections.references.institutions.title')}</h3>
                 <p>{t('sections.references.institutions.description')}</p>
+              </div>
+              <div className={styles.card}>
+                <h3>{t('sections.references.residencies.title')}</h3>
+                <p>{t('sections.references.residencies.description')}</p>
               </div>
               <div className={styles.card}>
                 <h3>{t('sections.references.press.title')}</h3>
