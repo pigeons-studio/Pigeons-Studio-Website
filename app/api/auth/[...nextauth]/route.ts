@@ -1,0 +1,159 @@
+import NextAuth, { type DefaultSession } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+// Pour un vrai e-commerce, vous devriez utiliser une vraie base de données
+// Ici, on utilise une solution simple avec variables d'environnement pour les admins
+// Vous pouvez facilement migrer vers Supabase, MongoDB, PostgreSQL, etc.
+
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      id: string;
+    } & DefaultSession['user'];
+  }
+}
+
+const handler = NextAuth({
+  providers: [
+    // Provider Email/Password (simple, pour démarrer)
+    CredentialsProvider({
+      name: 'Credentials',
+      credentials: {
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
+
+        // Trim pour éviter les espaces
+        const email = (credentials.email as string).trim();
+        const password = (credentials.password as string).trim();
+
+        // TODO: Remplacer par une vraie vérification en base de données
+        // Pour l'instant, on vérifie contre les variables d'environnement
+        let adminEmail = process.env.ADMIN_EMAIL;
+        let adminPassword = process.env.ADMIN_PASSWORD;
+
+        // Vérifier que les variables d'environnement sont définies
+        if (!adminEmail || !adminPassword) {
+          console.error('ADMIN_EMAIL ou ADMIN_PASSWORD non définis dans les variables d\'environnement');
+          if (process.env.NODE_ENV === 'development') {
+            console.error('ADMIN_EMAIL défini:', !!process.env.ADMIN_EMAIL);
+            console.error('ADMIN_PASSWORD défini:', !!process.env.ADMIN_PASSWORD);
+          }
+          return null;
+        }
+
+        // Nettoyer les valeurs : supprimer les guillemets et espaces
+        adminEmail = adminEmail.trim().replace(/^["']|["']$/g, '');
+        adminPassword = adminPassword.trim().replace(/^["']|["']$/g, '');
+        
+        // Log en développement pour voir les valeurs brutes
+        if (process.env.NODE_ENV === 'development') {
+          console.log('🔐 Debug auth - Variables d\'environnement:', {
+            adminEmailRaw: process.env.ADMIN_EMAIL,
+            adminPasswordRaw: process.env.ADMIN_PASSWORD ? `${process.env.ADMIN_PASSWORD.substring(0, 3)}...` : 'undefined',
+            adminEmailCleaned: adminEmail,
+            adminPasswordCleaned: `${adminPassword.substring(0, 3)}...`,
+            adminPasswordLength: adminPassword.length,
+          });
+        }
+
+        // 1. Vérifier d'abord l'admin (variables d'environnement)
+        const emailMatch = email.toLowerCase() === adminEmail.toLowerCase();
+        const passwordMatch = password === adminPassword;
+
+        if (emailMatch && passwordMatch) {
+          return {
+            id: '1',
+            email: adminEmail,
+            name: 'Admin',
+          };
+        }
+
+        // 2. Vérifier les utilisateurs enregistrés (fichier JSON)
+        try {
+          const usersFilePath = join(process.cwd(), 'data', 'users.json');
+          const usersData = readFileSync(usersFilePath, 'utf8');
+          const users = JSON.parse(usersData);
+          
+          const user = users.find(
+            (u: any) => u.email.toLowerCase() === email.toLowerCase().trim()
+          );
+
+          if (user && user.password.trim() === password.trim()) {
+            return {
+              id: user.id,
+              email: user.email,
+              name: user.name,
+            };
+          }
+        } catch (error) {
+          // Si le fichier n'existe pas ou erreur de lecture, continuer
+          if (process.env.NODE_ENV === 'development') {
+            console.log('Erreur lecture users.json:', error);
+          }
+        }
+
+        // Log en développement pour déboguer (ne pas faire ça en production)
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Tentative de connexion échouée:', {
+            emailProvided: email,
+            emailExpected: adminEmail,
+            emailMatch,
+            passwordMatch: passwordMatch ? '✓' : '✗',
+          });
+        }
+
+        return null;
+      },
+    }),
+    
+    // Provider Google OAuth (optionnel)
+    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+      ? [
+          GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          }),
+        ]
+      : []),
+  ],
+  
+  pages: {
+    signIn: '/fr/login',
+    error: '/fr/login',
+  },
+  
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      // Autoriser toutes les connexions pour l'instant
+      return true;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
+  },
+  
+  session: {
+    strategy: 'jwt',
+  },
+  
+  secret: process.env.NEXTAUTH_SECRET,
+});
+
+export { handler as GET, handler as POST };

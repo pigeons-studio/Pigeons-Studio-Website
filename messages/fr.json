@@ -1,0 +1,608 @@
+{
+  "common": {
+    "nav": {
+      "home": "Accueil",
+      "shop": "Boutique",
+      "services": "Services",
+      "projects": "Projets",
+      "softwares": "Logiciels",
+      "contact": "Contact"
+    },
+    "cta": {
+      "requestQuote": "Demander un devis",
+      "contact": "Prendre contact",
+      "sendMessage": "Envoyer le message",
+      "sending": "Envoi en cours...",
+      "viewServices": "Voir les services",
+      "viewShop": "Voir la boutique"
+    },
+    "footer": {
+      "description": "Ingénierie électronique, PCB, embarqué & robots.\nMatériel audio et artistique.",
+      "navigation": "Navigation",
+      "information": "Informations",
+      "rights": "Tous droits réservés."
+    },
+    "about": "À propos",
+    "cgv": "CGV",
+    "legal": "Mentions légales"
+  },
+  "home": {
+    "badge": "Ingénierie • France",
+    "title": "Pigeons Studio",
+    "subtitle": "Conception de PCB, programmation embarquée, électronique et robots. Du prototype à l'industrialisation.",
+    "heroSplit": {
+      "services": "Création d’objets audio, capteurs et éléments de design pour la scène.",
+      "shop": "Matériel audio & artistique — modules, capteurs, objets."
+    },
+    "sections": {
+      "services": {
+        "title": "Services",
+        "items": {
+          "pcb": {
+            "title": "Création d’objets audio",
+            "description": "Objets et modules sur mesure pour la scène et l’installation.",
+            "features": ["Synthés/contrôleurs", "Modules sonores", "Pièces uniques"]
+          },
+          "electronics": {
+            "title": "Capteurs & interaction",
+            "description": "Capteurs et interfaces pour gestes, mouvement, lumière.",
+            "features": [
+              "Gestes & mouvement",
+              "Interaction scénique",
+              "Synchronisation audio‑lumière"
+            ]
+          },
+          "integration": {
+            "title": "Objets & installation",
+            "description": "Intégration d’objets et dispositifs pour la performance.",
+            "features": [
+              "Prototype → scène",
+              "Systèmes sur mesure",
+              "Accompagnement créatif"
+            ]
+          },
+          "design": {
+            "title": "Conception 3D",
+            "description": "Forme, matière et usage pour des objets expressifs.",
+            "features": [
+              "Design d’objets",
+              "Prototypage rapide",
+              "Finitions & intégration"
+            ]
+          },
+          "scenography": {
+            "title": "Scénographie & lumière",
+            "description": "Dispositifs lumineux et interactions pour l’espace scénique.",
+            "features": [
+              "Lumière réactive",
+              "Mapping & DMX",
+              "Installations immersives"
+            ]
+          },
+          "go2": {
+            "title": "Go2 (Unitree) — création sur mesure",
+            "description": "Robot quadrupède pour performances, installations et créations.",
+            "features": [
+              "Chorégraphies & scénographie",
+              "Modules scéniques",
+              "Performances & installations"
+            ]
+          }
+        }
+      },
+      "shop": {
+        "title": "Boutique",
+        "subtitle": "Matériel audio et artistique",
+        "products": {
+          "as-simt": {
+            "name": "Capteur AS-SIMT",
+            "description": "Capteur de mouvement haptico-sonore"
+          },
+          "audio": {
+            "name": "Module Audio I2S",
+            "description": "Module audio multi-canal embarqué"
+          },
+          "pcb": {
+            "name": "PCB Custom",
+            "description": "Conception sur mesure"
+          }
+        },
+        "price": {
+          "coming": "À venir",
+          "quote": "Sur devis"
+        }
+      },
+      "projects": {
+        "title": "Projets & Réalisations",
+        "items": {
+          "as-simt": {
+            "title": "Capteurs de mouvement AS-SIMT / EightOS",
+            "description": "Capteurs portables transformant le mouvement en retours visuels, haptiques et sonores en temps réel. Utilisés par l'artiste NSDOS dans ses performances. Présentations à la Biennale de Gwangju, IMPACT (Théâtre de Liège) et HOT‑SHOP 14 (ECCO Leather)."
+          },
+          "go2": {
+            "title": "Performance robotique Go2 (Unitree)",
+            "description": "Mouvements scénographiés, synchronisation avec lumière et audio, intégrations sur mesure. Projets performatifs incluant modules scéniques et installations interactives."
+          },
+          "installations": {
+            "title": "Installations interactives",
+            "description": "Dispositifs scéniques pilotés en temps réel, synchronisation audio‑lumière avec retours capteurs. Électronique et firmware dédiés pour modulations et effets."
+          }
+        }
+      },
+      "expertise": {
+        "title": "Expertise & Stack"
+      },
+      "process": {
+        "title": "Approche",
+        "steps": {
+          "discovery": "Découverte — besoins, contraintes, objectifs.",
+          "design": "Conception — architecture, schémas, routage.",
+          "prototype": "Prototype — fabrication, assemblage, tests.",
+          "industrialization": "Industrialisation — validation, documentation, transfert."
+        }
+      },
+      "collaborations": {
+        "title": "Collaborations",
+        "nsdos": {
+          "title": "NSDOS",
+          "description": "Collaboration artistique sur les capteurs de mouvement AS-SIMT / EightOS, utilisés dans la plupart des performances de l'artiste."
+        },
+        "festivals": {
+          "title": "Festivals & Institutions",
+          "description": "Présentations à la Biennale de Gwangju, IMPACT (Théâtre de Liège), HOT‑SHOP 14 (ECCO Leather) et autres événements internationaux."
+        }
+      },
+      "contact": {
+        "title": "Contact",
+        "description": "Discuter de votre projet. Réponse rapide, devis gratuit.",
+        "email": "Email"
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Discuter de votre projet. Réponse rapide, devis gratuit.",
+    "form": {
+      "name": "Nom",
+      "email": "Email",
+      "subject": "Sujet",
+      "message": "Message",
+      "namePlaceholder": "Votre nom",
+      "emailPlaceholder": "votre@email.com",
+      "subjectPlaceholder": "Sujet de votre message",
+      "messagePlaceholder": "Décrivez votre projet...",
+      "required": "*",
+      "submit": "Envoyer le message",
+      "submitLocked": "Validez la vérification anti-robot",
+      "sending": "Envoi en cours...",
+      "success": "Message envoyé avec succès ! Vous allez recevoir un email de confirmation. Nous vous répondrons dans les plus brefs délais.",
+      "error": "Erreur lors de l'envoi du message. Veuillez réessayer.",
+      "defaultSubject": "Devis",
+      "humanCheckLabel": "Vérification anti-robot",
+      "humanCheckHint": "Faites glisser le curseur complètement vers la droite pour activer l'envoi.",
+      "humanCheckProgress": "Progression: {value}%",
+      "humanCheckReady": "Vérification validée.",
+      "humanCheckError": "Veuillez compléter la vérification anti-robot."
+    },
+    "other": {
+      "title": "Autres moyens de contact",
+      "email": "Email:",
+      "response": "Réponse:",
+      "responseTime": "Généralement sous 24-48h"
+    }
+  },
+  "shop": {
+    "title": "Boutique",
+    "subtitle": "Matériel audio et artistique",
+    "price": {
+      "coming": "À venir",
+      "quote": "Sur devis"
+    },
+    "noImage": "Image à venir",
+    "viewAll": "Voir tous les produits"
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "Du prototype à l'industrialisation",
+    "cta": {
+      "title": "Un projet en tête ?",
+      "description": "Discutons de vos besoins et contraintes pour trouver la meilleure solution."
+    }
+  },
+  "projects": {
+    "title": "Projets & Réalisations",
+    "subtitle": "Nos projets artistiques et techniques",
+    "presentations": "Présentations:"
+  },
+  "softwares": {
+    "title": "Logiciels",
+    "subtitle": "Firmwares flashables en ligne et logiciels PC sous licence.",
+    "sections": {
+      "firmwares": "Firmwares embarqués",
+      "desktop": "Logiciels PC"
+    },
+    "cards": {
+      "boardLabel": "Carte cible",
+      "licenseLabel": "Licence",
+      "includesData": "Inclut deja la partition data du projet",
+      "openFlasher": "Ouvrir le flasheur"
+    },
+    "states": {
+      "loading": "Chargement des logiciels...",
+      "loadingConfig": "Chargement de la configuration...",
+      "noFirmware": "Aucun firmware n'est disponible pour le moment.",
+      "noDesktop": "Aucun logiciel PC n'est disponible pour le moment."
+    },
+    "desktopStatus": {
+      "coming_soon": "Bientôt disponible",
+      "available": "Disponible"
+    },
+    "modal": {
+      "close": "Fermer",
+      "chromeOnly": "Le flash en ligne requiert Google Chrome (Web Serial).",
+      "notSecureContext": "Le flash est disponible uniquement en HTTPS (ou localhost).",
+      "chromeReady": "Google Chrome detecte : vous pouvez connecter et flasher Board.",
+      "staticNotice": "Ce firmware est statique et pre-compile : aucune compilation serveur n'est necessaire.",
+      "staticDataNotice": "La partition SPIFFS inclut deja les fichiers web + data/data.json du projet actuel.",
+      "offsetLabel": "Offset",
+      "launchFlasher": "Lancer le flasheur integre",
+      "launchingFlasher": "Ouverture du flasheur...",
+      "openPort": "Open port",
+      "openingPort": "Ouverture du port...",
+      "releasePort": "Liberer le port",
+      "releasingPort": "Liberation du port...",
+      "confirmFlash": "Confirmer le flash",
+      "cancelFlash": "Annuler",
+      "startSerialMonitor": "Demarrer le moniteur serie",
+      "startingSerialMonitor": "Ouverture du moniteur...",
+      "stopSerialMonitor": "Arreter le moniteur serie",
+      "flashAgain": "Reflasher",
+      "clearLiveLogs": "Vider le journal",
+      "copyLogs": "Copier les logs",
+      "copyingLogs": "Copie...",
+      "flashPanelTitle": "Statut du flash",
+      "progressLabel": "Progression ecriture: {value}%",
+      "integratedHint": "Flux de flash integre.",
+      "dialogPlaceholder": "Cliquez sur \"Open port\" puis \"Confirmer le flash\" pour demarrer.",
+      "configTitle": "Configuration board (data.json)",
+      "configHint": "Ces valeurs sont envoyees une seule fois en serie juste apres le flash, au premier boot.",
+      "liveLogsTitle": "Journal live",
+      "serialMonitorTitle": "Moniteur serie",
+      "liveLogsEmpty": "Aucun evenement pour le moment.",
+      "configTabs": {
+        "general": "General",
+        "network": "Reseau",
+        "buttons": "Boutons",
+        "pcf": "PCF8575"
+      },
+      "configFields": {
+        "loop_file": "Boucle audio",
+        "auto_play": "Lecture auto",
+        "bt_mode": "Mode enceinte Bluetooth",
+        "allow_play_over_playing": "Autoriser lancer une piste alors qu'une est déjà en lecture",
+        "note": "Notes",
+        "udp_port": "Port UDP",
+        "volume": "Volume",
+        "device_mode": "Mode appareil",
+        "mesh_ttl": "Mesh TTL",
+        "ap_safety_timeout_s": "Timeout AP (s)",
+        "ap_name": "Nom AP",
+        "ap_password": "Mot de passe AP",
+        "ap_ip_config": "Config IP AP",
+        "esp_now_channel": "Canal ESP-NOW",
+        "ap_enabled": "AP active",
+        "button_gpio13_track": "Piste bouton GPIO 13",
+        "button_gpio13_cycle": "Mode cycle bouton GPIO 13",
+        "button_gpio13_pull_mode": "Mode pull GPIO 13",
+        "button_gpio13_active_level": "Niveau actif GPIO 13",
+        "button_gpio16_track": "Piste bouton GPIO 16",
+        "button_gpio16_cycle": "Mode cycle bouton GPIO 16",
+        "button_gpio16_pull_mode": "Mode pull GPIO 16",
+        "button_gpio16_active_level": "Niveau actif GPIO 16",
+        "pcf_pull_mode": "Mode pull PCF",
+        "pcf_active_level": "Niveau actif PCF",
+        "pcf_track_map": "Mapping pistes PCF (JSON)",
+        "upd_target_ip": "IP cible UDP",
+        "upd_target_port": "Port cible UDP",
+        "upd_input_port": "Port entree UDP",
+        "osc_target_ip": "IP cible OSC",
+        "osc_target_port": "Port cible OSC",
+        "sta_ssid": "SSID WiFi (STA)",
+        "sta_pswd": "Mot de passe WiFi (STA)",
+        "ap_ssid": "SSID point d'acces",
+        "ap_pswd": "Mot de passe point d'acces",
+        "tripode_id": "Identifiant tripode",
+        "fractal_state_pos_x": "Position fractale X",
+        "fractal_state_pos_y": "Position fractale Y",
+        "glyph_pos_x": "Position glyphe X",
+        "glyph_pos_y": "Position glyphe Y",
+        "gyro_norm_min": "Gyro norm min",
+        "gyro_norm_max": "Gyro norm max",
+        "accel_norm_min": "Accel norm min",
+        "accel_norm_max": "Accel norm max",
+        "mag_norm_min": "Mag norm min",
+        "mag_norm_max": "Mag norm max",
+        "signals": "Signaux (JSON)"
+      },
+      "configFieldHints": {
+        "signals": "Chaque entrée du tableau contient value (message UDP ou OSC), type (udp ou osc) et enabled (optionnel, true par défaut). Les signaux avec enabled: false sont ignorés par le firmware. Après le flash, vous pouvez aussi les activer ou désactiver depuis l'interface embarquée http://4.3.2.1/config."
+      },
+      "configOptions": {
+        "device_mode_0": "Broadcast",
+        "device_mode_1": "Broadcast + mesh",
+        "device_mode_2": "Broadcast + AP off",
+        "device_mode_3": "Broadcast + mesh + AP off",
+        "pull_mode_0": "Up",
+        "pull_mode_1": "Down",
+        "pull_mode_2": "Aucun",
+        "active_level_0": "Bas",
+        "active_level_1": "Haut"
+      },
+      "status": {
+        "idle": "En attente",
+        "waiting_for_port": "Attente port serie",
+        "dialog_ready": "Pret a flasher",
+        "loading": "Chargement",
+        "erasing": "Effacement en cours",
+        "installing": "Installation en cours",
+        "configuring": "Configuration",
+        "finished": "Installation terminee",
+        "error": "Erreur"
+      },
+      "logs": {
+        "requestingPort": "Demande d'acces au port serie...",
+        "checkingPort": "Verification de disponibilite du port...",
+        "notSecureContext": "Le contexte n'est pas securise (HTTPS ou localhost requis).",
+        "chromeRequired": "Chrome avec Web Serial est requis.",
+        "loadingConfigTemplate": "Chargement du template de configuration...",
+        "configTemplateLoaded": "Template de configuration charge.",
+        "configTemplateLoadFailed": "Impossible de charger le template de configuration: {error}",
+        "configTemplateStillLoading": "La configuration est encore en chargement. Patientez.",
+        "loadingFlasherLib": "Chargement du moteur de flash...",
+        "flasherLibLoadedFrom": "Moteur de flash charge depuis: {url}",
+        "flasherLibLoadFailed": "Echec de chargement du moteur via: {url}",
+        "portSelected": "Port serie selectionne.",
+        "portInfo": "Infos port: {info}",
+        "portAvailable": "Port disponible.",
+        "portReleased": "Port serie libere.",
+        "portReleaseFailed": "Impossible de liberer le port. Fermez les sessions serie existantes puis reessayez.",
+        "portAlreadySelected": "Un port est deja selectionne. Liberez-le avant d'en choisir un autre.",
+        "portAlreadyOpen": "Un port serie est deja ouvert. Liberez-le avant d'en ouvrir un autre.",
+        "portBusy": "Le port serie est deja utilise par une autre application (ex: PlatformIO).",
+        "readyToConfirm": "Port pret. Confirmez pour lancer le flash.",
+        "noPortSelected": "Aucun port selectionne. Ouvrez d'abord un port.",
+        "flashConfirmed": "Confirmation recue. Demarrage du flash...",
+        "portReset": "Selection de port annulee.",
+        "connectingBootloader": "Connexion au bootloader...",
+        "chipDetected": "Carte detectee.",
+        "chipFamilyUsed": "Profil de carte selectionne.",
+        "manifestLoaded": "Manifest firmware charge.",
+        "downloadingBinaries": "Telechargement des binaires...",
+        "fileDownloaded": "Binaire charge: {path} ({size} octets)",
+        "unsupportedChip": "Carte non supportee par ce firmware.",
+        "eraseStart": "Effacement complet de la flash...",
+        "eraseDone": "Effacement termine.",
+        "startWrite": "Demarrage de l'ecriture des partitions...",
+        "partWriteProgress": "{name} | offset {address} | ecriture {current} | {value}%",
+        "firmwareWriteProgress": "Firmware: {value}%",
+        "spiffsWriteProgress": "SPIFFS: {value}%",
+        "finished": "Flash termine avec succes.",
+        "resetStart": "Reset materiel de la carte...",
+        "resetDone": "Reset materiel termine.",
+        "resetSkipped": "Reset materiel ignore (API non disponible).",
+        "resetFailed": "Reset materiel impossible: {error}",
+        "serialConfigHandshakeMode": "[WEBCFG] Mode handshake : attente de WEBCFG:READY avant d'envoyer la config.",
+        "serialConfigUnsupported": "L'envoi de configuration serie n'est pas supporte par ce port.",
+        "serialConfigWaitingBoot": "Attente de {seconds}s (demarrage de la carte) avant envoi de la config...",
+        "serialConfigWaitingReady": "Attente du signal READY de la carte (handshake)...",
+        "serialConfigWaitingReadyLong": "Attente du signal READY de la carte jusqu'à {seconds}s (handshake)...",
+        "serialConfigReadyReceived": "Carte prete. Envoi de la config.",
+        "serialConfigReadyTimeout": "Signal READY non recu (timeout). Config non envoyee.",
+        "serialConfigSending": "Envoi de la configuration premier boot en serie...",
+        "serialConfigNoWritable": "Le port serie n'est pas accessible en ecriture.",
+        "serialConfigNoReadable": "Le port serie n'est pas lisible.",
+        "sentToBoard": ">> Envoye :",
+        "serialConfigSent": "Payload de configuration envoye a la board.",
+        "serialConfigSendingRepeated": "Envoi repete de la config pendant {seconds}s toutes les {interval}ms pour couvrir le boot.",
+        "serialConfigSentRepeated": "Config envoyee {count} fois. La carte a du la recevoir au boot.",
+        "serialConfigDebug": "[DEBUG] {message}",
+        "serialConfigSendFailed": "Impossible d'envoyer la configuration: {error}",
+        "serialMonitorRequestingPort": "Selection d'un port pour le moniteur serie...",
+        "serialMonitorStarting": "Demarrage du moniteur serie...",
+        "serialMonitorStarted": "Moniteur serie actif (115200 bauds).",
+        "serialMonitorStopped": "Moniteur serie arrete.",
+        "serialMonitorUnsupported": "Ce navigateur ne permet pas d'ouvrir ce port pour le moniteur serie.",
+        "serialMonitorNoReadable": "Le port serie n'expose pas de flux lisible.",
+        "serialMonitorError": "Erreur moniteur serie: {error}",
+        "userCancelled": "Selection du port annulee par l'utilisateur.",
+        "logsCopied": "Logs copies dans le presse-papiers.",
+        "logsCopyFailed": "Impossible de copier les logs.",
+        "flashError": "Erreur flash: {error}"
+      },
+      "saving": "Sauvegarde...",
+      "saveConfig": "Sauvegarder la config",
+      "configSaved": "Configuration sauvegardée.",
+      "building": "Compilation en cours...",
+      "buildAndPrepare": "Compiler et préparer le flash",
+      "buildSuccess": "Compilation terminée. Le firmware est prêt à être flashé.",
+      "flashReady": "Pret a flasher : connectez la board puis lancez l'installation.",
+      "flashNow": "Flasher maintenant",
+      "showLogs": "Afficher les logs de build"
+    },
+    "errors": {
+      "loadSoftwares": "Impossible de charger la liste des logiciels.",
+      "loadConfig": "Impossible de charger la configuration firmware.",
+      "saveConfig": "Impossible de sauvegarder la configuration firmware.",
+      "buildFirmware": "Impossible de compiler le firmware.",
+      "invalidConfigFormat": "Format de configuration invalide.",
+      "invalidJsonField": "Le champ \"{field}\" ne contient pas un JSON valide.",
+      "invalidNumberField": "Le champ \"{field}\" ne contient pas un nombre valide.",
+      "unexpected": "Une erreur inattendue est survenue."
+    }
+  },
+  "about": {
+    "title": "À propos",
+    "subtitle": "Pigeons Studio — Ingénierie électronique, PCB, embarqué & robots",
+    "sections": {
+      "mission": {
+        "title": "Notre mission",
+        "content": "Pigeons Studio conçoit et développe des solutions électroniques sur mesure pour les projets artistiques, interactifs et scéniques. Du prototype à l'industrialisation, nous accompagnons vos idées de la conception à la réalisation."
+      },
+      "expertise": {
+        "title": "Expertise",
+        "content": "Spécialisés dans la conception de PCB, la programmation embarquée et l'intégration robotique, nous travaillons avec des technologies modernes (STM32, ESP32, ROS/ROS2) pour créer des dispositifs innovants adaptés aux arts vivants et aux installations interactives."
+      },
+      "collaborations": {
+        "title": "Collaborations",
+        "content": "Nous collaborons avec des artistes, des institutions et des festivals internationaux. Nos capteurs de mouvement AS-SIMT / EightOS sont utilisés par l'artiste NSDOS dans ses performances et ont été présentés lors d'événements majeurs comme la Biennale de Gwangju, IMPACT (Théâtre de Liège) et HOT‑SHOP 14 (ECCO Leather)."
+      },
+      "approach": {
+        "title": "Approche",
+        "content": "Notre méthodologie allie recherche, développement et création artistique. Nous privilégions les solutions open source, la documentation complète et l'accompagnement personnalisé pour chaque projet."
+      }
+    }
+  },
+  "cgv": {
+    "title": "Conditions Générales de Vente",
+    "metaDescription": "Conditions générales de vente de Pigeons Studio : commandes, livraison, paiement, garantie et contact.",
+    "lastUpdate": "Dernière mise à jour:",
+    "sections": {
+      "object": {
+        "title": "1. Objet",
+        "content": "Les présentes Conditions Générales de Vente (CGV) régissent les relations entre Pigeons Studio et ses clients pour la vente de matériel audio et artistique, ainsi que pour la prestation de services d'ingénierie électronique."
+      },
+      "orders": {
+        "title": "2. Commandes",
+        "content": "Toute commande implique l'acceptation sans réserve des présentes CGV. Les prix sont indiqués en euros TTC. Pigeons Studio se réserve le droit de modifier ses prix à tout moment, étant entendu que le prix applicable est celui en vigueur au jour de la commande."
+      },
+      "delivery": {
+        "title": "3. Livraison",
+        "content": "Les délais de livraison sont indiqués à titre indicatif. En cas de retard de livraison, le client sera informé dans les plus brefs délais. Les risques de perte ou d'endommagement des produits sont transférés au client au moment de la livraison."
+      },
+      "payment": {
+        "title": "4. Paiement",
+        "content": "Le paiement s'effectue selon les modalités convenues lors de la commande. Pour les prestations sur mesure, un acompte peut être demandé."
+      },
+      "withdrawal": {
+        "title": "5. Droit de rétractation",
+        "content": "Conformément à la législation en vigueur, le client dispose d'un délai de 14 jours pour exercer son droit de rétractation, sauf pour les produits personnalisés ou sur mesure."
+      },
+      "warranty": {
+        "title": "6. Garantie",
+        "content": "Les produits bénéficient de la garantie légale de conformité et de la garantie des vices cachés. Pour les prestations de service, la garantie couvre les défauts de conception et de réalisation."
+      },
+      "contact": {
+        "title": "7. Contact",
+        "content": "Pour toute question concernant les présentes CGV, vous pouvez nous contacter à l'adresse: contact@punkhazard.org"
+      }
+    }
+  },
+  "legal": {
+    "title": "Mentions Légales",
+    "metaDescription": "Informations légales du site Pigeons Studio : éditeur, hébergement, propriété intellectuelle, données personnelles et cookies.",
+    "sections": {
+      "publisher": {
+        "title": "Éditeur du site",
+        "content": "Pigeons Studio\nIngénierie électronique, PCB, embarqué & robots\nEmail: contact@punkhazard.org"
+      },
+      "hosting": {
+        "title": "Hébergement",
+        "content": "Ce site est hébergé par Vercel Inc.\n340 S Lemon Ave #4133\nWalnut, CA 91789\nÉtats-Unis"
+      },
+      "intellectual": {
+        "title": "Propriété intellectuelle",
+        "content": "L'ensemble du contenu de ce site (textes, images, logos, etc.) est la propriété de Pigeons Studio et est protégé par les lois relatives à la propriété intellectuelle. Toute reproduction, même partielle, est interdite sans autorisation préalable."
+      },
+      "data": {
+        "title": "Protection des données",
+        "content": "Les données personnelles collectées via le formulaire de contact sont utilisées uniquement pour répondre à vos demandes. Elles ne sont pas transmises à des tiers et sont conservées conformément à la réglementation en vigueur (RGPD)."
+      },
+      "cookies": {
+        "title": "Cookies",
+        "content": "Ce site n'utilise pas de cookies de tracking. Seuls les cookies techniques nécessaires au fonctionnement du site peuvent être utilisés."
+      },
+      "contact": {
+        "title": "Contact",
+        "content": "Pour toute question concernant les mentions légales, vous pouvez nous contacter à l'adresse: contact@punkhazard.org"
+      }
+    }
+  },
+  "cart": {
+    "title": "Panier",
+    "empty": "Votre panier est vide",
+    "clear": "Vider",
+    "remove": "Retirer",
+    "total": "Total",
+    "checkout": "Passer la commande",
+    "checkoutComing": "La fonctionnalité de paiement sera bientôt disponible",
+    "addToCart": "Ajouter au panier",
+    "price": {
+      "coming": "À venir",
+      "quote": "Sur devis"
+    }
+  },
+  "auth": {
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "email": "Email",
+    "password": "Mot de passe",
+    "name": "Nom",
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire",
+    "signInWithGoogle": "Se connecter avec Google",
+    "signingIn": "Connexion en cours...",
+    "signingUp": "Inscription en cours...",
+    "error": "Erreur de connexion",
+    "invalidCredentials": "Email ou mot de passe incorrect",
+    "profile": "Mon profil",
+    "alreadyHaveAccount": "Déjà un compte ?",
+    "noAccount": "Pas encore de compte ?",
+    "register": {
+      "title": "Créer un compte",
+      "success": "Compte créé avec succès ! Vous pouvez maintenant vous connecter.",
+      "emailExists": "Cet email est déjà utilisé",
+      "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
+      "invalidEmail": "Email invalide",
+      "allFieldsRequired": "Tous les champs sont requis"
+    }
+  },
+  "profile": {
+    "title": "Mon profil",
+    "subtitle": "Gérez vos informations et consultez vos commandes",
+    "sections": {
+      "info": {
+        "title": "Informations personnelles",
+        "email": "Email",
+        "name": "Nom",
+        "edit": "Modifier",
+        "deleteAccount": "Supprimer le compte",
+        "deleteAccountWarning": "Cette action est irréversible",
+        "dangerZone": "Zone de danger"
+      },
+      "orders": {
+        "title": "Mes commandes",
+        "empty": "Aucune commande pour le moment",
+        "orderNumber": "Commande",
+        "date": "Date",
+        "status": "Statut",
+        "total": "Total",
+        "view": "Voir les détails",
+        "statuses": {
+          "pending": "En attente",
+          "processing": "En cours de traitement",
+          "shipped": "Expédiée",
+          "delivered": "Livrée",
+          "cancelled": "Annulée"
+        }
+      }
+    },
+    "deleteAccount": {
+      "title": "Supprimer le compte",
+      "message": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible et supprimera toutes vos données (commandes, panier, etc.).",
+      "confirm": "Oui, supprimer mon compte",
+      "cancel": "Annuler",
+      "deleting": "Suppression en cours...",
+      "success": "Votre compte a été supprimé avec succès"
+    }
+  }
+}
