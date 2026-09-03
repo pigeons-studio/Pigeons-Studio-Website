@@ -7,12 +7,21 @@ import styles from './LinuxTerminal.module.css';
 
 type FileSystemNode = { [key: string]: FileSystemNode | string };
 
+type CompletionCycle = {
+  matches: string[];
+  index: number;
+  before: string;
+  dirPrefix: string;
+  isFirstWord: boolean;
+};
+
 type PromptEntry = {
   prompt: string;
   location: string;
   error: boolean;
   answer: string;
   banner?: boolean;
+  skipHistory?: boolean;
 };
 
 const HOME_DIRECTORY = '/root';
@@ -214,6 +223,7 @@ export default function LinuxTerminal() {
   const [promptHistoryIndex, setPromptHistoryIndex] = useState(0);
   const [tmpPrompt, setTmpPrompt] = useState('');
   const [prompt, setPrompt] = useState('');
+  const [completionList, setCompletionList] = useState<string | null>(null);
   const [oldPrompts, setOldPrompts] = useState<PromptEntry[]>([
     {
       prompt: '',
@@ -224,7 +234,7 @@ export default function LinuxTerminal() {
         'Welcome to pigeons-studio.\n\n * Documentation:  cat README.md\n * Commands:       cmds\n',
     },
   ]);
-  const lastTabPromptRef = useRef<string | null>(null);
+  const completionCycleRef = useRef<CompletionCycle | null>(null);
 
   const scrollToBottom = () => {
     window.setTimeout(() => {
@@ -342,6 +352,8 @@ export default function LinuxTerminal() {
       commands.clear('');
       setLastPromptError(false);
       setPrompt('');
+      setCompletionList(null);
+      completionCycleRef.current = null;
       setPromptHistoryIndex(0);
       scrollToBottom();
       return;
@@ -371,13 +383,14 @@ export default function LinuxTerminal() {
       },
     ]);
     setPrompt('');
+    setCompletionList(null);
+    completionCycleRef.current = null;
     setPromptHistoryIndex(0);
     scrollToBottom();
   };
 
   const applyCompletedLine = (line: string) => {
     setPrompt(line);
-    lastTabPromptRef.current = line;
     window.setTimeout(() => {
       const inputElement = inputRef.current;
       if (inputElement) {
@@ -387,7 +400,28 @@ export default function LinuxTerminal() {
     }, 0);
   };
 
+  const applyCycleMatch = (cycle: CompletionCycle, index: number) => {
+    const name = cycle.matches[index];
+    const node = walkPath(resolvePath(currentDirectory, `${cycle.dirPrefix}${name}`));
+    const suffix = !cycle.isFirstWord && isDirectory(node) ? '/' : ' ';
+    applyCompletedLine(`${cycle.before}${cycle.dirPrefix}${name}${suffix}`);
+  };
+
+  const resetCompletionCycle = () => {
+    completionCycleRef.current = null;
+    setCompletionList(null);
+  };
+
   const completeTab = () => {
+    const cycle = completionCycleRef.current;
+    if (cycle && cycle.matches.length > 1) {
+      const nextIndex = (cycle.index + 1) % cycle.matches.length;
+      cycle.index = nextIndex;
+      applyCycleMatch(cycle, nextIndex);
+      scrollToBottom();
+      return;
+    }
+
     const { before, token, isFirstWord } = splitCompletionTarget(prompt);
     const firstWord = prompt.trimStart().split(/\s+/)[0] ?? '';
 
@@ -403,6 +437,7 @@ export default function LinuxTerminal() {
     }
 
     if (matches.length === 0) {
+      resetCompletionCycle();
       return;
     }
 
@@ -410,6 +445,7 @@ export default function LinuxTerminal() {
       const name = matches[0];
       const node = walkPath(resolvePath(currentDirectory, `${dirPrefix}${name}`));
       const uniqueSuffix = !isFirstWord && isDirectory(node) ? '/' : ' ';
+      resetCompletionCycle();
       applyCompletedLine(`${before}${dirPrefix}${name}${uniqueSuffix}`);
       return;
     }
@@ -418,12 +454,6 @@ export default function LinuxTerminal() {
     const nextLine = `${before}${dirPrefix}${common}`;
     if (nextLine !== prompt) {
       applyCompletedLine(nextLine);
-      return;
-    }
-
-    if (lastTabPromptRef.current !== prompt) {
-      lastTabPromptRef.current = prompt;
-      return;
     }
 
     const listed = matches
@@ -432,16 +462,14 @@ export default function LinuxTerminal() {
       )
       .join('  ');
 
-    setOldPrompts((old) => [
-      ...old,
-      {
-        prompt: '',
-        location: currentDirectory,
-        error: lastPromptError,
-        banner: true,
-        answer: listed,
-      },
-    ]);
+    completionCycleRef.current = {
+      matches,
+      index: -1,
+      before,
+      dirPrefix,
+      isFirstWord,
+    };
+    setCompletionList(listed);
     scrollToBottom();
   };
 
@@ -460,7 +488,9 @@ export default function LinuxTerminal() {
     }
     if (event.key === 'ArrowUp') {
       event.preventDefault();
-      const history = oldPrompts.filter((entry) => !isWhitespaces(entry.prompt));
+      const history = oldPrompts.filter(
+        (entry) => !entry.skipHistory && !isWhitespaces(entry.prompt)
+      );
       if (!history.length) return;
       if (promptHistoryIndex === 0) {
         setTmpPrompt(prompt);
@@ -480,7 +510,9 @@ export default function LinuxTerminal() {
     }
     if (event.key === 'ArrowDown') {
       event.preventDefault();
-      const history = oldPrompts.filter((entry) => !isWhitespaces(entry.prompt));
+      const history = oldPrompts.filter(
+        (entry) => !entry.skipHistory && !isWhitespaces(entry.prompt)
+      );
       if (promptHistoryIndex <= 1) {
         setPrompt(tmpPrompt);
         setPromptHistoryIndex(0);
@@ -515,6 +547,8 @@ export default function LinuxTerminal() {
         },
       ]);
       setPrompt('');
+      setCompletionList(null);
+      completionCycleRef.current = null;
       setPromptHistoryIndex(0);
     }
     scrollToBottom();
@@ -547,12 +581,17 @@ export default function LinuxTerminal() {
           autoComplete="off"
           autoCorrect="off"
           value={prompt}
-          onChange={(event) => setPrompt(event.target.value)}
+          onChange={(event) => {
+            completionCycleRef.current = null;
+            setCompletionList(null);
+            setPrompt(event.target.value);
+          }}
           onKeyDown={handleKeyDown}
           className={styles.input}
           aria-label="Linux terminal input"
         />
       </div>
+      {completionList ? <p className={styles.output}>{completionList}</p> : null}
     </div>
   );
 }
