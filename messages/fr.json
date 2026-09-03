@@ -12,9 +12,7 @@
       "requestQuote": "Demander un devis",
       "contact": "Prendre contact",
       "sendMessage": "Envoyer le message",
-      "sending": "Envoi en cours...",
-      "viewServices": "Voir les services",
-      "viewShop": "Voir la boutique"
+      "sending": "Envoi en cours..."
     },
     "footer": {
       "description": "Direction créative, dispositifs robotiques et son spatialisé.\nMatériel audio et artistique.",
@@ -38,10 +36,6 @@
     "todo": {
       "valueProposition": "Value proposition à valider avec Koo et Julien",
       "identity": "Logo et identité visuelle à fournir"
-    },
-    "heroSplit": {
-      "services": "Création d’objets audio, capteurs et éléments de design pour la scène.",
-      "shop": "Matériel audio & artistique — modules, capteurs, objets."
     },
     "sections": {
       "duo": {

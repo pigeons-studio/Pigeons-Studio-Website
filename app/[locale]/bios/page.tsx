@@ -1,11 +1,20 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, KeyboardEvent } from 'react';
 import { Link } from '@/i18n/routing';
+import LinuxTerminal from './LinuxTerminal';
+import { LINUX_BOOT_DONE_PAUSE_MS, LINUX_BOOT_LINES } from './linuxBoot';
 import styles from './page.module.css';
 
-export default function ShutdownPage() {
+type BiosPhase = 'bios' | 'linuxBoot' | 'shell';
+
+type BiosHistoryEntry = {
+  prompt: string;
+  output: string | null;
+};
+
+export default function BiosPage() {
   const DEBUG_AUDIO = true;
   const dotTimeoutsRef = useRef<number[]>([]);
   const soundTimeoutsRef = useRef<number[]>([]);
@@ -21,7 +30,17 @@ export default function ShutdownPage() {
   const workBufferRef = useRef<AudioBuffer | null>(null);
   const runSourceRef = useRef<AudioBufferSourceNode | null>(null);
   const audioUnlockedRef = useRef(false);
+  const biosInputRef = useRef<HTMLInputElement | null>(null);
+  const linuxLogRef = useRef<HTMLDivElement | null>(null);
+  const bootContentRef = useRef<HTMLDivElement | null>(null);
   const [dotCounts, setDotCounts] = useState<number[]>([]);
+  const [phase, setPhase] = useState<BiosPhase>('bios');
+  const [promptReady, setPromptReady] = useState(false);
+  const [biosInput, setBiosInput] = useState('');
+  const [biosHistory, setBiosHistory] = useState<BiosHistoryEntry[]>([]);
+  const [biosHistoryIndex, setBiosHistoryIndex] = useState(0);
+  const [tmpBiosPrompt, setTmpBiosPrompt] = useState('');
+  const [linuxLines, setLinuxLines] = useState<string[]>([]);
 
   // Volume global des effets sonores (0.0 à 1.0)
   const GLOBAL_SOUND_VOLUME = 0.10;
@@ -777,66 +796,270 @@ export default function ShutdownPage() {
     };
   }, [bootSequence]);
 
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setPromptReady(true);
+    }, bootSequence.promptDelay * 1000);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [bootSequence.promptDelay]);
+
+  useEffect(() => {
+    if (promptReady && phase === 'bios') {
+      biosInputRef.current?.focus();
+    }
+  }, [promptReady, phase]);
+
+  useEffect(() => {
+    if (phase !== 'linuxBoot') return;
+
+    let cancelled = false;
+    const timeouts: number[] = [];
+    let accumulated = 0;
+
+    LINUX_BOOT_LINES.forEach((line) => {
+      accumulated += line.delayMs;
+      const timeoutId = window.setTimeout(() => {
+        if (cancelled) return;
+        setLinuxLines((prev) => [...prev, line.text]);
+        if (line.sound === 'ok') {
+          playBuzzerOk(0);
+        } else if (line.sound === 'tick') {
+          playOverlapSnippet(0, 0.5, 2.2);
+        }
+      }, accumulated);
+      timeouts.push(timeoutId);
+    });
+
+    const doneId = window.setTimeout(() => {
+      if (!cancelled) setPhase('shell');
+    }, accumulated + LINUX_BOOT_DONE_PAUSE_MS);
+    timeouts.push(doneId);
+
+    return () => {
+      cancelled = true;
+      timeouts.forEach((timeoutId) => window.clearTimeout(timeoutId));
+    };
+  }, [phase]);
+
+  useEffect(() => {
+    linuxLogRef.current?.scrollTo({ top: linuxLogRef.current.scrollHeight });
+  }, [linuxLines]);
+
+  useEffect(() => {
+    bootContentRef.current?.scrollTo({ top: bootContentRef.current.scrollHeight });
+  }, [biosHistory]);
+
+  const executeBiosCommand = () => {
+    const raw = biosInput;
+    const trimmed = raw.trim();
+    const firstSpace = trimmed.indexOf(' ');
+    const firstWord = firstSpace === -1 ? trimmed : trimmed.slice(0, firstSpace);
+    const command = firstWord.toLowerCase();
+    const rest = firstSpace === -1 ? '' : trimmed.slice(firstSpace + 1).trim();
+
+    if (!trimmed) {
+      setBiosHistory((history) => [...history, { prompt: '', output: null }]);
+      setBiosInput('');
+      setBiosHistoryIndex(0);
+      return;
+    }
+
+    if (command === 'start' && !rest) {
+      setBiosHistory((history) => [...history, { prompt: raw, output: null }]);
+      setBiosInput('');
+      setBiosHistoryIndex(0);
+      setPhase('linuxBoot');
+      return;
+    }
+
+    setBiosHistory((history) => [
+      ...history,
+      { prompt: raw, output: `${firstWord}: command not found` },
+    ]);
+    setBiosInput('');
+    setBiosHistoryIndex(0);
+  };
+
+  const handleBiosKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      executeBiosCommand();
+      return;
+    }
+
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      return;
+    }
+
+    const historyPrompts = biosHistory.filter((entry) => entry.prompt.trim().length > 0);
+
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      if (!historyPrompts.length) return;
+      if (biosHistoryIndex === 0) {
+        setTmpBiosPrompt(biosInput);
+      }
+      const nextIndex =
+        historyPrompts.length - 1 > biosHistoryIndex ? biosHistoryIndex + 1 : biosHistoryIndex;
+      const lastPrompt = historyPrompts[historyPrompts.length - nextIndex].prompt;
+      setBiosHistoryIndex(nextIndex);
+      setBiosInput(lastPrompt);
+      window.setTimeout(() => {
+        const inputElement = biosInputRef.current;
+        if (inputElement) {
+          inputElement.setSelectionRange(lastPrompt.length, lastPrompt.length);
+        }
+      }, 0);
+      return;
+    }
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      if (!historyPrompts.length) return;
+      if (biosHistoryIndex <= 1) {
+        setBiosInput(tmpBiosPrompt);
+        setBiosHistoryIndex(0);
+        return;
+      }
+      const nextIndex = biosHistoryIndex - 1;
+      const lastPrompt = historyPrompts[historyPrompts.length - nextIndex].prompt;
+      setBiosHistoryIndex(nextIndex);
+      setBiosInput(lastPrompt);
+      window.setTimeout(() => {
+        const inputElement = biosInputRef.current;
+        if (inputElement) {
+          inputElement.setSelectionRange(lastPrompt.length, lastPrompt.length);
+        }
+      }, 0);
+    }
+  };
+
+  const renderLinuxLine = (text: string) => {
+    const okToken = '[  OK  ]';
+    const okIndex = text.indexOf(okToken);
+    if (okIndex === -1) return text;
+    return (
+      <>
+        <span className={styles.linuxOk}>{text.slice(0, okIndex + okToken.length)}</span>
+        {text.slice(okIndex + okToken.length)}
+      </>
+    );
+  };
+
   return (
-    <div className={styles.page}>
+    <div
+      className={styles.page}
+      onClick={() => {
+        if (phase === 'bios' && promptReady) {
+          biosInputRef.current?.focus();
+        }
+      }}
+    >
       <div className={styles.shutdownScreen}>
         <div className={styles.screenCRT} aria-hidden="true">
           <div className={styles.shutdownCRT} />
         </div>
       </div>
 
-      <div className={styles.bootScreen}>
+      <div className={`${styles.bootScreen} ${phase !== 'bios' ? styles.bootScreenFill : ''}`}>
         <div className={styles.crtOverlay} aria-hidden="true" />
         <div className={styles.vignette} aria-hidden="true" />
         <div className={styles.edgeDistortion} aria-hidden="true" />
-        <div className={styles.bootHeader}>Pigeons Studio BIOS</div>
-        <ul className={styles.bootList}>
-          {bootSequence.lines.map((line, lineIndex) => (
-            <li
-              key={line.line}
-              className={styles.bootLine}
-              style={
-                {
-                  '--delay': `${line.delay}s`,
-                  '--main-chars': `${line.main.length}`,
-                  '--dots-chars': `${line.dots.length}`,
-                  '--max-dots': `${line.maxDots}`,
-                  '--max-main': `${line.maxMain}`,
-                  '--main-duration': `${line.mainDuration}s`,
-                  '--dots-duration': `${line.dotsDuration}s`,
-                  '--ok-delay': `${line.okDelay}s`,
-                  '--ok-duration': `${line.okDuration}s`,
-                } as CSSProperties
-              }
+
+        {phase === 'bios' && (
+          <div ref={bootContentRef} className={styles.bootContent}>
+            <div className={styles.bootHeader}>Pigeons Studio BIOS</div>
+            <ul className={styles.bootList}>
+              {bootSequence.lines.map((line, lineIndex) => (
+                <li
+                  key={line.line}
+                  className={styles.bootLine}
+                  style={
+                    {
+                      '--delay': `${line.delay}s`,
+                      '--main-chars': `${line.main.length}`,
+                      '--dots-chars': `${line.dots.length}`,
+                      '--max-dots': `${line.maxDots}`,
+                      '--max-main': `${line.maxMain}`,
+                      '--main-duration': `${line.mainDuration}s`,
+                      '--dots-duration': `${line.dotsDuration}s`,
+                      '--ok-delay': `${line.okDelay}s`,
+                      '--ok-duration': `${line.okDuration}s`,
+                    } as CSSProperties
+                  }
+                >
+                  {line.main && <span className={styles.bootLineMain}>{line.main}</span>}
+                  {line.dots && (
+                    <span className={styles.bootLineDots}>
+                      {'.'.repeat(dotCounts[lineIndex] ?? 0)}
+                    </span>
+                  )}
+                  {line.hasOk && <span className={styles.bootLineOk}>OK</span>}
+                </li>
+              ))}
+            </ul>
+            {biosHistory.map((entry, index) => (
+              <div key={`${entry.prompt}-${index}`}>
+                <div className={styles.promptStatic}>
+                  <span className={styles.promptText}>root@pigeons-studio:~$</span>
+                  <span className={styles.promptTyped}>{entry.prompt}</span>
+                </div>
+                {entry.output ? <div className={styles.promptOutput}>{entry.output}</div> : null}
+              </div>
+            ))}
+            <div
+              className={styles.prompt}
+              style={{ '--prompt-delay': `${bootSequence.promptDelay}s` } as CSSProperties}
             >
-              {line.main && <span className={styles.bootLineMain}>{line.main}</span>}
-              {line.dots && (
-                <span className={styles.bootLineDots}>
-                  {'.'.repeat(dotCounts[lineIndex] ?? 0)}
-                </span>
-              )}
-              {line.hasOk && <span className={styles.bootLineOk}>OK</span>}
-            </li>
-          ))}
-        </ul>
-        <div
-          className={styles.prompt}
-          style={{ '--prompt-delay': `${bootSequence.promptDelay}s` } as CSSProperties}
-        >
-          <span className={styles.promptText}>root@pigeons-studio:~$</span>
-          <span className={styles.cursor} />
-        </div>
-        <div
-          className={styles.returnLink}
-          style={{ '--return-delay': `${bootSequence.returnDelay}s` } as CSSProperties}
-        >
-          <Link
-            href="/"
-            className={styles.returnText}
-          >
-            ← back
-          </Link>
-        </div>
+              <span className={styles.promptText}>root@pigeons-studio:~$</span>
+              <span className={styles.promptField}>
+                <span className={styles.promptTyped}>{biosInput}</span>
+                <span className={styles.cursor} />
+                <input
+                  ref={biosInputRef}
+                  className={styles.promptInput}
+                  value={biosInput}
+                  onChange={(event) => setBiosInput(event.target.value)}
+                  onKeyDown={handleBiosKeyDown}
+                  type="text"
+                  size={1}
+                  spellCheck={false}
+                  autoCapitalize="none"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  readOnly={!promptReady}
+                  aria-label="BIOS prompt"
+                />
+              </span>
+            </div>
+            <div
+              className={styles.returnLink}
+              style={{ '--return-delay': `${bootSequence.returnDelay}s` } as CSSProperties}
+            >
+              <Link
+                href="/"
+                className={styles.returnText}
+                onClick={(event) => event.stopPropagation()}
+              >
+                ← back
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {phase === 'linuxBoot' && (
+          <div ref={linuxLogRef} className={styles.linuxBootLog}>
+            {linuxLines.map((line, index) => (
+              <div key={`${index}-${line}`} className={styles.linuxBootLine}>
+                {renderLinuxLine(line) || '\u00a0'}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {phase === 'shell' && <LinuxTerminal />}
       </div>
     </div>
   );

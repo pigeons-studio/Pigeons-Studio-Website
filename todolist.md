@@ -14,7 +14,7 @@ Il reste ces actions dépendantes de ton accès, de ton contenu, ou de validatio
 
 - [ ] Ajouter le site dans Google Search Console.
 - [ ] Soumettre le sitemap (`/sitemap.xml`).
-- [ ] Vérifier que seules les pages publiques sont indexées (login/profil/shutdown doivent rester non indexées).
+- [ ] Vérifier que seules les pages publiques sont indexées (login/profil/bios doivent rester non indexées).
 
 ## 3) Branding & contenu
 

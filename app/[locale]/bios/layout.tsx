@@ -10,8 +10,8 @@ export async function generateMetadata({
 
   return buildPageMetadata({
     locale,
-    pathSegment: 'shutdown',
-    title: 'Shutdown',
+    pathSegment: 'bios',
+    title: 'BIOS',
     description:
       locale === 'fr'
         ? 'Page expérimentale non destinée à l’indexation.'
@@ -20,7 +20,7 @@ export async function generateMetadata({
   });
 }
 
-export default function ShutdownLayout({
+export default function BiosLayout({
   children,
 }: {
   children: React.ReactNode;

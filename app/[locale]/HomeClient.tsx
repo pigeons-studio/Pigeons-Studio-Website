@@ -75,7 +75,7 @@ export default function HomeClient() {
       isLongPressingRef.current = false;
       startTimeRef.current = null;
       setGlitchIntensity('normal');
-      router.push('/shutdown');
+      router.push('/bios');
     }, 10000);
   };
 
@@ -252,42 +252,6 @@ export default function HomeClient() {
           <div className={styles.todoStack}>
             <TodoBadge detail={t('todo.valueProposition')} />
             <TodoBadge detail={t('todo.identity')} />
-          </div>
-          <div className={styles.heroSplit}>
-            <Link href="/shop" className={styles.splitCard}>
-              <div className={styles.splitImage}>
-                <Image
-                  src="/products/placeholder.svg"
-                  alt={t('sections.shop.title')}
-                  fill
-                  sizes="(max-width: 820px) 100vw, 50vw"
-                />
-              </div>
-              <div className={styles.splitContent}>
-                <span className={styles.splitTitle}>{t('sections.shop.title')}</span>
-                <div className={styles.splitMeta}>
-                  <span className={styles.splitSubtitle}>{t('heroSplit.shop')}</span>
-                  <span className={styles.splitButton}>{tCommon('viewShop')}</span>
-                </div>
-              </div>
-            </Link>
-            <Link href="/services" className={styles.splitCard}>
-              <div className={styles.splitImage}>
-                <Image
-                  src="/products/placeholder.svg"
-                  alt={t('sections.services.title')}
-                  fill
-                  sizes="(max-width: 820px) 100vw, 50vw"
-                />
-              </div>
-              <div className={styles.splitContent}>
-                <span className={styles.splitTitle}>{t('sections.services.title')}</span>
-                <div className={styles.splitMeta}>
-                  <span className={styles.splitSubtitle}>{t('heroSplit.services')}</span>
-                  <span className={styles.splitButton}>{tCommon('viewServices')}</span>
-                </div>
-              </div>
-            </Link>
           </div>
         </div>
       </header>

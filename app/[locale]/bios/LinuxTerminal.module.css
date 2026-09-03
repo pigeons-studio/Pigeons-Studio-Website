@@ -1,0 +1,70 @@
+.terminal {
+  z-index: 4;
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow: auto;
+  cursor: text;
+  color: #ffffff;
+  font-weight: 400;
+  text-shadow: none;
+}
+
+.entry {
+  margin-bottom: 2px;
+}
+
+.line {
+  margin: 0;
+  line-height: 1.15;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.liveLine {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-top: -2px;
+}
+
+.host {
+  color: #54ff55;
+  white-space: nowrap;
+}
+
+.path {
+  color: #55ffff;
+  white-space: nowrap;
+}
+
+.white {
+  color: #ffffff;
+}
+
+.red {
+  color: #fb5655;
+}
+
+.output {
+  margin: 0;
+  line-height: 1.15;
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: #ffffff;
+}
+
+.input {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: #ffffff;
+  caret-color: #d8f3ff;
+  outline: none;
+  flex: 1;
+  min-width: 8ch;
+  font: inherit;
+  font-variant-ligatures: none;
+}

@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
       ['mentions-legales', 'legal'],
       ['profil', 'profile'],
       ['cgv', 'terms'],
+      ['shutdown', 'bios'],
     ];
     const redirects: { source: string; destination: string; permanent: true }[] = [];
     for (const prefix of localePrefixes) {

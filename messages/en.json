@@ -12,9 +12,7 @@
       "requestQuote": "Request a quote",
       "contact": "Get in touch",
       "sendMessage": "Send message",
-      "sending": "Sending...",
-      "viewServices": "View services",
-      "viewShop": "View shop"
+      "sending": "Sending..."
     },
     "footer": {
       "description": "Creative direction, robotic devices and spatial sound.\nAudio and artistic equipment.",
@@ -38,10 +36,6 @@
     "todo": {
       "valueProposition": "Value proposition to be validated with Koo and Julien",
       "identity": "Logo and visual identity to be provided"
-    },
-    "heroSplit": {
-      "services": "Audio objects, sensors and design elements for the stage.",
-      "shop": "Audio & art gear — modules, sensors, objects."
     },
     "sections": {
       "duo": {
