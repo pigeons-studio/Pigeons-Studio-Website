@@ -128,6 +128,71 @@ function formatPromptPath(path: string) {
   return path;
 }
 
+function longestCommonPrefix(items: string[]): string {
+  if (items.length === 0) return '';
+  return items.reduce((prefix, item) => {
+    let index = 0;
+    while (index < prefix.length && index < item.length && prefix[index] === item[index]) {
+      index += 1;
+    }
+    return prefix.slice(0, index);
+  });
+}
+
+function splitCompletionTarget(line: string): {
+  before: string;
+  token: string;
+  isFirstWord: boolean;
+} {
+  const lastSpace = line.lastIndexOf(' ');
+  if (lastSpace === -1) {
+    return { before: '', token: line, isFirstWord: true };
+  }
+  return {
+    before: line.slice(0, lastSpace + 1),
+    token: line.slice(lastSpace + 1),
+    isFirstWord: false,
+  };
+}
+
+function splitPathToken(token: string): { dirPrefix: string; base: string } {
+  const lastSlash = token.lastIndexOf('/');
+  if (lastSlash === -1) {
+    return { dirPrefix: '', base: token };
+  }
+  return {
+    dirPrefix: token.slice(0, lastSlash + 1),
+    base: token.slice(lastSlash + 1),
+  };
+}
+
+function getPathMatches(
+  cwd: string,
+  token: string,
+  directoriesOnly: boolean
+): { dirPrefix: string; names: string[] } {
+  const { dirPrefix, base } = splitPathToken(token);
+  const parentPath = dirPrefix ? resolvePath(cwd, dirPrefix) : cwd;
+  const parent = walkPath(parentPath);
+  if (!isDirectory(parent)) {
+    return { dirPrefix, names: [] };
+  }
+
+  const showHidden = base.startsWith('.');
+  const names = Object.keys(parent)
+    .filter((name) => showHidden || !name.startsWith('.'))
+    .filter((name) => name.startsWith(base))
+    .filter((name) => !directoriesOnly || isDirectory(parent[name]))
+    .sort((a, b) => a.localeCompare(b));
+
+  return { dirPrefix, names };
+}
+
+function formatCompletionName(cwd: string, dirPrefix: string, name: string) {
+  const node = walkPath(resolvePath(cwd, `${dirPrefix}${name}`));
+  return isDirectory(node) ? `${name}/` : name;
+}
+
 function PromptPrefix({ location, error }: { location: string; error: boolean }) {
   return (
     <>
@@ -159,6 +224,7 @@ export default function LinuxTerminal() {
         'Welcome to pigeons-studio.\n\n * Documentation:  cat README.md\n * Commands:       cmds\n',
     },
   ]);
+  const lastTabPromptRef = useRef<string | null>(null);
 
   const scrollToBottom = () => {
     window.setTimeout(() => {
@@ -309,6 +375,76 @@ export default function LinuxTerminal() {
     scrollToBottom();
   };
 
+  const applyCompletedLine = (line: string) => {
+    setPrompt(line);
+    lastTabPromptRef.current = line;
+    window.setTimeout(() => {
+      const inputElement = inputRef.current;
+      if (inputElement) {
+        inputElement.focus();
+        inputElement.setSelectionRange(line.length, line.length);
+      }
+    }, 0);
+  };
+
+  const completeTab = () => {
+    const { before, token, isFirstWord } = splitCompletionTarget(prompt);
+    const firstWord = prompt.trimStart().split(/\s+/)[0] ?? '';
+
+    let matches: string[] = [];
+    let dirPrefix = '';
+
+    if (isFirstWord) {
+      matches = commandList.filter((name) => name.startsWith(token));
+    } else if (!token.startsWith('-') || token === '-') {
+      const pathMatches = getPathMatches(currentDirectory, token, firstWord === 'cd');
+      dirPrefix = pathMatches.dirPrefix;
+      matches = pathMatches.names;
+    }
+
+    if (matches.length === 0) {
+      return;
+    }
+
+    if (matches.length === 1) {
+      const name = matches[0];
+      const node = walkPath(resolvePath(currentDirectory, `${dirPrefix}${name}`));
+      const uniqueSuffix = !isFirstWord && isDirectory(node) ? '/' : ' ';
+      applyCompletedLine(`${before}${dirPrefix}${name}${uniqueSuffix}`);
+      return;
+    }
+
+    const common = longestCommonPrefix(matches);
+    const nextLine = `${before}${dirPrefix}${common}`;
+    if (nextLine !== prompt) {
+      applyCompletedLine(nextLine);
+      return;
+    }
+
+    if (lastTabPromptRef.current !== prompt) {
+      lastTabPromptRef.current = prompt;
+      return;
+    }
+
+    const listed = matches
+      .map((name) =>
+        isFirstWord ? name : formatCompletionName(currentDirectory, dirPrefix, name)
+      )
+      .join('  ');
+
+    setOldPrompts((old) => [
+      ...old,
+      {
+        prompt: '',
+        location: currentDirectory,
+        error: lastPromptError,
+        banner: true,
+        answer: listed,
+      },
+    ]);
+    scrollToBottom();
+  };
+
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
@@ -319,6 +455,8 @@ export default function LinuxTerminal() {
     }
     if (event.key === 'Tab') {
       event.preventDefault();
+      completeTab();
+      return;
     }
     if (event.key === 'ArrowUp') {
       event.preventDefault();
