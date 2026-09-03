@@ -25,5 +25,17 @@ export default function BiosLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <style>{`
+        html, body {
+          overflow: hidden !important;
+          scrollbar-gutter: auto !important;
+          scrollbar-width: none !important;
+          max-width: 100% !important;
+        }
+      `}</style>
+      {children}
+    </>
+  );
 }

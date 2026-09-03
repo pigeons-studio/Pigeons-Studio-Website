@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, KeyboardEvent } from 'react';
 import { Link } from '@/i18n/routing';
 import LinuxTerminal from './LinuxTerminal';
@@ -338,13 +338,43 @@ export default function BiosPage() {
     }, Math.max(timeOffset * 1000, 0));
   };
 
-  useEffect(() => {
-    document.documentElement.classList.add(styles.shutdownNoScroll);
-    document.body.classList.add(styles.shutdownNoScroll);
+  useLayoutEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+    const previous = {
+      htmlOverflow: html.style.overflow,
+      htmlGutter: html.style.scrollbarGutter,
+      htmlScrollbarWidth: html.style.scrollbarWidth,
+      htmlMaxWidth: html.style.maxWidth,
+      bodyOverflow: body.style.overflow,
+      bodyGutter: body.style.scrollbarGutter,
+      bodyScrollbarWidth: body.style.scrollbarWidth,
+      bodyMaxWidth: body.style.maxWidth,
+    };
+
+    html.classList.add(styles.shutdownNoScroll);
+    body.classList.add(styles.shutdownNoScroll);
+    html.style.setProperty('overflow', 'hidden', 'important');
+    html.style.setProperty('scrollbar-gutter', 'auto', 'important');
+    html.style.setProperty('scrollbar-width', 'none', 'important');
+    html.style.setProperty('max-width', '100%', 'important');
+    body.style.setProperty('overflow', 'hidden', 'important');
+    body.style.setProperty('scrollbar-gutter', 'auto', 'important');
+    body.style.setProperty('scrollbar-width', 'none', 'important');
+    body.style.setProperty('max-width', '100%', 'important');
+    void html.offsetWidth;
 
     return () => {
-      document.documentElement.classList.remove(styles.shutdownNoScroll);
-      document.body.classList.remove(styles.shutdownNoScroll);
+      html.classList.remove(styles.shutdownNoScroll);
+      body.classList.remove(styles.shutdownNoScroll);
+      html.style.overflow = previous.htmlOverflow;
+      html.style.scrollbarGutter = previous.htmlGutter;
+      html.style.scrollbarWidth = previous.htmlScrollbarWidth;
+      html.style.maxWidth = previous.htmlMaxWidth;
+      body.style.overflow = previous.bodyOverflow;
+      body.style.scrollbarGutter = previous.bodyGutter;
+      body.style.scrollbarWidth = previous.bodyScrollbarWidth;
+      body.style.maxWidth = previous.bodyMaxWidth;
     };
   }, []);
 
