@@ -38,32 +38,92 @@
       "identity": "Logo and visual identity to be provided"
     },
     "sections": {
+      "activities": {
+        "title": "Activities & services",
+        "subtitle": "What the studio offers and will offer: from idea to object, from data to experience.",
+        "items": {
+          "data": {
+            "title": "Data visualisation & data intelligence",
+            "description": "Capture and shape every imaginable environmental dataset into artistic digital visualisations."
+          },
+          "consulting": {
+            "title": "Creative technology consulting",
+            "description": "Guidance for projects at the intersection of art, design and engineering."
+          },
+          "direction": {
+            "title": "Artistic direction",
+            "description": "Shaping worlds, experiences, and visual and sonic languages."
+          },
+          "digitalArt": {
+            "title": "Digital Art",
+            "description": "Visual and sonic experiences, installations and immersive devices."
+          },
+          "physical": {
+            "title": "Custom physical creations",
+            "description": "Design and electronics, in-house prototyping (CNC), working metal, resins, wood, plastics and silicones."
+          },
+          "cdm": {
+            "title": "Computer Dance Music",
+            "description": "Music written with and for the moving body."
+          },
+          "robotic": {
+            "title": "Robotic Sound Hardware",
+            "description": "Robotic sound objects, hardware and autonomous devices."
+          }
+        }
+      },
       "duo": {
         "title": "The duo",
         "subtitle": "Two complementary directions, presented on equal footing.",
         "koo": {
           "name": "Koo Des (NSDOS)",
           "role": "Artistic & musical direction",
-          "description": "Dancer, musician, performer and researcher, trained at the International Dance Academy in Paris after starting out with street hip-hop. Nicknamed the “techno hacker” by the French press, he collects living data from the moving body and injects it into the structure of techno. Artistic direction, sound system design and musical translation of gesture.",
+          "paragraphs": [
+            "Born in Paris in 1984, Kirikoo Des — NSDOS — is a French multidisciplinary artist, musician, performer and dancer. His work explores the intersection of movement, sound and technology.",
+            "After training at the Académie Internationale de la Danse and starting out as a hip-hop dancer in the streets of Paris, he set out to generate a “new sonic order” at the meeting point of dance, performance, live coding and electronic music. He captures living data — gestures, environmental signals, biological rhythms — through sensors and custom-built devices, notably with ORCA.",
+            "A devoted admirer of Dadaism and Lettrism, working in a DIY ethos inspired by Christian Marclay, Stelarc and Donna Haraway, he composes empirically and physically: music as a living organism. His performances and residencies span Paris, Berlin, Rome, Tokyo, Mexico City, Montréal, New Orleans, London and Amsterdam."
+          ],
           "releases": {
-            "title": "Selected releases",
+            "title": "Musical projects",
             "items": [
-              "Intuition — movement data captured in Alaska",
-              "Clubbing Sequence — music responding to the motion of dancers",
-              "Micro Club — the body under constrained conditions"
+              "Money Exchange — 2016, Standalone Complex",
+              "Intuition Vol. 1 & 2 — 2017–2018, movement data captured in Alaska",
+              "Micro Club — 2021",
+              "Champignonner.Photomontage.Ultrasonique Vol. 1 & 2 — 2024",
+              "Activate Cities — 2025, with NORKHAT"
             ]
           }
         },
         "julien": {
           "name": "Julien Thomas",
-          "role": "Technical direction & systems",
-          "description": "System architecture, hardware integration, embedded electronics and spatial interactive devices. Design of the sensors, robots and real-time pipelines."
+          "role": "Design, technical direction & systems",
+          "description": "Designer, electronics designer and developer. His path spans concept cars, exobiology and musical experiments aboard the International Space Station, several years in aeronautical electronics, and robotics design for a video production studio. He now shapes the system architecture, embedded electronics and spatial interactive devices of Pigeons Studio."
+        },
+        "highlights": {
+          "title": "Highlights",
+          "items": {
+            "intuition": {
+              "title": "Intuition",
+              "meta": "Alaska · 2017–2018",
+              "description": "Fieldwork around meteorological stations and biofeedback: movements of nature, turned into data, become sounds, textures and rhythms. The album completes an organic vision of music, documented in a series of five films from the field to the studio."
+            },
+            "selm": {
+              "title": "S.E.L.M. — New Orleans",
+              "meta": "Villa Albertine · 2023",
+              "description": "A residency in New Orleans for Send Everyday Life Movement: a dance abstracted from the body, through compiled captured gestures and the “rehumanization” of data. Immersion in a performance city — second lines, Mardi Gras, Black Indians, clubs — to expand the dancer’s expressive range."
+            },
+            "activateCities": {
+              "title": "Activate Cities",
+              "meta": "NSDOS × NORKHAT · 2025",
+              "description": "Born from a meeting with Noam Assayag and his essay on ambulatory art. Urban journeys (Paris, Berlin, Athens, Moscow) and QR codes in public space link the album to the city: an interactive sound map to reactivate the poetic potential of overlooked places."
+            }
+          }
         },
         "todo": {
           "portraitKoo": "HD portrait of Koo (studio + stage)",
           "portraitJulien": "HD portrait of Julien (studio + stage)",
           "duoPhotos": "Photos of the duo together",
-          "bios": "Full bios, short bio (100 words) and long bio (400 words)",
+          "bios": "Julien bio still to complete (short and long)",
           "tattoo": "Decision to be made with Koo: whether to publish the tattoo machine repurposed as an instrument"
         }
       },
@@ -126,28 +186,20 @@
         }
       },
       "ecosystem": {
-        "title": "Open ecosystem",
-        "subtitle": "Open source projects the duo contributes to, outside the studio’s own scope.",
-        "eightos": {
-          "title": "EightOS (∞OS)",
-          "description": "An open source operating system for the bodymind, co-created by Koo Des and Dmitry Paranyushkin, under a CC BY-SA 4.0 licence since 2015. The practice relies on direct physical experience to embed its principles at the level of reflexes.",
-          "features": [
-            "Adaptability and fractal variability",
-            "Confluence, integrity, friction",
-            "Resilience and modularity"
-          ],
-          "linkLabel": "Visit 8os.io",
-          "linkUrl": "https://8os.io/"
-        },
-        "selfsense": {
-          "title": "SelfSense",
-          "description": "An app and trackers that entrain fractal variability in movement, breathing and heart rate, with live feedback on the fractality of gesture.",
-          "features": [
-            "Fractal movement entrainment",
-            "Live feedback on gesture",
-            "Heart rate variability and breathing"
-          ]
-        }
+        "title": "EightOS (∞OS)",
+        "subtitle": "A long-term collaboration with Dmitry Paranyushkin.",
+        "paragraphs": [
+          "EightOS (∞OS) is an open source operating system for the bodymind, co-created with Dmitry Paranyushkin under a CC BY-SA 4.0 licence since 2015. The project investigates natural dynamics and technologies of the self: an embodied practice, distinct from Pigeons Studio and from the AS-SIMT hardware platform.",
+          "Through physical exercises and interactive experiences, EightOS embeds its principles — adaptability, fractal variability, confluence, integrity, friction, resilience, modularity — at the level of reflexes, not just thought. Learning happens through the body: understanding a metaphor by living it.",
+          "The collaboration continues through activation programs, embodied research sessions, and SelfSense: an app and trackers that entrain fractal variability in movement, breathing and heart rate, with live feedback on the fractality of gesture."
+        ],
+        "linkLabel": "Visit 8os.io",
+        "linkUrl": "https://8os.io/"
+      },
+      "nike": {
+        "eyebrow": "Long-term partner",
+        "title": "Nike",
+        "description": "A collaboration and sponsorship with Nike for more than ten years, across several projects — from design to activation."
       },
       "shop": {
         "title": "Shop",
@@ -601,7 +653,7 @@
       },
       "julien": {
         "title": "Julien Thomas",
-        "content": "Technical direction and system architecture. Electronic and PCB design, embedded programming, robotic integration and spatial interactive devices. He develops the AS-SIMT hardware platform: wearable sensors combining a screen, a 9-axis motion unit and bone-conduction transducers, along with the real-time pipelines that connect sensors, sound and robots."
+        "content": "A designer as well as an electronics designer and developer, Julien Thomas connects design, embedded systems and robotics. He has worked on concept cars, contributed to exobiology and musical experiments aboard the International Space Station, and spent several years designing and developing electronics for aeronautics. He has also worked as a robotics designer for a video production studio. At Pigeons Studio, he leads technical direction and system architecture: electronic and PCB design, embedded programming, robotic integration and spatial interactive devices. He develops the AS-SIMT hardware platform: wearable sensors combining a screen, a 9-axis motion unit and bone-conduction transducers, along with the real-time pipelines that connect sensors, sound and robots."
       },
       "eightos": {
         "title": "EightOS",

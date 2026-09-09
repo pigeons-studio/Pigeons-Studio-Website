@@ -6,10 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/i18n/routing';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
-import ProductCarousel from '@/app/components/ProductCarousel';
 import TodoBadge from '@/app/components/TodoBadge';
-import { Product } from '@/app/components/ProductCard';
-import productsData from '@/data/products.json';
 import styles from './page.module.css';
 
 export default function HomeClient() {
@@ -25,14 +22,6 @@ export default function HomeClient() {
   const pointerIdRef = useRef<number | null>(null);
   const initialPointerPosRef = useRef<{ x: number; y: number } | null>(null);
   const isLongPressingRef = useRef<boolean>(false);
-
-  // Convert JSON data to Product type
-  const products: Product[] = productsData.map((product) => ({
-    ...product,
-    name: product.name as { fr: string; en: string },
-    description: product.description as { fr: string; en: string },
-  }));
-
 
   const handleLongPressStart = () => {
     if (isLongPressingRef.current) return; // Éviter les doubles déclenchements
@@ -257,6 +246,21 @@ export default function HomeClient() {
       </header>
 
       <main>
+        <section id="activites" className={styles.section}>
+          <div className={styles.container}>
+            <h2 className={styles.sectionTitle}>{t('sections.activities.title')}</h2>
+            <p className={styles.sectionSubtitle}>{t('sections.activities.subtitle')}</p>
+            <div className={`${styles.grid} ${styles.activitiesGrid}`}>
+              {(['data', 'consulting', 'direction', 'digitalArt', 'physical', 'cdm', 'robotic'] as const).map((key) => (
+                <div key={key} className={styles.card}>
+                  <h3>{t(`sections.activities.items.${key}.title`)}</h3>
+                  <p>{t(`sections.activities.items.${key}.description`)}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section id="duo" className={styles.section}>
           <div className={styles.container}>
             <h2 className={styles.sectionTitle}>{t('sections.duo.title')}</h2>
@@ -268,7 +272,11 @@ export default function HomeClient() {
                 </div>
                 <h3>{t('sections.duo.koo.name')}</h3>
                 <p className={styles.memberRole}>{t('sections.duo.koo.role')}</p>
-                <p>{t('sections.duo.koo.description')}</p>
+                <div className={styles.bioParagraphs}>
+                  {t.raw('sections.duo.koo.paragraphs').map((paragraph: string, i: number) => (
+                    <p key={i}>{paragraph}</p>
+                  ))}
+                </div>
                 <p className={styles.releasesTitle}>{t('sections.duo.koo.releases.title')}</p>
                 <ul>
                   {t.raw('sections.duo.koo.releases.items').map((item: string, i: number) => (
@@ -284,6 +292,16 @@ export default function HomeClient() {
                 <p className={styles.memberRole}>{t('sections.duo.julien.role')}</p>
                 <p>{t('sections.duo.julien.description')}</p>
               </div>
+            </div>
+            <h3 className={styles.highlightsTitle}>{t('sections.duo.highlights.title')}</h3>
+            <div className={styles.workGrid}>
+              {(['intuition', 'selm', 'activateCities'] as const).map((key) => (
+                <div key={key} className={styles.card}>
+                  <p className={styles.highlightMeta}>{t(`sections.duo.highlights.items.${key}.meta`)}</p>
+                  <h3>{t(`sections.duo.highlights.items.${key}.title`)}</h3>
+                  <p>{t(`sections.duo.highlights.items.${key}.description`)}</p>
+                </div>
+              ))}
             </div>
             <div className={styles.todoStack}>
               <TodoBadge detail={t('sections.duo.todo.duoPhotos')} />
@@ -316,159 +334,6 @@ export default function HomeClient() {
               <TodoBadge detail={t('sections.capabilities.todo.inventory')} />
               <TodoBadge detail={t('sections.capabilities.todo.software')} />
               <TodoBadge detail={t('sections.capabilities.todo.networks')} />
-            </div>
-          </div>
-        </section>
-
-        <section id="ecosysteme" className={styles.section}>
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>{t('sections.ecosystem.title')}</h2>
-            <p className={styles.sectionSubtitle}>{t('sections.ecosystem.subtitle')}</p>
-            <div className={`${styles.grid} ${styles.gridTwoCols}`}>
-              <div className={styles.card}>
-                <h3>{t('sections.ecosystem.eightos.title')}</h3>
-                <p>{t('sections.ecosystem.eightos.description')}</p>
-                <ul>
-                  {t.raw('sections.ecosystem.eightos.features').map((feature: string, i: number) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-                <a
-                  className={styles.externalLink}
-                  href={t('sections.ecosystem.eightos.linkUrl')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {t('sections.ecosystem.eightos.linkLabel')}
-                </a>
-              </div>
-              <div className={styles.card}>
-                <h3>{t('sections.ecosystem.selfsense.title')}</h3>
-                <p>{t('sections.ecosystem.selfsense.description')}</p>
-                <ul>
-                  {t.raw('sections.ecosystem.selfsense.features').map((feature: string, i: number) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="shop" className={styles.section}>
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>{t('sections.shop.title')}</h2>
-            <p className={styles.sectionSubtitle}>{t('sections.shop.subtitle')}</p>
-            <ProductCarousel products={products} />
-          </div>
-        </section>
-
-        <section id="services" className={styles.section}>
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>{t('sections.services.title')}</h2>
-            <div className={styles.grid}>
-              <div className={styles.card}>
-                <div className={styles.cardImage}>
-                  <Image
-                    src="/products/placeholder.svg"
-                    alt={t('sections.services.items.pcb.title')}
-                    fill
-                    sizes="(max-width: 960px) 100vw, 33vw"
-                  />
-                </div>
-                <h3>{t('sections.services.items.pcb.title')}</h3>
-                <p>{t('sections.services.items.pcb.description')}</p>
-                <ul>
-                  {t.raw('sections.services.items.pcb.features').map((feature: string, i: number) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className={styles.card}>
-                <div className={styles.cardImage}>
-                  <Image
-                    src="/products/placeholder.svg"
-                    alt={t('sections.services.items.electronics.title')}
-                    fill
-                    sizes="(max-width: 960px) 100vw, 33vw"
-                  />
-                </div>
-                <h3>{t('sections.services.items.electronics.title')}</h3>
-                <p>{t('sections.services.items.electronics.description')}</p>
-                <ul>
-                  {t.raw('sections.services.items.electronics.features').map((feature: string, i: number) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className={styles.card}>
-                <div className={styles.cardImage}>
-                  <Image
-                    src="/products/placeholder.svg"
-                    alt={t('sections.services.items.integration.title')}
-                    fill
-                    sizes="(max-width: 960px) 100vw, 33vw"
-                  />
-                </div>
-                <h3>{t('sections.services.items.integration.title')}</h3>
-                <p>{t('sections.services.items.integration.description')}</p>
-                <ul>
-                  {t.raw('sections.services.items.integration.features').map((feature: string, i: number) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className={styles.card}>
-                <div className={styles.cardImage}>
-                  <Image
-                    src="/products/placeholder.svg"
-                    alt={t('sections.services.items.design.title')}
-                    fill
-                    sizes="(max-width: 960px) 100vw, 33vw"
-                  />
-                </div>
-                <h3>{t('sections.services.items.design.title')}</h3>
-                <p>{t('sections.services.items.design.description')}</p>
-                <ul>
-                  {t.raw('sections.services.items.design.features').map((feature: string, i: number) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className={styles.card}>
-                <div className={styles.cardImage}>
-                  <Image
-                    src="/products/placeholder.svg"
-                    alt={t('sections.services.items.scenography.title')}
-                    fill
-                    sizes="(max-width: 960px) 100vw, 33vw"
-                  />
-                </div>
-                <h3>{t('sections.services.items.scenography.title')}</h3>
-                <p>{t('sections.services.items.scenography.description')}</p>
-                <ul>
-                  {t.raw('sections.services.items.scenography.features').map((feature: string, i: number) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className={styles.card}>
-                <div className={styles.cardImage}>
-                  <Image
-                    src="/products/placeholder.svg"
-                    alt={t('sections.services.items.go2.title')}
-                    fill
-                    sizes="(max-width: 960px) 100vw, 33vw"
-                  />
-                </div>
-                <h3>{t('sections.services.items.go2.title')}</h3>
-                <p>{t('sections.services.items.go2.description')}</p>
-                <ul>
-                  {t.raw('sections.services.items.go2.features').map((feature: string, i: number) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
             </div>
           </div>
         </section>
@@ -566,6 +431,7 @@ export default function HomeClient() {
               <span className={styles.chip}>ROS/ROS2</span>
               <span className={styles.chip}>Unitree Go2</span>
               <span className={styles.chip}>Unitree SDK</span>
+              <span className={styles.chip}>ORCA</span>
             </div>
             <div className={styles.todoStack}>
               <TodoBadge detail={t('sections.expertise.todo.perPerson')} />
@@ -627,6 +493,36 @@ export default function HomeClient() {
             </div>
             <div className={styles.todoStack}>
               <TodoBadge detail={t('sections.references.todo.discography')} />
+            </div>
+          </div>
+        </section>
+
+        <section id="ecosysteme" className={styles.sectionAlt}>
+          <div className={styles.container}>
+            <h2 className={styles.sectionTitle}>{t('sections.ecosystem.title')}</h2>
+            <p className={styles.sectionSubtitle}>{t('sections.ecosystem.subtitle')}</p>
+            <div className={styles.ecosystemProse}>
+              {t.raw('sections.ecosystem.paragraphs').map((paragraph: string, i: number) => (
+                <p key={i}>{paragraph}</p>
+              ))}
+              <a
+                className={styles.externalLink}
+                href={t('sections.ecosystem.linkUrl')}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t('sections.ecosystem.linkLabel')}
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section id="partenaires" className={styles.section}>
+          <div className={styles.container}>
+            <div className={styles.partnerCard}>
+              <p className={styles.partnerEyebrow}>{t('sections.nike.eyebrow')}</p>
+              <h2 className={styles.partnerTitle}>{t('sections.nike.title')}</h2>
+              <p>{t('sections.nike.description')}</p>
             </div>
           </div>
         </section>
