@@ -246,21 +246,6 @@ export default function HomeClient() {
       </header>
 
       <main>
-        <section id="activites" className={styles.section}>
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>{t('sections.activities.title')}</h2>
-            <p className={styles.sectionSubtitle}>{t('sections.activities.subtitle')}</p>
-            <div className={`${styles.grid} ${styles.activitiesGrid}`}>
-              {(['data', 'consulting', 'direction', 'digitalArt', 'physical', 'cdm', 'robotic'] as const).map((key) => (
-                <div key={key} className={styles.card}>
-                  <h3>{t(`sections.activities.items.${key}.title`)}</h3>
-                  <p>{t(`sections.activities.items.${key}.description`)}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section id="duo" className={styles.section}>
           <div className={styles.container}>
             <h2 className={styles.sectionTitle}>{t('sections.duo.title')}</h2>
@@ -293,15 +278,39 @@ export default function HomeClient() {
                 <p>{t('sections.duo.julien.description')}</p>
               </div>
             </div>
-            <h3 className={styles.highlightsTitle}>{t('sections.duo.highlights.title')}</h3>
-            <div className={styles.workGrid}>
-              {(['intuition', 'selm', 'activateCities'] as const).map((key) => (
-                <div key={key} className={styles.card}>
-                  <p className={styles.highlightMeta}>{t(`sections.duo.highlights.items.${key}.meta`)}</p>
-                  <h3>{t(`sections.duo.highlights.items.${key}.title`)}</h3>
-                  <p>{t(`sections.duo.highlights.items.${key}.description`)}</p>
-                </div>
-              ))}
+            <div className={styles.historyBlock}>
+              <h3 className={styles.historyTitle}>{t('sections.duo.history.title')}</h3>
+              <div className={styles.ecosystemProse}>
+                <p>
+                  {t.rich('sections.duo.history.p1', {
+                    matrice: (chunks) => (
+                      <a
+                        className={styles.inlineLink}
+                        href="https://www.matrice.io/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {chunks}
+                      </a>
+                    ),
+                  })}
+                </p>
+                <p>
+                  {t.rich('sections.duo.history.p2', {
+                    eightos: (chunks) => (
+                      <a
+                        className={styles.inlineLink}
+                        href="https://8os.io/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {chunks}
+                      </a>
+                    ),
+                  })}
+                </p>
+                <p>{t('sections.duo.history.p3')}</p>
+              </div>
             </div>
             <div className={styles.todoStack}>
               <TodoBadge detail={t('sections.duo.todo.duoPhotos')} />
@@ -311,36 +320,70 @@ export default function HomeClient() {
           </div>
         </section>
 
-        <section id="capacites" className={styles.sectionAlt}>
+        <section id="activites" className={styles.sectionAlt}>
           <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>{t('sections.capabilities.title')}</h2>
-            <p className={styles.sectionSubtitle}>{t('sections.capabilities.subtitle')}</p>
-            <div className={styles.grid}>
-              {(['sensors', 'robots', 'translation', 'spatial', 'modes'] as const).map((key) => (
+            <h2 className={styles.sectionTitle}>{t('sections.activities.title')}</h2>
+            <p className={styles.sectionSubtitle}>{t('sections.activities.subtitle')}</p>
+
+            <h3 className={`${styles.highlightsTitle} ${styles.highlightsTitleFirst}`}>
+              {t('sections.activities.heading')}
+            </h3>
+            <div className={`${styles.grid} ${styles.activitiesGrid}`}>
+              {(['data', 'consulting', 'direction', 'digitalArt', 'physical', 'cdm', 'robotic'] as const).map((key) => (
                 <div key={key} className={styles.card}>
-                  <h3>{t(`sections.capabilities.items.${key}.title`)}</h3>
-                  <p>{t(`sections.capabilities.items.${key}.description`)}</p>
-                  <ul>
-                    {t.raw(`sections.capabilities.items.${key}.features`).map((feature: string, i: number) => (
-                      <li key={i}>{feature}</li>
-                    ))}
-                  </ul>
+                  <h3>{t(`sections.activities.items.${key}.title`)}</h3>
+                  <p>{t(`sections.activities.items.${key}.description`)}</p>
                 </div>
               ))}
             </div>
-            <div className={styles.todoStack}>
-              <TodoBadge detail={t('sections.capabilities.todo.media')} />
-              <TodoBadge detail={t('sections.capabilities.todo.rider')} />
-              <TodoBadge detail={t('sections.capabilities.todo.inventory')} />
-              <TodoBadge detail={t('sections.capabilities.todo.software')} />
-              <TodoBadge detail={t('sections.capabilities.todo.networks')} />
+
+            <div id="capacites">
+              <h3 className={styles.highlightsTitle}>{t('sections.capabilities.title')}</h3>
+              <p className={styles.sectionSubtitle}>{t('sections.capabilities.subtitle')}</p>
+              <div className={styles.grid}>
+                {(['sensors', 'robots', 'translation', 'spatial', 'modes'] as const).map((key) => (
+                  <div key={key} className={styles.card}>
+                    <h3>{t(`sections.capabilities.items.${key}.title`)}</h3>
+                    <p>{t(`sections.capabilities.items.${key}.description`)}</p>
+                    <ul>
+                      {t.raw(`sections.capabilities.items.${key}.features`).map((feature: string, i: number) => (
+                        <li key={i}>{feature}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              <div className={styles.todoStack}>
+                <TodoBadge detail={t('sections.capabilities.todo.media')} />
+                <TodoBadge detail={t('sections.capabilities.todo.rider')} />
+                <TodoBadge detail={t('sections.capabilities.todo.inventory')} />
+                <TodoBadge detail={t('sections.capabilities.todo.software')} />
+                <TodoBadge detail={t('sections.capabilities.todo.networks')} />
+                <TodoBadge detail={t('sections.expertise.todo.perPerson')} />
+              </div>
             </div>
           </div>
         </section>
 
         <section id="realisations" className={styles.section}>
           <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>{t('sections.projects.title')}</h2>
+            <h2 className={styles.sectionTitle}>{t('sections.work.title')}</h2>
+            <p className={styles.sectionSubtitle}>{t('sections.work.subtitle')}</p>
+
+            <h3 className={`${styles.highlightsTitle} ${styles.highlightsTitleFirst}`}>
+              {t('sections.duo.highlights.title')}
+            </h3>
+            <div className={styles.workGrid}>
+              {(['intuition', 'selm', 'activateCities'] as const).map((key) => (
+                <div key={key} className={styles.card}>
+                  <p className={styles.highlightMeta}>{t(`sections.duo.highlights.items.${key}.meta`)}</p>
+                  <h3>{t(`sections.duo.highlights.items.${key}.title`)}</h3>
+                  <p>{t(`sections.duo.highlights.items.${key}.description`)}</p>
+                </div>
+              ))}
+            </div>
+
+            <h3 className={styles.highlightsTitle}>{t('sections.projects.heading')}</h3>
             <div className={styles.workGrid}>
               <div className={styles.card}>
                 <div className={styles.cardImage}>
@@ -353,10 +396,9 @@ export default function HomeClient() {
                 </div>
                 <h3>{t('sections.projects.items.as-simt.title')}</h3>
                 <div className={styles.workMeta}>
-                  <span className={styles.tag}>Capteurs haptiques</span>
-                  <span className={styles.tag}>PCB custom</span>
-                  <span className={styles.tag}>ESP32</span>
-                  <span className={styles.tag}>OSC</span>
+                  {t.raw('sections.projects.items.as-simt.tags').map((tag: string) => (
+                    <span key={tag} className={styles.tag}>{tag}</span>
+                  ))}
                 </div>
                 <p>{t('sections.projects.items.as-simt.description')}</p>
               </div>
@@ -372,10 +414,9 @@ export default function HomeClient() {
                 </div>
                 <h3>{t('sections.projects.items.go2.title')}</h3>
                 <div className={styles.workMeta}>
-                  <span className={styles.tag}>Unitree Go2</span>
-                  <span className={styles.tag}>SDK</span>
-                  <span className={styles.tag}>ROS2</span>
-                  <span className={styles.tag}>Chorégraphie</span>
+                  {t.raw('sections.projects.items.go2.tags').map((tag: string) => (
+                    <span key={tag} className={styles.tag}>{tag}</span>
+                  ))}
                 </div>
                 <p>{t('sections.projects.items.go2.description')}</p>
               </div>
@@ -391,10 +432,9 @@ export default function HomeClient() {
                 </div>
                 <h3>{t('sections.projects.items.installations.title')}</h3>
                 <div className={styles.workMeta}>
-                  <span className={styles.tag}>Audio I2S</span>
-                  <span className={styles.tag}>IMU 9 axes</span>
-                  <span className={styles.tag}>DMX/Art‑Net</span>
-                  <span className={styles.tag}>Synchronisation</span>
+                  {t.raw('sections.projects.items.installations.tags').map((tag: string) => (
+                    <span key={tag} className={styles.tag}>{tag}</span>
+                  ))}
                 </div>
                 <p>{t('sections.projects.items.installations.description')}</p>
               </div>
@@ -403,96 +443,37 @@ export default function HomeClient() {
               <TodoBadge detail={t('sections.projects.todo.timeline')} />
               <TodoBadge detail={t('sections.projects.todo.showreel')} />
             </div>
-          </div>
-        </section>
 
-        <section id="expertise" className={styles.sectionAlt}>
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>{t('sections.expertise.title')}</h2>
-            <div className={styles.chips}>
-              <span className={styles.chip}>KiCad</span>
-              <span className={styles.chip}>STM32</span>
-              <span className={styles.chip}>ESP32</span>
-              <span className={styles.chip}>C/C++</span>
-              <span className={styles.chip}>TypeScript</span>
-              <span className={styles.chip}>React</span>
-              <span className={styles.chip}>Shaders</span>
-              <span className={styles.chip}>Three.js</span>
-              <span className={styles.chip}>Native Apps</span>
-              <span className={styles.chip}>Python</span>
-              <span className={styles.chip}>Rust</span>
-              <span className={styles.chip}>BLE</span>
-              <span className={styles.chip}>Wi‑Fi</span>
-              <span className={styles.chip}>LoRa</span>
-              <span className={styles.chip}>OSC</span>
-              <span className={styles.chip}>UDP</span>
-              <span className={styles.chip}>I2S</span>
-              <span className={styles.chip}>DMX/Art‑Net</span>
-              <span className={styles.chip}>ROS/ROS2</span>
-              <span className={styles.chip}>Unitree Go2</span>
-              <span className={styles.chip}>Unitree SDK</span>
-              <span className={styles.chip}>ORCA</span>
-            </div>
-            <div className={styles.todoStack}>
-              <TodoBadge detail={t('sections.expertise.todo.perPerson')} />
-            </div>
-          </div>
-        </section>
-
-        <section id="processus" className={styles.section}>
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>{t('sections.process.title')}</h2>
-            <ol className={styles.steps}>
-              <li>
-                <strong>{t('sections.process.steps.discovery').split(' — ')[0]}</strong>
-                <span> — {t('sections.process.steps.discovery').split(' — ')[1]}</span>
-              </li>
-              <li>
-                <strong>{t('sections.process.steps.design').split(' — ')[0]}</strong>
-                <span> — {t('sections.process.steps.design').split(' — ')[1]}</span>
-              </li>
-              <li>
-                <strong>{t('sections.process.steps.prototype').split(' — ')[0]}</strong>
-                <span> — {t('sections.process.steps.prototype').split(' — ')[1]}</span>
-              </li>
-              <li>
-                <strong>{t('sections.process.steps.industrialization').split(' — ')[0]}</strong>
-                <span> — {t('sections.process.steps.industrialization').split(' — ')[1]}</span>
-              </li>
-            </ol>
-          </div>
-        </section>
-
-        <section id="references" className={styles.section}>
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>{t('sections.references.title')}</h2>
-            <p className={styles.sectionSubtitle}>{t('sections.references.subtitle')}</p>
-            <div className={styles.grid}>
-              <div className={styles.card}>
-                <h3>{t('sections.references.brands.title')}</h3>
-                <p>{t('sections.references.brands.description')}</p>
-                <div className={`${styles.todoStack} ${styles.todoStackTight}`}>
-                  <TodoBadge detail={t('sections.references.todo.brands')} />
+            <div id="references">
+              <h3 className={styles.highlightsTitle}>{t('sections.references.title')}</h3>
+              <p className={styles.sectionSubtitle}>{t('sections.references.subtitle')}</p>
+              <div className={styles.grid}>
+                <div id="partenaires" className={styles.card}>
+                  <h3>{t('sections.references.brands.title')}</h3>
+                  <p>{t('sections.references.brands.description')}</p>
+                  <div className={`${styles.todoStack} ${styles.todoStackTight}`}>
+                    <TodoBadge detail={t('sections.references.todo.brands')} />
+                  </div>
+                </div>
+                <div className={styles.card}>
+                  <h3>{t('sections.references.institutions.title')}</h3>
+                  <p>{t('sections.references.institutions.description')}</p>
+                </div>
+                <div className={styles.card}>
+                  <h3>{t('sections.references.residencies.title')}</h3>
+                  <p>{t('sections.references.residencies.description')}</p>
+                </div>
+                <div className={styles.card}>
+                  <h3>{t('sections.references.press.title')}</h3>
+                  <p>{t('sections.references.press.description')}</p>
+                  <div className={`${styles.todoStack} ${styles.todoStackTight}`}>
+                    <TodoBadge detail={t('sections.references.todo.press')} />
+                  </div>
                 </div>
               </div>
-              <div className={styles.card}>
-                <h3>{t('sections.references.institutions.title')}</h3>
-                <p>{t('sections.references.institutions.description')}</p>
+              <div className={styles.todoStack}>
+                <TodoBadge detail={t('sections.references.todo.discography')} />
               </div>
-              <div className={styles.card}>
-                <h3>{t('sections.references.residencies.title')}</h3>
-                <p>{t('sections.references.residencies.description')}</p>
-              </div>
-              <div className={styles.card}>
-                <h3>{t('sections.references.press.title')}</h3>
-                <p>{t('sections.references.press.description')}</p>
-                <div className={`${styles.todoStack} ${styles.todoStackTight}`}>
-                  <TodoBadge detail={t('sections.references.todo.press')} />
-                </div>
-              </div>
-            </div>
-            <div className={styles.todoStack}>
-              <TodoBadge detail={t('sections.references.todo.discography')} />
             </div>
           </div>
         </section>
@@ -517,17 +498,7 @@ export default function HomeClient() {
           </div>
         </section>
 
-        <section id="partenaires" className={styles.section}>
-          <div className={styles.container}>
-            <div className={styles.partnerCard}>
-              <p className={styles.partnerEyebrow}>{t('sections.nike.eyebrow')}</p>
-              <h2 className={styles.partnerTitle}>{t('sections.nike.title')}</h2>
-              <p>{t('sections.nike.description')}</p>
-            </div>
-          </div>
-        </section>
-
-        <section id="contact" className={styles.sectionAlt}>
+        <section id="contact" className={styles.section}>
           <div className={styles.container}>
             <h2 className={styles.sectionTitle}>{t('sections.contact.title')}</h2>
             <p className={styles.contactText}>{t('sections.contact.description')}</p>

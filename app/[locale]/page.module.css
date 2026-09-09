@@ -123,12 +123,38 @@
   margin-bottom: 0;
 }
 
+.historyBlock {
+  margin-top: 48px;
+}
+
+.historyTitle {
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  color: var(--foreground);
+}
+
+.inlineLink {
+  color: var(--accent-cyan);
+  border-bottom: 1px solid rgba(52, 211, 255, 0.5);
+  padding-bottom: 1px;
+}
+
+.inlineLink:hover {
+  border-bottom-color: var(--accent-cyan);
+}
+
 .highlightsTitle {
   font-size: 22px;
   letter-spacing: -0.02em;
   font-weight: 700;
   margin: 40px 0 20px 0;
   color: var(--foreground);
+}
+
+.highlightsTitleFirst {
+  margin-top: 0;
 }
 
 .highlightMeta {

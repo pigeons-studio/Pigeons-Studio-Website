@@ -42,14 +42,14 @@ const FILE_SYSTEM: FileSystemNode = {
   home: {
     pigeon: {
       'README.md':
-        'home of pigeon\n\nYou probably want /root — that is where the studio files live.\n',
+        'home of pigeon\n\nYou probably want /root - that is where the studio files live.\n',
     },
   },
   root: {
     'README.md':
       'Welcome to the Pigeons Studio terminal.\n\nSupported commands:\n - cat      Print text files\n - cd       Change directory\n - clear    Clear the screen\n - cmds     List commands\n - help     Same as cmds\n - ls       List directory\n - pwd      Print working directory\n - reboot   Reboot the BIOS\n - shutdown Halt and return to the site\n - exit     Same as shutdown\n',
     'about.txt':
-      'Pigeons Studio — Koo Des (NSDOS) × Julien Thomas\nCreative direction, robotics and spatialized sound.\n\nWe design devices where gesture becomes music, movement and collective experience — for stage, installation and brands.\n',
+      'Pigeons Studio - Koo Des (NSDOS) × Julien Thomas\nCreative direction, robotics and spatialized sound.\n\nWe design devices where gesture becomes music, movement and collective experience - for stage, installation and brands.\n',
     '.secrets':
       'There is no cow level.\nroot password: pigeons\n(just kidding)\n',
     projects: {

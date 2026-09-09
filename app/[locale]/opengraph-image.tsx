@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const alt = 'Pigeons Studio — Ingénierie électronique, PCB, embarqué & robots';
+export const alt = 'Pigeons Studio - Ingénierie électronique, PCB, embarqué & robots';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -47,7 +47,7 @@ export default async function OgImage() {
               maxWidth: 700,
             }}
           >
-            Conception PCB, embarqué, électronique & robots — Du prototype à l’industrialisation
+            Conception PCB, embarqué, électronique & robots - Du prototype à l’industrialisation
           </div>
           <div
             style={{

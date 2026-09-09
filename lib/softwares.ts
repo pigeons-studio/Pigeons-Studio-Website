@@ -161,8 +161,8 @@ export const softwaresCatalog: PublicSoftware[] = [
     id: 'pigeons-bt',
     kind: 'firmware',
     name: {
-      fr: 'Pigeons — enceinte Bluetooth',
-      en: 'Pigeons — Bluetooth speaker',
+      fr: 'Pigeons - enceinte Bluetooth',
+      en: 'Pigeons - Bluetooth speaker',
     },
     description: {
       fr: 'Variante Pigeons : réception audio A2DP, flash et config en ligne comme les autres firmwares.',

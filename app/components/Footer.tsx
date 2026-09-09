@@ -74,7 +74,7 @@ export default function Footer() {
         </div>
         
         <div className={styles.footerBottom}>
-          <p>© {new Date().getFullYear()} Pigeons Studio — {tFooter('rights')}</p>
+          <p>© {new Date().getFullYear()} Pigeons Studio - {tFooter('rights')}</p>
         </div>
       </div>
     </footer>

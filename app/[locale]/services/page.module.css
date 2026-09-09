@@ -86,7 +86,7 @@
 }
 
 .cardList li::before {
-  content: '—';
+  content: ' - ';
   position: absolute;
   left: 0;
   opacity: 0.5;

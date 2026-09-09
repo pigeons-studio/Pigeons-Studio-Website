@@ -28,19 +28,20 @@
     }
   },
   "home": {
-    "badge": "Direction créative • Art, robotique & son",
+    "badge": "Art, données, robotique & son",
     "title": "Pigeons Studio",
     "duoLine": "Koo Des (NSDOS) × Julien Thomas",
     "duoCaption": "Un duo à parité : direction artistique et direction technique.",
-    "subtitle": "Direction créative, dispositifs robotiques et son spatialisé. Nous transformons le geste en musique, en mouvement et en expérience collective.",
+    "subtitle": "Un studio d’art et de technologie : données, objets, robotique, et expériences visuelles et sonores.",
     "todo": {
       "valueProposition": "Value proposition à valider avec Koo et Julien",
       "identity": "Logo et identité visuelle à fournir"
     },
     "sections": {
       "activities": {
-        "title": "Activités & services",
-        "subtitle": "Ce que le studio propose et proposera : de l’idée à l’objet, de la donnée à l’expérience.",
+        "title": "Activités & dispositifs",
+        "subtitle": "Ce que le studio propose, et les systèmes développés en interne.",
+        "heading": "Activités & services",
         "items": {
           "data": {
             "title": "Data visualisation & data intelligence",
@@ -79,18 +80,18 @@
           "name": "Koo Des (NSDOS)",
           "role": "Direction artistique & musicale",
           "paragraphs": [
-            "Né à Paris en 1984, Kirikoo Des — NSDOS — est un artiste pluridisciplinaire, musicien, performeur et danseur. Son travail relie mouvement, son et technologie.",
-            "Formé à l’Académie Internationale de la Danse après le hip-hop dans les rues de Paris, il cherche un « nouvel ordre sonore » à la croisée de la danse, de la performance, du live coding et de la musique électronique. Il capte des données vivantes — gestes, signaux environnementaux, rythmes biologiques — via des capteurs et des dispositifs conçus sur mesure, notamment avec ORCA.",
+            "Né à Paris en 1984, Kirikoo Des - NSDOS - est un artiste pluridisciplinaire, musicien, performeur et danseur. Son travail relie mouvement, son et technologie.",
+            "Formé à l’Académie Internationale de la Danse après le hip-hop dans les rues de Paris, il cherche un « nouvel ordre sonore » à la croisée de la danse, de la performance, du live coding et de la musique électronique. Il capte des données vivantes - gestes, signaux environnementaux, rythmes biologiques - via des capteurs et des dispositifs conçus sur mesure, notamment avec ORCA.",
             "Admirateur du dadaïsme et du lettrisme, dans une éthique DIY inspirée de Christian Marclay, Stelarc et Donna Haraway, il compose de façon empirique et physique : la musique comme organisme. Ses performances et résidences relient Paris, Berlin, Rome, Tokyo, Mexico, Montréal, La Nouvelle-Orléans, Londres et Amsterdam."
           ],
           "releases": {
             "title": "Projets musicaux",
             "items": [
-              "Money Exchange — 2016, Standalone Complex",
-              "Intuition Vol. 1 & 2 — 2017–2018, données de mouvement captées en Alaska",
-              "Micro Club — 2021",
-              "Champignonner.Photomontage.Ultrasonique Vol. 1 & 2 — 2024",
-              "Activate Cities — 2025, avec NORKHAT"
+              "Money Exchange - 2016, Standalone Complex",
+              "Intuition Vol. 1 & 2 - 2017-2018, données de mouvement captées en Alaska",
+              "Micro Club - 2021",
+              "Champignonner.Photomontage.Ultrasonique Vol. 1 & 2 - 2024",
+              "Activate Cities - 2025, avec NORKHAT"
             ]
           }
         },
@@ -99,18 +100,24 @@
           "role": "Design, direction technique & systèmes",
           "description": "Designer, concepteur et développeur. Son parcours relie les concept cars, des expériences exobiologiques et musicales à bord de la Station spatiale internationale, plusieurs années en conception électronique aéronautique, et la robotique pour un studio de production vidéo. Il conçoit aujourd’hui l’architecture système, l’électronique embarquée et les dispositifs interactifs spatialisés de Pigeons Studio."
         },
+        "history": {
+          "title": "Comment le duo s’est formé",
+          "p1": "En 2020, Koo Des et Julien Thomas se rencontrent lors d’une résidence artistique organisée par <matrice>Matrice</matrice> et l’Institut de France. Leur premier geste commun : imaginer des dispositifs haptiques synchronisés avec un monde en réalité virtuelle, sur Mozilla Hubs.",
+          "p2": "Ils poursuivent ensuite ces capteurs à travers d’autres résidences et des sessions de travail à deux, pour les faire coller à leur univers artistique. Gyroscope, accéléromètre, magnétomètre, processeur et écran s’ajoutent à l’objet : de quoi calculer le DFA, dans le sillage d’<eightos>EightOS</eightos>, et d’une identité visuelle assez forte pour faire de l’activation une quasi-cérémonie.",
+          "p3": "Le retour haptique évolue plus tard vers une conduction osseuse triphonique. En parallèle, le duo travaille ensemble sur des projets d’art numérique, de synthétiseurs et de robotique, parfois jusqu’à instrumenter une machine à tatouer. Récemment, une collaboration artistique en soft robotique a commencé avec Selma Lepart."
+        },
         "highlights": {
-          "title": "Highlights",
+          "title": "Parcours de Koo",
           "items": {
             "intuition": {
               "title": "Intuition",
-              "meta": "Alaska · 2017–2018",
+              "meta": "Alaska · 2017-2018",
               "description": "Enquête de terrain autour de stations météorologiques et du biofeedback : les mouvements de la nature, convertis en données, deviennent sons, textures et rythmes. L’album clôt une vision organique de la musique, documentée par une série de cinq films, du terrain au studio."
             },
             "selm": {
-              "title": "S.E.L.M. — New Orleans",
+              "title": "S.E.L.M. - New Orleans",
               "meta": "Villa Albertine · 2023",
-              "description": "Résidence à La Nouvelle-Orléans pour Send Everyday Life Movement : une danse abstraite du corps, par compilation de gestes captés et « réhumanisation » de la donnée. Immersion dans une ville-performance — second lines, Mardi Gras, Black Indians, clubs — pour élargir la gamme expressive du danseur."
+              "description": "Résidence à La Nouvelle-Orléans pour Send Everyday Life Movement : une danse abstraite du corps, par compilation de gestes captés et « réhumanisation » de la donnée. Immersion dans une ville-performance - second lines, Mardi Gras, Black Indians, clubs - pour élargir la gamme expressive du danseur."
             },
             "activateCities": {
               "title": "Activate Cities",
@@ -190,7 +197,7 @@
         "subtitle": "Une collaboration de long terme avec Dmitry Paranyushkin.",
         "paragraphs": [
           "EightOS (∞OS) est un système d’exploitation open source pour le bodymind, co-créé avec Dmitry Paranyushkin sous licence CC BY-SA 4.0 depuis 2015. Le projet explore les dynamiques naturelles et les technologies du soi : une pratique incarnée, distincte de Pigeons Studio et de la plateforme matérielle AS-SIMT.",
-          "À travers des exercices physiques et des expériences interactives, EightOS ancre des principes — adaptabilité, variabilité fractale, confluence, intégrité, friction, résilience, modularité — au niveau des réflexes, pas seulement de la pensée. L’apprentissage passe par le corps : comprendre une métaphore en la vivant.",
+          "À travers des exercices physiques et des expériences interactives, EightOS ancre des principes - adaptabilité, variabilité fractale, confluence, intégrité, friction, résilience, modularité - au niveau des réflexes, pas seulement de la pensée. L’apprentissage passe par le corps : comprendre une métaphore en la vivant.",
           "La collaboration se prolonge dans des programmes d’activation, des sessions de recherche incarnée, et SelfSense : une application et des capteurs qui entraînent la variabilité fractale du mouvement, de la respiration et du rythme cardiaque, avec un retour en direct sur la fractalité du geste."
         ],
         "linkLabel": "Voir 8os.io",
@@ -199,7 +206,7 @@
       "nike": {
         "eyebrow": "Partenaire de long terme",
         "title": "Nike",
-        "description": "Une collaboration et un sponsoring avec Nike depuis plus de dix ans, sur plusieurs projets — de la conception à l’activation."
+        "description": "Une collaboration et un sponsoring avec Nike depuis plus de dix ans, sur plusieurs projets - de la conception à l’activation."
       },
       "shop": {
         "title": "Boutique",
@@ -272,7 +279,7 @@
             ]
           },
           "go2": {
-            "title": "Go2 (Unitree) — création sur mesure",
+            "title": "Go2 (Unitree) - création sur mesure",
             "description": "Robot quadrupède pour performances, installations et créations.",
             "features": [
               "Chorégraphies & scénographie",
@@ -282,20 +289,28 @@
           }
         }
       },
+      "work": {
+        "title": "Projets & références",
+        "subtitle": "Parcours, réalisations du studio et collaborations."
+      },
       "projects": {
         "title": "Projets & Réalisations",
+        "heading": "Projets",
         "items": {
           "as-simt": {
-            "title": "Capteurs de mouvement AS-SIMT / EightOS",
-            "description": "Capteurs portables transformant le mouvement en retours visuels, haptiques et sonores en temps réel. Développés par Julien et joués par Koo sur scène. Présentations à la Biennale de Gwangju, IMPACT (Théâtre de Liège) et HOT‑SHOP 14 (ECCO Leather)."
+            "title": "Capteurs de mouvement AS-SIMT",
+            "description": "Capteurs portables transformant le mouvement en retours visuels, haptiques et sonores en temps réel. Développés par Julien et joués par Koo sur scène. Présentations à la Biennale de Gwangju, IMPACT (Théâtre de Liège) et HOT‑SHOP 14 (ECCO Leather).",
+            "tags": ["Capteurs haptiques", "PCB custom", "ESP32", "OSC"]
           },
           "go2": {
             "title": "Performance robotique Go2 (Unitree)",
-            "description": "Mouvements scénographiés, synchronisation avec lumière et audio, intégrations sur mesure. Projets performatifs incluant modules scéniques et installations interactives."
+            "description": "Mouvements scénographiés, synchronisation avec lumière et audio, intégrations sur mesure. Projets performatifs incluant modules scéniques et installations interactives.",
+            "tags": ["Unitree Go2", "SDK", "ROS2", "Chorégraphie"]
           },
           "installations": {
             "title": "Installations interactives",
-            "description": "Dispositifs scéniques pilotés en temps réel, synchronisation audio‑lumière avec retours capteurs. Électronique et firmware dédiés pour modulations et effets."
+            "description": "Dispositifs scéniques pilotés en temps réel, synchronisation audio‑lumière avec retours capteurs. Électronique et firmware dédiés pour modulations et effets.",
+            "tags": ["Audio I2S", "IMU 9 axes", "DMX/Art‑Net", "Synchronisation"]
           }
         },
         "todo": {
@@ -312,10 +327,10 @@
       "process": {
         "title": "Approche",
         "steps": {
-          "discovery": "Découverte — besoins, contraintes, objectifs.",
-          "design": "Conception — architecture, schémas, routage.",
-          "prototype": "Prototype — fabrication, assemblage, tests.",
-          "industrialization": "Industrialisation — validation, documentation, transfert."
+          "discovery": "Découverte - besoins, contraintes, objectifs.",
+          "design": "Conception - architecture, schémas, routage.",
+          "prototype": "Prototype - fabrication, assemblage, tests.",
+          "industrialization": "Industrialisation - validation, documentation, transfert."
         }
       },
       "references": {
@@ -323,7 +338,7 @@
         "subtitle": "Collaborations, présentations et couverture presse.",
         "brands": {
           "title": "Collaborations marques",
-          "description": "Projets menés avec des marques sur des dispositifs sur mesure, de la conception à l’activation."
+          "description": "Collaboration et sponsoring avec Nike depuis plus de dix ans, sur plusieurs projets - de la conception à l’activation."
         },
         "institutions": {
           "title": "Festivals & institutions",
@@ -340,7 +355,7 @@
         },
         "residencies": {
           "title": "Résidences & partenaires",
-          "description": "Résidence Villa Albertine à La Nouvelle-Orléans en 2023 autour du projet S.E.L.M. (Send Everyday Life Movement), avec l’institut Matrice et le laboratoire ETHICS de l’Université Catholique de Lille."
+          "description": "Résidences et partenaires de recherche, dont Matrice et l’Institut de France, la Villa Albertine, et le laboratoire ETHICS de l’Université Catholique de Lille."
         }
       },
       "contact": {
@@ -641,7 +656,7 @@
   },
   "about": {
     "title": "À propos",
-    "subtitle": "Pigeons Studio — Koo Des (NSDOS) × Julien Thomas, direction créative, robotique et son spatialisé",
+    "subtitle": "Pigeons Studio - Koo Des (NSDOS) × Julien Thomas, direction créative, robotique et son spatialisé",
     "sections": {
       "mission": {
         "title": "Notre mission",
@@ -671,11 +686,11 @@
     "sources": {
       "title": "Sources",
       "villaAlbertine": {
-        "label": "Fiche de résidence Villa Albertine — NSDOS",
+        "label": "Fiche de résidence Villa Albertine - NSDOS",
         "url": "https://villa-albertine.org/va/residents/nsdos/"
       },
       "eightos": {
-        "label": "EightOS — 8os.io",
+        "label": "EightOS - 8os.io",
         "url": "https://8os.io/"
       }
     },
