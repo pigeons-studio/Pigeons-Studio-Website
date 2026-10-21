@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>[hidden]{display:none!important}</style>
+<title>Pigeons Studio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+/* Un viseur cadré sur le noir d'Orca : en 3D, quatre étages et quatre glyphes-menus ; un clic descend en 2D, une page nette */
+:root {
+  --nuit: #000; --encre: #f2f0ea; --gris: #8a8780; --trait: #2c2b29;
+  --or: #ffb545; --cyan: #72dec2; --rose: #ff5fae;
+  --mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  --marge: clamp(12px, 3vw, 28px);
+  color-scheme: dark;
+}
+html, body { height: 100%; margin: 0; overflow: hidden; background: var(--nuit); color: var(--encre); font-family: var(--mono); font-size: 12px; }
+body, canvas, button { cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEGUlEQVR4nNVXXWibVRh+3vP9pIlJf6wFGSi9sZPuohebG4gzjqZN12l3MVIGXoiK00tBvPDGrwFh4IWCQ7Qi9krQBiazzfqTzqwXGzjqhQxFx9xuHL1w0NX1L8l3zivnfOkcM+mSbOvwCSEfh/Od9znv+7zPOQH+b2AGMXtC/z6E4J64k8w2BQbx6G7HPOcPt/LlI3t4LN50P0hQXUSmkodKrL5YKcgdbRHn57V1ORg5PLdoFiJwIwTEXXc+nnJ5ur9HTvV9gIh16seL13e8eXyhiMeaekI2vWwCn41baBD2VsHNQ/NyFETPCeJdarV0eV93+85Pn4gJrJaURbwT2wkGiGeS73H+IPOZAebJxEwlcdYDUVPQ8ZTFC8ccAnh5mUfVSmndVJzRxfm4DaRZz3sgBAhgGs5IXFlSuiwtEX5KhISLgvQRtjuxGtpvdDCech4IgVtIlZVO/AaabAvM0uTAwoc8nmih4UwxyEZ9oFom6Z3r4JxLtKBAf8CmdkhmKAbCNkGpS9jgt2koN2XES0Hm7l8GzpbbrEQvIWq3w1d69wRBhA1fgagLEes0Tyfex4hnHKFWgxKoBwr7IMjo8tYYkUBBKhR8ieZQGnvPfwN4pEnXQkLURYA4plXw33ESAAksFYpodVPInvuMDsz7tRiUqIsAIxBeFXoAubhRLCHmHuOJ3lc0ibsJU9RFAPTTZmduQdLGuq/gWif4u2SnIbGFUVFdXXB6oAMsr0AgAmnUXvl93aJh20JRXgBbz2Ml5iOVUZUOLFELAROcUxYNTv8FxiiaXQFmf4sXLKxJH1F3L5T/sTGyKnqgWggEm9JzPcLs+TAkzuERuwc3S0UQuXdMVYFMzNISMcfBjcJRGjrzrdaDEWcjGiCdvpE0KJlbxbo4iA15Ea0hF1z+bMIRAq4l4AqdJQtrfhEh+0s+ldxl9DCeshoWIaWh2PMEHZlZRMmJY9X/CjYxbNKmBFgEFOWfKKrfUZBXDRFHuLApCluN6TJqS7/dH0Q9BAISacUeBL2YXaLkzOsg7gHjEpivg7AHj7Z14UKuG51tT8OX++Grk5AMxJxnMLn0EVF1PTRyOzY9ztnEAmcT81XnZhNvcS7JPD/IPNF31IyVSyHQKLTtUDroccaTUHTNXNcXdjtlrw7uEVp4h+Y+x7p8TbNGiD7hk73tujN0JhsnsNkZmV8363kNIwBuRrVLBd/hjDTC05eZobkx/F16Fx3hDjSJWc7Ho4B3D8Fva2HO9i3y94lXzXMV690c54nEcZ5Lfs2T8ccbvUWZ+pkUT/S+wPmBH0x9Z/t/48n+Z402vMqlrXQ6ioYYaFvVSSB1FYQT2PAPwKZ3AJaBX1Q+sAJH9YTZwMP4a1cJVHG0RgQiTP2bxV+6WfvEvay57fgHgu/1DzxPYmYAAAAASUVORK5CYII=') 9 6, crosshair; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; }
+button:focus-visible { outline: 1px solid var(--cyan); outline-offset: 3px; }
+#monde { position: fixed; inset: 0; display: block; width: 100%; height: 100%; touch-action: none; }
+
+/* le cadre */
+#cadre { position: fixed; pointer-events: none; z-index: 3;
+  top: calc(var(--marge) + env(safe-area-inset-top, 0px)); bottom: calc(var(--marge) + env(safe-area-inset-bottom, 0px));
+  left: max(var(--marge), env(safe-area-inset-left, 0px)); right: max(var(--marge), env(safe-area-inset-right, 0px));
+  border: 1px solid var(--trait); }
+#cadre .c { position: absolute; display: flex; gap: 14px; align-items: baseline; padding: 10px 14px; letter-spacing: .08em; pointer-events: auto; }
+#cadre .hg { top: 0; left: 0; letter-spacing: .32em; }
+#cadre .hd { top: 0; right: 0; }
+#cadre .bg { bottom: 0; left: 0; color: var(--gris); }
+#cadre .bd { bottom: 0; right: 0; }
+#etat b { color: var(--encre); font-weight: 400; }
+#panier { color: var(--or); }
+#retour { color: var(--gris); }
+#retour:hover, #panier:hover { color: var(--encre); }
+#retour[hidden] { display: none; }
+.coin { position: absolute; width: 10px; height: 10px; border: 0 solid var(--gris); }
+.coin.a { left: -1px; top: -1px; border-width: 1px 0 0 1px; } .coin.b { right: -1px; top: -1px; border-width: 1px 1px 0 0; }
+.coin.c { left: -1px; bottom: -1px; border-width: 0 0 1px 1px; } .coin.d { right: -1px; bottom: -1px; border-width: 0 1px 1px 0; }
+
+/* le tracker : un seul, sur ce qu'on survole */
+#trk { position: fixed; left: 0; top: 0; z-index: 4; pointer-events: none; opacity: 0; transition: opacity .15s; --c: var(--or); }
+#trk.on { opacity: 1; }
+#trk i { position: absolute; width: 10px; height: 10px; border: 0 solid var(--c); }
+#trk i:nth-child(1) { left: 0; top: 0; border-width: 1px 0 0 1px; } #trk i:nth-child(2) { right: 0; top: 0; border-width: 1px 1px 0 0; }
+#trk i:nth-child(3) { left: 0; bottom: 0; border-width: 0 0 1px 1px; } #trk i:nth-child(4) { right: 0; bottom: 0; border-width: 0 1px 1px 0; }
+#trk span { position: absolute; left: 100%; top: 0; margin-left: 10px; white-space: nowrap; line-height: 16px; color: var(--c); letter-spacing: .06em; }
+#trk span em { display: block; font-style: italic; color: var(--gris); letter-spacing: 0; }
+
+/* la page 2D */
+#page { position: fixed; z-index: 2; overflow-y: auto; opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s; transform: translateY(10px);
+  top: calc(var(--marge) + env(safe-area-inset-top, 0px) + 44px); bottom: calc(var(--marge) + env(safe-area-inset-bottom, 0px) + 44px);
+  left: max(var(--marge), env(safe-area-inset-left, 0px)); right: max(var(--marge), env(safe-area-inset-right, 0px)); }
+#page.on { opacity: 1; pointer-events: auto; transform: none; }
+#page .dedans { max-width: 880px; margin: 0 auto; padding-inline: 16px; padding-block: 8px 24px; display: flex; flex-direction: column; gap: 28px; }
+.familles { display: flex; gap: 8px; }
+.familles button { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--trait); background: rgba(0,0,0,.6); }
+.familles button[aria-current="true"] { border-color: var(--or); }
+.familles button:hover { border-color: var(--gris); }
+.familles svg { width: 22px; height: 22px; display: block; }
+.titre { display: flex; gap: 18px; align-items: center; }
+.titre svg { width: 56px; height: 56px; flex: none; }
+.titre h1 { margin: 0; font-size: 22px; line-height: 28px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; }
+.titre p { margin: 2px 0 0; color: var(--gris); font-style: italic; }
+.chapo { margin: 0; max-width: 62ch; line-height: 20px; }
+.grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px; background: var(--trait); border: 1px solid var(--trait); }
+.prod { background: rgba(0,0,0,.88); padding: 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.prod .ref { color: var(--gris); font-size: 10px; letter-spacing: .14em; }
+.prod h2 { margin: 0; font-size: 14px; font-weight: 600; letter-spacing: .04em; }
+.prod p { margin: 0; color: var(--gris); line-height: 18px; flex: 1; }
+.prod .pied { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 6px; }
+.prod .prix { color: var(--or); font-variant-numeric: tabular-nums; }
+.btn { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; padding: 6px 10px; border: 1px solid var(--or); color: var(--or); }
+.btn.plein { background: var(--or); color: var(--nuit); }
+.btn:hover { background: var(--or); color: var(--nuit); }
+.btn.doux { border-color: var(--trait); color: var(--gris); }
+.btn.doux:hover { background: var(--encre); color: var(--nuit); border-color: var(--encre); }
+.bio { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; line-height: 20px; }
+.bio h2 { margin: 0 0 6px; font-size: 11px; font-weight: 400; letter-spacing: .2em; color: var(--gris); text-transform: uppercase; }
+.bio p { margin: 0; max-width: 62ch; }
+.bio h3 { margin: 0 0 2px; font-size: 14px; font-weight: 600; letter-spacing: .04em; }
+.duo { margin: 0; font-size: 15px; letter-spacing: .06em; }
+.legende { margin: -20px 0 0; color: var(--gris); font-style: italic; }
+
+
+.lead { display: flex; flex-direction: column; gap: 6px; }
+.lead .sur { margin: 0; color: var(--gris); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; }
+.lead .duo { font-size: 16px; } .lead .legende { margin: 0; }
+.texte p, .vide { margin: 0; max-width: 62ch; line-height: 20px; }
+.vide { color: var(--gris); }
+.etiquette { margin: 0 0 10px; font-size: 10px; font-weight: 400; letter-spacing: .2em; color: var(--gris); text-transform: uppercase; }
+.liste dl { margin: 0; display: grid; grid-template-columns: minmax(0, 15em) minmax(0, 1fr); gap: 10px 24px; line-height: 18px; }
+.liste dt { color: var(--encre); } .liste dd { margin: 0; color: var(--gris); max-width: 60ch; }
+@media (max-width: 560px) { .liste dl { grid-template-columns: 1fr; gap: 2px; } .liste dd { margin-bottom: 10px; } }
+.tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.tags span { font-size: 10px; color: var(--gris); border: 1px solid var(--trait); padding: 1px 6px; }
+.films { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+.film { margin: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.film video { width: 100%; aspect-ratio: 4 / 5; max-width: 100%; background: #0b0b0a; border: 1px solid var(--trait); display: block; }
+.film h2 { margin: 0; font-size: 13px; font-weight: 600; letter-spacing: .04em; }
+.film p { margin: 0; color: var(--gris); line-height: 17px; }
+.film .duree { font-size: 10px; color: var(--gris); letter-spacing: .1em; }
+#tiroir p { margin: 0; line-height: 18px; } #tiroir .sujet { color: var(--cyan); }
+#tiroir .mail { display: flex; justify-content: space-between; align-items: center; gap: 8px; color: var(--or); user-select: all; }
+#page .dedans { background: rgba(0,0,0,.72); }
+.grille { background: none !important; border: 0 !important; gap: 1px !important; }
+.prod { box-shadow: 0 0 0 1px var(--trait); }
+.prod h2 { overflow-wrap: anywhere; }
+.rayon { display: flex; align-items: center; gap: 12px; margin-top: 8px; padding-top: 18px; border-top: 1px dashed var(--trait); }
+.rayon svg { width: 24px; height: 24px; flex: none; }
+.rayon h2 { margin: 0; font-size: 13px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+.rayon span { color: var(--gris); font-style: italic; }
+#tiroir form { display: flex; flex-direction: column; gap: 10px; }
+#tiroir label { display: flex; flex-direction: column; gap: 4px; color: var(--gris); font-size: 11px; letter-spacing: .06em; }
+#tiroir input { font: inherit; color: var(--encre); background: #0b0b0a; border: 1px solid var(--trait); padding: 7px 8px; }
+#tiroir input:focus-visible { outline: 1px solid var(--cyan); outline-offset: 0; }
+#tiroir .ligne { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+#tiroir .lien { color: var(--cyan); text-decoration: underline; text-underline-offset: 3px; }
+#cadre .hd { gap: 18px; }
+#connexion { color: var(--gris); } #connexion:hover { color: var(--encre); }
+#tiroir { position: fixed; z-index: 5; right: max(var(--marge), env(safe-area-inset-right, 0px)); top: calc(var(--marge) + env(safe-area-inset-top, 0px) + 40px);
+  width: min(300px, calc(100vw - 2 * var(--marge))); background: #000; border: 1px solid var(--trait); padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+#tiroir[hidden] { display: none; }
+#tiroir ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+#tiroir li { display: flex; justify-content: space-between; gap: 10px; font-variant-numeric: tabular-nums; }
+#tiroir li span:last-child, #tiroir .total { color: var(--or); }
+#tiroir .note { color: var(--gris); font-size: 10px; }
+@media (max-width: 560px) { #cadre .bg .aide { display: none; } }
+</style>
+</head>
+<body>
+
+<canvas id="monde" aria-hidden="true"></canvas>
+<div id="cadre">
+  <i class="coin a"></i><i class="coin b"></i><i class="coin c"></i><i class="coin d"></i>
+  <div class="c hg">PIGEONS//STUDIO</div>
+  <div class="c hd"><button id="connexion" type="button">connexion</button><button id="panier" type="button">contact</button></div>
+  <div class="c bg"><span id="etat"><b>3D</b></span><span class="aide">molette : traverser les étages · clic : entrer</span></div>
+  <div class="c bd"><button id="retour" type="button" hidden>◂ 3D</button></div>
+</div>
+<div id="trk"><i></i><i></i><i></i><i></i><span></span></div>
+<main id="page" aria-live="polite"><div class="dedans" id="contenu"></div></main>
+<aside id="tiroir" hidden aria-label="contact"></aside>
+
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.module.js'
+
+// ================================================================ les familles du site, chacune sous un signe de l'alphabet partagé As-Simt
+// (contenu repris de messages/fr.json du dépôt pigeons-studio/Pigeons-Studio-Website)
+const SIGNES = {"E083": {"mot": "paume", "rows": ["#..#..##", "##.##..#", "........", "#..#..##", "#..#..##", "##.##..#", "##.##.##", "##.##..#"]}, "E113": {"mot": "double", "rows": ["##.##..#", ".#..#.##", "........", "#..#..##", "#..#...#", "##.##.##", "#..#..##", "##.##.#."]}, "E132": {"mot": "faire", "rows": ["#..#..##", "##.##..#", ".#..#...", "##.##.##", ".#..#.##", "##.##..#", "#..#..##", "#..#...#"]}, "E140": {"mot": "donner", "rows": ["##.#..##", ".#.##..#", "....#...", "##.##.##", "##..#.##", ".#.##..#", "##.#..##", ".#.#...#"]}, "E0EE": {"mot": "graine", "rows": ["##.#..##", ".#.##.##", "......#.", "#..#..#.", "#..#..#.", "##.##.##", "#..##.##", "##.##.##"]}, "E082": {"mot": "peau", "rows": ["##.#..#.", "...##.##", "#......#", "...##.##", "##.##..#", "....#.##", "#..##.#.", "##.##.#."]}, "E11C": {"mot": "vibration", "rows": ["#..#..#.", "##.##.##", ".#.....#", "##.##.##", ".#.##..#", "##..#.##", "#..##.#.", "#..##.#."]}, "E119": {"mot": "machine", "rows": ["#..##...", "##..#...", ".#......", "##.#....", ".#.#....", "##.##...", "#..#....", "#..##..."]}, "E130": {"mot": "signal", "rows": ["##.#..##", "##.##.##", "#...#.#.", "#..##.#.", "#...#.#.", "##.##.##", "##.#..##", "##.#..##"]}}
+const FAMILLES = [
+  { id: 'bio', nom: 'bio', code: 'B', signe: 'E113', pourquoi: 'deux, à parité', teinte: 0xf2f0ea, css: '#f2f0ea',
+    blocs: [
+      { t: 'lead', sur: 'Art, données, robotique & son', duo: 'Koo Des (NSDOS) × Julien Thomas', legende: 'Un duo à parité : direction artistique et direction technique.' },
+      { t: 'texte', p: 'Pigeons Studio réunit à parité une direction artistique et une direction technique. Nous concevons des dispositifs où le geste devient musique, mouvement et expérience collective, pour la scène, l’installation et les marques. De la recherche au déploiement, nous portons le projet de la conception à la réalisation.' },
+      { t: 'deux', items: [
+        ['Koo Des (NSDOS)', 'Direction artistique & musicale', 'Né à Paris en 1984, Kirikoo Des - NSDOS - est un artiste pluridisciplinaire, musicien, performeur et danseur. Formé à l’Académie Internationale de la Danse après le hip-hop dans les rues de Paris, il cherche un « nouvel ordre sonore » à la croisée de la danse, de la performance, du live coding et de la musique électronique. Il capte des données vivantes - gestes, signaux environnementaux, rythmes biologiques - via des capteurs et des dispositifs conçus sur mesure, notamment avec ORCA.'],
+        ['Julien Thomas', 'Design, direction technique & systèmes', 'Designer, concepteur et développeur. Son parcours relie les concept cars, des expériences exobiologiques et musicales à bord de la Station spatiale internationale, plusieurs années en conception électronique aéronautique, et la robotique pour un studio de production vidéo. Il conçoit aujourd’hui l’architecture système, l’électronique embarquée et les dispositifs interactifs spatialisés de Pigeons Studio.']] },
+      { t: 'texte', titre: 'Comment le duo s’est formé', p: 'En 2020, Koo Des et Julien Thomas se rencontrent lors d’une résidence artistique organisée par Matrice et l’Institut de France. Leur premier geste commun : imaginer des dispositifs haptiques synchronisés avec un monde en réalité virtuelle, sur Mozilla Hubs. Le retour haptique évolue plus tard vers une conduction osseuse triphonique. En parallèle, le duo travaille sur des projets d’art numérique, de synthétiseurs et de robotique. Récemment, une collaboration en soft robotique a commencé avec Selma Lepart.' },
+      { t: 'liste', titre: 'Références', items: [
+        ['Nike', 'Collaboration et sponsoring depuis plus de dix ans, de la conception à l’activation.'],
+        ['Festivals & institutions', 'Mutek (Mexico, Montréal, Tokyo), BIAN de Montréal, Biennale de Gwangju, Triennale de Milan, Martin Gropius Bau (Berlin, programme Breathe), IMPACT (Théâtre de Liège), HOT‑SHOP 14 (ECCO Leather).'],
+        ['Résidences', 'Matrice et l’Institut de France, Villa Albertine, laboratoire ETHICS de l’Université Catholique de Lille.'],
+        ['EightOS (∞OS)', 'Système d’exploitation open source pour le bodymind, co-créé avec Dmitry Paranyushkin depuis 2015. Un projet distinct de Pigeons Studio.']] }] },
+  { id: 'projets', nom: 'projets', code: 'P', signe: 'E132', pourquoi: 'ce que nos mains font', teinte: 0xd8d4ff, css: '#c9c4ff',
+    blocs: [
+      { t: 'texte', p: 'Parcours, réalisations du studio et collaborations.' },
+      { t: 'cartes', items: [
+        { nom: 'Capteurs de mouvement AS-SIMT', sens: 'Capteurs portables transformant le mouvement en retours visuels, haptiques et sonores en temps réel. Développés par Julien, joués par Koo sur scène. Biennale de Gwangju, IMPACT (Théâtre de Liège), HOT‑SHOP 14.', tags: ['Capteurs haptiques', 'PCB custom', 'ESP32', 'OSC'] },
+        { nom: 'Performance robotique Go2 (Unitree)', sens: 'Mouvements scénographiés, synchronisation avec lumière et audio, intégrations sur mesure. Modules scéniques et installations interactives.', tags: ['Unitree Go2', 'SDK', 'ROS2', 'Chorégraphie'] },
+        { nom: 'Installations interactives', sens: 'Dispositifs scéniques pilotés en temps réel, synchronisation audio‑lumière avec retours capteurs. Électronique et firmware dédiés.', tags: ['Audio I2S', 'IMU 9 axes', 'DMX/Art‑Net'] }] },
+      { t: 'liste', titre: 'Parcours de Koo', items: [
+        ['Intuition · Alaska · 2017-2018', 'Stations météorologiques et biofeedback : les mouvements de la nature, convertis en données, deviennent sons, textures et rythmes.'],
+        ['S.E.L.M. · Villa Albertine · 2023', 'Résidence à La Nouvelle-Orléans : une danse abstraite du corps, par compilation de gestes captés et « réhumanisation » de la donnée.'],
+        ['Activate Cities · NSDOS × NORKHAT · 2025', 'Parcours urbains et QR codes dans l’espace public : une carte sonore interactive qui relie l’album à la ville.']] }] },
+  { id: 'services', nom: 'services', code: 'S', signe: 'E140', pourquoi: 'ce que l’on offre', teinte: 0x9fd8ff, css: '#9fd8ff',
+    blocs: [
+      { t: 'texte', p: 'Du prototype à l’industrialisation. Marques, institutions, robotique et IA : parlons de votre projet.' },
+      { t: 'liste', titre: 'Activités', items: [
+        ['Data visualisation & data intelligence', 'Extraire et mettre en forme les données environnementales pour en faire des visualisations artistiques.'],
+        ['Consulting en creative technology', 'Projets à la croisée de l’art, du design et de l’ingénierie.'],
+        ['Direction artistique', 'Univers, expériences et langages visuels et sonores.'],
+        ['Digital Art', 'Installations et dispositifs immersifs.'],
+        ['Créations physiques sur mesure', 'Design et électronique, CNC, métal, résines, bois, plastiques, silicones.'],
+        ['Computer Dance Music', 'Musique écrite avec et pour le corps en mouvement.'],
+        ['Robotic Sound Hardware', 'Objets sonores robotiques et dispositifs autonomes.']] },
+      { t: 'cartes', items: [
+        { nom: 'Création d’objets audio', sens: 'Objets et modules sur mesure pour la scène et l’installation.', tags: ['Synthés/contrôleurs', 'Modules sonores', 'Pièces uniques'] },
+        { nom: 'Capteurs & interaction', sens: 'Capteurs et interfaces pour gestes, mouvement, lumière.', tags: ['Gestes & mouvement', 'Interaction scénique'] },
+        { nom: 'Objets & installation', sens: 'Intégration d’objets et dispositifs pour la performance.', tags: ['Prototype → scène', 'Systèmes sur mesure'] },
+        { nom: 'Conception 3D', sens: 'Forme, matière et usage pour des objets expressifs.', tags: ['Design d’objets', 'Prototypage rapide'] },
+        { nom: 'Scénographie & lumière', sens: 'Dispositifs lumineux et interactions pour l’espace scénique.', tags: ['Lumière réactive', 'Mapping & DMX'] },
+        { nom: 'Go2 (Unitree) sur mesure', sens: 'Robot quadrupède pour performances, installations et créations.', tags: ['Chorégraphies', 'Modules scéniques'] }] },
+      { t: 'devis' }] },
+  { id: 'futur', nom: 'futurs projets', code: 'F', signe: 'E0EE', pourquoi: 'futur = graine · loin · lumière', teinte: 0xb6ff8a, css: '#b6ff8a',
+    blocs: [
+      { t: 'texte', p: 'Ce qui pousse à l’atelier. Des films de travail, en cours.' },
+      { t: 'films', items: [
+        { src: 'films/orca-glyph-explication.mp4', nom: 'ORCA//GLYPH', sens: 'Orca en volume : des étages de grilles, des glyphes As-Simt extrudés, un pigeon d’or pour curseur.', duree: '4 min' },
+        { src: 'films/cave-four-robots.mp4', nom: 'CAVE // FOUR ROBOTS', sens: 'Une performance spatialisée : quatre robots Unitree porteurs de mégaphones, dans une grotte.', duree: '1 min' },
+        { src: 'films/language-of-images.mp4', nom: 'Langue des images', sens: 'Une langue poétique où tout se dit par des images concrètes : la source des signes de ce site.', duree: '2 min' },
+        { src: 'films/teammate-poto-pigeons.mp4', nom: 'TEAMMATE.POTO · Pigeons', sens: 'Un partenaire d’improvisation, pas un accompagnateur. Sur Monome Norns, il n’apprend que de toi, dans l’instant : pas d’IA générative, pas de presets.', duree: '2 min' },
+        { src: 'films/teammate-poto-les-vrais-ecrans.mp4', nom: 'TEAMMATE.POTO · Les vrais écrans', sens: 'Les vrais écrans du Norns, couche par couche : le dialogue, POtO, 8OS, MIDI GEN, Audio→MIDI, METABO, NIAKABY et PERU.', duree: '17 min' }] }] },
+  { id: 'boutique', nom: 'boutique', code: 'B', signe: 'E083', pourquoi: 'argent = sel · signal · paume', teinte: 0xffb545, css: '#ffb545',
+    blocs: [
+      { t: 'texte', p: 'Matériel audio et artistique, objets et disques, conçus et fabriqués au studio. Le paiement en ligne arrive bientôt : en attendant, on écrit au studio.' },
+      { t: 'rayon', titre: 'Accessoires', signe: 'E082', code: 'A', vide: 'Objets à porter, à venir.' },
+      { t: 'rayon', titre: 'Electronic gear', signe: 'E119', code: 'G', items: [
+        { nom: 'Capteur AS-SIMT', sens: 'Capteur de mouvement haptico-sonore : écran embarqué, centrale de mouvement 9 axes, transducteurs à conduction osseuse.', prix: 'À venir' },
+        { nom: 'Module Audio I2S', sens: 'Module audio multi-canal embarqué.', prix: 'À venir' },
+        { nom: 'PCB Custom', sens: 'Conception sur mesure.', prix: 'Sur devis' }] },
+      { t: 'rayon', titre: 'Musique', signe: 'E11C', code: 'M', items: [
+        { nom: 'Activate Cities', sens: '2025, NSDOS × NORKHAT. Une carte sonore qui relie l’album à la ville.', prix: 'À venir' },
+        { nom: 'Champignonner.Photomontage.Ultrasonique Vol. 1 & 2', sens: '2024.', prix: 'À venir' },
+        { nom: 'Micro Club', sens: '2021.', prix: 'À venir' },
+        { nom: 'Intuition Vol. 1 & 2', sens: '2017-2018, données de mouvement captées en Alaska.', prix: 'À venir' },
+        { nom: 'Money Exchange', sens: '2016, Standalone Complex.', prix: 'À venir' }] }] },
+  { id: 'logiciels', nom: 'logiciels', code: 'L', signe: 'E130', pourquoi: 'signal', teinte: 0xe0e0e0, css: '#cfcfcf',
+    blocs: [
+      { t: 'texte', p: 'Applications web, firmwares flashables en ligne et logiciels PC sous licence.' },
+      { t: 'cartes', items: [
+        { nom: 'Applications web', sens: 'Des outils qui s’ouvrent dans le navigateur.', prix: 'À venir' },
+        { nom: 'Firmwares embarqués', sens: 'Flash en ligne depuis Google Chrome (Web Serial), configuration de la carte au premier démarrage.', prix: 'À venir' },
+        { nom: 'Logiciels PC', sens: 'Outils temps réel du studio, sous licence.', prix: 'Bientôt disponible' }] }] }
+]
+const W = 16; const D = 10; const GAP = 2.7; const G = 1.8
+const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches
+
+// ================================================================ scène
+const canvas = document.getElementById('monde')
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2))
+const scene = new THREE.Scene()
+scene.background = new THREE.Color(0x000000)
+scene.fog = new THREE.Fog(0x000000, 20, 60)
+const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 400)
+scene.add(new THREE.HemisphereLight(0xffffff, 0x222222, 1.3))
+const lum = new THREE.DirectionalLight(0xffffff, 1.4); lum.position.set(6, 14, 8); scene.add(lum)
+
+function aretes (rows, s) { // contour du glyphe dans le plan xy, case = s/8
+  const on = (c, r) => r >= 0 && r < 8 && c >= 0 && c < 8 && rows[r][c] === '#'
+  const v = s / 8; const pts = []
+  const X = (c) => -s / 2 + c * v; const Y = (r) => s / 2 - r * v
+  for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) {
+    if (!on(c, r)) continue
+    if (!on(c, r - 1)) pts.push(X(c), Y(r), 0, X(c + 1), Y(r), 0)
+    if (!on(c, r + 1)) pts.push(X(c), Y(r + 1), 0, X(c + 1), Y(r + 1), 0)
+    if (!on(c - 1, r)) pts.push(X(c), Y(r), 0, X(c), Y(r + 1), 0)
+    if (!on(c + 1, r)) pts.push(X(c + 1), Y(r), 0, X(c + 1), Y(r + 1), 0)
+  }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3)); return g
+}
+
+const etages = FAMILLES.map((f, e) => {
+  const grp = new THREE.Group(); scene.add(grp)
+  const y0 = e * GAP
+  const plan = new THREE.Mesh(new THREE.PlaneGeometry(W, D), new THREE.MeshBasicMaterial({ color: f.teinte, transparent: true, opacity: 0.04, depthWrite: false, side: THREE.DoubleSide }))
+  plan.rotation.x = -Math.PI / 2
+  const pts = []; const t = 0.1
+  for (let x = -W / 2 + 1; x < W / 2; x += 2) for (let z = -D / 2 + 1; z < D / 2; z += 2) pts.push(x - t, 0, z, x + t, 0, z, x, 0, z - t, x, 0, z + t)
+  const gc = new THREE.BufferGeometry(); gc.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3))
+  const croix = new THREE.LineSegments(gc, new THREE.LineBasicMaterial({ color: 0x5a5953, transparent: true, opacity: 0.6 }))
+  const bord = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(W, D)), new THREE.LineBasicMaterial({ color: f.teinte, transparent: true, opacity: 0.35 }))
+  bord.rotation.x = -Math.PI / 2
+  const zone = new THREE.Mesh(new THREE.BoxGeometry(W, 0.3, D), new THREE.MeshBasicMaterial({ visible: false }))
+  grp.add(plan, croix, bord, zone)
+  // le glyphe-menu : debout au bord droit, en arêtes ; plein quand on le survole
+  const gly = new THREE.Group()
+  const rows = SIGNES[f.signe].rows
+  const trait = new THREE.LineSegments(aretes(rows, G), new THREE.LineBasicMaterial({ color: f.teinte, transparent: true }))
+  const v = G / 8; const vox = []
+  rows.forEach((row, r) => [...row].forEach((c, q) => { if (c === '#') vox.push([-G / 2 + (q + 0.5) * v, G / 2 - (r + 0.5) * v]) }))
+  const plein = new THREE.InstancedMesh(new THREE.BoxGeometry(v * 0.96, v * 0.96, v * 2), new THREE.MeshStandardMaterial({ color: f.teinte, transparent: true, emissive: f.teinte, emissiveIntensity: 0.25 }), vox.length)
+  vox.forEach(([x, y], i) => { plein.setMatrixAt(i, new THREE.Matrix4().makeTranslation(x, y, 0)) })
+  plein.scale.z = 0.001
+  const cible = new THREE.Mesh(new THREE.PlaneGeometry(G, G), new THREE.MeshBasicMaterial({ visible: false, side: THREE.DoubleSide }))
+  gly.add(trait, plein, cible)
+  gly.position.set(W / 2 + 1.6, G / 2 + 0.15, 0)
+  grp.add(gly)
+  const pied = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(W / 2, 0, 0), new THREE.Vector3(W / 2 + 1.6, 0, 0)]), new THREE.LineDashedMaterial({ color: f.teinte, dashSize: 0.1, gapSize: 0.1, transparent: true, opacity: 0.5 }))
+  pied.computeLineDistances(); grp.add(pied)
+  zone.userData.e = e; cible.userData.e = e
+  return { f, grp, y0, plan, croix, bord, gly, trait, plein, cible, zone, pied, chaud: 0 }
+})
+const cibles = etages.flatMap((x) => [x.cible, x.zone])
+
+// ================================================================ un petit patch Orca par étage : deux ou trois lignes, sur la grille de points
+// (style de media/demo.orca d'ORCA//GLYPH ; les lettres en glyphes As-Simt)
+const TOUS = { ...{"!": ["##.##.#.", "...##.##", "#..#...#", "...#..##", "##.#...#", "...##.##", "#..##.#.", "##.##.#."], "\"": ["#..##.##", "##......", "...#..#.", "#.......", "#..##.##", "##......", "##.#..#.", "##.##.##"], "#": ["#..#..##", "##.##..#", ".#......", "##.#..##", ".#.#..##", "##.##..#", "#..##.##", "#..##..#"], "$": ["##..#.##", "##.##.##", "#.....#.", "#..##.#.", "#...#.#.", "##.##.##", "##.##.##", "##.#..##"], "%": ["...#...#", "...##.##", "....#...", "...##.##", "....#..#", "...##.##", "...#..##", "...#..#."], "&": ["##.##...", "...##...", "#..#....", "...#....", "##.#....", "...##...", "#..##...", "##.##..."], "'": [".#.##.##", "##.....#", "...#....", "##....#.", ".#.##.#.", "##....##", "##.#..#.", "#..##.##"], "(": ["##.#..##", ".#.##...", "......#.", "##.#....", "##.#..##", ".#.##...", "##.##.#.", ".#.##.##"], ")": ["#.....#.", "##....##", "........", "#.....#.", "#.....#.", "##....##", "##....##", "##....##"], "*": ["##..#..#", "##.##.##", "#.......", "#..##.##", "#...#..#", "##.##.##", "##.##.##", "##.#..#."], "+": ["...#..##", "...##..#", "....#...", "...##.##", "....#.##", "...##..#", "...#..##", "...#...#"], ",": [".#.##...", "##......", "...#....", "##......", ".#.##...", "##......", "##.#....", "#..##..."], "-": ["#..#..#.", "##.##.##", ".#......", "##.#..##", ".#.#..##", "##.##..#", "#..##.##", "#..##.##"], ".": ["##....##", ".#......", "......#.", "##......", "##....##", ".#......", "##....#.", ".#....##"], "/": ["##.##.#.", "##..#.##", "#......#", "#..#..##", "#..#...#", "##.##.##", "##.#..#.", "##.##.#."], "0": ["...#..#.", "...##.##", "....#...", "...##.#.", "....#.#.", "...##.##", "...#..##", "...#..##"], "1": ["#..##.##", "##.....#", "...#....", "#.....#.", "#..##.#.", "##....##", "##.#..#.", "##.##.##"], "2": ["#..#....", "##.##...", "........", "##.#....", "##.#....", ".#.##...", "##.##...", "##.##..."], "3": ["##.##.##", ".#..#..#", "........", "##.##.##", "##.##.##", ".#..#..#", "##.##.##", ".#..#..#"], "4": [".#..#.#.", "##.##.##", ".......#", "##.##.##", ".#..#..#", "##.##.##", "##.##.#.", "#..#..#."], "5": ["##.##.#.", "....#.##", "#.......", "...#..#.", "##.#..#.", "...##.##", "#..#..##", "##.##.##"], "6": ["##.##.##", "##.....#", "#..#....", "#.....#.", "#..##.#.", "##....##", "##.#..#.", "##.##.##"], "7": ["#..#..##", "##.##.##", "....#.#.", "#..##.#.", "#...#.#.", "##.##.##", "##.#..##", "##.#..##"], "8": ["#..##.##", "##..#...", "......#.", "##.##...", "##.##.##", ".#..#...", "##.##.#.", "##..#.##"], "9": ["##.#..#.", ".#.##.##", ".......#", "##.##.##", "##.##..#", ".#..#.##", "##.##.#.", ".#.##.#."], ":": ["##....#.", "......##", "#.......", "......#.", "##....#.", "......##", "#.....##", "##....##"], ";": ["...##.##", "...##..#", "...#....", "...#..#.", "...#..#.", "...##.##", "...##.#.", "...##.##"], "<": ["##.##.##", "##.....#", "#..#....", "#.....##", "#..##.##", "##.....#", "##.#..##", "##.##..#"], "=": ["#...#.##", "##.##...", "......#.", "##.##...", "##..#.##", ".#.##...", "##.##.#.", "##.#..##"], ">": ["##.##...", ".#..#...", "........", "##.##...", "##.##...", ".#..#...", "##.##...", ".#..#..."], "?": ["##.##..#", "....#.##", "#.......", "...#..##", "##.#...#", "...##.##", "#..#..##", "##.##.#."], "@": ["...#..##", "...##..#", "........", "...#..#.", "...#..#.", "...##.##", "...##.#.", "...##.##"], "[": ["##.#....", "##.##...", "#...#...", "#..##...", "#...#...", "##.##...", "##.#....", "##.#...."], "\\": ["#..#..##", "##.##..#", ".#......", "##.##.#.", ".#.##.#.", "##..#.##", "#..##.#.", "#..##.##"], "]": ["##.##.#.", ".#....##", "...#...#", "#.....##", "#..##..#", "##....##", "#..#..#.", "##.##.#."], "^": [".#.##.##", "##..#..#", "........", "##.##.##", ".#.##.##", "##..#..#", "##.##.##", "#...#..#"], "_": ["#..##.#.", "##.##.##", "...#....", "##.#..#.", "##.#..#.", ".#.##.##", "##.##.##", "##.##.##"], "`": ["##.#..##", "##.##.##", "#.....#.", "#..#..#.", "#..#..#.", "##.##.##", "##.##.##", "##.##.##"], "a": ["##.#....", "...##...", "#.......", "...##...", "##.##...", "....#...", "#..##...", "##.##..."], "b": ["##....##", ".#......", "......#.", "#.......", "#.....##", "##......", "#.....#.", "##....##"], "c": ["##.##..#", ".#..#.##", "........", "##.##.##", "##.##..#", ".#..#.##", "##.##.##", ".#..#.#."], "d": ["#..##.#.", "##.##.##", "...#....", "#..#..#.", "#..#..#.", "##.##.##", "##.##.##", "##.##.##"], "e": ["...##.##", "......##", "...#..#.", "......#.", "...##.#.", "......##", "...#..##", "...##.##"], "f": ["##.#..#.", "##.##.##", "#......#", "#..#..##", "#..#...#", "##.##.##", "##.##.#.", "##.##.#."], "g": ["##....##", ".#.....#", "........", "#.....##", "#.....##", "##.....#", "#.....##", "##.....#"], "h": ["#..##.##", "##..#...", "......#.", "##.#....", "##.#..##", ".#.##...", "##.#..#.", "##.##.##"], "i": ["#..##...", "##.##...", ".#.#....", "##.#....", ".#.#....", "##.##...", "#..##...", "#..##..."], "j": [".#.#..#.", "##.##.##", "........", "##.##.#.", ".#.##.#.", "##..#.##", "##.##.##", "#..##.##"], "k": ["#..#..#.", "##.##.##", "........", "#..#..##", "#..#..##", "##.##..#", "##.##.##", "##.##.##"], "l": ["##....##", ".#....##", "......#.", "##....#.", "##....#.", ".#....##", "##....##", ".#....##"], "m": ["##.##.##", "........", "#..#..#.", "........", "##.##.##", "........", "#..#..#.", "##.##.##"], "n": ["##.##.##", ".#..#..#", "........", "#..##.#.", "#..##.#.", "##..#.##", "#..##.#.", "##..#.##"], "o": ["#..#..#.", "##.##.##", ".#......", "##.##.#.", ".#.##.#.", "##..#.##", "#..##.##", "#..##.##"], "p": ["#..#....", "##.##...", "........", "#..#....", "#..#....", "##.##...", "##.##...", "##.##..."], "q": ["#..##.##", "##.##.##", "...#..#.", "##.#..#.", "##.#..#.", ".#.##.##", "##.##.##", "##.##.##"], "r": [".#.#..##", "##.##..#", "....#...", "##.##.##", ".#..#.##", "##.##..#", "##.#..##", "#..#...#"], "s": ["##....#.", ".#....##", ".......#", "#.....##", "#......#", "##....##", "#.....#.", "##....#."], "t": ["##.#..#.", ".#.##.##", "........", "##.##.#.", "##.##.#.", ".#..#.##", "##.##.##", ".#.##.##"], "u": ["#...#.##", "##.##..#", ".#......", "##.##.#.", ".#..#.#.", "##.##.##", "#..##.#.", "#..#..##"], "v": ["#..##...", "##......", "...#....", "##......", "##.##...", ".#......", "##.#....", "##.##..."], "w": ["...##.##", "...##.##", "...#..#.", "...#..#.", "...#..#.", "...##.##", "...##.##", "...##.##"], "x": ["##.#..#.", ".#.##.##", ".......#", "#..#..##", "#..#...#", "##.##.##", "#..##.#.", "##.##.#."], "y": ["##.#..#.", ".#.##.##", "....#...", "##.##.#.", "##..#.#.", ".#.##.##", "##.#..##", ".#.#..##"], "z": [".#....##", "##......", "......#.", "##......", ".#....##", "##......", "##....#.", "#.....##"], "{": ["#..##.##", "##.....#", ".#.#....", "##....##", ".#.##.##", "##.....#", "#..#..##", "#..##..#"], "|": ["#..#....", "##.##...", "........", "##.##...", "##.##...", ".#..#...", "##.##...", "##.##..."], "}": ["##.#...#", ".#.##.##", "........", "#..#..##", "#..#...#", "##.##.##", "#..##.##", "##.##.#."], "~": ["##.#..##", ".#.##.##", "....#.#.", "##.##.#.", "##..#.#.", ".#.##.##", "##.#..##", ".#.#..##"]} }
+for (const k in {"A": {"mot": "essaim", "fait": "additionne", "rows": ["#..##.#.", "##..#.##", ".#......", "##.##.##", ".#.##.##", "##..#..#", "#..##.##", "#...#.##"]}, "B": {"mot": "disparaître", "fait": "soustrait", "rows": ["#...#.##", "##.##...", ".#....#.", "##.##...", ".#..#.##", "##.##...", "#..##.#.", "#..#..##"]}, "C": {"mot": "battement", "fait": "compte en boucle", "rows": [".#.#..#.", "##.##.##", "....#...", "##.##.#.", ".#..#.#.", "##.##.##", "##.#..##", "#..#..##"]}, "D": {"mot": "pluie", "fait": "bang tous les N pas", "rows": ["#..##.##", "##..#..#", "........", "#..##.##", "#..##.##", "##..#..#", "##.##.##", "##..#..#"]}, "E": {"mot": "aube", "fait": "va vers l'est", "rows": ["...#..#.", "...##.##", "....#..#", "...##.##", "....#..#", "...##.##", "...#..#.", "...#..#."]}, "F": {"mot": "double", "fait": "bang si égaux", "rows": ["##.##..#", ".#..#.##", "........", "#..#..##", "#..#...#", "##.##.##", "#..#..##", "##.##.#."]}, "G": {"mot": "naître", "fait": "écrit plusieurs cases", "rows": ["...##..#", "....#.##", "........", "...##.##", "...##..#", "....#.##", "...##.##", "....#.#."]}, "H": {"mot": "silence", "fait": "arrête la case du dessous", "rows": ["#..##.##", "##..#.##", "......#.", "#..##.#.", "#..##.#.", "##..#.##", "##.##.##", "##..#.##"]}, "I": {"mot": "arbre", "fait": "incrémente", "rows": ["#..#..#.", "##.##.##", "........", "#..##.#.", "#..##.#.", "##..#.##", "##.##.##", "##.##.##"]}, "J": {"mot": "rivière", "fait": "copie vers le sud", "rows": ["#..#..##", "##.##..#", "........", "##.#..##", "##.#..##", ".#.##..#", "##.##.##", "##.##..#"]}, "K": {"mot": "nuée", "fait": "lit des variables", "rows": ["##.##.##", ".#..#.##", "......#.", "#..#..#.", "#..#..#.", "##.##.##", "#..#..##", "##.##.##"]}, "L": {"mot": "petit", "fait": "garde le plus petit", "rows": ["##....##", ".#.....#", "........", "##....#.", "##....#.", ".#....##", "##....#.", ".#....##"]}, "M": {"mot": "lichen", "fait": "multiplie", "rows": [".#.##.##", "##......", "...#..#.", "##......", ".#.##.##", "##......", "##.#..#.", "#..##.##"]}, "N": {"mot": "oiseau", "fait": "va vers le nord", "rows": ["#..##.##", "##.....#", "...#....", "#.....##", "#..##.##", "##.....#", "##.#..##", "##.##..#"]}, "O": {"mot": "je le lis sur toi", "fait": "lit une case", "rows": ["##.##.#.", ".#..#.##", "........", "#..#..##", "#..#..##", "##.##..#", "#..#..##", "##.##.##"]}, "P": {"mot": "donner", "fait": "pousse une valeur", "rows": ["##.#..##", ".#.##..#", "....#...", "##.##.##", "##..#.##", ".#.##..#", "##.#..##", ".#.#...#"]}, "Q": {"mot": "je te demande", "fait": "lit plusieurs cases", "rows": ["##.#..##", "...##.##", "#.....#.", "...##.#.", "##.##.#.", "....#.##", "#..##.##", "##.##.##"]}, "R": {"mot": "vent", "fait": "hasard", "rows": ["...##.##", "....#...", "......#.", "...#....", "...#..##", "...##...", "...#..#.", "...##.##"]}, "S": {"mot": "racine", "fait": "va vers le sud", "rows": [".#....#.", "##....##", "........", "##....#.", ".#....#.", "##....##", "##....##", "#.....##"]}, "T": {"mot": "tisser", "fait": "séquenceur", "rows": ["##.##.#.", ".#..#.##", ".......#", "#..##.##", "#..##..#", "##..#.##", "#..##.#.", "##..#.#."]}, "U": {"mot": "cercle", "fait": "rythme euclidien", "rows": ["#..#..##", "##.##..#", "....#...", "#..##.##", "#...#.##", "##.##..#", "##.#..##", "##.#...#"]}, "V": {"mot": "je le porte en moi", "fait": "variable", "rows": ["##.##.#.", ".#..#.##", "........", "#..##.##", "#..##.##", "##..#..#", "#..##.##", "##..#.##"]}, "W": {"mot": "nuit", "fait": "va vers l'ouest", "rows": ["##..#...", ".#.##...", "........", "#..##...", "#...#...", "##.##...", "#..##...", "##.#...."]}, "X": {"mot": "toucher", "fait": "écrit à distance", "rows": ["##.#..##", "##.##...", "#.....#.", "#..##...", "#..##.##", "##..#...", "##.##.#.", "##.##.##"]}, "Y": {"mot": "écho", "fait": "copie vers l'est", "rows": ["#......#", "##....##", "........", "##....##", "##.....#", ".#....##", "##....##", "##....#."]}, "Z": {"mot": "lent", "fait": "glisse vers une valeur", "rows": ["#..#..#.", "##.##.##", ".#..#..#", "##.##.##", ".#..#..#", "##.##.##", "#..#..#.", "#..#..#."]}}) TOUS[k] = {"A": {"mot": "essaim", "fait": "additionne", "rows": ["#..##.#.", "##..#.##", ".#......", "##.##.##", ".#.##.##", "##..#..#", "#..##.##", "#...#.##"]}, "B": {"mot": "disparaître", "fait": "soustrait", "rows": ["#...#.##", "##.##...", ".#....#.", "##.##...", ".#..#.##", "##.##...", "#..##.#.", "#..#..##"]}, "C": {"mot": "battement", "fait": "compte en boucle", "rows": [".#.#..#.", "##.##.##", "....#...", "##.##.#.", ".#..#.#.", "##.##.##", "##.#..##", "#..#..##"]}, "D": {"mot": "pluie", "fait": "bang tous les N pas", "rows": ["#..##.##", "##..#..#", "........", "#..##.##", "#..##.##", "##..#..#", "##.##.##", "##..#..#"]}, "E": {"mot": "aube", "fait": "va vers l'est", "rows": ["...#..#.", "...##.##", "....#..#", "...##.##", "....#..#", "...##.##", "...#..#.", "...#..#."]}, "F": {"mot": "double", "fait": "bang si égaux", "rows": ["##.##..#", ".#..#.##", "........", "#..#..##", "#..#...#", "##.##.##", "#..#..##", "##.##.#."]}, "G": {"mot": "naître", "fait": "écrit plusieurs cases", "rows": ["...##..#", "....#.##", "........", "...##.##", "...##..#", "....#.##", "...##.##", "....#.#."]}, "H": {"mot": "silence", "fait": "arrête la case du dessous", "rows": ["#..##.##", "##..#.##", "......#.", "#..##.#.", "#..##.#.", "##..#.##", "##.##.##", "##..#.##"]}, "I": {"mot": "arbre", "fait": "incrémente", "rows": ["#..#..#.", "##.##.##", "........", "#..##.#.", "#..##.#.", "##..#.##", "##.##.##", "##.##.##"]}, "J": {"mot": "rivière", "fait": "copie vers le sud", "rows": ["#..#..##", "##.##..#", "........", "##.#..##", "##.#..##", ".#.##..#", "##.##.##", "##.##..#"]}, "K": {"mot": "nuée", "fait": "lit des variables", "rows": ["##.##.##", ".#..#.##", "......#.", "#..#..#.", "#..#..#.", "##.##.##", "#..#..##", "##.##.##"]}, "L": {"mot": "petit", "fait": "garde le plus petit", "rows": ["##....##", ".#.....#", "........", "##....#.", "##....#.", ".#....##", "##....#.", ".#....##"]}, "M": {"mot": "lichen", "fait": "multiplie", "rows": [".#.##.##", "##......", "...#..#.", "##......", ".#.##.##", "##......", "##.#..#.", "#..##.##"]}, "N": {"mot": "oiseau", "fait": "va vers le nord", "rows": ["#..##.##", "##.....#", "...#....", "#.....##", "#..##.##", "##.....#", "##.#..##", "##.##..#"]}, "O": {"mot": "je le lis sur toi", "fait": "lit une case", "rows": ["##.##.#.", ".#..#.##", "........", "#..#..##", "#..#..##", "##.##..#", "#..#..##", "##.##.##"]}, "P": {"mot": "donner", "fait": "pousse une valeur", "rows": ["##.#..##", ".#.##..#", "....#...", "##.##.##", "##..#.##", ".#.##..#", "##.#..##", ".#.#...#"]}, "Q": {"mot": "je te demande", "fait": "lit plusieurs cases", "rows": ["##.#..##", "...##.##", "#.....#.", "...##.#.", "##.##.#.", "....#.##", "#..##.##", "##.##.##"]}, "R": {"mot": "vent", "fait": "hasard", "rows": ["...##.##", "....#...", "......#.", "...#....", "...#..##", "...##...", "...#..#.", "...##.##"]}, "S": {"mot": "racine", "fait": "va vers le sud", "rows": [".#....#.", "##....##", "........", "##....#.", ".#....#.", "##....##", "##....##", "#.....##"]}, "T": {"mot": "tisser", "fait": "séquenceur", "rows": ["##.##.#.", ".#..#.##", ".......#", "#..##.##", "#..##..#", "##..#.##", "#..##.#.", "##..#.#."]}, "U": {"mot": "cercle", "fait": "rythme euclidien", "rows": ["#..#..##", "##.##..#", "....#...", "#..##.##", "#...#.##", "##.##..#", "##.#..##", "##.#...#"]}, "V": {"mot": "je le porte en moi", "fait": "variable", "rows": ["##.##.#.", ".#..#.##", "........", "#..##.##", "#..##.##", "##..#..#", "#..##.##", "##..#.##"]}, "W": {"mot": "nuit", "fait": "va vers l'ouest", "rows": ["##..#...", ".#.##...", "........", "#..##...", "#...#...", "##.##...", "#..##...", "##.#...."]}, "X": {"mot": "toucher", "fait": "écrit à distance", "rows": ["##.#..##", "##.##...", "#.....#.", "#..##...", "#..##.##", "##..#...", "##.##.#.", "##.##.##"]}, "Y": {"mot": "écho", "fait": "copie vers l'est", "rows": ["#......#", "##....##", "........", "##....##", "##.....#", ".#....##", "##....##", "##....#."]}, "Z": {"mot": "lent", "fait": "glisse vers une valeur", "rows": ["#..#..#.", "##.##.##", ".#..#..#", "##.##.##", ".#..#..#", "##.##.##", "#..#..#.", "#..#..#."]}}[k].rows
+const PATCHS = {
+  bio: ['', '..#PIGEONS.STUDIO#', '', '..#KOO.DES#..........#JULIEN.THOMAS#', '', '..2C4................4C8', '...0..................0', '..1D4................1D8', '', '...:03C...............:05G'],
+  projets: ['', '..#PROJETS#', '', '..#AS.SIMT#...#GO2#...#INSTALLATIONS#', '', '..4C8....1D4', '...0', '..........:03C'],
+  services: ['', '..#SERVICES#', '', '..#OBJETS.AUDIO#..#CAPTEURS#..#3D#', '', '..2C4....1D2', '...0', '..........:13E'],
+  futur: ['', '..#FUTURS.PROJETS#', '', '..#ORCA.GLYPH#..#CAVE#..#TEAMMATE#', '', '..1D8...........8-1', '', '.........:15c'],
+  boutique: ['', '..#BOUTIQUE#', '', '..#ACCESSOIRES#..#GEAR#..#MUSIQUE#', '', '..1D2.8TCDEGAcdg', '', '......:14'],
+  logiciels: ['', '..#LOGICIELS#', '', '..#WEB#...#FIRMWARE#...#PC#', '', '..4C8....1D4', '...0', '..........:02E']
+}
+const CASE = 0.4; const NC = Math.floor(W / CASE); const NR = Math.floor(D / CASE)
+const SLOTS = 64
+const pointGeo = new THREE.PlaneGeometry(0.035, 0.035); pointGeo.rotateX(-Math.PI / 2)
+const voxGeo = new THREE.BoxGeometry(CASE / 10, 1, CASE / 10); voxGeo.translate(0, 0.5, 0)
+function construirePatch (f, grp) {
+  const lignes = PATCHS[f.id]
+  const grille = Array.from({ length: NR }, (_, r) => Array.from({ length: NC }, (_, c) => (lignes[r] || '')[c] || '.'))
+  // les cases qui peuvent porter un caractère : le texte du patch, et les sorties sous C, D, T
+  const pris = []
+  const cle = new Map()
+  const prendre = (c, r) => { const k = c + ',' + r; if (!cle.has(k) && c < NC && r < NR) { cle.set(k, pris.length); pris.push([c, r]) } }
+  grille.forEach((row, r) => row.forEach((ch, c) => { if (ch !== '.') { prendre(c, r); if ('CDT'.includes(ch)) prendre(c, r + 1) } }))
+  const m = new THREE.InstancedMesh(voxGeo, new THREE.MeshStandardMaterial({ roughness: 0.6, transparent: true }), Math.max(1, pris.length * SLOTS))
+  m.instanceMatrix.setUsage(THREE.DynamicDrawUsage)
+  const vides = []
+  for (let r = 0; r < NR; r++) for (let c = 0; c < NC; c++) vides.push([c, r])
+  const pts = new THREE.InstancedMesh(pointGeo, new THREE.MeshBasicMaterial({ color: 0x4a4946, transparent: true, depthWrite: false }), vides.length)
+  vides.forEach(([c, r], i) => pts.setMatrixAt(i, new THREE.Matrix4().makeTranslation(-W / 2 + (c + 0.5) * CASE, 0.006, -D / 2 + (r + 0.5) * CASE)))
+  grp.add(pts, m)
+  const P = { f, grille, pris, cle, m, pts, chaleur: new Float32Array(pris.length), sales: new Set(pris.map((_, i) => i)), tic: 0 }
+  m.setColorAt(0, new THREE.Color())
+  return P
+}
+// ce qu'est une case dans Orca : commentaire, opérateur, valeur, sortie
+function nature (g, c, r) {
+  const row = g[r]; let dans = false
+  for (let i = 0; i < c; i++) if (row[i] === '#') dans = !dans
+  const ch = row[c]
+  if (ch === '#' || dans) return 'com'
+  if (ch === ':' || ch === '*' || ch === '-') return 'out'
+  if (/[A-Z]/.test(ch)) return 'op'
+  return 'val'
+}
+const TEINTES = { com: [0x777777, 0.05], op: [0xeeeeee, 0.22], val: [0xaaaaaa, 0.12], out: [0xffb545, 0.18] }
+const tmpO = new THREE.Object3D(); const ZERO = new THREE.Matrix4().makeScale(0, 0, 0); const cc = new THREE.Color(); const BL = new THREE.Color(0xffffff)
+function poserPatch (P) {
+  if (!P.sales.size) return
+  for (const i of P.sales) {
+    const [c, r] = P.pris[i]
+    const ch = P.grille[r][c]
+    const rows = ch === '.' ? null : TOUS[ch]
+    let k = 0
+    if (rows) {
+      const [col, h] = TEINTES[nature(P.grille, c, r)]
+      cc.setHex(col).lerp(ch === '*' ? BL : cc, 0)
+      if (P.chaleur[i] > 0) cc.lerp(BL, P.chaleur[i] * 0.7)
+      const v = CASE / 10
+      for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) {
+        if (rows[y][x] !== '#') continue
+        tmpO.position.set(-W / 2 + c * CASE + v + (x + 0.5) * v, 0, -D / 2 + r * CASE + v + (y + 0.5) * v)
+        tmpO.scale.set(1, h * (1 + P.chaleur[i] * 0.8), 1); tmpO.updateMatrix()
+        P.m.setMatrixAt(i * SLOTS + k, tmpO.matrix); P.m.setColorAt(i * SLOTS + k, cc); k++
+      }
+    }
+    for (; k < SLOTS; k++) P.m.setMatrixAt(i * SLOTS + k, ZERO)
+  }
+  P.sales.clear()
+  P.m.instanceMatrix.needsUpdate = true; P.m.instanceColor.needsUpdate = true
+}
+// l'horloge d'Orca, réduite à C (compte), D (bang), T (séquence) ; une sortie : s'allume quand un bang la touche
+const b36 = (ch) => { const n = parseInt(ch, 36); return isNaN(n) ? 0 : n }
+function ecrire (P, c, r, ch) { const i = P.cle.get(c + ',' + r); if (i === undefined || P.grille[r][c] === ch) return; P.grille[r][c] = ch; P.sales.add(i) }
+function chauffer (P, c, r) { const i = P.cle.get(c + ',' + r); if (i !== undefined) { P.chaleur[i] = 1; P.sales.add(i) } }
+function ticPatch (P) {
+  P.tic++
+  const g = P.grille; const f = P.tic
+  const bangs = []
+  for (let r = 0; r < NR; r++) for (let c = 0; c < NC; c++) {
+    const ch = g[r][c]
+    if (nature(g, c, r) !== 'op') continue
+    const gauche = c > 0 ? g[r][c - 1] : '.'; const loin = c > 1 ? g[r][c - 2] : '.'
+    if (ch === 'C') { const vit = Math.max(1, b36(loin)); const mod = b36(c + 1 < NC ? g[r][c + 1] : '.') || 10; ecrire(P, c, r + 1, (Math.floor(f / vit) % mod).toString(36)) }
+    if (ch === 'D') { const vit = Math.max(1, b36(gauche)); const mod = b36(c + 1 < NC ? g[r][c + 1] : '.') || 8; const on = f % (vit * mod) === 0; ecrire(P, c, r + 1, on ? '*' : '.'); if (on) { chauffer(P, c, r); bangs.push([c, r + 1]) } }
+    if (ch === 'T') { const len = Math.max(1, b36(gauche)); const k = f % len; const v = g[r][c + 1 + k]; ecrire(P, c, r + 1, v || '.'); chauffer(P, c + 1 + k, r) }
+  }
+  // un bang allume la sortie la plus proche plus bas, comme une note qui part
+  for (const [c, r] of bangs) {
+    for (let rr = r; rr < Math.min(NR, r + 4); rr++) for (let dc = -2; dc < 16; dc++) { const ch = g[rr][c + dc]; if (ch === ':' || ch === '-') { chauffer(P, c + dc, rr); rr = NR; break } }
+  }
+}
+let accPatch = 0
+function animerPatchs (dt) {
+  if (!reduit) { accPatch += dt; const p = 60 / 120 / 4; while (accPatch > p) { accPatch -= p; etages.forEach((x) => ticPatch(x.patch)) } }
+  etages.forEach((x) => {
+    const P = x.patch
+    for (let i = 0; i < P.chaleur.length; i++) if (P.chaleur[i] > 0) { P.chaleur[i] = Math.max(0, P.chaleur[i] - dt * 3); P.sales.add(i) }
+    poserPatch(P)
+  })
+}
+etages.forEach((x) => { x.patch = construirePatch(x.f, x.grp) })
+
+
+// ================================================================ le pigeon d'or (contour de pigeon.js), perché sur le glyphe survolé
+const CONTOUR = [[0.54, 1.165, 's'], [0.41, 1.215, 's'], [0.37, 1.265], [0.30, 1.295], [0.23, 1.28], [0.185, 1.22], [0.17, 1.12], [0.15, 1.02], [0.10, 0.93], [0.00, 0.86], [-0.12, 0.76], [-0.24, 0.60], [-0.36, 0.44], [-0.56, 0.17, 's'], [-0.61, 0.10, 's'], [-0.53, 0.07, 's'], [-0.34, 0.27], [-0.16, 0.34], [0.00, 0.31, 's'], [0.03, 0.06, 's'], [-0.05, 0.0, 's'], [0.17, 0.0, 's'], [0.17, 0.035, 's'], [0.09, 0.05, 's'], [0.08, 0.31, 's'], [0.18, 0.35], [0.31, 0.47], [0.385, 0.63], [0.39, 0.79], [0.345, 0.93], [0.31, 1.03], [0.335, 1.11], [0.41, 1.145, 's']]
+const pigeon = (() => {
+  const s = new THREE.Shape(); s.moveTo(CONTOUR[0][0], CONTOUR[0][1]); let run = []
+  for (let i = 1; i <= CONTOUR.length; i++) { const p = CONTOUR[i % CONTOUR.length]; run.push(new THREE.Vector2(p[0], p[1])); if (p[2] === 's') { s.splineThru(run); run = [] } }
+  const o = new THREE.Path(); o.absarc(0.30, 1.205, 0.03, 0, Math.PI * 2, true); s.holes.push(o)
+  const geo = new THREE.ExtrudeGeometry(s, { depth: 0.05, bevelEnabled: true, bevelThickness: 0.014, bevelSize: 0.012, bevelSegments: 2, curveSegments: 10 }); geo.translate(0, 0, -0.025)
+  const m = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: 0xffb545, metalness: 0.85, roughness: 0.28, emissive: 0xffb545, emissiveIntensity: 0.35, transparent: true }))
+  m.scale.setScalar(0.7); scene.add(m); return m
+})()
+
+// ================================================================ caméra : orbite 3D ⇄ vue de dessus 2D (travelling compensé, comme le MODE 2D d'ORCA//GLYPH)
+const etat = { k: 0, de: 0, vers: 0, t: 1, duree: 1.3, etage: 0, mode: '3d', suite: null }
+let theta = 0.62
+let flotte = 0
+const ease = (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2
+const lerp = THREE.MathUtils.lerp
+const dir = new THREE.Vector3(); const cib = new THREE.Vector3()
+// molette : on avance d'étage en étage. foc = 0 vue d'ensemble, 1 = étage du haut, … N = rez-de-chaussée
+const N = FAMILLES.length
+let foc = 0; let focCible = 0; let focRepos = 0
+const etageFoc = () => N - Math.max(1, foc) // étage (continu) que l'on regarde
+function etageVise () { return survol >= 0 ? survol : (foc > 0.6 && etat.mode === '3d' ? Math.round(etageFoc()) : -1) }
+function placerCamera () {
+  const k = etat.k
+  const z = Math.min(1, foc)
+  const a = camera.aspect
+  const fov = lerp(34, 9, k)
+  // la dalle doit remplir le cadre en 2D
+  const demi = Math.max((D + 3) / 2, (W + 5) / 2 / a)
+  const distTop = demi / Math.tan(THREE.MathUtils.degToRad(fov / 2))
+  const distOrb = Math.max(44, 12 / (Math.tan(THREE.MathUtils.degToRad(17)) * a))
+  const dist = lerp(distOrb * lerp(1, 0.72, z), distTop, k)
+  const th = lerp(theta, Math.round(theta / (Math.PI * 2)) * Math.PI * 2, ease(Math.min(1, k * 1.25)))
+  const ph = lerp(0.5 + flotte, 1.5695, k)
+  dir.set(Math.sin(th) * Math.cos(ph), Math.sin(ph), Math.cos(th) * Math.cos(ph))
+  const yf = etages[etat.etage].y0
+  const y3d = lerp((N - 1) * GAP / 2 + flotte * 4, etageFoc() * GAP + 0.6, z)
+  cib.set(lerp(1.4, 0, k), lerp(y3d, yf, k), 0)
+  camera.fov = fov; camera.updateProjectionMatrix()
+  camera.position.copy(cib).addScaledVector(dir, dist)
+  camera.lookAt(cib)
+  scene.fog.near = dist - 10; scene.fog.far = dist + 30
+}
+function poserEtages (dt) {
+  const k = etat.k
+  etages.forEach((x, e) => {
+    const sel = e === etat.etage
+    const y = lerp(x.y0, etages[etat.etage].y0, sel ? 0 : k)
+    x.grp.position.y = y
+    const loin = Math.min(1, Math.abs(e - etageFoc())) * Math.min(1, foc) * (1 - k)
+    const vis = (sel ? 1 : 1 - k) * (1 - 0.75 * loin)
+    x.plan.material.opacity = 0.04 * vis * (1 - k)
+    x.croix.material.opacity = 0.6 * vis * (1 - 0.8 * k)
+    const mq = (1 - k) * (1 - 0.8 * loin) * (survol >= 0 && survol !== e && etat.mode === '3d' ? 0.45 : 1)
+    x.patch.m.material.opacity = mq
+    x.patch.pts.material.opacity = mq
+    x.bord.material.opacity = 0.35 * vis * (1 - k)
+    x.chaud += ((etageVise() === e && etat.mode === '3d' ? 1 : 0) - x.chaud) * (1 - Math.pow(0.0005, dt))
+    const g = 1 - k
+    x.trait.material.opacity = g * (0.85 - 0.5 * x.chaud) * (1 - 0.7 * loin)
+    x.pied.material.opacity = 0.5 * g
+    x.plein.material.opacity = g
+    x.plein.scale.z = Math.max(0.001, x.chaud)
+    x.plein.visible = x.chaud > 0.01
+    x.gly.quaternion.copy(camera.quaternion) // toujours face à soi
+    x.gly.scale.setScalar(1 + x.chaud * 0.12)
+  })
+}
+
+// ================================================================ survol, tracker
+const ray = new THREE.Raycaster(); const souris = new THREE.Vector2(9, 9)
+let survol = -1; let surGlyphe = false
+canvas.addEventListener('pointermove', (e) => souris.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1))
+canvas.addEventListener('pointerleave', () => souris.set(9, 9))
+canvas.addEventListener('wheel', (e) => {
+  if (etat.mode !== '3d') return
+  e.preventDefault()
+  focCible = THREE.MathUtils.clamp(focCible + e.deltaY / (e.deltaMode ? 3 : 240), 0, N)
+  focRepos = 0
+}, { passive: false })
+canvas.addEventListener('click', (e) => { souris.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1); chercher(); if (etat.mode === '3d' && survol >= 0) descendre(survol) })
+function chercher () {
+  if (etat.mode !== '3d' || souris.x > 2) { survol = -1; return }
+  ray.setFromCamera(souris, camera)
+  // quand on a avancé sur un étage, seule sa dalle (et les glyphes) réagit
+  const ici = foc > 0.6 ? Math.round(etageFoc()) : -1
+  const h = ray.intersectObjects(cibles, false).find((x) => ici < 0 || x.object.userData.e === ici || x.object === etages[x.object.userData.e].cible)
+  survol = h ? h.object.userData.e : -1
+  surGlyphe = !!h && h.object === etages[survol].cible
+}
+const trk = document.getElementById('trk'); const trkTxt = trk.querySelector('span')
+let trkCle = ''
+const P = new THREE.Vector3()
+function suivre () {
+  let cle = ''; let box = null
+  const sv = etageVise()
+  if (sv >= 0 && etat.mode === '3d') {
+    const x = etages[sv]; cle = '3d' + sv
+    x.gly.getWorldPosition(P)
+    const r = G / 2 * x.gly.scale.x + 0.1
+    let x0 = Infinity; let y0 = Infinity; let x1 = -Infinity; let y1 = -Infinity
+    for (const [dx, dy] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) {
+      const q = new THREE.Vector3(dx * r, dy * r, 0).applyQuaternion(camera.quaternion).add(P).project(camera)
+      const sx = (q.x + 1) / 2 * innerWidth; const sy = (1 - q.y) / 2 * innerHeight
+      x0 = Math.min(x0, sx); x1 = Math.max(x1, sx); y0 = Math.min(y0, sy); y1 = Math.max(y1, sy)
+    }
+    box = [x0, y0, x1, y1]
+    if (trkCle !== cle) {
+      const f = x.f
+      trkTxt.replaceChildren(document.createTextNode(SIGNES[f.signe].mot + ' → ' + f.nom.toUpperCase()))
+      const em = document.createElement('em'); em.textContent = 'étage ' + sv + ' · cliquer pour entrer'; trkTxt.append(em)
+      trk.style.setProperty('--c', f.css)
+    }
+  } else if (survolHtml) { cle = 'h' + survolHtml.i; box = survolHtml.box
+    if (trkCle !== cle) {
+      const f = FAMILLES[survolHtml.i]
+      trkTxt.replaceChildren(document.createTextNode(SIGNES[f.signe].mot + ' → ' + f.nom.toUpperCase()))
+      const em = document.createElement('em'); em.textContent = survolHtml.i === etat.etage ? 'tu es ici' : 'aller à l\'étage ' + survolHtml.i; trkTxt.append(em)
+      trk.style.setProperty('--c', f.css)
+    }
+  }
+  trkCle = cle
+  trk.classList.toggle('on', !!box)
+  if (box) {
+    const m = 6
+    trk.style.transform = 'translate(' + (box[0] - m) + 'px,' + (box[1] - m) + 'px)'
+    trk.style.width = (box[2] - box[0] + 2 * m) + 'px'; trk.style.height = (box[3] - box[1] + 2 * m) + 'px'
+    const droite = box[2] + 220 > innerWidth
+    trkTxt.style.left = droite ? 'auto' : '100%'; trkTxt.style.right = droite ? '100%' : 'auto'
+    trkTxt.style.marginLeft = droite ? '0' : '10px'; trkTxt.style.marginRight = droite ? '10px' : '0'; trkTxt.style.textAlign = droite ? 'right' : 'left'
+  }
+}
+
+// ================================================================ 3D ⇄ 2D
+const page = document.getElementById('page'); const contenu = document.getElementById('contenu')
+const etatTxt = document.getElementById('etat'); const retour = document.getElementById('retour')
+function anim (vers, fin) { etat.de = etat.k; etat.vers = vers; etat.t = 0; etat.fin = fin; etat.duree = reduit ? 0.01 : 1.3 }
+function descendre (e) {
+  survol = -1
+  etat.etage = e; etat.mode = 'vers2d'
+  dire('3D → 2D', FAMILLES[e])
+  document.querySelector('#cadre .aide').hidden = true
+  anim(1, () => { etat.mode = '2d'; remplir(e); page.classList.add('on'); retour.hidden = false; dire('2D', FAMILLES[e]); page.scrollTop = 0 })
+}
+// d'une page à l'autre, directement en 2D : la page glisse, la dalle change de teinte
+let enChange = false
+function changer (n) {
+  if (enChange || n === etat.etage) return
+  enChange = true; survolHtml = null
+  page.classList.remove('on')
+  setTimeout(() => {
+    etat.etage = n; focCible = N - n; foc = focCible
+    remplir(n); dire('2D', FAMILLES[n]); page.scrollTop = 0
+    page.classList.add('on'); enChange = false
+  }, reduit ? 0 : 260)
+}
+function remonter (puis = null) {
+  focCible = N - etat.etage; foc = focCible
+  page.classList.remove('on'); retour.hidden = true; survolHtml = null
+  etat.mode = 'vers3d'
+  dire('2D → 3D', null)
+  anim(0, () => {
+    etat.mode = '3d'; dire('3D', null); document.querySelector('#cadre .aide').hidden = false
+    if (puis !== null) setTimeout(() => descendre(puis), reduit ? 0 : 350)
+  })
+}
+function dire (m, f) {
+  etatTxt.replaceChildren()
+  const b = document.createElement('b'); b.textContent = m
+  etatTxt.append(b, document.createTextNode(f ? ' · étage ' + FAMILLES.indexOf(f) + ' · ' + f.nom : ' · ' + FAMILLES.length + ' étages'))
+}
+retour.addEventListener('click', () => remonter())
+addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { if (!tiroir.hidden) { tiroir.hidden = true; return } if (etat.mode === '2d') remonter() }
+  if (etat.mode === '2d' && (e.key === 'PageUp' || e.key === 'PageDown')) { const n = etat.etage + (e.key === 'PageUp' ? 1 : -1); if (n >= 0 && n < FAMILLES.length) changer(n); e.preventDefault() }
+  if (etat.mode === '3d' && e.key === 'Enter' && etageVise() >= 0) descendre(etageVise())
+  if (etat.mode === '3d' && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) { focCible = THREE.MathUtils.clamp(Math.round(focCible) + (e.key === 'ArrowDown' ? 1 : -1), 0, N); focRepos = 0; e.preventDefault() }
+})
+
+// ---------------------------------------------------------------- contenu des pages
+function svgGlyphe (signe, couleur) {
+  const ns = 'http://www.w3.org/2000/svg'
+  const s = document.createElementNS(ns, 'svg'); s.setAttribute('viewBox', '0 0 8 8'); s.setAttribute('shape-rendering', 'crispEdges'); s.setAttribute('aria-hidden', 'true')
+  SIGNES[signe].rows.forEach((row, r) => [...row].forEach((c, q) => { if (c !== '#') return
+    const re = document.createElementNS(ns, 'rect'); re.setAttribute('x', q); re.setAttribute('y', r); re.setAttribute('width', 1); re.setAttribute('height', 1); re.setAttribute('fill', couleur); s.appendChild(re) }))
+  return s
+}
+function el (tag, cls, txt) { const n = document.createElement(tag); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n }
+let survolHtml = null
+const prix = (n) => n.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })
+function remplir (e) {
+  const f = FAMILLES[e]
+  contenu.replaceChildren()
+  const nav = el('nav', 'familles'); nav.setAttribute('aria-label', 'rubriques')
+  FAMILLES.forEach((g, i) => {
+    const b = el('button'); b.type = 'button'; b.setAttribute('aria-label', g.nom); b.setAttribute('aria-current', String(i === e))
+    b.append(svgGlyphe(g.signe, i === e ? g.css : '#8a8780'))
+    b.addEventListener('pointerenter', () => { const r = b.getBoundingClientRect(); survolHtml = { i, box: [r.left, r.top, r.right, r.bottom] } })
+    b.addEventListener('pointerleave', () => { survolHtml = null })
+    b.addEventListener('click', () => { if (i !== e) changer(i) })
+    nav.append(b)
+  })
+  const titre = el('div', 'titre')
+  const tt = el('div'); tt.append(el('h1', null, f.nom), el('p', null, SIGNES[f.signe].mot + (f.pourquoi !== SIGNES[f.signe].mot ? ' · ' + f.pourquoi : '')))
+  titre.append(svgGlyphe(f.signe, f.css), tt)
+  contenu.append(nav, titre)
+  for (const b of f.blocs) {
+    if (b.t === 'lead') { const d = el('div', 'lead'); d.append(el('p', 'sur', b.sur), el('p', 'duo', b.duo), el('p', 'legende', b.legende)); contenu.append(d) }
+    if (b.t === 'texte') { const d = el('section', 'texte'); if (b.titre) d.append(el('h2', 'etiquette', b.titre)); d.append(el('p', null, b.p)); contenu.append(d) }
+    if (b.t === 'vide') contenu.append(el('p', 'vide', b.p))
+    if (b.t === 'deux') { const d = el('div', 'bio'); b.items.forEach(([n, r, p]) => { const x = el('section'); x.append(el('h3', null, n), el('h2', null, r), el('p', null, p)); d.append(x) }); contenu.append(d) }
+    if (b.t === 'liste') {
+      const d = el('section', 'liste'); d.append(el('h2', 'etiquette', b.titre))
+      const dl = el('dl'); b.items.forEach(([k, v]) => dl.append(el('dt', null, k), el('dd', null, v))); d.append(dl); contenu.append(d)
+    }
+    if (b.t === 'rayon') {
+      const h = el('div', 'rayon'); const sg = svgGlyphe(b.signe, f.css); h.append(sg, el('h2', null, b.titre), el('span', null, SIGNES[b.signe].mot)); contenu.append(h)
+      if (b.vide) contenu.append(el('p', 'vide', b.vide))
+    }
+    if ((b.t === 'cartes' || b.t === 'rayon') && b.items) {
+      const gr = el('div', 'grille')
+      b.items.forEach((it, i) => {
+        const c = el('article', 'prod')
+        c.append(el('div', 'ref', (b.code || f.code) + '.' + String(i + 1).padStart(2, '0')), el('h2', null, it.nom), el('p', null, it.sens))
+        if (it.tags) { const t = el('div', 'tags'); it.tags.forEach((x) => t.append(el('span', null, x))); c.append(t) }
+        if (it.prix) {
+          const pied = el('div', 'pied'); pied.append(el('span', 'prix', it.prix))
+          const a = el('button', 'btn', it.prix === 'Sur devis' ? 'demander un devis' : 'être prévenu'); a.type = 'button'
+          a.addEventListener('click', () => ouvrirContact(it.nom)); pied.append(a); c.append(pied)
+        }
+        gr.append(c)
+      })
+      contenu.append(gr)
+    }
+    if (b.t === 'films') {
+      const gr = el('div', 'films')
+      b.items.forEach((it) => {
+        const c = el('figure', 'film')
+        const v = document.createElement('video')
+        v.src = it.src; v.poster = it.src.replace('.mp4', '.jpg'); v.controls = true; v.preload = 'none'; v.playsInline = true; v.muted = true
+        v.setAttribute('aria-label', it.nom)
+        const cap = el('figcaption'); cap.append(el('h2', null, it.nom), el('p', null, it.sens), el('span', 'duree', it.duree))
+        c.append(v, cap); gr.append(c)
+      })
+      contenu.append(gr)
+    }
+    if (b.t === 'devis') { const d = el('div', 'pied'); const a = el('button', 'btn', 'demander un devis'); a.type = 'button'; a.addEventListener('click', () => ouvrirContact('')); d.append(a); contenu.append(d) }
+  }
+}
+
+// ---------------------------------------------------------------- contact (la boutique n'a pas encore de paiement : on écrit au studio)
+const bContact = document.getElementById('panier'); const tiroir = document.getElementById('tiroir')
+const EMAIL = 'contact@punkhazard.org'
+function ouvrirContact (sujet) {
+  tiroirDe = 'contact'
+  tiroir.replaceChildren(el('div', 'etiquette', 'CONTACT'))
+  tiroir.append(el('p', null, 'Marques, institutions, robotique et IA : parlons de votre projet.'))
+  if (sujet) tiroir.append(el('p', 'sujet', 'à propos de : ' + sujet))
+  const m = el('div', 'mail'); m.append(el('span', null, EMAIL))
+  const c = el('button', 'btn doux', 'copier'); c.type = 'button'
+  c.addEventListener('click', async () => { try { await navigator.clipboard.writeText(EMAIL); c.textContent = 'copié' } catch (_) { const r = document.createRange(); r.selectNodeContents(m.firstChild); getSelection().removeAllRanges(); getSelection().addRange(r) } })
+  m.append(c); tiroir.append(m, el('p', 'note', 'Réponse généralement sous 24-48h.'))
+  const f = el('button', 'btn doux', 'fermer'); f.type = 'button'; f.addEventListener('click', () => { tiroir.hidden = true })
+  tiroir.append(f); tiroir.hidden = false
+}
+bContact.addEventListener('click', () => { if (!tiroir.hidden && tiroirDe === 'contact') tiroir.hidden = true; else ouvrirContact('') })
+// ---------------------------------------------------------------- connexion (maquette ; dans le dépôt, NextAuth : email + mot de passe, ou Google)
+const bConnexion = document.getElementById('connexion')
+let tiroirDe = ''
+function ouvrirConnexion (inscription = false) {
+  tiroirDe = 'connexion'
+  tiroir.replaceChildren(el('div', 'etiquette', inscription ? 'CRÉER UN COMPTE' : 'CONNEXION'))
+  const form = el('form'); form.noValidate = true
+  const champ = (id, lab, type, auto) => { const l = el('label', null, lab); const i = document.createElement('input'); i.id = id; i.type = type; i.autocomplete = auto; l.append(i); return l }
+  if (inscription) form.append(champ('compte-nom', 'Nom', 'text', 'name'))
+  form.append(champ('compte-email', 'Email', 'email', 'email'), champ('compte-mdp', 'Mot de passe', 'password', inscription ? 'new-password' : 'current-password'))
+  const msg = el('p', 'note', '')
+  const go = el('button', 'btn plein', inscription ? 'S’inscrire' : 'Se connecter'); go.type = 'submit'
+  form.append(go, msg)
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const em = form.querySelector('#compte-email').value.trim(); const mdp = form.querySelector('#compte-mdp').value
+    if (!em || !mdp) { msg.textContent = 'Tous les champs sont requis.'; return }
+    if (inscription && mdp.length < 8) { msg.textContent = 'Le mot de passe doit contenir au moins 8 caractères.'; return }
+    msg.textContent = 'Maquette : la connexion n’est pas encore branchée. Dans le site, elle passera par NextAuth.'
+    form.querySelector('#compte-mdp').value = ''
+  })
+  const g = el('button', 'btn doux', 'Se connecter avec Google'); g.type = 'button'
+  g.addEventListener('click', () => { msg.textContent = 'Maquette : la connexion Google sera branchée dans le site.' })
+  const bas = el('div', 'ligne')
+  const bascule = el('button', 'lien', inscription ? 'Déjà un compte ? Se connecter' : 'Pas encore de compte ? S’inscrire'); bascule.type = 'button'
+  bascule.addEventListener('click', () => ouvrirConnexion(!inscription))
+  const f = el('button', 'btn doux', 'fermer'); f.type = 'button'; f.addEventListener('click', () => { tiroir.hidden = true })
+  bas.append(bascule)
+  tiroir.append(form, g, bas, f); tiroir.hidden = false
+  form.querySelector('input').focus()
+}
+bConnexion.addEventListener('click', () => { if (!tiroir.hidden && tiroirDe === 'connexion') tiroir.hidden = true; else ouvrirConnexion() })
+
+let audio = null
+function jouer (notes) {
+  audio = audio || new AudioContext(); const t0 = audio.currentTime + 0.05
+  notes.forEach((n, i) => {
+    const o = audio.createOscillator(); const v = audio.createGain()
+    o.type = 'triangle'; o.frequency.value = 220 * Math.pow(2, n / 12)
+    const t = t0 + i * 0.2
+    v.gain.setValueAtTime(0, t); v.gain.linearRampToValueAtTime(0.09, t + 0.01); v.gain.exponentialRampToValueAtTime(0.0001, t + 0.35)
+    o.connect(v).connect(audio.destination); o.start(t); o.stop(t + 0.4)
+  })
+}
+
+// ================================================================ boucle
+function taille () { renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight }
+addEventListener('resize', taille); taille()
+const horloge = new THREE.Clock(); let temps = 0
+const vue = new THREE.Vector3()
+function boucle () {
+  const dt = Math.min(horloge.getDelta(), 0.05); temps += dt
+  if (etat.t < 1) { etat.t = Math.min(1, etat.t + dt / etat.duree); etat.k = lerp(etat.de, etat.vers, ease(etat.t)); if (etat.t >= 1 && etat.fin) { const f = etat.fin; etat.fin = null; f() } }
+  // flottaison : la vue respire autour de son angle, sans jamais tourner
+  if (!reduit) { theta = 0.62 + Math.sin(temps * 0.13) * 0.07 + Math.sin(temps * 0.051) * 0.04; flotte = Math.sin(temps * 0.09) * 0.035 }
+  if (etat.mode === '3d') { focRepos += dt; if (focRepos > 0.35) focCible += (Math.round(focCible) - focCible) * 0.15 }
+  foc += (focCible - foc) * (1 - Math.pow(0.004, dt))
+  placerCamera()
+  chercher()
+  poserEtages(dt)
+  animerPatchs(dt)
+  // le pigeon : perché sur le glyphe survolé, sinon sur celui du rez-de-chaussée ; il disparaît en 2D
+  const p = etageVise() >= 0 ? etageVise() : 0
+  etages[p].gly.getWorldPosition(vue)
+  pigeon.position.lerp(vue.add(new THREE.Vector3(0, G / 2 * etages[p].gly.scale.x + 0.02, 0)), 0.12)
+  pigeon.position.y += reduit ? 0 : Math.sin(temps * 2.2) * 0.004
+  pigeon.quaternion.copy(camera.quaternion)
+  pigeon.material.opacity = 1 - etat.k
+  pigeon.visible = etat.k < 0.98
+  suivre()
+  renderer.render(scene, camera)
+  requestAnimationFrame(boucle)
+}
+dire('3D', null)
+boucle()
+</script>
+</body>
+</html>
