@@ -247,40 +247,181 @@
    "blocs": [
     {
      "t": "texte",
-     "p": "Ce qui pousse à l’atelier. Des films de travail, en cours."
+     "p": "Ce qui pousse à l’atelier. Choisis un projet pour l’ouvrir."
     },
     {
-     "t": "films",
+     "t": "explorer",
      "items": [
       {
-       "src": "/films/orca-glyph-explication",
+       "id": "orca",
        "nom": "ORCA//GLYPH",
-       "sens": "Orca en volume : des étages de grilles, des glyphes As-Simt extrudés, un pigeon d’or pour curseur.",
-       "duree": "4 min"
+       "sous": "Orca en volume",
+       "statut": "en cours",
+       "texte": [
+        "La grille du séquenceur Orca devient un immeuble : chaque étage est une grille Orca ordinaire, et tous les étages sont empilés. Chaque caractère est un glyphe As-Simt extrudé, d’autant plus haut qu’il compte.",
+        "On code au clavier exactement comme dans Orca, et on tourne autour. Six opérateurs passent d’un étage à l’autre : monter, descendre, écouter, envoyer, relayer, glitcher. Un mode 2D aplatit le volume en un Orca classique, vu de dessus.",
+        "Le curseur est un pigeon voyageur en or. Les notes partent en MIDI et en OSC vers les synthés ; les visions (nuage, tirets, arêtes, glitch) transforment la 3D en direct. Ce site en est tiré."
+       ],
+       "reperes": [
+        [
+         "Forme",
+         "Logiciel de live coding, application de bureau"
+        ],
+        [
+         "Langage",
+         "Orca, glyphes As-Simt"
+        ],
+        [
+         "Sorties",
+         "MIDI, OSC, UDP"
+        ],
+        [
+         "Technique",
+         "Electron, three.js"
+        ]
+       ],
+       "tags": [
+        "live coding",
+        "3D",
+        "MIDI",
+        "OSC"
+       ],
+       "films": [
+        {
+         "src": "/films/orca-glyph-explication",
+         "nom": "Explication",
+         "duree": "4 min"
+        }
+       ]
       },
       {
-       "src": "/films/cave-four-robots",
+       "id": "cave",
        "nom": "CAVE // FOUR ROBOTS",
-       "sens": "Une performance spatialisée : quatre robots Unitree porteurs de mégaphones, dans une grotte.",
-       "duree": "1 min"
+       "sous": "Une performance dans une grotte",
+       "statut": "en préparation",
+       "texte": [
+        "Quatre robots-chiens Unitree portent chacun un mégaphone sur le dos. Ensemble, ils jouent une musique spatialisée dans une grotte immense.",
+        "Le public se tient au centre. Les robots se déplacent autour de lui et s’orientent pour jouer avec l’acoustique de la grotte : la roche devient une partie de l’instrument.",
+        "Les quatre robots sont tantôt synchronisés, tantôt désynchronisés : le son se rassemble, puis se disperse dans l’espace."
+       ],
+       "reperes": [
+        [
+         "Forme",
+         "Performance musicale spatialisée"
+        ],
+        [
+         "Lieu",
+         "Une grotte, le public au centre"
+        ],
+        [
+         "Interprètes",
+         "Quatre robots Unitree Go2 à mégaphones"
+        ],
+        [
+         "Étape",
+         "Prototype 3D, puis répétitions"
+        ]
+       ],
+       "tags": [
+        "robotique",
+        "son spatialisé",
+        "performance"
+       ],
+       "films": [
+        {
+         "src": "/films/cave-four-robots",
+         "nom": "Prévisualisation",
+         "duree": "1 min"
+        }
+       ]
       },
       {
-       "src": "/films/language-of-images",
+       "id": "langue",
        "nom": "Langue des images",
-       "sens": "Une langue poétique où tout se dit par des images concrètes : la source des signes de ce site.",
-       "duree": "2 min"
+       "sous": "Une langue poétique du futur",
+       "statut": "en cours",
+       "texte": [
+        "Une langue où tout se dit par des images concrètes, jamais par des concepts abstraits ni par des chiffres. Un concept est une composition de trois images au plus : musique = caverne · vibration · torse.",
+        "Sa logique vient d’ailleurs : le verbe à la fin et des marques pour dire d’où l’on sait ce qu’on dit, comme en hopi ; l’intensité par l’allongement et la répétition, comme chez les animaux ; vivant, machine et fantôme au même rang, comme chez Haraway.",
+        "Chaque image a son signe dans l’alphabet As-Simt. Les glyphes de ce site en viennent : double pour la bio, graine pour les futurs projets, paume pour la boutique."
+       ],
+       "reperes": [
+        [
+         "Forme",
+         "Langue construite et alphabet de signes"
+        ],
+        [
+         "Lexique",
+         "100 racines concrètes"
+        ],
+        [
+         "Nombres",
+         "Cinq images, de soleil à main, puis troupeau et essaim"
+        ],
+        [
+         "Écriture",
+         "Alphabet As-Simt, police Glyphs As Simt"
+        ]
+       ],
+       "tags": [
+        "langue",
+        "signes",
+        "As-Simt"
+       ],
+       "films": [
+        {
+         "src": "/films/language-of-images",
+         "nom": "Présentation",
+         "duree": "2 min"
+        }
+       ]
       },
       {
-       "src": "/films/teammate-poto-pigeons",
-       "nom": "TEAMMATE.POTO · Pigeons",
-       "sens": "Un partenaire d’improvisation, pas un accompagnateur. Sur Monome Norns, il n’apprend que de toi, dans l’instant : pas d’IA générative, pas de presets.",
-       "duree": "2 min"
-      },
-      {
-       "src": "/films/teammate-poto-les-vrais-ecrans",
-       "nom": "TEAMMATE.POTO · Les vrais écrans",
-       "sens": "Les vrais écrans du Norns, couche par couche : le dialogue, POtO, 8OS, MIDI GEN, Audio→MIDI, METABO, NIAKABY et PERU.",
-       "duree": "17 min"
+       "id": "teammate",
+       "nom": "TEAMMATE.POTO",
+       "sous": "Un partenaire d’improvisation, pas un accompagnateur",
+       "statut": "joué sur scène",
+       "texte": [
+        "Sur un Monome Norns, TEAMMATE écoute ce que tu joues et le découpe en une mémoire de 48 fragments : hauteur, énergie, timbre, texture. Quand tu t’arrêtes, il décide : imiter, contraster, densifier, s’éclaircir, se taire.",
+        "Il ne joue jamais rien qu’il n’ait entendu de toi : pas d’IA générative, pas de presets. L’idée vient de Somax2, développé à l’IRCAM, poussée vers quelque chose de plus brut et de plus physique.",
+        "Sept couches tournent en parallèle : le dialogue, POtO (halo granulaire), 8OS (sampler), MIDI GEN, Audio→MIDI, METABO (un métabolisme cellulaire qui joue) et NIAKABY (harmoniseur). Le terminal EIGHTOS COM lui envoie l’écoute d’un territoire."
+       ],
+       "reperes": [
+        [
+         "Forme",
+         "Instrument logiciel pour la scène"
+        ],
+        [
+         "Machine",
+         "Monome Norns"
+        ],
+        [
+         "Technique",
+         "Lua et SuperCollider"
+        ],
+        [
+         "Licence",
+         "AGPL-3.0"
+        ]
+       ],
+       "tags": [
+        "improvisation",
+        "Norns",
+        "MIDI",
+        "performance"
+       ],
+       "films": [
+        {
+         "src": "/films/teammate-poto-pigeons",
+         "nom": "Pigeons",
+         "duree": "2 min"
+        },
+        {
+         "src": "/films/teammate-poto-les-vrais-ecrans",
+         "nom": "Les vrais écrans",
+         "duree": "17 min"
+        }
+       ]
       }
      ]
     }
@@ -662,40 +803,181 @@
    "blocs": [
     {
      "t": "texte",
-     "p": "What is growing in the studio. Working films, in progress."
+     "p": "What is growing in the studio. Pick a project to open it."
     },
     {
-     "t": "films",
+     "t": "explorer",
      "items": [
       {
-       "src": "/films/orca-glyph-explication",
+       "id": "orca",
        "nom": "ORCA//GLYPH",
-       "sens": "Orca in volume: stacked grids, extruded As-Simt glyphs, a golden pigeon for a cursor.",
-       "duree": "4 min"
+       "sous": "Orca in volume",
+       "statut": "in progress",
+       "texte": [
+        "The grid of the Orca sequencer becomes a building: each floor is an ordinary Orca grid, and all the floors are stacked. Each character is an extruded As-Simt glyph, taller the more it counts.",
+        "You code on the keyboard exactly as in Orca, and you walk around it. Six operators move between floors: up, down, listen, send, relay, glitch. A 2D mode flattens the volume back into a classic Orca, seen from above.",
+        "The cursor is a golden homing pigeon. Notes go out over MIDI and OSC to the synths; the visions (cloud, dashes, edges, glitch) transform the 3D live. This website comes from it."
+       ],
+       "reperes": [
+        [
+         "Form",
+         "Live coding software, desktop app"
+        ],
+        [
+         "Language",
+         "Orca, As-Simt glyphs"
+        ],
+        [
+         "Outputs",
+         "MIDI, OSC, UDP"
+        ],
+        [
+         "Tech",
+         "Electron, three.js"
+        ]
+       ],
+       "tags": [
+        "live coding",
+        "3D",
+        "MIDI",
+        "OSC"
+       ],
+       "films": [
+        {
+         "src": "/films/orca-glyph-explication",
+         "nom": "Walkthrough",
+         "duree": "4 min"
+        }
+       ]
       },
       {
-       "src": "/films/cave-four-robots",
+       "id": "cave",
        "nom": "CAVE // FOUR ROBOTS",
-       "sens": "A spatialised performance: four Unitree robots carrying megaphones, in a cave.",
-       "duree": "1 min"
+       "sous": "A performance in a cave",
+       "statut": "in preparation",
+       "texte": [
+        "Four Unitree robot dogs each carry a megaphone on their back. Together they play spatialised music in a huge cave.",
+        "The audience stands in the middle. The robots move around it and turn to play with the cave’s acoustics: the rock becomes part of the instrument.",
+        "The four robots are sometimes in sync, sometimes out of sync: the sound gathers, then scatters through the space."
+       ],
+       "reperes": [
+        [
+         "Form",
+         "Spatialised music performance"
+        ],
+        [
+         "Venue",
+         "A cave, audience in the middle"
+        ],
+        [
+         "Performers",
+         "Four Unitree Go2 robots with megaphones"
+        ],
+        [
+         "Stage",
+         "3D prototype, then rehearsals"
+        ]
+       ],
+       "tags": [
+        "robotics",
+        "spatial sound",
+        "performance"
+       ],
+       "films": [
+        {
+         "src": "/films/cave-four-robots",
+         "nom": "Preview",
+         "duree": "1 min"
+        }
+       ]
       },
       {
-       "src": "/films/language-of-images",
+       "id": "langue",
        "nom": "Language of images",
-       "sens": "A poetic language where everything is said with concrete images: the source of this site’s signs.",
-       "duree": "2 min"
+       "sous": "A poetic language of the future",
+       "statut": "in progress",
+       "texte": [
+        "A language where everything is said with concrete images, never with abstract concepts or numbers. A concept is a composition of at most three images: music = cave · vibration · chest.",
+        "Its logic comes from elsewhere: the verb at the end and markers saying how you know what you say, as in Hopi; intensity through lengthening and repetition, as with animals; living, machine and ghost on the same level, as with Haraway.",
+        "Each image has its sign in the As-Simt alphabet. The glyphs of this site come from it: double for the bio, seed for future projects, palm for the shop."
+       ],
+       "reperes": [
+        [
+         "Form",
+         "Constructed language and sign alphabet"
+        ],
+        [
+         "Lexicon",
+         "100 concrete roots"
+        ],
+        [
+         "Numbers",
+         "Five images, from sun to hand, then herd and swarm"
+        ],
+        [
+         "Script",
+         "As-Simt alphabet, Glyphs As Simt font"
+        ]
+       ],
+       "tags": [
+        "language",
+        "signs",
+        "As-Simt"
+       ],
+       "films": [
+        {
+         "src": "/films/language-of-images",
+         "nom": "Presentation",
+         "duree": "2 min"
+        }
+       ]
       },
       {
-       "src": "/films/teammate-poto-pigeons",
-       "nom": "TEAMMATE.POTO · Pigeons",
-       "sens": "An improvisation partner, not an accompanist. On Monome Norns, it only learns from you, in the moment: no generative AI, no presets.",
-       "duree": "2 min"
-      },
-      {
-       "src": "/films/teammate-poto-les-vrais-ecrans",
-       "nom": "TEAMMATE.POTO · The real screens",
-       "sens": "The real Norns screens, layer by layer: the dialogue, POtO, 8OS, MIDI GEN, Audio→MIDI, METABO, NIAKABY and PERU.",
-       "duree": "17 min"
+       "id": "teammate",
+       "nom": "TEAMMATE.POTO",
+       "sous": "An improvisation partner, not an accompanist",
+       "statut": "played live",
+       "texte": [
+        "On a Monome Norns, TEAMMATE listens to what you play and slices it into a memory of 48 fragments: pitch, energy, timbre, texture. When you stop, it decides: imitate, contrast, densify, thin out, stay silent.",
+        "It never plays anything it hasn’t heard from you: no generative AI, no presets. The idea comes from Somax2, developed at IRCAM, pushed towards something rawer and more physical.",
+        "Seven layers run in parallel: the dialogue, POtO (granular halo), 8OS (sampler), MIDI GEN, Audio→MIDI, METABO (a cell metabolism that plays) and NIAKABY (harmonizer). The EIGHTOS COM terminal feeds it the listening of a territory."
+       ],
+       "reperes": [
+        [
+         "Form",
+         "Software instrument for the stage"
+        ],
+        [
+         "Machine",
+         "Monome Norns"
+        ],
+        [
+         "Tech",
+         "Lua and SuperCollider"
+        ],
+        [
+         "License",
+         "AGPL-3.0"
+        ]
+       ],
+       "tags": [
+        "improvisation",
+        "Norns",
+        "MIDI",
+        "performance"
+       ],
+       "films": [
+        {
+         "src": "/films/teammate-poto-pigeons",
+         "nom": "Pigeons",
+         "duree": "2 min"
+        },
+        {
+         "src": "/films/teammate-poto-les-vrais-ecrans",
+         "nom": "The real screens",
+         "duree": "17 min"
+        }
+       ]
       }
      ]
     }

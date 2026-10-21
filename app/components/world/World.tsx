@@ -17,6 +17,7 @@ type Locale = 'fr' | 'en';
 type Mode = '3d' | 'vers2d' | '2d' | 'vers3d';
 type Prix = 'coming' | 'quote' | 'soon';
 type Item = { nom: string; sens: string; tags?: string[]; prix?: Prix; panier?: number; src?: string; duree?: string };
+type Projet = { id: string; nom: string; sous: string; statut: string; texte: string[]; reperes: string[][]; tags: string[]; films: { src: string; nom: string; duree: string }[] };
 type Bloc = { t: string; p?: string; titre?: string; sur?: string; duo?: string; legende?: string; signe?: string; code?: string; vide?: string; items?: unknown[] };
 type Famille = { id: string; nom: string; code: string; signe: string; pourquoi: string; teinte: number; css: string; blocs: Bloc[] };
 
@@ -228,6 +229,7 @@ function BlocVue({ b, f, ui, locale, ouvrirContact }: { b: Bloc; f: Famille; ui:
   if (b.t === 'deux') return <div className="bio">{(b.items as string[][]).map(([n, r, p]) => <section key={n}><h3>{n}</h3><h2>{r}</h2><p>{p}</p></section>)}</div>;
   if (b.t === 'liste') return <section className="liste"><h2 className="etiquette">{b.titre}</h2><dl>{(b.items as string[][]).flatMap(([k, v]) => [<dt key={`t${k}`}>{k}</dt>, <dd key={`d${k}`}>{v}</dd>])}</dl></section>;
   if (b.t === 'devis') return <div className="pied"><button type="button" className="btn" onClick={() => ouvrirContact('')}>{ui.devis}</button></div>;
+  if (b.t === 'explorer') return <Explorer items={b.items as Projet[]} css={f.css} locale={locale} />;
   if (b.t === 'films') {
     return (
       <div className="films">
@@ -252,6 +254,59 @@ function BlocVue({ b, f, ui, locale, ouvrirContact }: { b: Bloc; f: Famille; ui:
         </div>
       )}
     </>
+  );
+}
+
+// ---------------------------------------------------------------- futurs projets : un menu que l'on parcourt, une fiche par projet
+function Explorer({ items, css, locale }: { items: Projet[]; css: string; locale: Locale }) {
+  const [i, setI] = useState(0);
+  const [film, setFilm] = useState(0);
+  const liste = useRef<HTMLDivElement>(null);
+  const p = items[i];
+  const choisir = (n: number) => { setI(n); setFilm(0); };
+  const clavier = (e: React.KeyboardEvent) => {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    e.preventDefault(); e.stopPropagation();
+    const n = (i + (e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : -1) + items.length) % items.length;
+    choisir(n);
+    (liste.current?.querySelectorAll('button')[n] as HTMLButtonElement | undefined)?.focus();
+  };
+  const f = p.films[film];
+  return (
+    <div className="explorer" style={{ ['--c' as string]: css }}>
+      <div className="ex-liste" role="tablist" aria-orientation="vertical" ref={liste} onKeyDown={clavier}>
+        {items.map((x, n) => (
+          <button key={x.id} type="button" role="tab" aria-selected={n === i} tabIndex={n === i ? 0 : -1} onClick={() => choisir(n)}>
+            <span className="ex-code">F.{String(n + 1).padStart(2, '0')}</span>
+            <span className="ex-nom">{x.nom}</span>
+            <span className="ex-statut">{x.statut}</span>
+          </button>
+        ))}
+      </div>
+      <article className="ex-fiche" role="tabpanel" key={p.id}>
+        <header>
+          <div className="ex-code">F.{String(i + 1).padStart(2, '0')} · {p.statut}</div>
+          <h2>{p.nom}</h2>
+          <p className="ex-sous">{p.sous}</p>
+        </header>
+        <div className="ex-corps">
+          <figure className="ex-film">
+            <video key={f.src} src={`${f.src}.mp4`} poster={`${f.src}.jpg`} controls preload="none" playsInline muted aria-label={`${p.nom} · ${f.nom}`} />
+            {p.films.length > 1 ? (
+              <div className="ex-films">
+                {p.films.map((x, n) => <button key={x.src} type="button" aria-pressed={n === film} onClick={() => setFilm(n)}>{x.nom} · {x.duree}</button>)}
+              </div>
+            ) : <figcaption>{f.nom} · {f.duree}</figcaption>}
+          </figure>
+          <div className="ex-texte">
+            {p.texte.map((t) => <p key={t}>{t}</p>)}
+            <dl>{p.reperes.flatMap(([k, v]) => [<dt key={`t${k}`}>{k}</dt>, <dd key={`d${k}`}>{v}</dd>])}</dl>
+            <div className="tags">{p.tags.map((x) => <span key={x}>{x}</span>)}</div>
+          </div>
+        </div>
+      </article>
+      <span className="sr-only" aria-live="polite">{locale === 'fr' ? `projet ${i + 1} sur ${items.length}` : `project ${i + 1} of ${items.length}`}</span>
+    </div>
   );
 }
 
