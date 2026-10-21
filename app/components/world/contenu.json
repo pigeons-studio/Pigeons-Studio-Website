@@ -1,0 +1,832 @@
+{
+ "fr": [
+  {
+   "id": "bio",
+   "nom": "bio",
+   "code": "B",
+   "signe": "E113",
+   "pourquoi": "deux, à parité",
+   "teinte": 15921386,
+   "css": "#f2f0ea",
+   "blocs": [
+    {
+     "t": "lead",
+     "sur": "Art, données, robotique & son",
+     "duo": "Koo Des (NSDOS) × Julien Thomas",
+     "legende": "Un duo à parité : direction artistique et direction technique."
+    },
+    {
+     "t": "texte",
+     "p": "Pigeons Studio réunit à parité une direction artistique et une direction technique. Nous concevons des dispositifs où le geste devient musique, mouvement et expérience collective, pour la scène, l’installation et les marques. De la recherche au déploiement, nous portons le projet de la conception à la réalisation."
+    },
+    {
+     "t": "deux",
+     "items": [
+      [
+       "Koo Des (NSDOS)",
+       "Direction artistique & musicale",
+       "Né à Paris en 1984, Kirikoo Des - NSDOS - est un artiste pluridisciplinaire, musicien, performeur et danseur. Formé à l’Académie Internationale de la Danse après le hip-hop dans les rues de Paris, il cherche un « nouvel ordre sonore » à la croisée de la danse, de la performance, du live coding et de la musique électronique. Il capte des données vivantes - gestes, signaux environnementaux, rythmes biologiques - via des capteurs et des dispositifs conçus sur mesure, notamment avec ORCA."
+      ],
+      [
+       "Julien Thomas",
+       "Design, direction technique & systèmes",
+       "Designer, concepteur et développeur. Son parcours relie les concept cars, des expériences exobiologiques et musicales à bord de la Station spatiale internationale, plusieurs années en conception électronique aéronautique, et la robotique pour un studio de production vidéo. Il conçoit aujourd’hui l’architecture système, l’électronique embarquée et les dispositifs interactifs spatialisés de Pigeons Studio."
+      ]
+     ]
+    },
+    {
+     "t": "texte",
+     "titre": "Comment le duo s’est formé",
+     "p": "En 2020, Koo Des et Julien Thomas se rencontrent lors d’une résidence artistique organisée par Matrice et l’Institut de France. Leur premier geste commun : imaginer des dispositifs haptiques synchronisés avec un monde en réalité virtuelle, sur Mozilla Hubs. Le retour haptique évolue plus tard vers une conduction osseuse triphonique. En parallèle, le duo travaille sur des projets d’art numérique, de synthétiseurs et de robotique. Récemment, une collaboration en soft robotique a commencé avec Selma Lepart."
+    },
+    {
+     "t": "liste",
+     "titre": "Références",
+     "items": [
+      [
+       "Nike",
+       "Collaboration et sponsoring depuis plus de dix ans, de la conception à l’activation."
+      ],
+      [
+       "Festivals & institutions",
+       "Mutek (Mexico, Montréal, Tokyo), BIAN de Montréal, Biennale de Gwangju, Triennale de Milan, Martin Gropius Bau (Berlin, programme Breathe), IMPACT (Théâtre de Liège), HOT‑SHOP 14 (ECCO Leather)."
+      ],
+      [
+       "Résidences",
+       "Matrice et l’Institut de France, Villa Albertine, laboratoire ETHICS de l’Université Catholique de Lille."
+      ],
+      [
+       "EightOS (∞OS)",
+       "Système d’exploitation open source pour le bodymind, co-créé avec Dmitry Paranyushkin depuis 2015. Un projet distinct de Pigeons Studio."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "projets",
+   "nom": "projets",
+   "code": "P",
+   "signe": "E132",
+   "pourquoi": "ce que nos mains font",
+   "teinte": 14210303,
+   "css": "#c9c4ff",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "Parcours, réalisations du studio et collaborations."
+    },
+    {
+     "t": "cartes",
+     "items": [
+      {
+       "nom": "Capteurs de mouvement AS-SIMT",
+       "sens": "Capteurs portables transformant le mouvement en retours visuels, haptiques et sonores en temps réel. Développés par Julien, joués par Koo sur scène. Biennale de Gwangju, IMPACT (Théâtre de Liège), HOT‑SHOP 14.",
+       "tags": [
+        "Capteurs haptiques",
+        "PCB custom",
+        "ESP32",
+        "OSC"
+       ]
+      },
+      {
+       "nom": "Performance robotique Go2 (Unitree)",
+       "sens": "Mouvements scénographiés, synchronisation avec lumière et audio, intégrations sur mesure. Modules scéniques et installations interactives.",
+       "tags": [
+        "Unitree Go2",
+        "SDK",
+        "ROS2",
+        "Chorégraphie"
+       ]
+      },
+      {
+       "nom": "Installations interactives",
+       "sens": "Dispositifs scéniques pilotés en temps réel, synchronisation audio‑lumière avec retours capteurs. Électronique et firmware dédiés.",
+       "tags": [
+        "Audio I2S",
+        "IMU 9 axes",
+        "DMX/Art‑Net"
+       ]
+      }
+     ]
+    },
+    {
+     "t": "liste",
+     "titre": "Parcours de Koo",
+     "items": [
+      [
+       "Intuition · Alaska · 2017-2018",
+       "Stations météorologiques et biofeedback : les mouvements de la nature, convertis en données, deviennent sons, textures et rythmes."
+      ],
+      [
+       "S.E.L.M. · Villa Albertine · 2023",
+       "Résidence à La Nouvelle-Orléans : une danse abstraite du corps, par compilation de gestes captés et « réhumanisation » de la donnée."
+      ],
+      [
+       "Activate Cities · NSDOS × NORKHAT · 2025",
+       "Parcours urbains et QR codes dans l’espace public : une carte sonore interactive qui relie l’album à la ville."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "services",
+   "nom": "services",
+   "code": "S",
+   "signe": "E140",
+   "pourquoi": "ce que l’on offre",
+   "teinte": 10475775,
+   "css": "#9fd8ff",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "Du prototype à l’industrialisation. Marques, institutions, robotique et IA : parlons de votre projet."
+    },
+    {
+     "t": "liste",
+     "titre": "Activités",
+     "items": [
+      [
+       "Data visualisation & data intelligence",
+       "Extraire et mettre en forme les données environnementales pour en faire des visualisations artistiques."
+      ],
+      [
+       "Consulting en creative technology",
+       "Projets à la croisée de l’art, du design et de l’ingénierie."
+      ],
+      [
+       "Direction artistique",
+       "Univers, expériences et langages visuels et sonores."
+      ],
+      [
+       "Digital Art",
+       "Installations et dispositifs immersifs."
+      ],
+      [
+       "Créations physiques sur mesure",
+       "Design et électronique, CNC, métal, résines, bois, plastiques, silicones."
+      ],
+      [
+       "Computer Dance Music",
+       "Musique écrite avec et pour le corps en mouvement."
+      ],
+      [
+       "Robotic Sound Hardware",
+       "Objets sonores robotiques et dispositifs autonomes."
+      ]
+     ]
+    },
+    {
+     "t": "cartes",
+     "items": [
+      {
+       "nom": "Création d’objets audio",
+       "sens": "Objets et modules sur mesure pour la scène et l’installation.",
+       "tags": [
+        "Synthés/contrôleurs",
+        "Modules sonores",
+        "Pièces uniques"
+       ]
+      },
+      {
+       "nom": "Capteurs & interaction",
+       "sens": "Capteurs et interfaces pour gestes, mouvement, lumière.",
+       "tags": [
+        "Gestes & mouvement",
+        "Interaction scénique"
+       ]
+      },
+      {
+       "nom": "Objets & installation",
+       "sens": "Intégration d’objets et dispositifs pour la performance.",
+       "tags": [
+        "Prototype → scène",
+        "Systèmes sur mesure"
+       ]
+      },
+      {
+       "nom": "Conception 3D",
+       "sens": "Forme, matière et usage pour des objets expressifs.",
+       "tags": [
+        "Design d’objets",
+        "Prototypage rapide"
+       ]
+      },
+      {
+       "nom": "Scénographie & lumière",
+       "sens": "Dispositifs lumineux et interactions pour l’espace scénique.",
+       "tags": [
+        "Lumière réactive",
+        "Mapping & DMX"
+       ]
+      },
+      {
+       "nom": "Go2 (Unitree) sur mesure",
+       "sens": "Robot quadrupède pour performances, installations et créations.",
+       "tags": [
+        "Chorégraphies",
+        "Modules scéniques"
+       ]
+      }
+     ]
+    },
+    {
+     "t": "devis"
+    }
+   ]
+  },
+  {
+   "id": "futur",
+   "nom": "futurs projets",
+   "code": "F",
+   "signe": "E0EE",
+   "pourquoi": "futur = graine · loin · lumière",
+   "teinte": 11992970,
+   "css": "#b6ff8a",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "Ce qui pousse à l’atelier. Des films de travail, en cours."
+    },
+    {
+     "t": "films",
+     "items": [
+      {
+       "src": "/films/orca-glyph-explication",
+       "nom": "ORCA//GLYPH",
+       "sens": "Orca en volume : des étages de grilles, des glyphes As-Simt extrudés, un pigeon d’or pour curseur.",
+       "duree": "4 min"
+      },
+      {
+       "src": "/films/cave-four-robots",
+       "nom": "CAVE // FOUR ROBOTS",
+       "sens": "Une performance spatialisée : quatre robots Unitree porteurs de mégaphones, dans une grotte.",
+       "duree": "1 min"
+      },
+      {
+       "src": "/films/language-of-images",
+       "nom": "Langue des images",
+       "sens": "Une langue poétique où tout se dit par des images concrètes : la source des signes de ce site.",
+       "duree": "2 min"
+      },
+      {
+       "src": "/films/teammate-poto-pigeons",
+       "nom": "TEAMMATE.POTO · Pigeons",
+       "sens": "Un partenaire d’improvisation, pas un accompagnateur. Sur Monome Norns, il n’apprend que de toi, dans l’instant : pas d’IA générative, pas de presets.",
+       "duree": "2 min"
+      },
+      {
+       "src": "/films/teammate-poto-les-vrais-ecrans",
+       "nom": "TEAMMATE.POTO · Les vrais écrans",
+       "sens": "Les vrais écrans du Norns, couche par couche : le dialogue, POtO, 8OS, MIDI GEN, Audio→MIDI, METABO, NIAKABY et PERU.",
+       "duree": "17 min"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boutique",
+   "nom": "boutique",
+   "code": "B",
+   "signe": "E083",
+   "pourquoi": "argent = sel · signal · paume",
+   "teinte": 16758085,
+   "css": "#ffb545",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "Matériel audio et artistique, objets et disques, conçus et fabriqués au studio. Le paiement en ligne arrive bientôt : en attendant, on écrit au studio."
+    },
+    {
+     "t": "rayon",
+     "titre": "Accessoires",
+     "signe": "E082",
+     "code": "A",
+     "vide": "Objets à porter, à venir."
+    },
+    {
+     "t": "rayon",
+     "titre": "Electronic gear",
+     "signe": "E119",
+     "code": "G",
+     "items": [
+      {
+       "nom": "Capteurs AS-SIMT",
+       "sens": "Capteurs portables esthétiques transformant le mouvement en retours visuels, haptiques et sonores en temps réel.",
+       "prix": "coming",
+       "panier": 1
+      },
+      {
+       "nom": "Système Audio Multi-canal",
+       "sens": "Système audio embarqué avec 3 amplificateurs I2S pour un rendu sonore multi-canal riche.",
+       "prix": "coming",
+       "panier": 2
+      },
+      {
+       "nom": "PCB Sur-mesure",
+       "sens": "Conception et industrialisation de PCB sur-mesure pour vos projets électroniques.",
+       "prix": "quote",
+       "panier": 3
+      },
+      {
+       "nom": "Base XXL",
+       "sens": "Plateforme scénographique avec 3 enceintes, écran tactile, transducteurs et dock de recharge pour capteurs.",
+       "prix": "quote",
+       "panier": 4
+      }
+     ]
+    },
+    {
+     "t": "rayon",
+     "titre": "Musique",
+     "signe": "E11C",
+     "code": "M",
+     "items": [
+      {
+       "nom": "Activate Cities",
+       "sens": "2025, NSDOS × NORKHAT. Une carte sonore qui relie l’album à la ville.",
+       "prix": "coming",
+       "panier": 101
+      },
+      {
+       "nom": "Champignonner.Photomontage.Ultrasonique Vol. 1 & 2",
+       "sens": "2024.",
+       "prix": "coming",
+       "panier": 102
+      },
+      {
+       "nom": "Micro Club",
+       "sens": "2021.",
+       "prix": "coming",
+       "panier": 103
+      },
+      {
+       "nom": "Intuition Vol. 1 & 2",
+       "sens": "2017-2018, données de mouvement captées en Alaska.",
+       "prix": "coming",
+       "panier": 104
+      },
+      {
+       "nom": "Money Exchange",
+       "sens": "2016, Standalone Complex.",
+       "prix": "coming",
+       "panier": 105
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "logiciels",
+   "nom": "logiciels",
+   "code": "L",
+   "signe": "E130",
+   "pourquoi": "signal",
+   "teinte": 14737632,
+   "css": "#cfcfcf",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "Applications web, firmwares flashables en ligne et logiciels PC sous licence."
+    },
+    {
+     "t": "cartes",
+     "items": [
+      {
+       "nom": "Applications web",
+       "sens": "Des outils qui s’ouvrent dans le navigateur.",
+       "prix": "coming"
+      },
+      {
+       "nom": "Firmwares embarqués",
+       "sens": "Flash en ligne depuis Google Chrome (Web Serial), configuration de la carte au premier démarrage.",
+       "prix": "coming"
+      },
+      {
+       "nom": "Logiciels PC",
+       "sens": "Outils temps réel du studio, sous licence.",
+       "prix": "soon"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "en": [
+  {
+   "id": "bio",
+   "nom": "bio",
+   "code": "B",
+   "signe": "E113",
+   "pourquoi": "two, as equals",
+   "teinte": 15921386,
+   "css": "#f2f0ea",
+   "blocs": [
+    {
+     "t": "lead",
+     "sur": "Art, data, robotics & sound",
+     "duo": "Koo Des (NSDOS) × Julien Thomas",
+     "legende": "A duo of equals: artistic direction and technical direction."
+    },
+    {
+     "t": "texte",
+     "p": "Pigeons Studio brings together an artistic direction and a technical direction on equal footing. We design devices where gesture becomes music, movement and collective experience, for the stage, for installation and for brands. From research to deployment, we carry the project from conception to realization."
+    },
+    {
+     "t": "deux",
+     "items": [
+      [
+       "Koo Des (NSDOS)",
+       "Artistic & musical direction",
+       "Born in Paris in 1984, Kirikoo Des - NSDOS - is a multidisciplinary artist, musician, performer and dancer. Trained at the International Dance Academy after hip-hop in the streets of Paris, he looks for a “new sonic order” at the crossroads of dance, performance, live coding and electronic music. He captures living data - gestures, environmental signals, biological rhythms - through sensors and custom-built devices, notably with ORCA."
+      ],
+      [
+       "Julien Thomas",
+       "Design, technical direction & systems",
+       "Designer, maker and developer. His path links concept cars, exobiological and musical experiments aboard the International Space Station, several years of aeronautical electronics design, and robotics for a video production studio. Today he designs the system architecture, the embedded electronics and the spatialised interactive devices of Pigeons Studio."
+      ]
+     ]
+    },
+    {
+     "t": "texte",
+     "titre": "How the duo came together",
+     "p": "In 2020, Koo Des and Julien Thomas met during an art residency organised by Matrice and the Institut de France. Their first shared gesture: imagining haptic devices synchronised with a virtual reality world, on Mozilla Hubs. The haptic feedback later evolved into triphonic bone conduction. Alongside, the duo works on digital art, synthesizer and robotics projects. Recently, a soft robotics collaboration began with Selma Lepart."
+    },
+    {
+     "t": "liste",
+     "titre": "References",
+     "items": [
+      [
+       "Nike",
+       "Collaboration and sponsorship for more than ten years, from design to activation."
+      ],
+      [
+       "Festivals & institutions",
+       "Mutek (Mexico City, Montreal, Tokyo), BIAN Montreal, Gwangju Biennale, Milan Triennale, Martin Gropius Bau (Berlin, Breathe programme), IMPACT (Théâtre de Liège), HOT‑SHOP 14 (ECCO Leather)."
+      ],
+      [
+       "Residencies",
+       "Matrice and the Institut de France, Villa Albertine, the ETHICS lab of the Catholic University of Lille."
+      ],
+      [
+       "EightOS (∞OS)",
+       "An open-source operating system for the bodymind, co-created with Dmitry Paranyushkin since 2015. A project distinct from Pigeons Studio."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "projets",
+   "nom": "projects",
+   "code": "P",
+   "signe": "E132",
+   "pourquoi": "what our hands make",
+   "teinte": 14210303,
+   "css": "#c9c4ff",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "Journey, studio work and collaborations."
+    },
+    {
+     "t": "cartes",
+     "items": [
+      {
+       "nom": "AS-SIMT motion sensors",
+       "sens": "Wearable sensors turning movement into visual, haptic and sonic feedback in real time. Developed by Julien, played by Koo on stage. Gwangju Biennale, IMPACT (Théâtre de Liège), HOT‑SHOP 14.",
+       "tags": [
+        "Haptic sensors",
+        "Custom PCB",
+        "ESP32",
+        "OSC"
+       ]
+      },
+      {
+       "nom": "Go2 (Unitree) robotic performance",
+       "sens": "Staged movement, light and audio sync, custom integrations. Stage modules and interactive installations.",
+       "tags": [
+        "Unitree Go2",
+        "SDK",
+        "ROS2",
+        "Choreography"
+       ]
+      },
+      {
+       "nom": "Interactive installations",
+       "sens": "Stage devices driven in real time, audio-light sync with sensor feedback. Dedicated electronics and firmware.",
+       "tags": [
+        "Audio I2S",
+        "9-axis IMU",
+        "DMX/Art‑Net"
+       ]
+      }
+     ]
+    },
+    {
+     "t": "liste",
+     "titre": "Koo’s journey",
+     "items": [
+      [
+       "Intuition · Alaska · 2017-2018",
+       "Weather stations and biofeedback: the movements of nature, turned into data, become sounds, textures and rhythms."
+      ],
+      [
+       "S.E.L.M. · Villa Albertine · 2023",
+       "A residency in New Orleans: an abstract dance of the body, by compiling captured gestures and “rehumanising” the data."
+      ],
+      [
+       "Activate Cities · NSDOS × NORKHAT · 2025",
+       "Urban walks and QR codes in public space: an interactive sound map linking the album to the city."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "services",
+   "nom": "services",
+   "code": "S",
+   "signe": "E140",
+   "pourquoi": "what we offer",
+   "teinte": 10475775,
+   "css": "#9fd8ff",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "From prototype to production. Brands, institutions, robotics and AI: let’s talk about your project."
+    },
+    {
+     "t": "liste",
+     "titre": "Activities",
+     "items": [
+      [
+       "Data visualisation & data intelligence",
+       "Extracting and shaping environmental data into artistic visualisations."
+      ],
+      [
+       "Creative technology consulting",
+       "Projects at the crossroads of art, design and engineering."
+      ],
+      [
+       "Art direction",
+       "Worlds, experiences, visual and sonic languages."
+      ],
+      [
+       "Digital Art",
+       "Installations and immersive devices."
+      ],
+      [
+       "Custom physical work",
+       "Design and electronics, CNC, metal, resins, wood, plastics, silicones."
+      ],
+      [
+       "Computer Dance Music",
+       "Music written with and for the moving body."
+      ],
+      [
+       "Robotic Sound Hardware",
+       "Robotic sound objects and autonomous devices."
+      ]
+     ]
+    },
+    {
+     "t": "cartes",
+     "items": [
+      {
+       "nom": "Audio objects",
+       "sens": "Custom objects and modules for stage and installation.",
+       "tags": [
+        "Synths/controllers",
+        "Sound modules",
+        "One-off pieces"
+       ]
+      },
+      {
+       "nom": "Sensors & interaction",
+       "sens": "Sensors and interfaces for gesture, movement, light.",
+       "tags": [
+        "Gesture & movement",
+        "Stage interaction"
+       ]
+      },
+      {
+       "nom": "Objects & installation",
+       "sens": "Integrating objects and devices for performance.",
+       "tags": [
+        "Prototype → stage",
+        "Custom systems"
+       ]
+      },
+      {
+       "nom": "3D design",
+       "sens": "Form, material and use for expressive objects.",
+       "tags": [
+        "Object design",
+        "Rapid prototyping"
+       ]
+      },
+      {
+       "nom": "Scenography & light",
+       "sens": "Light devices and interactions for the stage.",
+       "tags": [
+        "Reactive light",
+        "Mapping & DMX"
+       ]
+      },
+      {
+       "nom": "Custom Go2 (Unitree)",
+       "sens": "Quadruped robot for performances, installations and creations.",
+       "tags": [
+        "Choreographies",
+        "Stage modules"
+       ]
+      }
+     ]
+    },
+    {
+     "t": "devis"
+    }
+   ]
+  },
+  {
+   "id": "futur",
+   "nom": "future projects",
+   "code": "F",
+   "signe": "E0EE",
+   "pourquoi": "future = seed · far · light",
+   "teinte": 11992970,
+   "css": "#b6ff8a",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "What is growing in the studio. Working films, in progress."
+    },
+    {
+     "t": "films",
+     "items": [
+      {
+       "src": "/films/orca-glyph-explication",
+       "nom": "ORCA//GLYPH",
+       "sens": "Orca in volume: stacked grids, extruded As-Simt glyphs, a golden pigeon for a cursor.",
+       "duree": "4 min"
+      },
+      {
+       "src": "/films/cave-four-robots",
+       "nom": "CAVE // FOUR ROBOTS",
+       "sens": "A spatialised performance: four Unitree robots carrying megaphones, in a cave.",
+       "duree": "1 min"
+      },
+      {
+       "src": "/films/language-of-images",
+       "nom": "Language of images",
+       "sens": "A poetic language where everything is said with concrete images: the source of this site’s signs.",
+       "duree": "2 min"
+      },
+      {
+       "src": "/films/teammate-poto-pigeons",
+       "nom": "TEAMMATE.POTO · Pigeons",
+       "sens": "An improvisation partner, not an accompanist. On Monome Norns, it only learns from you, in the moment: no generative AI, no presets.",
+       "duree": "2 min"
+      },
+      {
+       "src": "/films/teammate-poto-les-vrais-ecrans",
+       "nom": "TEAMMATE.POTO · The real screens",
+       "sens": "The real Norns screens, layer by layer: the dialogue, POtO, 8OS, MIDI GEN, Audio→MIDI, METABO, NIAKABY and PERU.",
+       "duree": "17 min"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boutique",
+   "nom": "shop",
+   "code": "B",
+   "signe": "E083",
+   "pourquoi": "money = salt · signal · palm",
+   "teinte": 16758085,
+   "css": "#ffb545",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "Audio and art hardware, objects and records, designed and made in the studio. Online payment is coming soon: in the meantime, write to the studio."
+    },
+    {
+     "t": "rayon",
+     "titre": "Accessories",
+     "signe": "E082",
+     "code": "A",
+     "vide": "Things to wear, coming soon."
+    },
+    {
+     "t": "rayon",
+     "titre": "Electronic gear",
+     "signe": "E119",
+     "code": "G",
+     "items": [
+      {
+       "nom": "AS-SIMT Sensors",
+       "sens": "Aesthetic wearable sensors transforming movement into visual, haptic and sonic feedback in real time.",
+       "prix": "coming",
+       "panier": 1
+      },
+      {
+       "nom": "Multi-channel Audio System",
+       "sens": "Embedded audio system with 3 I2S amplifiers for rich multi-channel sound rendering.",
+       "prix": "coming",
+       "panier": 2
+      },
+      {
+       "nom": "Custom PCB",
+       "sens": "Design and industrialization of custom PCBs for your electronic projects.",
+       "prix": "quote",
+       "panier": 3
+      },
+      {
+       "nom": "XXL Base",
+       "sens": "Scenographic platform with 3 speakers, touch screen, transducers and charging dock for sensors.",
+       "prix": "quote",
+       "panier": 4
+      }
+     ]
+    },
+    {
+     "t": "rayon",
+     "titre": "Music",
+     "signe": "E11C",
+     "code": "M",
+     "items": [
+      {
+       "nom": "Activate Cities",
+       "sens": "2025, NSDOS × NORKHAT. A sound map linking the album to the city.",
+       "prix": "coming",
+       "panier": 101
+      },
+      {
+       "nom": "Champignonner.Photomontage.Ultrasonique Vol. 1 & 2",
+       "sens": "2024.",
+       "prix": "coming",
+       "panier": 102
+      },
+      {
+       "nom": "Micro Club",
+       "sens": "2021.",
+       "prix": "coming",
+       "panier": 103
+      },
+      {
+       "nom": "Intuition Vol. 1 & 2",
+       "sens": "2017-2018, movement data captured in Alaska.",
+       "prix": "coming",
+       "panier": 104
+      },
+      {
+       "nom": "Money Exchange",
+       "sens": "2016, Standalone Complex.",
+       "prix": "coming",
+       "panier": 105
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "logiciels",
+   "nom": "software",
+   "code": "L",
+   "signe": "E130",
+   "pourquoi": "signal",
+   "teinte": 14737632,
+   "css": "#cfcfcf",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "Web apps, firmwares you can flash online, and licensed desktop software."
+    },
+    {
+     "t": "cartes",
+     "items": [
+      {
+       "nom": "Web apps",
+       "sens": "Tools that open in the browser.",
+       "prix": "coming"
+      },
+      {
+       "nom": "Embedded firmwares",
+       "sens": "Flash online from Google Chrome (Web Serial), board configuration on first boot.",
+       "prix": "coming"
+      },
+      {
+       "nom": "Desktop software",
+       "sens": "The studio’s real-time tools, under license.",
+       "prix": "soon"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -278,7 +278,6 @@ export function createWorld (opts: WorldOptions): World {
     const ici = foc > 0.6 ? Math.round(etageFoc()) : -1;
     const h = ray.intersectObjects(cibles, false).find((x) => ici < 0 || x.object.userData.e === ici || x.object === etages[x.object.userData.e].cible);
     survol = h ? h.object.userData.e : -1;
-    canvas.style.cursor = survol >= 0 ? 'pointer' : '';
   }
 
   // ---------------------------------------------------------------- tracker (un seul, sur l'étage visé)

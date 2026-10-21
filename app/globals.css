@@ -173,8 +173,8 @@ a {
   }
 }
 
-/* le cadre du viseur, sur toutes les pages */
-body::after {
+/* le cadre du viseur, sur toutes les pages (l'accueil a le sien) */
+body:not(:has(.orca))::after {
   content: "";
   position: fixed;
   z-index: 200;

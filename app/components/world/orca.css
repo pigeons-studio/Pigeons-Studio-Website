@@ -1,0 +1,162 @@
+/* Le site Pigeons Studio : le viseur ORCA//GLYPH (repris tel quel de la page Claude) */
+.orca {
+  --nuit: #000; --encre: #f2f0ea; --gris: #8a8780; --trait: #2c2b29;
+  --or: #ffb545; --cyan: #72dec2; --rose: #ff5fae;
+  --mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  --marge: clamp(12px, 3vw, 28px);
+  color-scheme: dark;
+
+  position: fixed; inset: 0; overflow: hidden;
+  background: var(--nuit); color: var(--encre); font-family: var(--mono); font-size: 12px; line-height: normal;
+}
+.orca p, .orca h1, .orca h2, .orca h3, .orca dl, .orca dd, .orca figure { margin: 0; }
+.orca h1, .orca h2, .orca h3 { font-family: var(--mono); }
+.orca p { line-height: normal; }
+.orca #page { background: none; }
+.orca, .orca canvas, .orca button { cursor: url('/cursor/pigeon.png') 9 6, crosshair; }
+.orca button { font: inherit; color: inherit; background: none; border: 0; padding: 0; }
+.orca button:focus-visible { outline: 1px solid var(--cyan); outline-offset: 3px; }
+.orca #monde { position: fixed; inset: 0; display: block; width: 100%; height: 100%; touch-action: none; }
+.orca #cadre { position: fixed; pointer-events: none; z-index: 3;
+  top: calc(var(--marge) + env(safe-area-inset-top, 0px)); bottom: calc(var(--marge) + env(safe-area-inset-bottom, 0px));
+  left: max(var(--marge), env(safe-area-inset-left, 0px)); right: max(var(--marge), env(safe-area-inset-right, 0px));
+  border: 1px solid var(--trait); }
+.orca #cadre .c { position: absolute; display: flex; gap: 14px; align-items: baseline; padding: 10px 14px; letter-spacing: .08em; pointer-events: auto; }
+.orca #cadre .hg { top: 0; left: 0; letter-spacing: .32em; }
+.orca #cadre .hd { top: 0; right: 0; }
+.orca #cadre .bg { bottom: 0; left: 0; color: var(--gris); }
+.orca #cadre .bd { bottom: 0; right: 0; }
+.orca #etat b { color: var(--encre); font-weight: 400; }
+.orca #panier { color: var(--or); }
+.orca #retour { color: var(--gris); }
+.orca #retour:hover, .orca #panier:hover { color: var(--encre); }
+.orca #retour[hidden] { display: none; }
+.orca .coin { position: absolute; width: 10px; height: 10px; border: 0 solid var(--gris); }
+.orca .coin.a { left: -1px; top: -1px; border-width: 1px 0 0 1px; }
+.orca .coin.b { right: -1px; top: -1px; border-width: 1px 1px 0 0; }
+.orca .coin.c { left: -1px; bottom: -1px; border-width: 0 0 1px 1px; }
+.orca .coin.d { right: -1px; bottom: -1px; border-width: 0 1px 1px 0; }
+.orca #trk { position: fixed; left: 0; top: 0; z-index: 4; pointer-events: none; opacity: 0; transition: opacity .15s; --c: var(--or); }
+.orca #trk.on { opacity: 1; }
+.orca #trk i { position: absolute; width: 10px; height: 10px; border: 0 solid var(--c); }
+.orca #trk i:nth-child(1) { left: 0; top: 0; border-width: 1px 0 0 1px; }
+.orca #trk i:nth-child(2) { right: 0; top: 0; border-width: 1px 1px 0 0; }
+.orca #trk i:nth-child(3) { left: 0; bottom: 0; border-width: 0 0 1px 1px; }
+.orca #trk i:nth-child(4) { right: 0; bottom: 0; border-width: 0 1px 1px 0; }
+.orca #trk span { position: absolute; left: 100%; top: 0; margin-left: 10px; white-space: nowrap; line-height: 16px; color: var(--c); letter-spacing: .06em; }
+.orca #trk span em { display: block; font-style: italic; color: var(--gris); letter-spacing: 0; }
+.orca #page { position: fixed; z-index: 2; overflow-y: auto; opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s; transform: translateY(10px);
+  top: calc(var(--marge) + env(safe-area-inset-top, 0px) + 44px); bottom: calc(var(--marge) + env(safe-area-inset-bottom, 0px) + 44px);
+  left: max(var(--marge), env(safe-area-inset-left, 0px)); right: max(var(--marge), env(safe-area-inset-right, 0px)); }
+.orca #page.on { opacity: 1; pointer-events: auto; transform: none; }
+.orca #page .dedans { max-width: 880px; margin: 0 auto; padding-inline: 16px; padding-block: 8px 24px; display: flex; flex-direction: column; gap: 28px; }
+.orca .familles { display: flex; gap: 8px; }
+.orca .familles button { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--trait); background: rgba(0,0,0,.6); }
+.orca .familles button[aria-current="true"] { border-color: var(--or); }
+.orca .familles button:hover { border-color: var(--gris); }
+.orca .familles svg { width: 22px; height: 22px; display: block; }
+.orca .titre { display: flex; gap: 18px; align-items: center; }
+.orca .titre svg { width: 56px; height: 56px; flex: none; }
+.orca .titre h1 { margin: 0; font-size: 22px; line-height: 28px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; }
+.orca .titre p { margin: 2px 0 0; color: var(--gris); font-style: italic; }
+.orca .chapo { margin: 0; max-width: 62ch; line-height: 20px; }
+.orca .grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px; background: var(--trait); border: 1px solid var(--trait); }
+.orca .prod { background: rgba(0,0,0,.88); padding: 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.orca .prod .ref { color: var(--gris); font-size: 10px; letter-spacing: .14em; }
+.orca .prod h2 { margin: 0; font-size: 14px; font-weight: 600; letter-spacing: .04em; }
+.orca .prod p { margin: 0; color: var(--gris); line-height: 18px; flex: 1; }
+.orca .prod .pied { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 6px; }
+.orca .prod .prix { color: var(--or); font-variant-numeric: tabular-nums; }
+.orca .btn { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; padding: 6px 10px; border: 1px solid var(--or); color: var(--or); }
+.orca .btn.plein { background: var(--or); color: var(--nuit); }
+.orca .btn:hover { background: var(--or); color: var(--nuit); }
+.orca .btn.doux { border-color: var(--trait); color: var(--gris); }
+.orca .btn.doux:hover { background: var(--encre); color: var(--nuit); border-color: var(--encre); }
+.orca .bio { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; line-height: 20px; }
+.orca .bio h2 { margin: 0 0 6px; font-size: 11px; font-weight: 400; letter-spacing: .2em; color: var(--gris); text-transform: uppercase; }
+.orca .bio p { margin: 0; max-width: 62ch; }
+.orca .bio h3 { margin: 0 0 2px; font-size: 14px; font-weight: 600; letter-spacing: .04em; }
+.orca .duo { margin: 0; font-size: 15px; letter-spacing: .06em; }
+.orca .legende { margin: -20px 0 0; color: var(--gris); font-style: italic; }
+.orca .lead { display: flex; flex-direction: column; gap: 6px; }
+.orca .lead .sur { margin: 0; color: var(--gris); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; }
+.orca .lead .duo { font-size: 16px; }
+.orca .lead .legende { margin: 0; }
+.orca .texte p, .orca .vide { margin: 0; max-width: 62ch; line-height: 20px; }
+.orca .vide { color: var(--gris); }
+.orca .etiquette { margin: 0 0 10px; font-size: 10px; font-weight: 400; letter-spacing: .2em; color: var(--gris); text-transform: uppercase; }
+.orca .liste dl { margin: 0; display: grid; grid-template-columns: minmax(0, 15em) minmax(0, 1fr); gap: 10px 24px; line-height: 18px; }
+.orca .liste dt { color: var(--encre); }
+.orca .liste dd { margin: 0; color: var(--gris); max-width: 60ch; }
+@media (max-width: 560px) {
+.orca .liste dl { grid-template-columns: 1fr; gap: 2px; }
+.orca .liste dd { margin-bottom: 10px; }
+}
+.orca .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.orca .tags span { font-size: 10px; color: var(--gris); border: 1px solid var(--trait); padding: 1px 6px; }
+.orca .films { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+.orca .film { margin: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.orca .film video { width: 100%; aspect-ratio: 4 / 5; max-width: 100%; background: #0b0b0a; border: 1px solid var(--trait); display: block; }
+.orca .film h2 { margin: 0; font-size: 13px; font-weight: 600; letter-spacing: .04em; }
+.orca .film p { margin: 0; color: var(--gris); line-height: 17px; }
+.orca .film .duree { font-size: 10px; color: var(--gris); letter-spacing: .1em; }
+.orca #tiroir p { margin: 0; line-height: 18px; }
+.orca #tiroir .sujet { color: var(--cyan); }
+.orca #tiroir .mail { display: flex; justify-content: space-between; align-items: center; gap: 8px; color: var(--or); user-select: all; }
+.orca #page .dedans { background: none; text-shadow: 0 0 6px #000, 0 0 2px #000; }
+.orca #page .dedans p, .orca #page .dedans dd { background: rgba(0,0,0,.55); }
+.orca .grille { background: none !important; border: 0 !important; gap: 1px !important; }
+.orca .prod { box-shadow: 0 0 0 1px var(--trait); }
+.orca .prod h2 { overflow-wrap: anywhere; }
+.orca .rayon { display: flex; align-items: center; gap: 12px; margin-top: 8px; padding-top: 18px; border-top: 1px dashed var(--trait); }
+.orca .rayon svg { width: 24px; height: 24px; flex: none; }
+.orca .rayon h2 { margin: 0; font-size: 13px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+.orca .rayon span { color: var(--gris); font-style: italic; }
+.orca #tiroir form { display: flex; flex-direction: column; gap: 10px; }
+.orca #tiroir label { display: flex; flex-direction: column; gap: 4px; color: var(--gris); font-size: 11px; letter-spacing: .06em; }
+.orca #tiroir input { font: inherit; color: var(--encre); background: #0b0b0a; border: 1px solid var(--trait); padding: 7px 8px; }
+.orca #tiroir input:focus-visible { outline: 1px solid var(--cyan); outline-offset: 0; }
+.orca #tiroir .ligne { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.orca #tiroir .lien { color: var(--cyan); text-decoration: underline; text-underline-offset: 3px; }
+.orca #cadre .hd { gap: 18px; }
+.orca #connexion { color: var(--gris); }
+.orca #connexion:hover { color: var(--encre); }
+.orca #tiroir { position: fixed; z-index: 5; right: max(var(--marge), env(safe-area-inset-right, 0px)); top: calc(var(--marge) + env(safe-area-inset-top, 0px) + 40px);
+  width: min(300px, calc(100vw - 2 * var(--marge))); background: #000; border: 1px solid var(--trait); padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.orca #tiroir[hidden] { display: none; }
+.orca #tiroir ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.orca #tiroir li { display: flex; justify-content: space-between; gap: 10px; font-variant-numeric: tabular-nums; }
+.orca #tiroir li span:last-child, .orca #tiroir .total { color: var(--or); }
+.orca #tiroir .note { color: var(--gris); font-size: 10px; }
+@media (max-width: 560px) {
+.orca #cadre .bg .aide { display: none; }
+}
+
+/* ---- ajouts du site : tracker des glyphes 2D, panier, langue ---- */
+.orca .trk { position: fixed; left: 0; top: 0; z-index: 4; pointer-events: none; --c: var(--or); }
+.orca .trk i { position: absolute; width: 10px; height: 10px; border: 0 solid var(--c); }
+.orca .trk i:nth-child(1) { left: 0; top: 0; border-width: 1px 0 0 1px; }
+.orca .trk i:nth-child(2) { right: 0; top: 0; border-width: 1px 1px 0 0; }
+.orca .trk i:nth-child(3) { left: 0; bottom: 0; border-width: 0 0 1px 1px; }
+.orca .trk i:nth-child(4) { right: 0; bottom: 0; border-width: 0 1px 1px 0; }
+.orca .trk span { position: absolute; left: 100%; top: 0; margin-left: 10px; white-space: nowrap; line-height: 16px; color: var(--c); letter-spacing: .06em; }
+.orca .trk span em { display: block; font-style: italic; color: var(--gris); letter-spacing: 0; }
+.orca #panier-btn { color: var(--or); }
+.orca #panier-btn:hover { color: var(--encre); }
+.orca .langue { display: flex; gap: 6px; }
+.orca .langue button { color: var(--gris); text-transform: uppercase; letter-spacing: .1em; }
+.orca .langue button[aria-current="true"] { color: var(--encre); box-shadow: inset 0 -1px 0 var(--or); }
+.orca .langue button:hover { color: var(--encre); }
+.orca #tiroir .qte { display: inline-flex; gap: 8px; align-items: center; color: var(--or); }
+.orca #tiroir .qte button { color: var(--gris); padding: 0 4px; }
+.orca #tiroir .qte button:hover { color: var(--encre); }
+.orca #tiroir .qte b { font-weight: 400; min-width: 1.5ch; text-align: center; }
+.orca #tiroir a.btn { text-align: center; }
+.orca #tiroir .lien:hover { color: var(--encre); }
+@media (max-width: 560px) {
+  .orca #cadre .hd { gap: 10px; padding-inline: 10px; }
+  .orca #cadre .hg { letter-spacing: .18em; padding-inline: 10px; }
+}
+@media (max-width: 420px) {
+  .orca #cadre .hg { font-size: 10px; letter-spacing: .1em; }
+}

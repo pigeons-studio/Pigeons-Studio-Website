@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { baseUrl, buildPageMetadata } from '@/lib/seo';
-import Header from '@/app/components/Header';
 import World from '@/app/components/world/World';
 
 export async function generateMetadata({
@@ -65,11 +64,8 @@ export default async function HomePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Header />
-      <main>
-        <h1 className="sr-only">{t('title')} · {t('duoLine')}</h1>
-        <World />
-      </main>
+      <h1 className="sr-only">{t('title')} · {t('duoLine')}</h1>
+      <World />
     </>
   );
 }
