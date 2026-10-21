@@ -943,7 +943,9 @@
       "accessoiresVide": "Things to wear, coming soon.",
       "gear": "Electronic gear",
       "musique": "Music",
-      "aVenir": "Coming soon"
+      "aVenir": "Coming soon",
+      "prevenir": "get notified",
+      "paiement": "Online payment is coming soon: in the meantime, write to the studio."
     },
     "services": {
       "activites": "Activities",

@@ -103,6 +103,12 @@ header:not([class*="Header"]) {
   background: var(--background); /* Fond opaque pour cacher le footer */
 }
 
+/* dans main, les sections laissent voir Orca en arrière-plan */
+main section,
+main header:not([class*="Header"]) {
+  background: transparent;
+}
+
 /* S'assurer que le contenu principal prend au moins 100vh pour cacher le footer par défaut */
 .page {
   min-height: 100vh;

@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { Link, usePathname } from '@/i18n/routing';
 import LanguageSwitcher from './LanguageSwitcher';
-import CartIcon from './CartIcon';
+import { useCartStore } from '@/app/store/cartStore';
 import Cart from './Cart';
 import LoginModal from './LoginModal';
 import UserMenu from './UserMenu';
@@ -15,6 +15,8 @@ import styles from "./Header.module.css";
 export default function Header() {
   const t = useTranslations('common.nav');
   const tAuth = useTranslations('auth');
+  const tCart = useTranslations('cart');
+  const totalItems = useCartStore((state) => state.getTotalItems());
   const pathname = usePathname();
   const { data: session } = useSession();
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -86,83 +88,27 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <Link href="/" className={styles.logo}>
+        <Link href="/" className={styles.logo} aria-label={t('home')}>
           PIGEONS//STUDIO
         </Link>
-        <button 
-          className={styles.mobileMenuButton}
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {isMobileMenuOpen ? (
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            ) : (
-              <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            )}
-          </svg>
-        </button>
-        <nav className={`${styles.nav} ${isMobileMenuOpen ? styles.navOpen : ''}`}>
-          <Link 
-            href="/" 
-            className={`${styles.navLink} ${isActive('/') ? styles.active : ''}`}
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            {t('home')}
-          </Link>
-          <Link 
-            href="/shop" 
-            className={`${styles.navLink} ${isActive('/shop') ? styles.active : ''}`}
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            {t('shop')}
-          </Link>
-          <Link 
-            href="/services" 
-            className={`${styles.navLink} ${isActive('/services') ? styles.active : ''}`}
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            {t('services')}
-          </Link>
-          <Link 
-            href="/projects" 
-            className={`${styles.navLink} ${isActive('/projects') ? styles.active : ''}`}
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            {t('projects')}
-          </Link>
-          <Link 
-            href="/softwares" 
-            className={`${styles.navLink} ${isActive('/softwares') ? styles.active : ''}`}
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            {t('softwares')}
-          </Link>
-          <Link 
-            href="/contact" 
-            className={`${styles.navLink} ${isActive('/contact') ? styles.active : ''}`}
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
+        <div className={styles.cadreActions}>
+          {mounted && totalItems > 0 && (
+            <button type="button" className={styles.cadreLien} onClick={() => setIsCartOpen(true)}>
+              {tCart('title')} · {totalItems}
+            </button>
+          )}
+          {session ? (
+            <UserMenu />
+          ) : (
+            <button type="button" className={styles.cadreLien} onClick={() => setIsLoginOpen(true)}>
+              {tAuth('login')}
+            </button>
+          )}
+          <Link href="/contact" className={`${styles.cadreLien} ${styles.cadreOr} ${isActive('/contact') ? styles.active : ''}`}>
             {t('contact')}
           </Link>
-          <div className={styles.navActions}>
-            <CartIcon onClick={() => {
-              setIsCartOpen(true);
-              setIsMobileMenuOpen(false);
-            }} />
-            {session ? (
-              <UserMenu />
-            ) : (
-              <button onClick={() => {
-                setIsLoginOpen(true);
-                setIsMobileMenuOpen(false);
-              }} className={styles.loginButton}>
-                {tAuth('login')}
-              </button>
-            )}
-            <LanguageSwitcher />
-          </div>
-        </nav>
+          <LanguageSwitcher />
+        </div>
       </div>
       {mounted && isCartOpen && createPortal(
         <div className={styles.cartModal} onClick={() => setIsCartOpen(false)}>

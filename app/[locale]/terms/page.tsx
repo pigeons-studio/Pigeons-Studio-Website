@@ -5,6 +5,7 @@ import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import { buildPageMetadata } from '@/lib/seo';
 import styles from './page.module.css';
+import OrcaFond from '@/app/components/world/OrcaFond';
 
 export async function generateMetadata({
   params,
@@ -28,6 +29,7 @@ export default function CGVPage() {
     <div className={`page ${styles.page}`}>
       <Header />
       <main className={styles.main}>
+        <OrcaFond patch="contact" />
         <div className={styles.container}>
           <div className={styles.header}>
             <h1 className={styles.title}>{t('title')}</h1>

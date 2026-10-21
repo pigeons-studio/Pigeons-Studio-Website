@@ -943,7 +943,9 @@
       "accessoiresVide": "Objets à porter, à venir.",
       "gear": "Electronic gear",
       "musique": "Musique",
-      "aVenir": "À venir"
+      "aVenir": "À venir",
+      "prevenir": "être prévenu",
+      "paiement": "Le paiement en ligne arrive bientôt : en attendant, on écrit au studio."
     },
     "services": {
       "activites": "Activités",

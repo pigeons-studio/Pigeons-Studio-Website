@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
-import ProductCard, { type Product } from '@/app/components/ProductCard';
+import type { Product } from '@/app/components/ProductCard';
 import productsData from '@/data/products.json';
 import { softwaresCatalog } from '@/lib/softwares';
 import GLYPHES from './glyphes.json';
@@ -174,6 +174,7 @@ function Contenu({ id, css }: { id: EtageId; css: string }) {
   const h = useTranslations('home');
   const a = useTranslations('about');
   const s = useTranslations('softwares');
+  const sh = useTranslations('shop');
   const locale = useLocale() as 'fr' | 'en';
   const fort = (chunks: ReactNode) => <span className={styles.fort}>{chunks}</span>;
 
@@ -277,11 +278,26 @@ function Contenu({ id, css }: { id: EtageId; css: string }) {
     const sorties = h.raw('sections.duo.koo.releases.items') as string[];
     return (
       <>
-        <p className={styles.texte}>{t('boutique.intro')}</p>
+        <p className={styles.texte}>{t('boutique.intro')} {t('boutique.paiement')}</p>
         <Rayon signe="E082" css={css} titre={t('boutique.accessoires')} mot={t('signes.E082')} />
         <p className={styles.vide}>{t('boutique.accessoiresVide')}</p>
         <Rayon signe="E119" css={css} titre={t('boutique.gear')} mot={t('signes.E119')} />
-        <div className={styles.produits}>{produits.map((p) => <ProductCard key={p.id} product={p} />)}</div>
+        <div className={styles.grille}>
+          {produits.map((p, i) => {
+            const prix = p.price === 'coming' ? sh('price.coming') : p.price === 'quote' ? sh('price.quote') : String(p.price);
+            return (
+              <article key={p.id} className={styles.carte}>
+                <div className={styles.ref}>G.{String(i + 1).padStart(2, '0')}</div>
+                <h2>{p.name[locale]}</h2>
+                <p>{p.description[locale]}</p>
+                <div className={styles.pied}>
+                  <span className={styles.prix}>{prix}</span>
+                  <Link href="/contact" className={styles.bouton}>{p.price === 'quote' ? t('services.devis') : t('boutique.prevenir')}</Link>
+                </div>
+              </article>
+            );
+          })}
+        </div>
         <Rayon signe="E11C" css={css} titre={t('boutique.musique')} mot={t('signes.E11C')} />
         <div className={styles.grille}>
           {sorties.map((x, i) => {

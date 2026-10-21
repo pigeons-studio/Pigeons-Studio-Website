@@ -7,6 +7,7 @@ import ProductCard, { Product } from '@/app/components/ProductCard';
 import productsData from '@/data/products.json';
 import { buildPageMetadata } from '@/lib/seo';
 import styles from './page.module.css';
+import OrcaFond from '@/app/components/world/OrcaFond';
 
 export async function generateMetadata({
   params,
@@ -37,6 +38,7 @@ export default function BoutiquePage() {
     <div className={`page ${styles.page}`}>
       <Header />
       <main className={styles.main}>
+        <OrcaFond patch="boutique" />
         <div className={styles.container}>
           <div className={styles.header}>
             <h1 className={styles.title}>{t('title')}</h1>

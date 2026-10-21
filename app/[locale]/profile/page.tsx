@@ -9,6 +9,7 @@ import Footer from '@/app/components/Footer';
 import DeleteAccountModal from '@/app/components/DeleteAccountModal';
 import { useOrdersStore } from '@/app/store/ordersStore';
 import styles from './page.module.css';
+import OrcaFond from '@/app/components/world/OrcaFond';
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
@@ -31,6 +32,7 @@ export default function ProfilePage() {
       <div className={`page ${styles.page}`}>
         <Header />
         <main className={styles.main}>
+        <OrcaFond patch="contact" />
           <div className={styles.container}>
             <div className={styles.loading}>Chargement...</div>
           </div>
@@ -74,6 +76,7 @@ export default function ProfilePage() {
     <div className={`page ${styles.page}`}>
       <Header />
       <main className={styles.main}>
+        <OrcaFond patch="contact" />
         <div className={styles.container}>
           <div className={styles.header}>
             <h1 className={styles.title}>{t('title')}</h1>

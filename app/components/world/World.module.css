@@ -113,8 +113,10 @@
   display: flex;
   flex-direction: column;
   gap: 28px;
-  background: rgba(0, 0, 0, 0.72);
+  background: none;
+  text-shadow: 0 0 6px #000, 0 0 2px #000;
 }
+.dedans p, .dedans dd { background: rgba(0, 0, 0, 0.55); }
 .dedans p { line-height: 1.6; }
 
 .familles { display: flex; flex-wrap: wrap; gap: 8px; }

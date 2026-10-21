@@ -354,3 +354,27 @@
   .nav { top: calc(var(--marge) + env(safe-area-inset-top, 0px) + 48px); background: rgba(0, 0, 0, 0.96); }
   .navLink { font-size: 14px; }
 }
+
+/* l'en-tête du viseur : le nom à gauche, panier · connexion · contact · langue à droite (la navigation, ce sont les étages) */
+.cadreActions { margin-left: auto; display: flex; align-items: center; gap: 18px; min-width: 0; }
+.cadreLien {
+  font: inherit;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+.cadreLien:hover, .cadreLien.active { color: var(--foreground); }
+.cadreOr { color: var(--accent-or); }
+.cadreLien:focus-visible { outline: 1px solid var(--accent-cyan); outline-offset: 3px; }
+@media (max-width: 520px) {
+  .container { padding: 0 10px; }
+  .logo { letter-spacing: 0.18em; font-size: 11px; margin-right: 8px; }
+  .cadreActions { gap: 10px; }
+  .cadreLien { font-size: 11px; letter-spacing: 0.02em; }
+}

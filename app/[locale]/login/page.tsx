@@ -8,6 +8,7 @@ import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import LoginModal from '@/app/components/LoginModal';
 import { useTranslations } from 'next-intl';
+import OrcaFond from '@/app/components/world/OrcaFond';
 
 function LoginContent() {
   const searchParams = useSearchParams();
@@ -54,6 +55,7 @@ function LoginContent() {
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Header />
         <main style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <OrcaFond patch="contact" />
           <p>Chargement...</p>
         </main>
         <Footer />
@@ -68,6 +70,7 @@ function LoginContent() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header />
       <main style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
+        <OrcaFond patch="contact" />
         <div style={{ textAlign: 'center', maxWidth: '500px' }}>
           <h1 style={{ marginBottom: '20px', fontSize: '24px', fontWeight: 600 }}>
             {error === 'Callback' ? t('error') : t('login')}
@@ -100,6 +103,7 @@ export default function LoginPage() {
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Header />
         <main style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <OrcaFond patch="contact" />
           <p>Chargement...</p>
         </main>
         <Footer />

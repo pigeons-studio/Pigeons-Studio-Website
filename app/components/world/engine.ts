@@ -116,7 +116,9 @@ export function createWorld (opts: WorldOptions): World {
   // ---------------------------------------------------------------- patchs Orca
   function construirePatch (f, grp) {
     const lignes = patchs[f.id] || [];
-    const grille = Array.from({ length: NR }, (_, r) => Array.from({ length: NC }, (_, c) => (lignes[r] || '')[c] || '.'));
+    // le patch se pose dans la moitié basse de la dalle : en 2D, il reste en arrière-plan sans passer sous le titre
+    const r0 = Math.max(0, NR - lignes.length - 2);
+    const grille = Array.from({ length: NR }, (_, r) => Array.from({ length: NC }, (_, c) => (lignes[r - r0] || '')[c] || '.'));
     const pris = []; const cle = new Map();
     const prendre = (c, r) => { const k = c + ',' + r; if (!cle.has(k) && c < NC && r < NR) { cle.set(k, pris.length); pris.push([c, r]); } };
     grille.forEach((row, r) => row.forEach((ch, c) => { if (ch !== '.') { prendre(c, r); if ('CDT'.includes(ch)) prendre(c, r + 1); } }));
@@ -229,7 +231,8 @@ export function createWorld (opts: WorldOptions): World {
       const vis = (sel ? 1 : 1 - k) * (1 - 0.75 * loin);
       x.plan.material.opacity = 0.04 * vis * (1 - k);
       x.croix.material.opacity = 0.6 * vis * (1 - 0.8 * k);
-      const mq = (1 - k) * (1 - 0.8 * loin) * (survol >= 0 && survol !== e && etat.mode === '3d' ? 0.45 : 1);
+      // en 2D, l'Orca de l'étage reste en arrière-plan de la page, à plat
+      const mq = (sel ? lerp(1, 0.55, k) : 1 - k) * (1 - 0.8 * loin) * (survol >= 0 && survol !== e && etat.mode === '3d' ? 0.45 : 1);
       x.patch.m.material.opacity = mq; x.patch.pts.material.opacity = mq;
       x.bord.material.opacity = 0.35 * vis * (1 - k);
       x.chaud += ((etageVise() === e && etat.mode === '3d' ? 1 : 0) - x.chaud) * (1 - Math.pow(0.0005, dt));

@@ -1,0 +1,18 @@
+/* posé dans <main>, sous le contenu : main est un contexte d'empilement (z-index 10), on reste au-dessus de son fond noir */
+.fond {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: clip;
+}
+
+.canvas {
+  position: sticky;
+  top: 0;
+  display: block;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  opacity: 0.85;
+}

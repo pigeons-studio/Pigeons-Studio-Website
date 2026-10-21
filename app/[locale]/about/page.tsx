@@ -6,6 +6,7 @@ import Footer from '@/app/components/Footer';
 import TodoBadge from '@/app/components/TodoBadge';
 import { buildPageMetadata } from '@/lib/seo';
 import styles from './page.module.css';
+import OrcaFond from '@/app/components/world/OrcaFond';
 
 export async function generateMetadata({
   params,
@@ -29,6 +30,7 @@ export default function AboutPage() {
     <div className={`page ${styles.page}`}>
       <Header />
       <main className={styles.main}>
+        <OrcaFond patch="bio" />
         <div className={styles.container}>
           <div className={styles.header}>
             <h1 className={styles.title}>{t('title')}</h1>
