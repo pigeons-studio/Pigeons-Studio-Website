@@ -4,7 +4,6 @@ import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { baseUrl, buildPageMetadata } from '@/lib/seo';
-import { Geist, Geist_Mono, Baloo_2 } from "next/font/google";
 import SessionProvider from '@/app/providers/SessionProvider';
 import "../globals.css";
 
@@ -50,22 +49,6 @@ export async function generateMetadata({
   };
 }
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const baloo = Baloo_2({
-  variable: "--font-baloo",
-  subsets: ["latin"],
-  weight: ["700", "800"],
-});
-
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
@@ -91,22 +74,9 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <head>
-        <link
-          rel="preload"
-          href="/fonts/balloon/balloon.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/balloon/balloon.ttf"
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
+        <link rel="preload" href="/fonts/plex/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable}`}>
+      <body>
         <SessionProvider>
           <NextIntlClientProvider messages={messages}>
             {children}

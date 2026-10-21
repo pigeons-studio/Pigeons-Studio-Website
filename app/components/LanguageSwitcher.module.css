@@ -46,3 +46,9 @@
     font-size: 14px;
   }
 }
+
+/* ORCA//GLYPH : deux cases, l'actif en or */
+.switcher { border: 0; background: none; padding: 0; gap: 2px; }
+.button { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; padding: 3px 7px; color: var(--muted); opacity: 1; }
+.button:hover { color: var(--foreground); background: none; }
+.button.active { background: none; color: var(--accent-or); box-shadow: inset 0 -1px 0 var(--accent-or); }

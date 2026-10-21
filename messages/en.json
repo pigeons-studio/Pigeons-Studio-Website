@@ -300,17 +300,32 @@
           "as-simt": {
             "title": "AS-SIMT Motion Sensors",
             "description": "Wearable sensors turning movement into real-time visual, haptic and sonic feedback. Built by Julien and played on stage by Koo. Presented at Gwangju Biennale, IMPACT (Théâtre de Liège) and HOT‑SHOP 14 (ECCO Leather).",
-            "tags": ["Haptic sensors", "Custom PCB", "ESP32", "OSC"]
+            "tags": [
+              "Haptic sensors",
+              "Custom PCB",
+              "ESP32",
+              "OSC"
+            ]
           },
           "go2": {
             "title": "Go2 (Unitree) Robotic Performance",
             "description": "Choreographed movements, synchronization with light and audio, custom integrations. Performative projects including stage modules and interactive installations.",
-            "tags": ["Unitree Go2", "SDK", "ROS2", "Choreography"]
+            "tags": [
+              "Unitree Go2",
+              "SDK",
+              "ROS2",
+              "Choreography"
+            ]
           },
           "installations": {
             "title": "Interactive Installations",
             "description": "Real-time controlled stage devices, audio-light synchronization with sensor feedback. Dedicated electronics and firmware for modulations and effects.",
-            "tags": ["I2S audio", "9-axis IMU", "DMX/Art‑Net", "Sync"]
+            "tags": [
+              "I2S audio",
+              "9-axis IMU",
+              "DMX/Art‑Net",
+              "Sync"
+            ]
           }
         },
         "todo": {
@@ -839,6 +854,103 @@
       "cancel": "Cancel",
       "deleting": "Deleting...",
       "success": "Your account has been successfully deleted"
+    }
+  },
+  "world": {
+    "etats": {
+      "3d": "3D",
+      "2d": "2D",
+      "vers2d": "3D → 2D",
+      "vers3d": "2D → 3D"
+    },
+    "etage": "floor",
+    "etages": "{n} floors",
+    "aide": "scroll: move through the floors · click: enter",
+    "entrer": "floor {n} · click to enter",
+    "retour": "◂ 3D",
+    "pageComplete": "see the full page",
+    "rubriques": "sections",
+    "floors": {
+      "bio": {
+        "nom": "bio",
+        "pourquoi": "two, as equals"
+      },
+      "projets": {
+        "nom": "projects",
+        "pourquoi": "what our hands make"
+      },
+      "services": {
+        "nom": "services",
+        "pourquoi": "what we offer"
+      },
+      "futur": {
+        "nom": "future projects",
+        "pourquoi": "future = seed · far · light"
+      },
+      "boutique": {
+        "nom": "shop",
+        "pourquoi": "money = salt · signal · palm"
+      },
+      "logiciels": {
+        "nom": "software",
+        "pourquoi": "signal"
+      }
+    },
+    "signes": {
+      "E113": "double",
+      "E132": "make",
+      "E140": "give",
+      "E0EE": "seed",
+      "E083": "palm",
+      "E130": "signal",
+      "E082": "skin",
+      "E119": "machine",
+      "E11C": "vibration"
+    },
+    "futur": {
+      "intro": "What is growing in the studio. Working films, in progress.",
+      "films": {
+        "orca": {
+          "nom": "ORCA//GLYPH",
+          "sens": "Orca in volume: stacked grids, extruded As-Simt glyphs, a golden pigeon for a cursor.",
+          "duree": "4 min"
+        },
+        "cave": {
+          "nom": "CAVE // FOUR ROBOTS",
+          "sens": "A spatialised performance: four Unitree robots carrying megaphones, in a cave.",
+          "duree": "1 min"
+        },
+        "langue": {
+          "nom": "Language of images",
+          "sens": "A poetic language where everything is said with concrete images: the source of this site’s signs.",
+          "duree": "2 min"
+        },
+        "pigeons": {
+          "nom": "TEAMMATE.POTO · Pigeons",
+          "sens": "An improvisation partner, not an accompanist. On Monome Norns, it only learns from you, in the moment: no generative AI, no presets.",
+          "duree": "2 min"
+        },
+        "ecrans": {
+          "nom": "TEAMMATE.POTO · The real screens",
+          "sens": "The real Norns screens, layer by layer: the dialogue, POtO, 8OS, MIDI GEN, Audio→MIDI, METABO, NIAKABY and PERU.",
+          "duree": "17 min"
+        }
+      }
+    },
+    "boutique": {
+      "intro": "Audio and art hardware, objects and records, designed and made in the studio.",
+      "accessoires": "Accessories",
+      "accessoiresVide": "Things to wear, coming soon.",
+      "gear": "Electronic gear",
+      "musique": "Music",
+      "aVenir": "Coming soon"
+    },
+    "services": {
+      "activites": "Activities",
+      "devis": "request a quote"
+    },
+    "bio": {
+      "references": "References"
     }
   }
 }

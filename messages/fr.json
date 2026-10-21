@@ -300,17 +300,32 @@
           "as-simt": {
             "title": "Capteurs de mouvement AS-SIMT",
             "description": "Capteurs portables transformant le mouvement en retours visuels, haptiques et sonores en temps réel. Développés par Julien et joués par Koo sur scène. Présentations à la Biennale de Gwangju, IMPACT (Théâtre de Liège) et HOT‑SHOP 14 (ECCO Leather).",
-            "tags": ["Capteurs haptiques", "PCB custom", "ESP32", "OSC"]
+            "tags": [
+              "Capteurs haptiques",
+              "PCB custom",
+              "ESP32",
+              "OSC"
+            ]
           },
           "go2": {
             "title": "Performance robotique Go2 (Unitree)",
             "description": "Mouvements scénographiés, synchronisation avec lumière et audio, intégrations sur mesure. Projets performatifs incluant modules scéniques et installations interactives.",
-            "tags": ["Unitree Go2", "SDK", "ROS2", "Chorégraphie"]
+            "tags": [
+              "Unitree Go2",
+              "SDK",
+              "ROS2",
+              "Chorégraphie"
+            ]
           },
           "installations": {
             "title": "Installations interactives",
             "description": "Dispositifs scéniques pilotés en temps réel, synchronisation audio‑lumière avec retours capteurs. Électronique et firmware dédiés pour modulations et effets.",
-            "tags": ["Audio I2S", "IMU 9 axes", "DMX/Art‑Net", "Synchronisation"]
+            "tags": [
+              "Audio I2S",
+              "IMU 9 axes",
+              "DMX/Art‑Net",
+              "Synchronisation"
+            ]
           }
         },
         "todo": {
@@ -839,6 +854,103 @@
       "cancel": "Annuler",
       "deleting": "Suppression en cours...",
       "success": "Votre compte a été supprimé avec succès"
+    }
+  },
+  "world": {
+    "etats": {
+      "3d": "3D",
+      "2d": "2D",
+      "vers2d": "3D → 2D",
+      "vers3d": "2D → 3D"
+    },
+    "etage": "étage",
+    "etages": "{n} étages",
+    "aide": "molette : traverser les étages · clic : entrer",
+    "entrer": "étage {n} · cliquer pour entrer",
+    "retour": "◂ 3D",
+    "pageComplete": "voir la page complète",
+    "rubriques": "rubriques",
+    "floors": {
+      "bio": {
+        "nom": "bio",
+        "pourquoi": "deux, à parité"
+      },
+      "projets": {
+        "nom": "projets",
+        "pourquoi": "ce que nos mains font"
+      },
+      "services": {
+        "nom": "services",
+        "pourquoi": "ce que l’on offre"
+      },
+      "futur": {
+        "nom": "futurs projets",
+        "pourquoi": "futur = graine · loin · lumière"
+      },
+      "boutique": {
+        "nom": "boutique",
+        "pourquoi": "argent = sel · signal · paume"
+      },
+      "logiciels": {
+        "nom": "logiciels",
+        "pourquoi": "signal"
+      }
+    },
+    "signes": {
+      "E113": "double",
+      "E132": "faire",
+      "E140": "donner",
+      "E0EE": "graine",
+      "E083": "paume",
+      "E130": "signal",
+      "E082": "peau",
+      "E119": "machine",
+      "E11C": "vibration"
+    },
+    "futur": {
+      "intro": "Ce qui pousse à l’atelier. Des films de travail, en cours.",
+      "films": {
+        "orca": {
+          "nom": "ORCA//GLYPH",
+          "sens": "Orca en volume : des étages de grilles, des glyphes As-Simt extrudés, un pigeon d’or pour curseur.",
+          "duree": "4 min"
+        },
+        "cave": {
+          "nom": "CAVE // FOUR ROBOTS",
+          "sens": "Une performance spatialisée : quatre robots Unitree porteurs de mégaphones, dans une grotte.",
+          "duree": "1 min"
+        },
+        "langue": {
+          "nom": "Langue des images",
+          "sens": "Une langue poétique où tout se dit par des images concrètes : la source des signes de ce site.",
+          "duree": "2 min"
+        },
+        "pigeons": {
+          "nom": "TEAMMATE.POTO · Pigeons",
+          "sens": "Un partenaire d’improvisation, pas un accompagnateur. Sur Monome Norns, il n’apprend que de toi, dans l’instant : pas d’IA générative, pas de presets.",
+          "duree": "2 min"
+        },
+        "ecrans": {
+          "nom": "TEAMMATE.POTO · Les vrais écrans",
+          "sens": "Les vrais écrans du Norns, couche par couche : le dialogue, POtO, 8OS, MIDI GEN, Audio→MIDI, METABO, NIAKABY et PERU.",
+          "duree": "17 min"
+        }
+      }
+    },
+    "boutique": {
+      "intro": "Matériel audio et artistique, objets et disques, conçus et fabriqués au studio.",
+      "accessoires": "Accessoires",
+      "accessoiresVide": "Objets à porter, à venir.",
+      "gear": "Electronic gear",
+      "musique": "Musique",
+      "aVenir": "À venir"
+    },
+    "services": {
+      "activites": "Activités",
+      "devis": "demander un devis"
+    },
+    "bio": {
+      "references": "Références"
     }
   }
 }

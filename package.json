@@ -15,6 +15,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "resend": "^6.9.1",
+    "three": "0.174.0",
     "zustand": "^5.0.11"
   },
   "devDependencies": {
@@ -22,6 +23,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "0.174.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "typescript": "^5"

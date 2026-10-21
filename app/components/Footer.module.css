@@ -57,7 +57,7 @@
 }
 
 .footerTitle {
-  font-family: 'Balloon', var(--font-baloo), system-ui, sans-serif;
+  font-family: var(--font-mono); letter-spacing: 0.32em;
   font-size: 18px;
   font-weight: 700;
   margin: 0;
