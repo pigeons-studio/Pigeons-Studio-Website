@@ -12,6 +12,7 @@ const TEXTES = {
     sync: 'synchronisés', desync: 'désynchronisés', public: 'public', toi: 'toi', memoire: 'mémoire · 48 fragments', reponse: 'teammate',
     decisions: ['imiter', 'contraster', 'densifier', 's’éclaircir', 'se taire'],
     traits: ['hauteur', 'énergie', 'timbre', 'texture'],
+    sens: { C: 'battement', D: 'pluie' },
     parole: ['hello agent', 'i’m listening…', 'too repetitive!', 'nice agent!', 'my turn!'],
     humeur: 'humeur', humeurs: ['curieuse', 'stressée', 'joueuse'],
     metabo: 'avatar métabolique', etats: ['STABLE', 'MONOTONE'], voiesNotes: '7 voies = 7 notes',
@@ -19,11 +20,11 @@ const TEXTES = {
     compos: [['musique', [['E0C8', 'caverne'], ['E11C', 'vibration'], ['E079', 'torse']]], ['heureux', [['E0B2', 'lumière'], ['E148', 'ouvrir'], ['E079', 'torse']]], ['voyage', [['E0E3', 'chemin'], ['E099', 'vent'], ['E08D', 'pied']]], ['futur', [['E0EE', 'graine'], ['E177', 'loin'], ['E0B2', 'lumière']]]],
     etage: 'étage',
     orca: {
-      etapes: ['Orca classique : une grille de lettres, à plat, vue de dessus. Tout se passe sur un seul plan.',
+      etapes: ['Un langage de code à nous : chaque opérateur est un glyphe As-Simt qui porte un sens. C, c’est « battement » ; D, « pluie ». Coder, c’est écrire avec des images.',
         'ORCA//GLYPH la lève en volume : les grilles s’empilent en étages, une couche du morceau par étage, et l’on circule dedans.',
         'Les données prennent du relief : chaque glyphe est extrudé, d’autant plus haut que sa valeur compte. On lit la musique comme une architecture.',
         'Les bangs voyagent dans l’espace : on les voit monter d’un étage à l’autre. Le signal devient visible, et part en MIDI vers les synthés.'],
-      legende: [['encre', 'opérateur'], ['gris', 'valeur'], ['or', 'bang qui voyage'], ['css', 'étage actif']],
+      legende: [['encre', 'opérateur'], ['gris', 'valeur'], ['or', 'bang qui voyage'], ['css', 'sens du glyphe']],
     },
 
     cave: {
@@ -54,6 +55,7 @@ const TEXTES = {
     sync: 'in sync', desync: 'out of sync', public: 'audience', toi: 'you', memoire: 'memory · 48 fragments', reponse: 'teammate',
     decisions: ['imitate', 'contrast', 'densify', 'thin out', 'stay silent'],
     traits: ['pitch', 'energy', 'timbre', 'texture'],
+    sens: { C: 'beat', D: 'rain' },
     parole: ['hello agent', 'i’m listening…', 'too repetitive!', 'nice agent!', 'my turn!'],
     humeur: 'mood', humeurs: ['curious', 'stressed', 'playful'],
     metabo: 'metabolic avatar', etats: ['STABLE', 'MONOTONE'], voiesNotes: '7 pathways = 7 notes',
@@ -61,11 +63,11 @@ const TEXTES = {
     compos: [['music', [['E0C8', 'cave'], ['E11C', 'vibration'], ['E079', 'chest']]], ['happy', [['E0B2', 'light'], ['E148', 'open'], ['E079', 'chest']]], ['journey', [['E0E3', 'path'], ['E099', 'wind'], ['E08D', 'foot']]], ['future', [['E0EE', 'seed'], ['E177', 'far'], ['E0B2', 'light']]]],
     etage: 'floor',
     orca: {
-      etapes: ['Classic Orca: a grid of letters, flat, seen from above. Everything happens on a single plane.',
+      etapes: ['A code language of our own: each operator is an As-Simt glyph that carries a meaning. C is “beat”; D, “rain”. Coding means writing with images.',
         'ORCA//GLYPH lifts it into volume: grids stack up as floors, one layer of the track per floor, and you move inside.',
         'Data takes on relief: each glyph is extruded, taller the more its value counts. You read the music like architecture.',
         'Bangs travel through space: you see them rise from one floor to the next. The signal becomes visible, and goes out as MIDI to the synths.'],
-      legende: [['encre', 'operator'], ['gris', 'value'], ['or', 'travelling bang'], ['css', 'active floor']],
+      legende: [['encre', 'operator'], ['gris', 'value'], ['or', 'travelling bang'], ['css', 'glyph meaning']],
     },
 
     cave: {
@@ -179,7 +181,7 @@ function orca (ctx, w, h, t, etat, css, L) {
   const p2 = (e, r, c) => [fx + c * cell, fy + ((2 - e) * 4 + r) * cell];
   const pos = (e, r, c) => { const a = p2(e, r, c); const b = p3(e, r, c); return [a[0] + (b[0] - a[0]) * m, a[1] + (b[1] - a[1]) * m]; };
 
-  texte(ctx, m < 0.5 ? 'ORCA · 2D' : 'ORCA//GLYPH · 3D', 12, 20, m < 0.5 ? GRIS : css, 12, 'left', '600 ');
+  texte(ctx, m < 0.5 ? 'ORCA//GLYPH · 2D' : 'ORCA//GLYPH · 3D', 12, 20, m < 0.5 ? GRIS : css, 12, 'left', '600 ');
   for (let e = 0; e < 3; e++) {
     const g = etat.etages[e];
     // la dalle de l'étage (en 2D : un simple bloc de la grille)
@@ -197,7 +199,10 @@ function orca (ctx, w, h, t, etat, css, L) {
       const val = ch === '*' ? 1.6 : /[0-9a-z]/.test(ch) ? 0.25 + (parseInt(ch, 36) % 10) / 9 : 0.7;
       const haut = ext * val * cell * 1.3;
       for (let k = 2; k < haut; k += 2) bits(ctx, TOUS[ch], x + px, y + px - k, px * 0.95, chaud > 0 ? '#6b5a3a' : '#2f2e2b');
-      bits(ctx, TOUS[ch], x + px, y + px - haut, px * 0.95, col);
+      const sens = actif === 0 && m < 0.5 ? L.sens[ch] : null;
+      bits(ctx, TOUS[ch], x + px, y + px - haut, px * 0.95, sens ? css : col);
+      // le sens du glyphe : un opérateur est aussi une image
+      if (sens) { viseur(ctx, x - 2, y - 2, cell + 4, cell + 4, css, 0.9); texte(ctx, ch + ' · ' + sens, x + cell / 2, y - 6, css, 11, 'center', 'italic '); }
     }
     texte(ctx, `${L.etage} ${e}`, w - 10, base - e * ecart + cell * 0.2, m > 0.5 ? (e === 2 ? css : GRIS) : 'rgba(0,0,0,0)', 11, 'right');
   }

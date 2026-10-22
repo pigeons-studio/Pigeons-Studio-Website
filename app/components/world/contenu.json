@@ -255,21 +255,34 @@
       {
        "id": "orca",
        "nom": "ORCA//GLYPH",
-       "sous": "Orca en trois dimensions",
+       "sous": "Un langage de code à nous, en trois dimensions",
        "statut": "en cours",
        "texte": [
-        "Dans Orca, tout se passe à plat : une seule grille de lettres, vue de dessus. ORCA//GLYPH lui donne une troisième dimension. Les grilles s’empilent en étages, une couche du morceau par étage, et l’on circule dans le volume pendant qu’il joue.",
-        "C’est là que tout change : les données et les bangs ne sont plus des caractères qui clignotent sur un plan, ils prennent corps dans un espace. Chaque glyphe As-Simt est extrudé, d’autant plus haut que sa valeur compte ; un bang se voit monter ou descendre d’un étage à l’autre. On lit la musique comme une architecture, on la parcourt comme un paysage.",
-        "Six opérateurs relient les étages : monter, descendre, écouter, envoyer, relayer, glitcher. On code au clavier exactement comme dans Orca, et un mode 2D aplatit le volume quand on veut. Le curseur est un pigeon voyageur en or ; les notes partent en MIDI et en OSC ; les visions (nuage, tirets, arêtes, glitch) transforment la 3D en direct. Ce site en est tiré."
+        "ORCA//GLYPH part d’une volonté : un langage de code né de la créolisation informatique. L’idée vient de la résidence de Koo à la Villa Albertine, à La Nouvelle-Orléans, consacrée à la créolisation du langage informatique ; ORCA//GLYPH en est la continuité. Un code fondé sur notre propre vision du code et sur le sens de ce qu’on écrit, qui prolonge l’alphabet As-Simt, où chaque signe est une image concrète (graine, paume, vibration) et non une lettre neutre.",
+        "Orca, l’original de Hundred Rabbits, est déjà un langage de code ésotérique : une grille où chaque lettre est une machine. ORCA//GLYPH s’inscrit dans cette lignée et pousse la réflexion plus loin. Orca devient la façon de coder de manière dynamique avec les glyphes : chaque opérateur dit quelque chose, C est « battement », D « pluie », T « tisser ». Écrire un patch, c’est composer une phrase autant qu’un programme. Derrière, l’idée d’un nouveau langage de code qui nous appartient, dont on reprend possession.",
+        "Ce langage prend aussi du volume. Les grilles s’empilent en étages, une couche du morceau par étage ; les données et les bangs prennent corps dans l’espace. Chaque glyphe est extrudé selon sa valeur, et un bang se voit monter d’un étage à l’autre : on lit la musique comme une architecture.",
+        "On code au clavier comme dans Orca ; six opérateurs relient les étages (monter, descendre, écouter, envoyer, relayer, glitcher) et un mode 2D aplatit le volume. Le curseur est un pigeon voyageur en or ; les notes partent en MIDI et en OSC. Ce site en est tiré."
        ],
        "reperes": [
+        [
+         "Idée",
+         "La créolisation informatique : un code à nous, porteur de sens"
+        ],
+        [
+         "Origine",
+         "Résidence Villa Albertine, La Nouvelle-Orléans : la créolisation du langage informatique"
+        ],
+        [
+         "Lignée",
+         "Orca, langage de code ésotérique, poussé plus loin"
+        ],
         [
          "Forme",
          "Logiciel de live coding en 3D, application de bureau"
         ],
         [
          "Ce qui change",
-         "Des étages empilés au lieu d’une grille plate ; les données et les bangs visibles dans l’espace"
+         "Des glyphes qui signifient, des étages au lieu d’une grille plate, des données et des bangs visibles dans l’espace"
         ],
         [
          "Langage",
@@ -285,11 +298,11 @@
         ]
        ],
        "tags": [
+        "créolisation",
+        "langage",
+        "glyphes",
         "live coding",
-        "3D",
-        "étages",
-        "MIDI",
-        "OSC"
+        "3D"
        ]
       },
       {
@@ -788,21 +801,34 @@
       {
        "id": "orca",
        "nom": "ORCA//GLYPH",
-       "sous": "Orca in three dimensions",
+       "sous": "A code language of our own, in three dimensions",
        "statut": "in progress",
        "texte": [
-        "In Orca, everything happens on a flat plane: a single grid of letters, seen from above. ORCA//GLYPH gives it a third dimension. Grids stack up as floors, one layer of the track per floor, and you move through the volume while it plays.",
-        "That is the real change: data and bangs are no longer characters blinking on a plane, they take shape in a space. Each As-Simt glyph is extruded, taller the more its value counts; you see a bang rise or fall from one floor to another. You read the music like architecture and walk through it like a landscape.",
-        "Six operators link the floors: up, down, listen, send, relay, glitch. You code on the keyboard exactly as in Orca, and a 2D mode flattens the volume whenever you want. The cursor is a golden homing pigeon; notes go out as MIDI and OSC; the visions (cloud, dashes, edges, glitch) transform the 3D live. This site is drawn from it."
+        "ORCA//GLYPH starts from a wish: a code language born from computational creolisation. The idea comes from Koo’s residency at Villa Albertine in New Orleans, devoted to the creolisation of computer language; ORCA//GLYPH is its continuation. Code grounded in our own vision of code and in the meaning of what we write, extending the As-Simt alphabet, where each sign is a concrete image (seed, palm, vibration) rather than a neutral letter.",
+        "Orca, the original by Hundred Rabbits, is already an esoteric programming language: a grid where every letter is a machine. ORCA//GLYPH belongs to that lineage and pushes the thinking further. Orca becomes the way to code dynamically with glyphs: each operator says something, C is “beat”, D “rain”, T “weave”. Writing a patch means composing a sentence as much as a program. Behind it lies the idea of a new code language that belongs to us, one we take back ownership of.",
+        "This language also takes on volume. Grids stack up as floors, one layer of the track per floor; data and bangs take shape in space. Each glyph is extruded according to its value, and you see a bang rise from one floor to the next: you read the music like architecture.",
+        "You code on the keyboard as in Orca; six operators link the floors (up, down, listen, send, relay, glitch) and a 2D mode flattens the volume. The cursor is a golden homing pigeon; notes go out as MIDI and OSC. This site is drawn from it."
        ],
        "reperes": [
+        [
+         "Idea",
+         "Computational creolisation: a code of our own that carries meaning"
+        ],
+        [
+         "Origin",
+         "Villa Albertine residency, New Orleans: the creolisation of computer language"
+        ],
+        [
+         "Lineage",
+         "Orca, an esoteric programming language, pushed further"
+        ],
         [
          "Form",
          "3D live coding software, desktop app"
         ],
         [
          "What changes",
-         "Stacked floors instead of a flat grid; data and bangs visible in space"
+         "Glyphs that mean something, floors instead of a flat grid, data and bangs visible in space"
         ],
         [
          "Language",
@@ -818,11 +844,11 @@
         ]
        ],
        "tags": [
+        "creolisation",
+        "language",
+        "glyphs",
         "live coding",
-        "3D",
-        "floors",
-        "MIDI",
-        "OSC"
+        "3D"
        ]
       },
       {
