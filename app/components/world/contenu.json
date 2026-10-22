@@ -285,13 +285,6 @@
         "3D",
         "MIDI",
         "OSC"
-       ],
-       "films": [
-        {
-         "src": "/films/orca-glyph-explication",
-         "nom": "Explication",
-         "duree": "4 min"
-        }
        ]
       },
       {
@@ -326,13 +319,6 @@
         "robotique",
         "son spatialisé",
         "performance"
-       ],
-       "films": [
-        {
-         "src": "/films/cave-four-robots",
-         "nom": "Prévisualisation",
-         "duree": "1 min"
-        }
        ]
       },
       {
@@ -367,13 +353,6 @@
         "langue",
         "signes",
         "As-Simt"
-       ],
-       "films": [
-        {
-         "src": "/films/language-of-images",
-         "nom": "Présentation",
-         "duree": "2 min"
-        }
        ]
       },
       {
@@ -409,18 +388,6 @@
         "Norns",
         "MIDI",
         "performance"
-       ],
-       "films": [
-        {
-         "src": "/films/teammate-poto-pigeons",
-         "nom": "Pigeons",
-         "duree": "2 min"
-        },
-        {
-         "src": "/films/teammate-poto-les-vrais-ecrans",
-         "nom": "Les vrais écrans",
-         "duree": "17 min"
-        }
        ]
       }
      ]
@@ -841,13 +808,6 @@
         "3D",
         "MIDI",
         "OSC"
-       ],
-       "films": [
-        {
-         "src": "/films/orca-glyph-explication",
-         "nom": "Walkthrough",
-         "duree": "4 min"
-        }
        ]
       },
       {
@@ -882,13 +842,6 @@
         "robotics",
         "spatial sound",
         "performance"
-       ],
-       "films": [
-        {
-         "src": "/films/cave-four-robots",
-         "nom": "Preview",
-         "duree": "1 min"
-        }
        ]
       },
       {
@@ -923,13 +876,6 @@
         "language",
         "signs",
         "As-Simt"
-       ],
-       "films": [
-        {
-         "src": "/films/language-of-images",
-         "nom": "Presentation",
-         "duree": "2 min"
-        }
        ]
       },
       {
@@ -965,18 +911,6 @@
         "Norns",
         "MIDI",
         "performance"
-       ],
-       "films": [
-        {
-         "src": "/films/teammate-poto-pigeons",
-         "nom": "Pigeons",
-         "duree": "2 min"
-        },
-        {
-         "src": "/films/teammate-poto-les-vrais-ecrans",
-         "nom": "The real screens",
-         "duree": "17 min"
-        }
        ]
       }
      ]

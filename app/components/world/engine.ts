@@ -230,9 +230,9 @@ export function createWorld (opts: WorldOptions): World {
       const loin = Math.min(1, Math.abs(e - etageFoc())) * Math.min(1, foc) * (1 - k);
       const vis = (sel ? 1 : 1 - k) * (1 - 0.75 * loin);
       x.plan.material.opacity = 0.04 * vis * (1 - k);
-      x.croix.material.opacity = 0.6 * vis * (1 - 0.8 * k);
+      x.croix.material.opacity = 0.6 * vis * (1 - 0.88 * k);
       // en 2D, l'Orca de l'étage reste en arrière-plan de la page, à plat
-      const mq = (sel ? lerp(1, 0.55, k) : 1 - k) * (1 - 0.8 * loin) * (survol >= 0 && survol !== e && etat.mode === '3d' ? 0.45 : 1);
+      const mq = (sel ? lerp(1, 0.16, k) : 1 - k) * (1 - 0.8 * loin) * (survol >= 0 && survol !== e && etat.mode === '3d' ? 0.45 : 1);
       x.patch.m.material.opacity = mq; x.patch.pts.material.opacity = mq;
       x.bord.material.opacity = 0.35 * vis * (1 - k);
       x.chaud += ((etageVise() === e && etat.mode === '3d' ? 1 : 0) - x.chaud) * (1 - Math.pow(0.0005, dt));

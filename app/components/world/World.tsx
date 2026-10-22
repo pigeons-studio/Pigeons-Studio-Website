@@ -17,7 +17,7 @@ type Locale = 'fr' | 'en';
 type Mode = '3d' | 'vers2d' | '2d' | 'vers3d';
 type Prix = 'coming' | 'quote' | 'soon';
 type Item = { nom: string; sens: string; tags?: string[]; prix?: Prix; panier?: number; src?: string; duree?: string };
-type Projet = { id: string; nom: string; sous: string; statut: string; texte: string[]; reperes: string[][]; tags: string[]; films: { src: string; nom: string; duree: string }[] };
+type Projet = { id: string; nom: string; sous: string; statut: string; texte: string[]; reperes: string[][]; tags: string[] };
 type Bloc = { t: string; p?: string; titre?: string; sur?: string; duo?: string; legende?: string; signe?: string; code?: string; vide?: string; items?: unknown[] };
 type Famille = { id: string; nom: string; code: string; signe: string; pourquoi: string; teinte: number; css: string; blocs: Bloc[] };
 
@@ -174,20 +174,26 @@ export default function World() {
         <div className="c bd"><button id="retour" type="button" hidden={mode !== '2d'} onClick={() => mondeRef.current?.remonter()}>{ui.retour}</button></div>
       </div>
       <div id="trk" ref={trkRef} aria-hidden="true"><i /><i /><i /><i /><span /></div>
-      {survolHtml && mode === '2d' && <TrackerHtml g={FAMILLES[survolHtml.i]} box={survolHtml.box} ici={survolHtml.i === etage} n={survolHtml.i} ui={ui} locale={locale} />}
+      {survolHtml && mode === '2d' && <TrackerHtml g={FAMILLES[survolHtml.i]} box={survolHtml.box} />}
 
       <main id="page" ref={pageRef} className={visible && mode === '2d' ? 'on' : ''} aria-hidden={mode !== '2d'}>
         <div className="dedans" id="contenu">
-          <nav className="familles" aria-label={ui.rubriques}>
-            {FAMILLES.map((g, i) => (
-              <button key={g.id} type="button" aria-label={g.nom} aria-current={i === etage}
-                onPointerEnter={(e) => setSurvolHtml({ i, box: e.currentTarget.getBoundingClientRect() })}
-                onPointerLeave={() => setSurvolHtml(null)}
-                onClick={() => changer(i)}>
-                <Glyphe signe={g.signe} couleur={i === etage ? g.css : '#8a8780'} />
-              </button>
-            ))}
-          </nav>
+          <div className="familles-bloc">
+            <nav className="familles" aria-label={ui.rubriques}>
+              {FAMILLES.map((g, i) => (
+                <button key={g.id} type="button" aria-label={g.nom} aria-current={i === etage}
+                  onPointerEnter={(e) => setSurvolHtml({ i, box: e.currentTarget.getBoundingClientRect() })}
+                  onPointerLeave={() => setSurvolHtml(null)}
+                  onFocus={(e) => setSurvolHtml({ i, box: e.currentTarget.getBoundingClientRect() })}
+                  onBlur={() => setSurvolHtml(null)}
+                  onClick={() => changer(i)}>
+                  <Glyphe signe={g.signe} couleur={i === etage || survolHtml?.i === i ? g.css : '#8a8780'} />
+                </button>
+              ))}
+            </nav>
+            {/* la traduction se lit sur sa propre ligne, sous les glyphes : elle ne recouvre jamais un autre glyphe */}
+            <Traduction g={FAMILLES[survolHtml?.i ?? etage]} n={survolHtml?.i ?? etage} ici={(survolHtml?.i ?? etage) === etage} ui={ui} locale={locale} />
+          </div>
           <div className="titre">
             <Glyphe signe={f.signe} couleur={f.css} />
             <div><h1>{f.nom}</h1><p>{MOTS[locale][f.signe]}{f.pourquoi !== MOTS[locale][f.signe] ? ` · ${f.pourquoi}` : ''}</p></div>
@@ -207,16 +213,26 @@ export default function World() {
   );
 }
 
-function TrackerHtml({ g, box, ici, n, ui, locale }: { g: Famille; box: DOMRect; ici: boolean; n: number; ui: Ui; locale: Locale }) {
-  const m = 6;
-  const droite = box.right + 220 > window.innerWidth;
+// le réticule se pose sur le glyphe survolé ; le texte, lui, est écrit sous la rangée (Traduction)
+function TrackerHtml({ g, box }: { g: Famille; box: DOMRect }) {
+  const m = 5;
   return (
     <div className="trk on" style={{ ['--c' as string]: g.css, transform: `translate(${box.left - m}px,${box.top - m}px)`, width: box.width + 2 * m, height: box.height + 2 * m }} aria-hidden="true">
       <i /><i /><i /><i />
-      <span style={droite ? { left: 'auto', right: '100%', marginLeft: 0, marginRight: 10, textAlign: 'right' } : undefined}>
-        {MOTS[locale][g.signe]} → {g.nom.toUpperCase()}
-        <em>{ici ? ui.ici : ui.aller(n)}</em>
-      </span>
+    </div>
+  );
+}
+
+const PAS_GLYPHE = 48; // un bouton de 40 px et 8 px d'écart
+function Traduction({ g, n, ici, ui, locale }: { g: Famille; n: number; ici: boolean; ui: Ui; locale: Locale }) {
+  const x = n * PAS_GLYPHE + 20;
+  return (
+    <div className="familles-trad" style={{ ['--c' as string]: g.css, ['--x' as string]: `${x}px` }} aria-live="polite">
+      <i className="trait" />
+      <span className="mot">{MOTS[locale][g.signe]}</span>
+      <span className="fleche">→</span>
+      <span className="nom">{g.nom}</span>
+      <em>{ici ? ui.ici : ui.aller(n)}</em>
     </div>
   );
 }
@@ -260,10 +276,9 @@ function BlocVue({ b, f, ui, locale, ouvrirContact }: { b: Bloc; f: Famille; ui:
 // ---------------------------------------------------------------- futurs projets : un menu que l'on parcourt, une fiche par projet
 function Explorer({ items, css, locale }: { items: Projet[]; css: string; locale: Locale }) {
   const [i, setI] = useState(0);
-  const [film, setFilm] = useState(0);
   const liste = useRef<HTMLDivElement>(null);
   const p = items[i];
-  const choisir = (n: number) => { setI(n); setFilm(0); };
+  const choisir = (n: number) => { setI(n); };
   const clavier = (e: React.KeyboardEvent) => {
     if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
     e.preventDefault(); e.stopPropagation();
@@ -271,7 +286,6 @@ function Explorer({ items, css, locale }: { items: Projet[]; css: string; locale
     choisir(n);
     (liste.current?.querySelectorAll('button')[n] as HTMLButtonElement | undefined)?.focus();
   };
-  const f = p.films[film];
   return (
     <div className="explorer" style={{ ['--c' as string]: css }}>
       <div className="ex-liste" role="tablist" aria-orientation="vertical" ref={liste} onKeyDown={clavier}>
@@ -290,13 +304,9 @@ function Explorer({ items, css, locale }: { items: Projet[]; css: string; locale
           <p className="ex-sous">{p.sous}</p>
         </header>
         <div className="ex-corps">
-          <figure className="ex-film">
-            <video key={f.src} src={`${f.src}.mp4`} poster={`${f.src}.jpg`} controls preload="none" playsInline muted aria-label={`${p.nom} · ${f.nom}`} />
-            {p.films.length > 1 ? (
-              <div className="ex-films">
-                {p.films.map((x, n) => <button key={x.src} type="button" aria-pressed={n === film} onClick={() => setFilm(n)}>{x.nom} · {x.duree}</button>)}
-              </div>
-            ) : <figcaption>{f.nom} · {f.duree}</figcaption>}
+          <figure className="ex-film ex-scene">
+            <Scene id={p.id} css={css} locale={locale} />
+            <figcaption><i className="rec" />{locale === 'fr' ? 'en temps réel' : 'real time'}</figcaption>
           </figure>
           <div className="ex-texte">
             {p.texte.map((t) => <p key={t}>{t}</p>)}
@@ -308,6 +318,19 @@ function Explorer({ items, css, locale }: { items: Projet[]; css: string; locale
       <span className="sr-only" aria-live="polite">{locale === 'fr' ? `projet ${i + 1} sur ${items.length}` : `project ${i + 1} of ${items.length}`}</span>
     </div>
   );
+}
+
+// une scène qui tourne en direct, à la place d'une vidéo
+function Scene({ id, css, locale }: { id: string; css: string; locale: Locale }) {
+  const ref = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    if (!ref.current) return;
+    let stop = () => {};
+    let annule = false;
+    import('./scenes').then(({ lancerScene }) => { if (!annule && ref.current) stop = lancerScene(ref.current, id, css, locale); });
+    return () => { annule = true; stop(); };
+  }, [id, css, locale]);
+  return <canvas ref={ref} aria-hidden="true" />;
 }
 
 // le même article dans l'autre langue, pour que le panier garde les deux noms

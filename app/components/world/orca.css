@@ -201,3 +201,22 @@
   .orca .ex-film { max-width: 260px; }
 }
 @media (prefers-reduced-motion: reduce) { .orca .ex-fiche { animation: none; } }
+
+/* ---- la traduction des glyphes du menu 2D : une ligne à elle, sous la rangée ---- */
+.orca .familles-bloc { display: flex; flex-direction: column; gap: 0; }
+.orca .familles-trad { position: relative; display: flex; align-items: baseline; gap: 8px; min-height: 30px; padding-top: 14px; padding-left: max(0px, calc(var(--x) - 20px)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: .06em; transition: padding-left .2s ease; }
+.orca .familles-trad .trait { position: absolute; left: var(--x); top: 0; width: 1px; height: 10px; background: var(--c); transition: left .2s ease; }
+.orca .familles-trad .mot { color: var(--c); font-style: italic; }
+.orca .familles-trad .fleche { color: var(--gris); }
+.orca .familles-trad .nom { color: var(--encre); text-transform: uppercase; letter-spacing: .14em; }
+.orca .familles-trad em { color: var(--gris); font-style: normal; font-size: 10px; letter-spacing: .08em; }
+.orca .familles-trad, .orca .familles-trad * { background: none !important; }
+@media (max-width: 560px) { .orca .familles-trad { padding-left: 0; } .orca .familles-trad em { display: none; } }
+@media (prefers-reduced-motion: reduce) { .orca .familles-trad, .orca .familles-trad .trait { transition: none; } }
+
+/* ---- les scènes en temps réel des futurs projets ---- */
+.orca .ex-scene canvas { width: 100%; aspect-ratio: 4 / 5; display: block; background: #000; border: 1px solid var(--trait); }
+.orca .ex-scene figcaption { display: flex; align-items: center; gap: 6px; }
+.orca .ex-scene .rec { width: 6px; height: 6px; background: var(--c); animation: rec 1.6s steps(2, end) infinite; }
+@keyframes rec { 50% { opacity: .2; } }
+@media (prefers-reduced-motion: reduce) { .orca .ex-scene .rec { animation: none; } }
