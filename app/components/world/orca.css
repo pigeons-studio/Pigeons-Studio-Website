@@ -252,3 +252,48 @@
 }
 /* les sections et en-têtes du monde n'héritent pas du z-index des anciennes pages */
 .orca #page section, .orca #page header { position: static; z-index: auto; }
+
+/* ---- futurs projets, en grand : les projets en onglets au-dessus, l'écran en temps réel sur toute la largeur ---- */
+.orca .explorer { grid-template-columns: 1fr; }
+.orca .ex-liste { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); flex-direction: initial; overflow: visible; border-right: 0; border-bottom: 1px solid var(--trait); }
+.orca .ex-liste button { min-width: 0; border-bottom: 0; border-right: 1px solid var(--trait); }
+.orca .ex-liste button:last-child { border-right: 0; }
+.orca .ex-liste button[aria-selected="true"]::before { left: -1px; right: -1px; top: auto; bottom: -1px; width: auto; height: 2px; }
+.orca .ex-corps { grid-template-columns: 1fr; gap: 22px; }
+.orca .ex-film { max-width: none; }
+.orca .ex-scene canvas { aspect-ratio: 16 / 10; }
+.orca .ex-texte { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px 28px; }
+.orca .ex-texte dl, .orca .ex-texte .tags { grid-column: 1 / -1; }
+@media (max-width: 760px) {
+  .orca .ex-texte { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .orca .ex-liste { grid-template-columns: 1fr 1fr; }
+  .orca .ex-liste button { border-bottom: 1px solid var(--trait); }
+  .orca .ex-liste button:nth-child(even) { border-right: 0; }
+  .orca .ex-liste button:nth-child(n+3) { border-bottom: 0; }
+  .orca .ex-scene canvas { aspect-ratio: 3 / 4; }
+}
+
+/* ---- téléphone : la page défile où que l'on pose le doigt ----
+   La zone de défilement couvre tout l'écran (avant, ses bords laissaient le doigt tomber sur le monde 3D,
+   qui bloque le défilement) ; le contenu reste dans le cadre grâce aux marges intérieures. */
+@media (max-width: 760px) {
+  .orca { --haut: calc(var(--marge) + env(safe-area-inset-top, 0px) + 44px); --bas: calc(var(--marge) + env(safe-area-inset-bottom, 0px) + 44px); }
+  .orca #page { top: 0; bottom: 0; left: 0; right: 0; padding-inline: max(var(--marge), env(safe-area-inset-left, 0px)); overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
+  .orca #page .dedans { padding-top: calc(var(--haut) + 8px); padding-bottom: calc(var(--bas) + 24px); }
+  .orca .familles-bloc { top: 0; margin-top: calc(-1 * (var(--haut) + 8px)); padding-top: calc(var(--haut) + 8px); }
+  .orca:has(#page.on) #cadre { box-shadow: 0 0 0 100vmax #000; }
+  .orca:has(#page.on) #cadre .bg, .orca:has(#page.on) #cadre .bd { background: #000; }
+  .orca .ex-scene canvas { touch-action: pan-y; }
+}
+@media (max-width: 560px) {
+  .orca .ex-scene canvas { aspect-ratio: 3 / 5; }
+}
+/* les barres du cadre laissent passer le doigt vers la page ; seuls leurs boutons et liens se touchent */
+.orca #cadre .c { pointer-events: none; }
+.orca #cadre .c button, .orca #cadre .c a, .orca #cadre .c select { pointer-events: auto; }
+@media (max-width: 760px) {
+  /* une bande noire sous la barre du bas : le texte qui défile passe dessous sans se mêler à l'état */
+  .orca:has(#page.on) #cadre::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 40px; background: #000; z-index: -1; pointer-events: none; }
+}

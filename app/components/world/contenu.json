@@ -25,7 +25,7 @@
       [
        "Koo Des (NSDOS)",
        "Direction artistique & musicale",
-       "Né à Paris en 1984, Kirikoo Des - NSDOS - est un artiste pluridisciplinaire, musicien, performeur et danseur. Formé à l’Académie Internationale de la Danse après le hip-hop dans les rues de Paris, il cherche un « nouvel ordre sonore » à la croisée de la danse, de la performance, du live coding et de la musique électronique. Il capte des données vivantes - gestes, signaux environnementaux, rythmes biologiques - via des capteurs et des dispositifs conçus sur mesure, notamment avec ORCA."
+       "Kirikoo Des, alias NSDOS, est un artiste pluridisciplinaire : musicien, performeur, danseur et développeur. Sa démarche part d’une idée : tout peut se hacker, la technologie comme le corps, l’expression comme l’environnement. Il traite chacun comme un système à écouter, puis à transformer en musique. Il capte des données vivantes (gestes, ondes et réseaux d’un lieu, métabolisme d’une cellule) avec des capteurs et des outils qu’il code lui-même, et les fait jouer en direct, en live coding avec Orca ou face à des machines qui improvisent avec lui. Ses derniers chantiers : TEAMMATE.POTO, une créature d’improvisation sur Norns ; l’Avatar métabolique sonore et Planktos avec le chercheur Damien Eveillard (LS2N–CNRS), où un modèle métabolique devient instrument ; EIGHTOS COM, un terminal qui écoute un territoire ; ORCA//GLYPH, Orca en trois dimensions."
       ],
       [
        "Julien Thomas",
@@ -255,17 +255,21 @@
       {
        "id": "orca",
        "nom": "ORCA//GLYPH",
-       "sous": "Orca en volume",
+       "sous": "Orca en trois dimensions",
        "statut": "en cours",
        "texte": [
-        "La grille du séquenceur Orca devient un immeuble : chaque étage est une grille Orca ordinaire, et tous les étages sont empilés. Chaque caractère est un glyphe As-Simt extrudé, d’autant plus haut qu’il compte.",
-        "On code au clavier exactement comme dans Orca, et on tourne autour. Six opérateurs passent d’un étage à l’autre : monter, descendre, écouter, envoyer, relayer, glitcher. Un mode 2D aplatit le volume en un Orca classique, vu de dessus.",
-        "Le curseur est un pigeon voyageur en or. Les notes partent en MIDI et en OSC vers les synthés ; les visions (nuage, tirets, arêtes, glitch) transforment la 3D en direct. Ce site en est tiré."
+        "Dans Orca, tout se passe à plat : une seule grille de lettres, vue de dessus. ORCA//GLYPH lui donne une troisième dimension. Les grilles s’empilent en étages, une couche du morceau par étage, et l’on circule dans le volume pendant qu’il joue.",
+        "C’est là que tout change : les données et les bangs ne sont plus des caractères qui clignotent sur un plan, ils prennent corps dans un espace. Chaque glyphe As-Simt est extrudé, d’autant plus haut que sa valeur compte ; un bang se voit monter ou descendre d’un étage à l’autre. On lit la musique comme une architecture, on la parcourt comme un paysage.",
+        "Six opérateurs relient les étages : monter, descendre, écouter, envoyer, relayer, glitcher. On code au clavier exactement comme dans Orca, et un mode 2D aplatit le volume quand on veut. Le curseur est un pigeon voyageur en or ; les notes partent en MIDI et en OSC ; les visions (nuage, tirets, arêtes, glitch) transforment la 3D en direct. Ce site en est tiré."
        ],
        "reperes": [
         [
          "Forme",
-         "Logiciel de live coding, application de bureau"
+         "Logiciel de live coding en 3D, application de bureau"
+        ],
+        [
+         "Ce qui change",
+         "Des étages empilés au lieu d’une grille plate ; les données et les bangs visibles dans l’espace"
         ],
         [
          "Langage",
@@ -283,6 +287,7 @@
        "tags": [
         "live coding",
         "3D",
+        "étages",
         "MIDI",
         "OSC"
        ]
@@ -358,25 +363,29 @@
       {
        "id": "teammate",
        "nom": "TEAMMATE.POTO",
-       "sous": "Un partenaire d’improvisation, pas un accompagnateur",
+       "sous": "Un tamagotchi pour improvisateurs",
        "statut": "joué sur scène",
        "texte": [
-        "Sur un Monome Norns, TEAMMATE écoute ce que tu joues et le découpe en une mémoire de 48 fragments : hauteur, énergie, timbre, texture. Quand tu t’arrêtes, il décide : imiter, contraster, densifier, s’éclaircir, se taire.",
-        "Il ne joue jamais rien qu’il n’ait entendu de toi : pas d’IA générative, pas de presets. L’idée vient de Somax2, développé à l’IRCAM, poussée vers quelque chose de plus brut et de plus physique.",
-        "Sept couches tournent en parallèle : le dialogue, POtO (halo granulaire), 8OS (sampler), MIDI GEN, Audio→MIDI, METABO (un métabolisme cellulaire qui joue) et NIAKABY (harmoniseur). Le terminal EIGHTOS COM lui envoie l’écoute d’un territoire."
+        "TEAMMATE est une créature qui vit dans un Monome Norns : un tamagotchi pour improvisateurs. Elle a un visage, une humeur et des opinions sur ton jeu (« too repetitive », « breathe agent! », « my turn! »). Elle gagne de l’expérience à mesure que vous jouez ensemble, reconnaît les lieux à leur empreinte WiFi et, quand tu te tais, rêve tes motifs.",
+        "Entre la machine et le compositeur se noue une relation : de la composition électronique en temps réel, née de l’improvisation. Tout ce que tu joues est découpé en 48 fragments (hauteur, énergie, timbre, texture). Quand tu t’arrêtes, elle décide : imiter, contraster, densifier, s’éclaircir, se taire. Elle ne joue que ce qu’elle a entendu de toi et apprend ta manière (phrasé, articulation, dynamique) : pas d’IA générative, pas de presets.",
+        "En son cœur, METABO, un avatar métabolique : le son nourrit une cellule vivante dont les sept voies métaboliques sont des notes. Un jeu monotone la stresse et son tempo s’emballe ; un jeu varié la calme. Elle respire, alterne phrases et silences, et pilote l’harmoniseur NIAKABY. L’idée vient de l’Avatar métabolique sonore, créé par NSDOS avec le chercheur Damien Eveillard (LS2N–CNRS). Autour d’elle : POtO (halo granulaire), 8OS (sampler), MGEN (16 pistes génératives), et le terminal EIGHTOS COM qui lui fait écouter un territoire."
        ],
        "reperes": [
         [
          "Forme",
-         "Instrument logiciel pour la scène"
+         "Créature-instrument pour la scène"
         ],
         [
          "Machine",
-         "Monome Norns"
+         "Monome Norns, Lua et SuperCollider"
         ],
         [
-         "Technique",
-         "Lua et SuperCollider"
+         "Cœur",
+         "Mémoire de 48 fragments, avatar métabolique METABO"
+        ],
+        [
+         "Inspirations",
+         "Somax2 (IRCAM), Avatar métabolique sonore (NSDOS × Damien Eveillard)"
         ],
         [
          "Licence",
@@ -385,9 +394,10 @@
        ],
        "tags": [
         "improvisation",
+        "tamagotchi",
+        "métabolisme",
         "Norns",
-        "MIDI",
-        "performance"
+        "MIDI"
        ]
       }
      ]
@@ -548,7 +558,7 @@
       [
        "Koo Des (NSDOS)",
        "Artistic & musical direction",
-       "Born in Paris in 1984, Kirikoo Des - NSDOS - is a multidisciplinary artist, musician, performer and dancer. Trained at the International Dance Academy after hip-hop in the streets of Paris, he looks for a “new sonic order” at the crossroads of dance, performance, live coding and electronic music. He captures living data - gestures, environmental signals, biological rhythms - through sensors and custom-built devices, notably with ORCA."
+       "Kirikoo Des, aka NSDOS, is a multidisciplinary artist: musician, performer, dancer and developer. His approach starts from one idea: everything can be hacked, technology as much as the body, expression as much as the environment. He treats each as a system to listen to, then turn into music. He captures living data (gestures, the waves and networks of a place, the metabolism of a cell) with sensors and tools he codes himself, and plays them live, live coding with Orca or facing machines that improvise with him. His latest work: TEAMMATE.POTO, an improvising creature on Norns; the Sonic Metabolic Avatar and Planktos with researcher Damien Eveillard (LS2N–CNRS), where a metabolic model becomes an instrument; EIGHTOS COM, a terminal that listens to a territory; ORCA//GLYPH, Orca in three dimensions."
       ],
       [
        "Julien Thomas",
@@ -778,17 +788,21 @@
       {
        "id": "orca",
        "nom": "ORCA//GLYPH",
-       "sous": "Orca in volume",
+       "sous": "Orca in three dimensions",
        "statut": "in progress",
        "texte": [
-        "The grid of the Orca sequencer becomes a building: each floor is an ordinary Orca grid, and all the floors are stacked. Each character is an extruded As-Simt glyph, taller the more it counts.",
-        "You code on the keyboard exactly as in Orca, and you walk around it. Six operators move between floors: up, down, listen, send, relay, glitch. A 2D mode flattens the volume back into a classic Orca, seen from above.",
-        "The cursor is a golden homing pigeon. Notes go out over MIDI and OSC to the synths; the visions (cloud, dashes, edges, glitch) transform the 3D live. This website comes from it."
+        "In Orca, everything happens on a flat plane: a single grid of letters, seen from above. ORCA//GLYPH gives it a third dimension. Grids stack up as floors, one layer of the track per floor, and you move through the volume while it plays.",
+        "That is the real change: data and bangs are no longer characters blinking on a plane, they take shape in a space. Each As-Simt glyph is extruded, taller the more its value counts; you see a bang rise or fall from one floor to another. You read the music like architecture and walk through it like a landscape.",
+        "Six operators link the floors: up, down, listen, send, relay, glitch. You code on the keyboard exactly as in Orca, and a 2D mode flattens the volume whenever you want. The cursor is a golden homing pigeon; notes go out as MIDI and OSC; the visions (cloud, dashes, edges, glitch) transform the 3D live. This site is drawn from it."
        ],
        "reperes": [
         [
          "Form",
-         "Live coding software, desktop app"
+         "3D live coding software, desktop app"
+        ],
+        [
+         "What changes",
+         "Stacked floors instead of a flat grid; data and bangs visible in space"
         ],
         [
          "Language",
@@ -806,6 +820,7 @@
        "tags": [
         "live coding",
         "3D",
+        "floors",
         "MIDI",
         "OSC"
        ]
@@ -881,36 +896,41 @@
       {
        "id": "teammate",
        "nom": "TEAMMATE.POTO",
-       "sous": "An improvisation partner, not an accompanist",
+       "sous": "A tamagotchi for improvisers",
        "statut": "played live",
        "texte": [
-        "On a Monome Norns, TEAMMATE listens to what you play and slices it into a memory of 48 fragments: pitch, energy, timbre, texture. When you stop, it decides: imitate, contrast, densify, thin out, stay silent.",
-        "It never plays anything it hasn’t heard from you: no generative AI, no presets. The idea comes from Somax2, developed at IRCAM, pushed towards something rawer and more physical.",
-        "Seven layers run in parallel: the dialogue, POtO (granular halo), 8OS (sampler), MIDI GEN, Audio→MIDI, METABO (a cell metabolism that plays) and NIAKABY (harmonizer). The EIGHTOS COM terminal feeds it the listening of a territory."
+        "TEAMMATE is a creature that lives in a Monome Norns: a tamagotchi for improvisers. It has a face, a mood and opinions about your playing (“too repetitive”, “breathe agent!”, “my turn!”). It gains experience as you play together, recognises places by their WiFi fingerprint and, when you fall silent, dreams your motifs.",
+        "Between the machine and the composer, a relationship forms: real-time electronic composition, born from improvisation. Everything you play is cut into 48 fragments (pitch, energy, timbre, texture). When you stop, it decides: imitate, contrast, densify, thin out, stay silent. It only plays what it has heard from you and learns your manner (phrasing, articulation, dynamics): no generative AI, no presets.",
+        "At its heart is METABO, a metabolic avatar: sound feeds a living cell whose seven metabolic pathways are notes. Monotonous playing stresses it and its tempo races; varied playing calms it. It breathes, alternates phrases and silences, and drives the NIAKABY harmoniser. The idea comes from the Sonic Metabolic Avatar, created by NSDOS with researcher Damien Eveillard (LS2N–CNRS). Around it: POtO (granular halo), 8OS (sampler), MGEN (16 generative tracks), and the EIGHTOS COM terminal that lets it listen to a territory."
        ],
        "reperes": [
         [
          "Form",
-         "Software instrument for the stage"
+         "Creature-instrument for the stage"
         ],
         [
          "Machine",
-         "Monome Norns"
+         "Monome Norns, Lua and SuperCollider"
         ],
         [
-         "Tech",
-         "Lua and SuperCollider"
+         "Core",
+         "48-fragment memory, METABO metabolic avatar"
         ],
         [
-         "License",
+         "Inspirations",
+         "Somax2 (IRCAM), Sonic Metabolic Avatar (NSDOS × Damien Eveillard)"
+        ],
+        [
+         "Licence",
          "AGPL-3.0"
         ]
        ],
        "tags": [
         "improvisation",
+        "tamagotchi",
+        "metabolism",
         "Norns",
-        "MIDI",
-        "performance"
+        "MIDI"
        ]
       }
      ]
