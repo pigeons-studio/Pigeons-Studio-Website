@@ -308,14 +308,22 @@
       {
        "id": "cave",
        "nom": "CAVE // FOUR ROBOTS",
-       "sous": "Une performance dans une grotte",
+       "sous": "Archéologie, technologie et son dans une grotte",
        "statut": "en préparation",
        "texte": [
-        "Quatre robots-chiens Unitree portent chacun un mégaphone sur le dos. Ensemble, ils jouent une musique spatialisée dans une grotte immense.",
-        "Le public se tient au centre. Les robots se déplacent autour de lui et s’orientent pour jouer avec l’acoustique de la grotte : la roche devient une partie de l’instrument.",
-        "Les quatre robots sont tantôt synchronisés, tantôt désynchronisés : le son se rassemble, puis se disperse dans l’espace."
+        "CAVE // FOUR ROBOTS part d’une relation qui nous passionne : celle entre l’archéologique, le primitif et les nouvelles technologies. Entre les espaces, les machines et le sonique : comment un lieu, par sa forme et sa matière, façonne le son, et comment le son révèle le lieu.",
+        "Selon certaines découvertes archéologiques, des grottes ont été habitées et utilisées par des civilisations, pour leurs voix, leurs rites, leurs rassemblements. Ces lieux ne servent plus comme tels. Nous voulons nous les réapproprier : des endroits sacrés, historiques, rejoués avec les outils d’aujourd’hui. C’est un terrain de recherche qui nous tient vraiment à cœur.",
+        "Quatre robots-chiens Unitree portent chacun un mégaphone sur le dos. Le public se tient au centre ; les robots se déplacent autour de lui et jouent avec l’acoustique de la grotte, la roche devient une partie de l’instrument. Tantôt synchronisés, tantôt désynchronisés : le son se rassemble, puis se disperse dans l’espace."
        ],
        "reperes": [
+        [
+         "Recherche",
+         "Archéologie, primitif et nouvelles technologies : le rapport entre espace, machine et son"
+        ],
+        [
+         "Démarche",
+         "Se réapproprier des lieux sacrés et historiques, autrefois habités"
+        ],
         [
          "Forme",
          "Performance musicale spatialisée"
@@ -334,6 +342,8 @@
         ]
        ],
        "tags": [
+        "archéologie",
+        "lieux sacrés",
         "robotique",
         "son spatialisé",
         "performance"
@@ -854,21 +864,29 @@
       {
        "id": "cave",
        "nom": "CAVE // FOUR ROBOTS",
-       "sous": "A performance in a cave",
+       "sous": "Archaeology, technology and sound in a cave",
        "statut": "in preparation",
        "texte": [
-        "Four Unitree robot dogs each carry a megaphone on their back. Together they play spatialised music in a huge cave.",
-        "The audience stands in the middle. The robots move around it and turn to play with the cave’s acoustics: the rock becomes part of the instrument.",
-        "The four robots are sometimes in sync, sometimes out of sync: the sound gathers, then scatters through the space."
+        "CAVE // FOUR ROBOTS starts from a relationship we care deeply about: between the archaeological, the primal and new technologies. Between spaces, machines and the sonic: how a place, through its shape and its matter, shapes sound, and how sound reveals the place.",
+        "According to some archaeological findings, caves were inhabited and used by civilisations, for their voices, their rites, their gatherings. These places no longer serve that purpose. We want to reclaim them: sacred, historical sites, played again with today’s tools. It is a field of research that matters a great deal to us.",
+        "Four Unitree robot dogs each carry a megaphone on their back. The audience stands in the middle; the robots move around them and play with the cave’s acoustics, the rock becomes part of the instrument. Sometimes in sync, sometimes out of sync: the sound gathers, then scatters through the space."
        ],
        "reperes": [
         [
+         "Research",
+         "Archaeology, the primal and new technologies: the relation between space, machine and sound"
+        ],
+        [
+         "Approach",
+         "Reclaiming sacred and historical places that were once inhabited"
+        ],
+        [
          "Form",
-         "Spatialised music performance"
+         "Spatialised musical performance"
         ],
         [
          "Venue",
-         "A cave, audience in the middle"
+         "A cave, the audience in the middle"
         ],
         [
          "Performers",
@@ -880,6 +898,8 @@
         ]
        ],
        "tags": [
+        "archaeology",
+        "sacred places",
         "robotics",
         "spatial sound",
         "performance"

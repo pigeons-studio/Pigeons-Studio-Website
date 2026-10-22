@@ -12,7 +12,7 @@ const TEXTES = {
     sync: 'synchronisés', desync: 'désynchronisés', public: 'public', toi: 'toi', memoire: 'mémoire · 48 fragments', reponse: 'teammate',
     decisions: ['imiter', 'contraster', 'densifier', 's’éclaircir', 'se taire'],
     traits: ['hauteur', 'énergie', 'timbre', 'texture'],
-    sens: { C: 'battement', D: 'pluie' },
+    sens: { C: 'battement', D: 'pluie' }, traces: 'traces anciennes',
     parole: ['hello agent', 'i’m listening…', 'too repetitive!', 'nice agent!', 'my turn!'],
     humeur: 'humeur', humeurs: ['curieuse', 'stressée', 'joueuse'],
     metabo: 'avatar métabolique', etats: ['STABLE', 'MONOTONE'], voiesNotes: '7 voies = 7 notes',
@@ -28,11 +28,11 @@ const TEXTES = {
     },
 
     cave: {
-      etapes: ['Le public se tient au centre de la grotte.',
-        'Quatre robots-chiens Unitree, un mégaphone sur le dos, tournent autour de lui.',
-        'Synchronisés : ils jouent ensemble, le son se rassemble en une seule vague.',
-        'Désynchronisés : chacun son tempo, le son se disperse et la roche le renvoie.'],
-      legende: [['encre', 'robot + mégaphone'], ['css', 'onde sonore'], ['gris', 'public'], ['sombre', 'paroi de la grotte']],
+      etapes: ['Une grotte que des civilisations ont habitée de leurs voix et de leurs rites, puis laissée. On la réinvestit : le public se tient au centre.',
+        'Quatre robots-chiens Unitree, un mégaphone sur le dos, tournent autour de lui : la technologie d’aujourd’hui dans un lieu premier.',
+        'Synchronisés : ils jouent ensemble, et la grotte répond. La forme de la roche façonne le son.',
+        'Désynchronisés : chacun son tempo, le son se disperse et la paroi le renvoie. L’espace devient instrument.'],
+      legende: [['encre', 'robot + mégaphone'], ['css', 'onde sonore'], ['gris', 'public'], ['ocre', 'traces anciennes']],
     },
     langue: {
       etapes: ['Une langue sans mots abstraits : on ne dit que des images concrètes.',
@@ -55,7 +55,7 @@ const TEXTES = {
     sync: 'in sync', desync: 'out of sync', public: 'audience', toi: 'you', memoire: 'memory · 48 fragments', reponse: 'teammate',
     decisions: ['imitate', 'contrast', 'densify', 'thin out', 'stay silent'],
     traits: ['pitch', 'energy', 'timbre', 'texture'],
-    sens: { C: 'beat', D: 'rain' },
+    sens: { C: 'beat', D: 'rain' }, traces: 'ancient traces',
     parole: ['hello agent', 'i’m listening…', 'too repetitive!', 'nice agent!', 'my turn!'],
     humeur: 'mood', humeurs: ['curious', 'stressed', 'playful'],
     metabo: 'metabolic avatar', etats: ['STABLE', 'MONOTONE'], voiesNotes: '7 pathways = 7 notes',
@@ -71,11 +71,11 @@ const TEXTES = {
     },
 
     cave: {
-      etapes: ['The audience stands in the middle of the cave.',
-        'Four Unitree robot dogs, each carrying a megaphone, move around them.',
-        'In sync: they play together, the sound gathers into one wave.',
-        'Out of sync: each its own tempo, the sound scatters and the rock sends it back.'],
-      legende: [['encre', 'robot + megaphone'], ['css', 'sound wave'], ['gris', 'audience'], ['sombre', 'cave wall']],
+      etapes: ['A cave that civilisations once filled with their voices and rites, then left. We take it back: the audience stands in the middle.',
+        'Four Unitree robot dogs, each carrying a megaphone, move around them: today’s technology in a primal place.',
+        'In sync: they play together, and the cave answers. The shape of the rock shapes the sound.',
+        'Out of sync: each its own tempo, the sound scatters and the wall sends it back. The space becomes an instrument.'],
+      legende: [['encre', 'robot + megaphone'], ['css', 'sound wave'], ['gris', 'audience'], ['ocre', 'ancient traces']],
     },
     langue: {
       etapes: ['A language with no abstract words: you only say concrete images.',
@@ -95,7 +95,7 @@ const TEXTES = {
   },
 };
 
-const GRIS = '#8a8780'; const SOMBRE = '#2c2b29'; const ENCRE = '#f2f0ea'; const OR = '#ffb545';
+const GRIS = '#8a8780'; const SOMBRE = '#2c2b29'; const ENCRE = '#f2f0ea'; const OR = '#ffb545'; const OCRE = '#b8693f';
 
 function bits (ctx, rows, x, y, px, couleur, part = 1, graine = 0) {
   if (!rows) return;
@@ -240,6 +240,16 @@ function cave (ctx, w, h, t, etat, css, L) {
   ctx.strokeStyle = SOMBRE; ctx.lineWidth = 1.5; ctx.beginPath();
   etat.bord.forEach((k, i) => { const a = i / 48 * Math.PI * 2; const x = cx + Math.cos(a) * R * k * 1.12; const y = cy + Math.sin(a) * R * k; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
   ctx.closePath(); ctx.stroke(); ctx.lineWidth = 1;
+  // des traces anciennes sur la paroi : le lieu a déjà été habité, de voix et de rites
+  [5, 13, 20, 29, 37, 44].forEach((i, n) => {
+    const a = i / 48 * Math.PI * 2; const k = etat.bord[i] * 0.97;
+    const x = cx + Math.cos(a) * R * k * 1.12; const y = cy + Math.sin(a) * R * k;
+    ctx.fillStyle = OCRE; ctx.globalAlpha = actif === 0 ? 0.95 : 0.5;
+    for (let d = 0; d < 4; d++) ctx.fillRect(x + Math.cos(a + d * 1.7 + n) * 4 - 1, y + Math.sin(a + d * 2.3 + n) * 4 - 1, 2.2, 2.2);
+    ctx.fillRect(x - 3, y + 5, 6, 1.4);
+    ctx.globalAlpha = 1;
+    if (actif === 0 && n === 1) texte(ctx, L.traces, x, y - 12, OCRE, 10, 'center', 'italic ');
+  });
   // les ondes, que la roche renvoie
   etat.ondes = etat.ondes.filter((o) => (o.r += etat.dt * R * 0.55) < R * 1.3);
   for (const o of etat.ondes) { ctx.strokeStyle = css; ctx.globalAlpha = Math.max(0, 0.55 * (1 - o.r / (R * 1.3))); ctx.beginPath(); ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2); ctx.stroke(); }
@@ -392,7 +402,7 @@ function teammate (ctx, w, h, t, etat, css, L) {
 
 // ---------------------------------------------------------------- le panneau « comment ça marche »
 function panneau (ctx, x, y, w, h, R, css, L, compact) {
-  const COUL = { encre: ENCRE, gris: GRIS, or: OR, css, sombre: '#55534e' };
+  const COUL = { encre: ENCRE, gris: GRIS, or: OR, css, sombre: '#55534e', ocre: OCRE };
   ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(x, y, w, h);
   ctx.strokeStyle = SOMBRE; ctx.beginPath(); if (compact) { ctx.moveTo(x, y + 0.5); ctx.lineTo(x + w, y + 0.5); } else { ctx.moveTo(x + 0.5, y); ctx.lineTo(x + 0.5, y + h); } ctx.stroke();
   const p = compact ? 12 : 16;
