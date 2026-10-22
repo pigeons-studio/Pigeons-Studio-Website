@@ -52,7 +52,7 @@ const MOTS: Record<Locale, Record<string, string>> = {
 const UI = {
   fr: {
     connexion: 'connexion', contact: 'contact', panier: 'panier', retour: '◂ 3D', etage: 'étage', etages: (n: number) => `${n} étages`,
-    aide: 'molette : traverser les étages · clic : entrer', entrer: (n: number) => `étage ${n} · cliquer pour entrer`,
+    aide: 'molette : traverser les étages · clic : entrer', entrer: (n: number) => `étage ${n} · cliquer pour entrer`, aideTactile: 'glisser ↕ · toucher', toucher: (n: number) => `étage ${n} · toucher encore pour entrer`,
     ici: 'tu es ici', aller: (n: number) => `aller à l'étage ${n}`, rubriques: 'rubriques',
     prix: { coming: 'À venir', quote: 'Sur devis', soon: 'Bientôt disponible' } as Record<Prix, string>,
     prevenir: 'être prévenu', devis: 'demander un devis', ajouter: 'ajouter au panier', ajoute: 'ajouté',
@@ -64,7 +64,7 @@ const UI = {
   },
   en: {
     connexion: 'login', contact: 'contact', panier: 'cart', retour: '◂ 3D', etage: 'floor', etages: (n: number) => `${n} floors`,
-    aide: 'scroll: move through the floors · click: enter', entrer: (n: number) => `floor ${n} · click to enter`,
+    aide: 'scroll: move through the floors · click: enter', entrer: (n: number) => `floor ${n} · click to enter`, aideTactile: 'swipe ↕ · tap', toucher: (n: number) => `floor ${n} · tap again to enter`,
     ici: 'you are here', aller: (n: number) => `go to floor ${n}`, rubriques: 'sections',
     prix: { coming: 'Coming soon', quote: 'On quote', soon: 'Coming soon' } as Record<Prix, string>,
     prevenir: 'get notified', devis: 'request a quote', ajouter: 'add to cart', ajoute: 'added',
@@ -119,7 +119,7 @@ export default function World() {
         tracker: trkRef.current,
         etages,
         patchs: PATCHS[locale],
-        textes: { entrer: ui.entrer },
+        textes: { entrer: ui.entrer, toucher: ui.toucher },
         onMode: (m, e) => {
           setMode(m); setEtage(e);
           if (m === '2d') { setVisible(true); pageRef.current?.scrollTo(0, 0); } else setVisible(false);
@@ -170,7 +170,7 @@ export default function World() {
           <button id="panier" type="button" onClick={() => setTiroir(tiroir?.quoi === 'contact' ? null : { quoi: 'contact', sujet: '' })}>{ui.contact}</button>
           <Langue />
         </div>
-        <div className="c bg"><span id="etat"><b>{etatLabel}</b>{etatTexte}</span>{mode === '3d' && <span className="aide">{ui.aide}</span>}</div>
+        <div className="c bg"><span id="etat"><b>{etatLabel}</b>{etatTexte}</span>{mode === '3d' && <span className="aide">{ui.aide}</span>}{mode === '3d' && <span className="aide-tactile">{ui.aideTactile}</span>}</div>
         <div className="c bd"><button id="retour" type="button" hidden={mode !== '2d'} onClick={() => mondeRef.current?.remonter()}>{ui.retour}</button></div>
       </div>
       <div id="trk" ref={trkRef} aria-hidden="true"><i /><i /><i /><i /><span /></div>

@@ -11,7 +11,7 @@ export type WorldOptions = {
   tracker: HTMLElement;
   etages: Etage[];
   patchs: Record<string, string[]>;
-  textes: { entrer: (e: number) => string };
+  textes: { entrer: (e: number) => string; toucher?: (e: number) => string };
   onMode: (mode: '3d' | 'vers2d' | '2d' | 'vers3d', etage: number) => void;
 };
 
@@ -204,19 +204,21 @@ export function createWorld (opts: WorldOptions): World {
   let survol = -1;
   function etageVise () { return survol >= 0 ? survol : (foc > 0.6 && etat.mode === '3d' ? Math.round(etageFoc()) : -1); }
   let largeur = 1; let hauteur = 1;
+  // en portrait (téléphone), les étages s'écartent pour remplir la hauteur de l'écran
+  let etir = 1;
   function placerCamera () {
     const k = etat.k; const z = Math.min(1, foc); const a = camera.aspect;
     const fov = lerp(34, 9, k);
     const demi = Math.max((D + 3) / 2, (W + 5) / 2 / a);
     const distTop = demi / Math.tan(THREE.MathUtils.degToRad(fov / 2));
-    const distOrb = Math.max(44, 12 / (Math.tan(THREE.MathUtils.degToRad(17)) * a));
+    const distOrb = Math.max(44, (etir > 1 ? 13.5 : 12) / (Math.tan(THREE.MathUtils.degToRad(17)) * a));
     const dist = lerp(distOrb * lerp(1, 0.72, z), distTop, k);
     const th = lerp(theta, Math.round(theta / (Math.PI * 2)) * Math.PI * 2, ease(Math.min(1, k * 1.25)));
     const ph = lerp(0.5 + flotte, 1.5695, k);
     dir.set(Math.sin(th) * Math.cos(ph), Math.sin(ph), Math.cos(th) * Math.cos(ph));
     const yf = etages[etat.etage].y0;
-    const y3d = lerp((N - 1) * GAP / 2 + flotte * 4, etageFoc() * GAP + 0.6, z);
-    cib.set(lerp(1.4, 0, k), lerp(y3d, yf, k), 0);
+    const y3d = lerp((N - 1) * GAP * etir / 2 + flotte * 4, etageFoc() * GAP * etir + 0.6, z);
+    cib.set(lerp(etir > 1 ? 0.6 : 1.4, 0, k), lerp(y3d, yf, k), 0);
     camera.fov = fov; camera.updateProjectionMatrix();
     camera.position.copy(cib).addScaledVector(dir, dist);
     camera.lookAt(cib);
@@ -258,14 +260,25 @@ export function createWorld (opts: WorldOptions): World {
     focCible = THREE.MathUtils.clamp(focCible + e.deltaY / (e.deltaMode ? 3 : 240), 0, N); focRepos = 0;
   };
   // au doigt : glisser vers le haut ou le bas traverse les étages
-  let depart = null; let glisse = false;
-  const onDown = (e) => { depart = e.clientY; glisse = false; };
+  let depart = null; let glisse = false; let tactile = false; let choisi = -1;
+  const onDown = (e) => { depart = e.clientY; glisse = false; tactile = e.pointerType !== 'mouse'; };
   const onUp = (e) => {
     if (depart === null || etat.mode !== '3d') { depart = null; return; }
     const dy = depart - e.clientY; depart = null;
-    if (Math.abs(dy) > 40) { glisse = true; focCible = THREE.MathUtils.clamp(Math.round(focCible) + (dy > 0 ? 1 : -1), 0, N); focRepos = 0; }
+    if (Math.abs(dy) > 40) { glisse = true; choisi = -1; souris.set(9, 9); focCible = THREE.MathUtils.clamp(Math.round(focCible) + (dy > 0 ? 1 : -1), 0, N); focRepos = 0; }
   };
-  const onClick = (e) => { if (glisse) { glisse = false; return; } viser(e); chercher(); if (etat.mode === '3d' && survol >= 0) descendre(survol); };
+  const onClick = (e) => {
+    if (glisse) { glisse = false; return; }
+    viser(e); chercher();
+    if (etat.mode !== '3d') return;
+    if (tactile) {
+      const e2 = survol; souris.set(9, 9); survol = -1;
+      if (e2 < 0) { choisi = -1; return; }
+      if (e2 !== choisi) { choisi = e2; focCible = N - e2; focRepos = 0; return; }
+      choisi = -1; descendre(e2); return;
+    }
+    if (survol >= 0) descendre(survol);
+  };
   canvas.addEventListener('pointermove', onMove);
   canvas.addEventListener('pointerleave', onLeave);
   canvas.addEventListener('wheel', onWheel, { passive: false });
@@ -295,11 +308,11 @@ export function createWorld (opts: WorldOptions): World {
       const sx = (q.x + 1) / 2 * largeur; const sy = (1 - q.y) / 2 * hauteur;
       x0 = Math.min(x0, sx); x1 = Math.max(x1, sx); y0 = Math.min(y0, sy); y1 = Math.max(y1, sy);
     }
-    if (trkCle !== String(sv)) {
-      trkCle = String(sv);
+    if (trkCle !== sv + (tactile ? 't' : '')) {
+      trkCle = sv + (tactile ? 't' : '');
       const f = x.f;
       trkTxt.replaceChildren(document.createTextNode(f.mot + ' → ' + f.nom.toUpperCase()));
-      const em = document.createElement('em'); em.textContent = textes.entrer(sv); trkTxt.append(em);
+      const em = document.createElement('em'); em.textContent = tactile && textes.toucher ? textes.toucher(sv) : textes.entrer(sv); trkTxt.append(em);
       tracker.style.setProperty('--c', f.css);
     }
     tracker.classList.add('on');
@@ -322,6 +335,7 @@ export function createWorld (opts: WorldOptions): World {
     if (etat.mode === '2d') onMode('2d', e); else descendre(e);
   }
   function remonter () {
+    choisi = -1;
     focCible = N - etat.etage; foc = focCible;
     etat.mode = 'vers3d'; onMode('vers3d', etat.etage);
     anim(0, () => { etat.mode = '3d'; onMode('3d', etat.etage); });
@@ -336,6 +350,8 @@ export function createWorld (opts: WorldOptions): World {
     const r = canvas.parentElement.getBoundingClientRect();
     largeur = r.width; hauteur = r.height;
     renderer.setSize(largeur, hauteur, false); camera.aspect = largeur / hauteur;
+    etir = THREE.MathUtils.clamp(0.9 / camera.aspect, 1, 2.1);
+    etages.forEach((x, e) => { x.y0 = e * GAP * etir; });
   }
   const ro = new ResizeObserver(taille); ro.observe(canvas.parentElement); taille();
   const horloge = new THREE.Clock(); let temps = 0; let raf = 0;

@@ -220,3 +220,35 @@
 .orca .ex-scene .rec { width: 6px; height: 6px; background: var(--c); animation: rec 1.6s steps(2, end) infinite; }
 @keyframes rec { 50% { opacity: .2; } }
 @media (prefers-reduced-motion: reduce) { .orca .ex-scene .rec { animation: none; } }
+
+/* ---- téléphone : même site, adapté au doigt et à l'écran étroit ---- */
+.orca #cadre .bg .aide-tactile { display: none; }
+@media (pointer: coarse) {
+  .orca #cadre .bg .aide { display: none; }
+  .orca #cadre .bg .aide-tactile { display: inline; }
+  .orca, .orca canvas, .orca button { cursor: auto; }
+}
+@media (max-width: 760px) {
+  /* la rangée de glyphes reste en haut pendant qu'on fait défiler la page */
+  .orca .familles-bloc { position: sticky; top: 0; z-index: 2; margin: -8px -16px 0; padding: 8px 16px 0; background: #000; border-bottom: 1px solid var(--trait); padding-bottom: 6px; }
+  .orca #page .dedans { gap: 24px; }
+}
+@media (max-width: 560px) {
+  .orca .familles { justify-content: space-between; gap: 6px; }
+  .orca .familles button { width: auto; flex: 1 1 0; max-width: 52px; height: 44px; }
+  /* les quatre projets en carré 2 × 2 : tout est visible, rien ne déborde */
+  .orca .ex-liste { display: grid; grid-template-columns: 1fr 1fr; overflow: visible; }
+  .orca .ex-liste button { min-width: 0; border-right: 0; border-bottom: 1px solid var(--trait); padding: 10px 12px; }
+  .orca .ex-liste button:nth-child(odd) { border-right: 1px solid var(--trait); }
+  .orca .ex-liste .ex-nom { white-space: normal; overflow-wrap: anywhere; }
+  .orca .ex-film { max-width: none; }
+  .orca .ex-scene canvas { aspect-ratio: 1 / 1; }
+  .orca .ex-fiche { padding: 16px 14px; }
+  .orca #retour { padding: 6px 0 6px 12px; }
+  .orca .btn { min-height: 36px; }
+}
+@media (pointer: coarse) {
+  .orca #trk span { background: rgba(0,0,0,.82); padding: 4px 6px; }
+}
+/* les sections et en-têtes du monde n'héritent pas du z-index des anciennes pages */
+.orca #page section, .orca #page header { position: static; z-index: auto; }
