@@ -324,6 +324,29 @@ export function createWorld (opts: WorldOptions): World {
     trkTxt.style.marginLeft = droite ? '0' : '10px'; trkTxt.style.marginRight = droite ? '10px' : '0'; trkTxt.style.textAlign = droite ? 'right' : 'left';
   }
 
+  // ---------------------------------------------------------------- au doigt : la traduction de chaque glyphe-menu reste affichée en 3D
+  const auDoigt = matchMedia('(pointer: coarse)').matches || matchMedia('(max-width: 560px)').matches;
+  const etiquettes = auDoigt ? etages.map((x) => {
+    const d = document.createElement('div'); d.className = 'etiq'; d.setAttribute('aria-hidden', 'true'); d.style.setProperty('--c', x.f.css);
+    const em = document.createElement('em'); em.textContent = x.f.mot; d.append(em, document.createTextNode(x.f.nom));
+    d.style.opacity = '0'; tracker.parentElement.appendChild(d); return d;
+  }) : [];
+  const Q = new THREE.Vector3(); const D3 = new THREE.Vector3();
+  function etiqueter () {
+    if (!etiquettes.length) return;
+    const sv = etageVise(); const on = etat.mode === '3d' && etat.k < 0.02;
+    etages.forEach((x, e) => {
+      const d = etiquettes[e];
+      if (!on || e === sv) { d.style.opacity = '0'; return; }
+      x.gly.getWorldPosition(Q);
+      // le bord gauche du glyphe, à l'écran
+      D3.set(-G / 2, 0, 0).applyQuaternion(camera.quaternion).add(Q).project(camera);
+      const sx = (D3.x + 1) / 2 * largeur; const sy = (1 - D3.y) / 2 * hauteur;
+      d.style.opacity = String(sy > 60 && sy < hauteur - 60 ? 1 : 0);
+      d.style.transform = 'translate(' + Math.round(sx - 8) + 'px,' + Math.round(sy) + 'px) translate(-100%,-50%)';
+    });
+  }
+
   // ---------------------------------------------------------------- transitions
   function anim (vers, fin) { etat.de = etat.k; etat.vers = vers; etat.t = 0; etat.fin = fin; etat.duree = reduit ? 0.01 : 1.3; }
   function descendre (e) {
@@ -369,7 +392,7 @@ export function createWorld (opts: WorldOptions): World {
     if (!reduit) pigeon.position.y += Math.sin(temps * 2.2) * 0.004;
     pigeon.quaternion.copy(camera.quaternion);
     pigeon.material.opacity = 1 - etat.k; pigeon.visible = etat.k < 0.98;
-    suivre();
+    suivre(); etiqueter();
     renderer.render(scene, camera);
     raf = requestAnimationFrame(boucle);
   }
@@ -378,7 +401,7 @@ export function createWorld (opts: WorldOptions): World {
   return {
     descendre, changer, remonter, avancer, etageVise,
     detruire () {
-      cancelAnimationFrame(raf); ro.disconnect();
+      cancelAnimationFrame(raf); ro.disconnect(); etiquettes.forEach((d) => d.remove());
       canvas.removeEventListener('pointermove', onMove); canvas.removeEventListener('pointerleave', onLeave);
       canvas.removeEventListener('wheel', onWheel); canvas.removeEventListener('click', onClick);
       canvas.removeEventListener('pointerdown', onDown); canvas.removeEventListener('pointerup', onUp);

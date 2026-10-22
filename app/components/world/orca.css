@@ -297,3 +297,38 @@
   /* une bande noire sous la barre du bas : le texte qui défile passe dessous sans se mêler à l'état */
   .orca:has(#page.on) #cadre::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 40px; background: #000; z-index: -1; pointer-events: none; }
 }
+
+/* ---- pied de page, formulaire de contact, fenêtres sur mobile, traductions toujours visibles au doigt ---- */
+.orca .pied-page { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; margin-top: 12px; padding-top: 16px; border-top: 1px dashed var(--trait); color: var(--gris); font-size: 10px; letter-spacing: .06em; }
+.orca .pied-page a, .orca .legal3d a { color: var(--gris); text-decoration: underline; text-underline-offset: 3px; }
+.orca .pied-page a:hover, .orca .legal3d a:hover { color: var(--encre); }
+.orca #cadre .legal3d { display: inline-flex; gap: 12px; align-items: baseline; color: #5f5d58; font-size: 10px; letter-spacing: .04em; }
+.orca #cadre .legal3d a { pointer-events: auto; }
+.orca #tiroir.tiroir-contact { width: min(380px, calc(100vw - 2 * var(--marge))); max-height: calc(100dvh - 2 * var(--marge) - 60px); overflow-y: auto; overscroll-behavior: contain; }
+.orca #tiroir textarea { font: inherit; color: var(--encre); background: #0b0b0a; border: 1px solid var(--trait); padding: 7px 8px; resize: vertical; min-height: 90px; }
+.orca #tiroir textarea:focus-visible { outline: 1px solid var(--cyan); outline-offset: 0; }
+.orca #tiroir input[type="range"] { padding: 0; border: 0; background: none; accent-color: var(--or); }
+.orca #tiroir .piege { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.orca #tiroir .ok { color: var(--cyan); font-size: 11px; }
+.orca #tiroir .erreur { color: var(--rose); font-size: 11px; }
+.orca #tiroir button[disabled] { opacity: .5; }
+.orca #voile { display: none; }
+.orca .familles button .lib { display: none; }
+.orca .etiq { position: fixed; left: 0; top: 0; z-index: 4; pointer-events: none; white-space: nowrap; font-size: 10px; line-height: 14px; letter-spacing: .05em; padding: 2px 6px; background: rgba(0,0,0,.72); color: var(--encre); text-transform: uppercase; transition: opacity .2s; }
+.orca .etiq em { color: var(--c); font-style: italic; text-transform: none; margin-right: 6px; }
+@media (max-width: 760px) {
+  /* connexion et contact : une fenêtre au centre de l'écran, sur un voile noir */
+  .orca #voile { display: block; position: fixed; inset: 0; z-index: 5; background: rgba(0,0,0,.78); }
+  .orca #tiroir.tiroir-connexion, .orca #tiroir.tiroir-contact { z-index: 6; left: 50%; right: auto; top: 50%; transform: translate(-50%, -50%); width: min(380px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); overflow-y: auto; overscroll-behavior: contain; }
+  .orca #cadre .legal3d { display: none; }
+}
+@media (pointer: coarse), (max-width: 560px) {
+  /* au doigt, pas de survol : chaque glyphe du menu porte sa traduction en permanence */
+  .orca .familles { align-items: flex-start; }
+  .orca .familles button { width: auto; flex: 1 1 0; max-width: 64px; min-width: 0; height: auto; min-height: 44px; padding: 6px 2px 5px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .orca .familles button .lib { display: flex; flex-direction: column; align-items: center; gap: 1px; max-width: 100%; font-size: 8.5px; line-height: 10px; text-align: center; letter-spacing: .02em; }
+  .orca .familles button .lib em { color: var(--c); font-style: italic; }
+  .orca .familles button .lib b { font-weight: 400; color: var(--gris); text-transform: uppercase; letter-spacing: 0; font-size: 8px; overflow-wrap: normal; word-break: normal; }
+  .orca .familles button[aria-current="true"] .lib b { color: var(--encre); }
+  .orca .familles-trad { display: none; }
+}

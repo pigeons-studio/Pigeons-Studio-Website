@@ -57,10 +57,11 @@ const UI = {
     prix: { coming: 'À venir', quote: 'Sur devis', soon: 'Bientôt disponible' } as Record<Prix, string>,
     prevenir: 'être prévenu', devis: 'demander un devis', ajouter: 'ajouter au panier', ajoute: 'ajouté',
     contactTitre: 'CONTACT', contactTexte: 'Marques, institutions, robotique et IA : parlons de votre projet.', aPropos: 'à propos de : ',
-    copier: 'copier', copie: 'copié', reponse: 'Réponse généralement sous 24-48h.', fermer: 'fermer', legal: 'mentions légales', cgv: 'cgv',
+    copier: 'copier', copie: 'copié', reponse: 'Réponse généralement sous 24-48h.', fermer: 'fermer', legal: 'mentions légales', cgv: 'CGV',
     panierTitre: 'PANIER', vide: 'Vide pour l’instant.', vider: 'vider', commander: 'passer la commande',
     commandeBientot: 'Le paiement en ligne arrive bientôt. Pour commander, écrivez au studio :',
     profil: 'mon profil', bonjour: 'connecté·e', deconnexion: 'déconnexion',
+    droits: '© 2026 Pigeons Studio - Tous droits réservés.', cgvLong: 'conditions générales de vente', ouEcrire: 'ou écrire directement :',
   },
   en: {
     connexion: 'login', contact: 'contact', panier: 'cart', retour: '◂ 3D', etage: 'floor', etages: (n: number) => `${n} floors`,
@@ -73,6 +74,7 @@ const UI = {
     panierTitre: 'CART', vide: 'Empty for now.', vider: 'empty', commander: 'checkout',
     commandeBientot: 'Online payment is coming soon. To order, write to the studio:',
     profil: 'my profile', bonjour: 'signed in', deconnexion: 'log out',
+    droits: '© 2026 Pigeons Studio - All rights reserved.', cgvLong: 'terms of sale', ouEcrire: 'or write directly:',
   },
 };
 type Ui = (typeof UI)['fr'];
@@ -171,7 +173,7 @@ export default function World() {
           <Langue />
         </div>
         <div className="c bg"><span id="etat"><b>{etatLabel}</b>{etatTexte}</span>{mode === '3d' && <span className="aide">{ui.aide}</span>}{mode === '3d' && <span className="aide-tactile">{ui.aideTactile}</span>}</div>
-        <div className="c bd"><button id="retour" type="button" hidden={mode !== '2d'} onClick={() => mondeRef.current?.remonter()}>{ui.retour}</button></div>
+        <div className="c bd">{mode === '3d' && <span className="legal3d"><span>{ui.droits}</span><Link href="/legal">{ui.legal}</Link><Link href="/terms">{ui.cgv}</Link></span>}<button id="retour" type="button" hidden={mode !== '2d'} onClick={() => mondeRef.current?.remonter()}>{ui.retour}</button></div>
       </div>
       <div id="trk" ref={trkRef} aria-hidden="true"><i /><i /><i /><i /><span /></div>
       {survolHtml && mode === '2d' && <TrackerHtml g={FAMILLES[survolHtml.i]} box={survolHtml.box} />}
@@ -188,6 +190,7 @@ export default function World() {
                   onBlur={() => setSurvolHtml(null)}
                   onClick={() => changer(i)}>
                   <Glyphe signe={g.signe} couleur={i === etage || survolHtml?.i === i ? g.css : '#8a8780'} />
+                  <span className="lib" style={{ ['--c' as string]: g.css }} aria-hidden="true"><em>{MOTS[locale][g.signe]}</em><b>{g.nom}</b></span>
                 </button>
               ))}
             </nav>
@@ -199,11 +202,13 @@ export default function World() {
             <div><h1>{f.nom}</h1><p>{MOTS[locale][f.signe]}{f.pourquoi !== MOTS[locale][f.signe] ? ` · ${f.pourquoi}` : ''}</p></div>
           </div>
           {f.blocs.map((b, i) => <BlocVue key={`${f.id}-${i}`} b={b} f={f} ui={ui} locale={locale} ouvrirContact={(sujet) => setTiroir({ quoi: 'contact', sujet })} />)}
+          <PiedPage ui={ui} />
         </div>
       </main>
 
+      {tiroir && <div id="voile" onClick={() => setTiroir(null)} aria-hidden="true" />}
       {tiroir && (
-        <aside id="tiroir" aria-label={tiroir.quoi}>
+        <aside id="tiroir" className={`tiroir-${tiroir.quoi}`} aria-label={tiroir.quoi} role={tiroir.quoi === 'panier' ? undefined : 'dialog'}>
           {tiroir.quoi === 'contact' && <TiroirContact sujet={tiroir.sujet} ui={ui} fermer={() => setTiroir(null)} />}
           {tiroir.quoi === 'panier' && <TiroirPanier ui={ui} locale={locale} fermer={() => setTiroir(null)} />}
           {tiroir.quoi === 'connexion' && <TiroirConnexion inscription={tiroir.inscription} ui={ui} basculer={(v) => setTiroir({ quoi: 'connexion', inscription: v })} fermer={() => setTiroir(null)} />}
@@ -382,16 +387,65 @@ function Mail({ ui }: { ui: Ui }) {
 }
 
 function TiroirContact({ sujet, ui, fermer }: { sujet: string; ui: Ui; fermer: () => void }) {
+  // le formulaire de l'ancien site, repris tel quel : même API, même vérification anti-robot
+  const t = useTranslations('contact');
+  const locale = useLocale();
+  const [champs, setChamps] = useState({ name: '', email: '', subject: sujet, message: '' });
+  const [curseur, setCurseur] = useState(0);
+  const [piege, setPiege] = useState('');
+  const [etat, setEtat] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [erreur, setErreur] = useState('');
+  const debut = useRef(Date.now());
+  const humain = curseur >= 100;
+  useEffect(() => { setChamps((c) => ({ ...c, subject: sujet })); }, [sujet]);
+  const changer = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setChamps({ ...champs, [e.target.name]: e.target.value });
+  const envoyer = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!humain) { setEtat('error'); setErreur(t('form.humanCheckError')); return; }
+    if (piege.trim()) { setEtat('error'); setErreur(t('form.error')); return; }
+    setEtat('loading'); setErreur('');
+    try {
+      const r = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...champs, locale, antiBot: { sliderValue: curseur, honeypot: piege, elapsedMs: Date.now() - debut.current } }) });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || t('form.error'));
+      setEtat('success'); setChamps({ name: '', email: '', subject: '', message: '' }); setCurseur(0); debut.current = Date.now();
+    } catch (err) { setEtat('error'); setErreur(err instanceof Error ? err.message : t('form.error')); }
+  };
   return (
     <>
       <div className="etiquette">{ui.contactTitre}</div>
       <p>{ui.contactTexte}</p>
-      {sujet && <p className="sujet">{ui.aPropos}{sujet}</p>}
+      <form onSubmit={envoyer} className="formulaire">
+        <label htmlFor="ct-nom">{t('form.name')} *<input id="ct-nom" name="name" type="text" autoComplete="name" value={champs.name} onChange={changer} required placeholder={t('form.namePlaceholder')} /></label>
+        <label htmlFor="ct-email">{t('form.email')} *<input id="ct-email" name="email" type="email" autoComplete="email" value={champs.email} onChange={changer} required placeholder={t('form.emailPlaceholder')} /></label>
+        <label htmlFor="ct-sujet">{t('form.subject')}<input id="ct-sujet" name="subject" type="text" value={champs.subject} onChange={changer} placeholder={t('form.subjectPlaceholder')} /></label>
+        <label htmlFor="ct-msg">{t('form.message')} *<textarea id="ct-msg" name="message" rows={5} value={champs.message} onChange={changer} required placeholder={t('form.messagePlaceholder')} /></label>
+        <div className="piege" aria-hidden="true"><label htmlFor="ct-site">Website</label><input id="ct-site" name="website" type="text" tabIndex={-1} autoComplete="off" value={piege} onChange={(e) => setPiege(e.target.value)} /></div>
+        <label htmlFor="ct-robot" className="robot">{t('form.humanCheckLabel')} *
+          <span className="note">{t('form.humanCheckHint')}</span>
+          <input id="ct-robot" type="range" min={0} max={100} value={curseur} onChange={(e) => setCurseur(Number(e.target.value))} aria-describedby="ct-robot-etat" />
+          <span id="ct-robot-etat" className={humain ? 'ok' : 'note'}>{humain ? t('form.humanCheckReady') : t('form.humanCheckProgress', { value: curseur })}</span>
+        </label>
+        {etat === 'error' && <p className="erreur" role="alert">{erreur || t('form.error')}</p>}
+        {etat === 'success' && <p className="ok" role="status">{t('form.success')}</p>}
+        <button type="submit" className="btn plein" disabled={etat === 'loading' || !humain}>{etat === 'loading' ? t('form.sending') : humain ? t('form.submit') : t('form.submitLocked')}</button>
+      </form>
+      <p className="note">{ui.ouEcrire}</p>
       <Mail ui={ui} />
       <p className="note">{ui.reponse}</p>
-      <div className="ligne"><Link href="/legal" className="lien">{ui.legal}</Link><Link href="/terms" className="lien">{ui.cgv}</Link></div>
+      <div className="ligne"><Link href="/legal" className="lien">{ui.legal}</Link><Link href="/terms" className="lien">{ui.cgvLong}</Link></div>
       <button type="button" className="btn doux" onClick={fermer}>{ui.fermer}</button>
     </>
+  );
+}
+
+function PiedPage({ ui }: { ui: Ui }) {
+  return (
+    <footer className="pied-page">
+      <span>{ui.droits}</span>
+      <Link href="/legal">{ui.legal}</Link>
+      <Link href="/terms">{ui.cgvLong}</Link>
+    </footer>
   );
 }
 
