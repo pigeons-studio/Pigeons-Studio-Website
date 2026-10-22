@@ -310,7 +310,7 @@ function langue (ctx, w, h, t, etat, css, L) {
 
 // ---------------------------------------------------------------- TEAMMATE.POTO : une créature qui écoute, digère et répond
 function teammate (ctx, w, h, t, etat, css, L) {
-  const CYCLE = 12;
+  const CYCLE = 20;
   const k = Math.floor(t / CYCLE); const u = (t % CYCLE) / CYCLE;
   if (etat.k !== k) {
     etat.k = k;
