@@ -281,7 +281,7 @@ function cave (ctx, w, h, t, etat, css, L) {
 
 // ---------------------------------------------------------------- Langue des images : un concept se compose de trois images
 function langue (ctx, w, h, t, etat, css, L) {
-  const DUREE = 6;
+  const DUREE = 10;
   const n = Math.floor(Math.max(0, t) / DUREE) % L.compos.length; const u = (t % DUREE) / DUREE;
   const [mot, images] = L.compos[n];
   const px = Math.max(3, Math.floor(Math.min(w / 34, h / 30)));
