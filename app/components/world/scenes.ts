@@ -203,8 +203,8 @@ function orca (ctx, w, h, t, etat, css, L) {
     etat.tic = 0; etat.acc = 0; etat.chaud = {}; etat.liens = [];
   }
   // un cycle de 20 s : à plat, la levée en étages, le relief des données, les bangs qui voyagent
-  // un cycle : quatre temps de 5 s, puis l'alphabet des 26 opérateurs, un signe toutes les 0,9 s
-  const PAS_ALPHA = 0.9; const ph = t % (20 + 26 * PAS_ALPHA);
+  // un cycle : quatre temps de 5 s, puis l'alphabet des 26 opérateurs, un signe toutes les 3,5 s
+  const PAS_ALPHA = 3.5; const ph = t % (20 + 26 * PAS_ALPHA);
   if (ph >= 20) { avancerOrca(etat); return alphabet(ctx, w, h, Math.floor((ph - 20) / PAS_ALPHA), css, L); }
   const actif = Math.floor(ph / 5); const ts = ph - actif * 5;
   const lisse = (x) => x * x * (3 - 2 * x);
