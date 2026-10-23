@@ -10,6 +10,7 @@ import { usePathname, useRouter, Link } from '@/i18n/routing';
 import { useCartStore } from '@/app/store/cartStore';
 import GLYPHES from './glyphes.json';
 import CONTENU from './contenu.json';
+import OPS from './operateurs.json';
 import type { World as Monde, Etage } from './engine';
 import './orca.css';
 
@@ -319,9 +320,44 @@ function Explorer({ items, css, locale }: { items: Projet[]; css: string; locale
             <div className="tags">{p.tags.map((x) => <span key={x}>{x}</span>)}</div>
           </div>
         </div>
+        {p.id === 'orca' && <Alphabet css={css} locale={locale} />}
       </article>
       <span className="sr-only" aria-live="polite">{locale === 'fr' ? `projet ${i + 1} sur ${items.length}` : `project ${i + 1} of ${items.length}`}</span>
     </div>
+  );
+}
+
+// l'alphabet des opérateurs d'ORCA//GLYPH : la lettre d'Orca, son signe As-Simt, son mot, ce qu'elle fait, et pourquoi ce mot
+const ALPHA_TXT = {
+  fr: { titre: 'L’alphabet des opérateurs', intro: 'Dans Orca, chaque lettre majuscule est un opérateur : une petite machine qui agit à chaque pas d’horloge. ORCA//GLYPH garde la lettre et sa fonction, et lui donne un signe de l’alphabet As-Simt. Ce signe est une image, et son mot a été choisi pour ce que fait l’opérateur : D bat la mesure en lâchant un bang tous les N pas, comme la pluie qui tombe goutte à goutte. Lire un patch, c’est donc lire à la fois un programme et une phrase.', lettre: 'lettre', signe: 'signe', mot: 'mot', fait: 'fait', pourquoi: 'pourquoi ce mot' },
+  en: { titre: 'The operator alphabet', intro: 'In Orca, each capital letter is an operator: a small machine that acts on every clock step. ORCA//GLYPH keeps the letter and its function, and gives it a sign from the As-Simt alphabet. That sign is an image, and its word was chosen for what the operator does: D keeps time by dropping a bang every N steps, like rain falling drop by drop. Reading a patch means reading a program and a sentence at once.', lettre: 'letter', signe: 'sign', mot: 'word', fait: 'does', pourquoi: 'why this word' },
+};
+function GlypheOp({ k, couleur }: { k: string; couleur: string }) {
+  const rows = (GLYPHES.operateurs as Record<string, string[]>)[k] || [];
+  return (
+    <svg viewBox="0 0 8 8" shapeRendering="crispEdges" aria-hidden="true">
+      {rows.flatMap((row, r) => [...row].map((c, q) => (c === '#' ? <rect key={`${r}-${q}`} x={q} y={r} width={1} height={1} fill={couleur} /> : null)))}
+    </svg>
+  );
+}
+function Alphabet({ css, locale }: { css: string; locale: Locale }) {
+  const T = ALPHA_TXT[locale]; const O = OPS[locale] as Record<string, { mot: string; fait: string; lien: string }>;
+  return (
+    <section className="ex-alphabet" aria-label={T.titre}>
+      <h3 className="etiquette">{T.titre}</h3>
+      <p>{T.intro}</p>
+      <ol>
+        {Object.entries(O).map(([k, o]) => (
+          <li key={k}>
+            <GlypheOp k={k} couleur={css} />
+            <b>{k}</b>
+            <span className="mot">{o.mot}</span>
+            <span className="fait">{o.fait}</span>
+            <span className="lien">{o.lien}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
   );
 }
 

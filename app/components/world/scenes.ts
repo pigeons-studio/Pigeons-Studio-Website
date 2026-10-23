@@ -2,6 +2,7 @@
 // Chaque scène dessine le principe du projet, en direct : pas de vidéo.
 // À côté de la scène, un panneau « comment ça marche » : les étapes s'allument au rythme de l'animation.
 import GLYPHES from './glyphes.json';
+import OPS from './operateurs.json';
 
 const SIG = GLYPHES.signes;
 const TOUS = { ...GLYPHES.symboles, ...GLYPHES.operateurs };
@@ -12,7 +13,7 @@ const TEXTES = {
     sync: 'synchronisés', desync: 'désynchronisés', public: 'public', toi: 'toi', memoire: 'mémoire · 48 fragments', reponse: 'teammate',
     decisions: ['imiter', 'contraster', 'densifier', 's’éclaircir', 'se taire'],
     traits: ['hauteur', 'énergie', 'timbre', 'texture'],
-    sens: { C: 'battement', D: 'pluie' }, traces: 'traces anciennes',
+    sens: { C: 'battement', D: 'pluie' }, traces: 'traces anciennes', alphabetTitre: 'L’ALPHABET DES OPÉRATEURS', fait: 'fait',
     parole: ['hello agent', 'i’m listening…', 'too repetitive!', 'nice agent!', 'my turn!'],
     humeur: 'humeur', humeurs: ['curieuse', 'stressée', 'joueuse'],
     metabo: 'avatar métabolique', etats: ['STABLE', 'MONOTONE'], voiesNotes: '7 voies = 7 notes',
@@ -23,7 +24,8 @@ const TEXTES = {
       etapes: ['Un langage de code à nous : chaque opérateur est un glyphe As-Simt qui porte un sens. C, c’est « battement » ; D, « pluie ». Coder, c’est écrire avec des images.',
         'ORCA//GLYPH la lève en volume : les grilles s’empilent en étages, une couche du morceau par étage, et l’on circule dedans.',
         'Les données prennent du relief : chaque glyphe est extrudé, d’autant plus haut que sa valeur compte. On lit la musique comme une architecture.',
-        'Les bangs voyagent dans l’espace : on les voit monter d’un étage à l’autre. Le signal devient visible, et part en MIDI vers les synthés.'],
+        'Les bangs voyagent dans l’espace : on les voit monter d’un étage à l’autre. Le signal devient visible, et part en MIDI vers les synthés.',
+        'L’alphabet : les 26 lettres d’Orca gardent leur fonction, et chacune reçoit un signe As-Simt. Le mot de ce signe est une image choisie pour ce que fait l’opérateur.'],
       legende: [['encre', 'opérateur'], ['gris', 'valeur'], ['or', 'bang qui voyage'], ['css', 'sens du glyphe']],
     },
 
@@ -55,7 +57,7 @@ const TEXTES = {
     sync: 'in sync', desync: 'out of sync', public: 'audience', toi: 'you', memoire: 'memory · 48 fragments', reponse: 'teammate',
     decisions: ['imitate', 'contrast', 'densify', 'thin out', 'stay silent'],
     traits: ['pitch', 'energy', 'timbre', 'texture'],
-    sens: { C: 'beat', D: 'rain' }, traces: 'ancient traces',
+    sens: { C: 'beat', D: 'rain' }, traces: 'ancient traces', alphabetTitre: 'THE OPERATOR ALPHABET', fait: 'does',
     parole: ['hello agent', 'i’m listening…', 'too repetitive!', 'nice agent!', 'my turn!'],
     humeur: 'mood', humeurs: ['curious', 'stressed', 'playful'],
     metabo: 'metabolic avatar', etats: ['STABLE', 'MONOTONE'], voiesNotes: '7 pathways = 7 notes',
@@ -66,7 +68,8 @@ const TEXTES = {
       etapes: ['A code language of our own: each operator is an As-Simt glyph that carries a meaning. C is “beat”; D, “rain”. Coding means writing with images.',
         'ORCA//GLYPH lifts it into volume: grids stack up as floors, one layer of the track per floor, and you move inside.',
         'Data takes on relief: each glyph is extruded, taller the more its value counts. You read the music like architecture.',
-        'Bangs travel through space: you see them rise from one floor to the next. The signal becomes visible, and goes out as MIDI to the synths.'],
+        'Bangs travel through space: you see them rise from one floor to the next. The signal becomes visible, and goes out as MIDI to the synths.',
+        'The alphabet: Orca’s 26 letters keep their function, and each one receives an As-Simt sign. The word of that sign is an image chosen for what the operator does.'],
       legende: [['encre', 'operator'], ['gris', 'value'], ['or', 'travelling bang'], ['css', 'glyph meaning']],
     },
 
@@ -139,24 +142,8 @@ function viseur (ctx, x, y, w, h, couleur, alpha = 1) {
   ctx.stroke(); ctx.globalAlpha = 1;
 }
 
-// ---------------------------------------------------------------- ORCA//GLYPH : Orca quitte le plan, ses données et ses bangs prennent corps dans l'espace
-function orca (ctx, w, h, t, etat, css, L) {
-  if (!etat.init) {
-    etat.init = true;
-    etat.etages = [
-      ['..1D4.....', '..........', '...:03C...'],
-      ['.4C8......', '..........', '.....1D8..'],
-      ['..2C4..D2.', '..........', '......:14.'],
-    ].map((l) => l.map((r) => [...r]));
-    etat.tic = 0; etat.acc = 0; etat.chaud = {}; etat.liens = [];
-  }
-  // un cycle de 20 s : à plat, la levée en étages, le relief des données, les bangs qui voyagent
-  const ph = t % 20; const actif = Math.floor(ph / 5); const ts = ph - actif * 5;
-  const lisse = (x) => x * x * (3 - 2 * x);
-  let m = actif === 0 ? 0 : actif === 1 ? lisse(Math.min(1, ts / 2)) : 1;
-  if (actif === 3 && ts > 3.8) m = 1 - lisse(Math.min(1, (ts - 3.8) / 1.2));
-  const ext = actif === 2 ? lisse(Math.min(1, ts / 1.5)) : actif === 3 ? m : 0;
-
+// l'horloge des trois étages d'Orca (C compte, D lâche des bangs)
+function avancerOrca (etat) {
   etat.acc += etat.dt;
   while (etat.acc > 0.125) {
     etat.acc -= 0.125; etat.tic++;
@@ -170,6 +157,62 @@ function orca (ctx, w, h, t, etat, css, L) {
   }
   for (const k in etat.chaud) { etat.chaud[k] -= etat.dt * 2.5; if (etat.chaud[k] <= 0) delete etat.chaud[k]; }
   etat.liens = etat.liens.filter((l) => (l.vie -= etat.dt * 0.9) > 0);
+}
+
+// l'alphabet des opérateurs : chaque lettre d'Orca a son signe As-Simt et son mot
+function alphabet (ctx, w, h, n, css, L) {
+  const O = L.etage === 'floor' ? OPS.en : OPS.fr;
+  const lettres = Object.keys(O);
+  const large = w >= 420; const cols = large ? 7 : 5; const rows = Math.ceil(lettres.length / cols);
+  texte(ctx, L.alphabetTitre, 12, 20, css, 12, 'left', '600 ');
+  const gy = 34; const gh = h * (large ? 0.6 : 0.56); const cw = (w - 16) / cols; const ch = gh / rows;
+  const px = Math.max(1.5, Math.min(cw / 16, ch / 16));
+  lettres.forEach((k, i) => {
+    const c = i % cols; const r = Math.floor(i / cols); const on = i === n;
+    const x = 8 + c * cw; const y = gy + r * ch;
+    const gx = x + cw / 2 - px * 4; const gyy = y + 4;
+    bits(ctx, TOUS[k], gx, gyy, px, on ? css : i < n ? ENCRE : '#55534e');
+    texte(ctx, k, x + cw / 2, gyy + px * 8 + 11, on ? css : GRIS, 10, 'center', '600 ');
+    if (large) { ctx.font = "9px 'IBM Plex Mono', monospace"; let m = O[k].mot; while (ctx.measureText(m).width > cw - 4 && m.length > 3) m = m.slice(0, -2) + '…'; texte(ctx, m, x + cw / 2, gyy + px * 8 + 22, on ? ENCRE : '#6f6c66', 9, 'center', 'italic '); }
+    if (on) viseur(ctx, x + 2, y, cw - 4, ch - 2, css);
+  });
+  // le signe en cours, en grand : lettre, mot, ce qu'il fait, et pourquoi ce mot
+  const k = lettres[Math.min(n, lettres.length - 1)]; const o = O[k];
+  const fy = gy + gh + 14; const big = Math.min(5, (h - fy - 20) / 9);
+  ctx.strokeStyle = SOMBRE; ctx.beginPath(); ctx.moveTo(8, fy - 6); ctx.lineTo(w - 8, fy - 6); ctx.stroke();
+  bits(ctx, TOUS[k], 12, fy + 4, big, css);
+  const tx = 12 + big * 8 + 16; const larg = w - tx - 10;
+  texte(ctx, k, tx, fy + 18, ENCRE, 18, 'left', '600 ');
+  ctx.font = "italic 13px 'IBM Plex Mono', monospace";
+  texte(ctx, o.mot, tx + 22, fy + 18, css, 13, 'left', 'italic ');
+  texte(ctx, L.fait + ' : ' + o.fait, tx, fy + 38, ENCRE, 12);
+  ctx.font = "11px 'IBM Plex Mono', monospace";
+  couper(ctx, '« ' + o.lien + ' »', larg).slice(0, 2).forEach((l, j) => texte(ctx, l, tx, fy + 56 + j * 15, GRIS, 11, 'left', 'italic '));
+  return { info: L.orca, actif: 4 };
+}
+
+// ---------------------------------------------------------------- ORCA//GLYPH : Orca quitte le plan, ses données et ses bangs prennent corps dans l'espace
+function orca (ctx, w, h, t, etat, css, L) {
+  if (!etat.init) {
+    etat.init = true;
+    etat.etages = [
+      ['..1D4.....', '..........', '...:03C...'],
+      ['.4C8......', '..........', '.....1D8..'],
+      ['..2C4..D2.', '..........', '......:14.'],
+    ].map((l) => l.map((r) => [...r]));
+    etat.tic = 0; etat.acc = 0; etat.chaud = {}; etat.liens = [];
+  }
+  // un cycle de 20 s : à plat, la levée en étages, le relief des données, les bangs qui voyagent
+  // un cycle : quatre temps de 5 s, puis l'alphabet des 26 opérateurs, un signe toutes les 0,9 s
+  const PAS_ALPHA = 0.9; const ph = t % (20 + 26 * PAS_ALPHA);
+  if (ph >= 20) { avancerOrca(etat); return alphabet(ctx, w, h, Math.floor((ph - 20) / PAS_ALPHA), css, L); }
+  const actif = Math.floor(ph / 5); const ts = ph - actif * 5;
+  const lisse = (x) => x * x * (3 - 2 * x);
+  let m = actif === 0 ? 0 : actif === 1 ? lisse(Math.min(1, ts / 2)) : 1;
+  if (actif === 3 && ts > 3.8) m = 1 - lisse(Math.min(1, (ts - 3.8) / 1.2));
+  const ext = actif === 2 ? lisse(Math.min(1, ts / 1.5)) : actif === 3 ? m : 0;
+
+  avancerOrca(etat);
 
   const cell = Math.min(w / 14, h / 14, 30); const px = cell / 10;
   // en 3D : perspective cavalière, du bas vers le haut

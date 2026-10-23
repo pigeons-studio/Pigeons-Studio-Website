@@ -1,0 +1,266 @@
+{
+ "fr": {
+  "A": {
+   "mot": "essaim",
+   "fait": "additionne",
+   "lien": "un essaim grossit en s’ajoutant"
+  },
+  "B": {
+   "mot": "disparaître",
+   "fait": "soustrait",
+   "lien": "ce qui disparaît s’enlève"
+  },
+  "C": {
+   "mot": "battement",
+   "fait": "compte en boucle",
+   "lien": "un cœur bat et recommence"
+  },
+  "D": {
+   "mot": "pluie",
+   "fait": "bang tous les N pas",
+   "lien": "la pluie tombe goutte à goutte, en rythme"
+  },
+  "E": {
+   "mot": "aube",
+   "fait": "va vers l'est",
+   "lien": "le jour se lève à l’est"
+  },
+  "F": {
+   "mot": "double",
+   "fait": "bang si égaux",
+   "lien": "deux choses pareilles se reconnaissent"
+  },
+  "G": {
+   "mot": "naître",
+   "fait": "écrit plusieurs cases",
+   "lien": "naître, c’est faire apparaître"
+  },
+  "H": {
+   "mot": "silence",
+   "fait": "arrête la case du dessous",
+   "lien": "le silence suspend ce qui suit"
+  },
+  "I": {
+   "mot": "arbre",
+   "fait": "incrémente",
+   "lien": "l’arbre grandit d’un cran"
+  },
+  "J": {
+   "mot": "rivière",
+   "fait": "copie vers le sud",
+   "lien": "l’eau coule vers le bas"
+  },
+  "K": {
+   "mot": "nuée",
+   "fait": "lit des variables",
+   "lien": "une nuée rassemble ce qui est dispersé"
+  },
+  "L": {
+   "mot": "petit",
+   "fait": "garde le plus petit",
+   "lien": "il ne garde que le plus petit"
+  },
+  "M": {
+   "mot": "lichen",
+   "fait": "multiplie",
+   "lien": "le lichen se multiplie sur la pierre"
+  },
+  "N": {
+   "mot": "oiseau",
+   "fait": "va vers le nord",
+   "lien": "l’oiseau monte"
+  },
+  "O": {
+   "mot": "je le lis sur toi",
+   "fait": "lit une case",
+   "lien": "lire ce que porte l’autre"
+  },
+  "P": {
+   "mot": "donner",
+   "fait": "pousse une valeur",
+   "lien": "donner, c’est poser une valeur"
+  },
+  "Q": {
+   "mot": "je te demande",
+   "fait": "lit plusieurs cases",
+   "lien": "demander plusieurs choses à la fois"
+  },
+  "R": {
+   "mot": "vent",
+   "fait": "hasard",
+   "lien": "le vent ne prévient pas"
+  },
+  "S": {
+   "mot": "racine",
+   "fait": "va vers le sud",
+   "lien": "la racine descend"
+  },
+  "T": {
+   "mot": "tisser",
+   "fait": "séquenceur",
+   "lien": "tisser, c’est passer d’un fil à l’autre"
+  },
+  "U": {
+   "mot": "cercle",
+   "fait": "rythme euclidien",
+   "lien": "des coups répartis autour d’un cercle"
+  },
+  "V": {
+   "mot": "je le porte en moi",
+   "fait": "variable",
+   "lien": "garder une valeur en soi"
+  },
+  "W": {
+   "mot": "nuit",
+   "fait": "va vers l'ouest",
+   "lien": "le jour se couche à l’ouest"
+  },
+  "X": {
+   "mot": "toucher",
+   "fait": "écrit à distance",
+   "lien": "toucher là-bas, à distance"
+  },
+  "Y": {
+   "mot": "écho",
+   "fait": "copie vers l'est",
+   "lien": "l’écho répète à côté"
+  },
+  "Z": {
+   "mot": "lent",
+   "fait": "glisse vers une valeur",
+   "lien": "aller doucement vers une valeur"
+  }
+ },
+ "en": {
+  "A": {
+   "mot": "swarm",
+   "fait": "adds",
+   "lien": "a swarm grows by adding up"
+  },
+  "B": {
+   "mot": "vanish",
+   "fait": "subtracts",
+   "lien": "what vanishes is taken away"
+  },
+  "C": {
+   "mot": "beat",
+   "fait": "counts in a loop",
+   "lien": "a heart beats and starts again"
+  },
+  "D": {
+   "mot": "rain",
+   "fait": "bangs every N steps",
+   "lien": "rain falls drop by drop, in rhythm"
+  },
+  "E": {
+   "mot": "dawn",
+   "fait": "moves east",
+   "lien": "day rises in the east"
+  },
+  "F": {
+   "mot": "double",
+   "fait": "bangs if equal",
+   "lien": "two alike things recognise each other"
+  },
+  "G": {
+   "mot": "be born",
+   "fait": "writes several cells",
+   "lien": "being born is making appear"
+  },
+  "H": {
+   "mot": "silence",
+   "fait": "stops the cell below",
+   "lien": "silence suspends what follows"
+  },
+  "I": {
+   "mot": "tree",
+   "fait": "increments",
+   "lien": "the tree grows one notch"
+  },
+  "J": {
+   "mot": "river",
+   "fait": "copies south",
+   "lien": "water flows downward"
+  },
+  "K": {
+   "mot": "flock",
+   "fait": "reads variables",
+   "lien": "a flock gathers what is scattered"
+  },
+  "L": {
+   "mot": "small",
+   "fait": "keeps the smallest",
+   "lien": "it keeps only the smallest"
+  },
+  "M": {
+   "mot": "lichen",
+   "fait": "multiplies",
+   "lien": "lichen multiplies on stone"
+  },
+  "N": {
+   "mot": "bird",
+   "fait": "moves north",
+   "lien": "the bird rises"
+  },
+  "O": {
+   "mot": "I read it on you",
+   "fait": "reads a cell",
+   "lien": "reading what the other carries"
+  },
+  "P": {
+   "mot": "give",
+   "fait": "pushes a value",
+   "lien": "giving is setting down a value"
+  },
+  "Q": {
+   "mot": "I ask you",
+   "fait": "reads several cells",
+   "lien": "asking for several things at once"
+  },
+  "R": {
+   "mot": "wind",
+   "fait": "random",
+   "lien": "the wind gives no warning"
+  },
+  "S": {
+   "mot": "root",
+   "fait": "moves south",
+   "lien": "the root goes down"
+  },
+  "T": {
+   "mot": "weave",
+   "fait": "sequencer",
+   "lien": "weaving is passing from one thread to the next"
+  },
+  "U": {
+   "mot": "circle",
+   "fait": "euclidean rhythm",
+   "lien": "hits spread around a circle"
+  },
+  "V": {
+   "mot": "I carry it within me",
+   "fait": "variable",
+   "lien": "keeping a value inside"
+  },
+  "W": {
+   "mot": "night",
+   "fait": "moves west",
+   "lien": "day sets in the west"
+  },
+  "X": {
+   "mot": "touch",
+   "fait": "writes at a distance",
+   "lien": "touching over there, at a distance"
+  },
+  "Y": {
+   "mot": "echo",
+   "fait": "copies east",
+   "lien": "the echo repeats alongside"
+  },
+  "Z": {
+   "mot": "slow",
+   "fait": "glides to a value",
+   "lien": "moving gently toward a value"
+  }
+ }
+}
