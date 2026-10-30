@@ -13,6 +13,14 @@ const TEXTES = {
     sync: 'synchronisés', desync: 'désynchronisés', public: 'public', toi: 'toi', memoire: 'mémoire · 48 fragments', reponse: 'teammate',
     decisions: ['imiter', 'contraster', 'densifier', 's’éclaircir', 'se taire'],
     traits: ['hauteur', 'énergie', 'timbre', 'texture'],
+    capteurs: ['gyroscope', 'accéléromètre', 'magnétomètre'], noteRevient: 'une note d’Orca revient → vibration',
+    tripode: {
+      etapes: ['Porté sur le corps, le tripode mesure le geste : gyroscope, accéléromètre et magnétomètre, trois axes chacun.',
+        'En UDP, il écrit dans la grille d’Orca : le geste devient des glyphes posés sur la grille.',
+        'En OSC, il envoie ses valeurs normalisées vers le Norns, jusqu’à 200 fois par seconde : TEAMMATE les écoute.',
+        'Une note d’Orca revient : trois moteurs la jouent en vibration, à sa hauteur, son intensité et sa durée. Geste, son, toucher : la boucle est fermée.'],
+      legende: [['css', 'données envoyées'], ['or', 'note reçue, vibration'], ['encre', 'opérateur Orca'], ['gris', 'valeur']],
+    },
     sens: { C: 'battement', D: 'pluie' }, traces: 'traces anciennes', alphabetTitre: 'L’ALPHABET DES OPÉRATEURS', fait: 'fait',
     parole: ['hello agent', 'i’m listening…', 'too repetitive!', 'nice agent!', 'my turn!'],
     humeur: 'humeur', humeurs: ['curieuse', 'stressée', 'joueuse'],
@@ -57,6 +65,14 @@ const TEXTES = {
     sync: 'in sync', desync: 'out of sync', public: 'audience', toi: 'you', memoire: 'memory · 48 fragments', reponse: 'teammate',
     decisions: ['imitate', 'contrast', 'densify', 'thin out', 'stay silent'],
     traits: ['pitch', 'energy', 'timbre', 'texture'],
+    capteurs: ['gyroscope', 'accelerometer', 'magnetometer'], noteRevient: 'an Orca note comes back → vibration',
+    tripode: {
+      etapes: ['Worn on the body, the tripod measures the gesture: gyroscope, accelerometer and magnetometer, three axes each.',
+        'Over UDP, it writes into the Orca grid: the gesture becomes glyphs placed on the grid.',
+        'Over OSC, it sends its normalised values to the Norns, up to 200 times a second: TEAMMATE listens.',
+        'An Orca note comes back: three motors play it as vibration, at its pitch, intensity and length. Gesture, sound, touch: the loop is closed.'],
+      legende: [['css', 'data sent'], ['or', 'note received, vibration'], ['encre', 'Orca operator'], ['gris', 'value']],
+    },
     sens: { C: 'beat', D: 'rain' }, traces: 'ancient traces', alphabetTitre: 'THE OPERATOR ALPHABET', fait: 'does',
     parole: ['hello agent', 'i’m listening…', 'too repetitive!', 'nice agent!', 'my turn!'],
     humeur: 'mood', humeurs: ['curious', 'stressed', 'playful'],
@@ -443,6 +459,81 @@ function teammate (ctx, w, h, t, etat, css, L) {
   return { info: L.teammate, actif };
 }
 
+// ---------------------------------------------------------------- TRIPODE AS-SIMT : le geste part vers Orca et le Norns, la note revient en vibration
+function tripode (ctx, w, h, t, etat, css, L) {
+  const ph = t % 24; const actif = Math.floor(ph / 6); const ts = ph - actif * 6;
+  if (!etat.init) { etat.init = true; etat.hist = []; etat.paquets = []; etat.log = []; etat.grille = Array.from({ length: 3 }, () => Array(12).fill('.')); etat.vib = [0, 0, 0]; etat.dernier = 0; etat.note = 0; }
+  // un geste simulé : neuf axes qui bougent ensemble, comme un bras qui tourne
+  const ax = [];
+  for (let i = 0; i < 9; i++) ax.push(0.5 + 0.42 * Math.sin(t * (0.9 + (i % 3) * 0.37) + i * 1.3) * (0.6 + 0.4 * Math.sin(t * 0.31 + i)));
+  etat.hist.push(ax); if (etat.hist.length > 90) etat.hist.shift();
+  const pad = 12;
+  // le tripode, vu de dessus : un corps et trois pieds, qui pivote avec le gyroscope
+  const R = Math.min(w * 0.13, h * 0.16); const cx = pad + R * 1.5; const cy = 18 + R * 1.6;
+  const rot = (ax[0] - 0.5) * 1.6 + t * 0.2;
+  const pieds = [0, 1, 2].map((k) => { const a = rot + k * Math.PI * 2 / 3; return [cx + Math.cos(a) * R * 1.25, cy + Math.sin(a) * R * 1.25]; });
+  ctx.strokeStyle = actif === 0 ? css : GRIS; ctx.lineWidth = 1.5;
+  pieds.forEach(([x, y]) => { ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(x, y); ctx.stroke(); });
+  ctx.lineWidth = 1; ctx.fillStyle = '#000'; ctx.beginPath(); ctx.arc(cx, cy, R * 0.55, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+  bits(ctx, SIG.E113, cx - R * 0.3, cy - R * 0.3, R * 0.6 / 8, actif === 0 ? css : ENCRE);
+  // les trois moteurs, au bout des pieds : ils vibrent quand une note revient
+  etat.vib = etat.vib.map((v) => Math.max(0, v - etat.dt * 1.6));
+  if (actif === 3 && t - etat.dernier > 0.9) { etat.dernier = t; etat.note = (etat.note + 1) % 3; etat.vib[etat.note] = 1; etat.paquets.push({ de: 'orca', k: 0, n: etat.note }); }
+  pieds.forEach(([x, y], k) => {
+    const v = etat.vib[k]; const j = v > 0 ? Math.sin(t * 90 + k) * 2.2 * v : 0;
+    ctx.fillStyle = v > 0.05 ? OR : '#55534e'; ctx.beginPath(); ctx.arc(x + j, y, 4 + v * 2, 0, Math.PI * 2); ctx.fill();
+    if (v > 0.05) { ctx.strokeStyle = OR; ctx.globalAlpha = v; ctx.beginPath(); ctx.arc(x, y, 8 + (1 - v) * 14, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1; }
+  });
+  texte(ctx, 'tripode 1_1', cx, cy + R * 1.25 + 22, actif === 0 ? css : GRIS, 10, 'center');
+  // les neuf axes : gyroscope, accéléromètre, magnétomètre
+  const gx = cx + R * 1.6 + 16; const gw = w - gx - pad; const gh = Math.min(h * 0.4, R * 3.2); const lh = gh / 3;
+  ['G', 'A', 'M'].forEach((cap, g) => {
+    const y0 = 14 + g * lh;
+    texte(ctx, L.capteurs[g], gx, y0 + 10, actif === 0 ? ENCRE : GRIS, 10);
+    for (let a = 0; a < 3; a++) {
+      ctx.strokeStyle = actif === 0 ? css : '#6f6c66'; ctx.globalAlpha = 0.45 + a * 0.25; ctx.beginPath();
+      etat.hist.forEach((v, i) => { const x = gx + i / 89 * gw; const y = y0 + 14 + (1 - v[g * 3 + a]) * (lh - 20); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+      ctx.stroke(); ctx.globalAlpha = 1;
+    }
+  });
+  // en bas à gauche : la grille d'Orca où le geste s'écrit ; en bas à droite : les messages OSC vers le Norns
+  const by = Math.max(cy + R * 1.25 + 40, 14 + gh + 26); const bh = h - by - 10; const col = w * 0.5;
+  const cell = Math.min((col - pad - 10) / 12, 16);
+  texte(ctx, 'ORCA · UDP', pad, by, actif === 1 ? css : GRIS, 10, 'left', '600 ');
+  texte(ctx, 'NORNS · TEAMMATE · OSC', col + 4, by, actif === 2 ? css : GRIS, 10, 'left', '600 ');
+  // envois : toutes les 0,25 s en UDP (étape 2), toutes les 0,12 s en OSC (étape 3)
+  etat.acc = (etat.acc || 0) + etat.dt;
+  while (etat.acc > 0.12) {
+    etat.acc -= 0.12; etat.tic = (etat.tic || 0) + 1;
+    const v = ax.map((x) => Math.round(x * 34).toString(36));
+    if (actif === 1 && etat.tic % 2 === 0) { const r = etat.tic % 3; etat.grille[r] = ('1V' + v[0] + '2V' + v[1] + '3V' + v[2] + '..' + 'D' + v[3] + 'C').slice(0, 12).split(''); etat.paquets.push({ de: 'udp', k: 0, r }); }
+    if (actif === 2) { const i = etat.tic % 3; etat.log.push(`/gyroscope_${'xyz'[i]}_1_1  ${ax[i].toFixed(2)}`); if (etat.log.length > 8) etat.log.shift(); etat.paquets.push({ de: 'osc', k: 0 }); }
+  }
+  const gy0 = by + 12;
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 12; c++) {
+    const ch = etat.grille[r][c]; const x = pad + c * cell; const y = gy0 + r * (cell + 4);
+    if (y + cell > h - 4) continue;
+    if (ch === '.') { ctx.fillStyle = '#2a2927'; ctx.fillRect(x + cell / 2 - 0.7, y + cell / 2 - 0.7, 1.4, 1.4); continue; }
+    bits(ctx, TOUS[ch], x + 1, y + 1, (cell - 2) / 8, /[A-Z]/.test(ch) ? ENCRE : GRIS);
+  }
+  if (actif === 1) texte(ctx, 'write:1V…;0;0', pad, Math.min(h - 6, gy0 + 3 * (cell + 4) + 12), css, 10, 'left', 'italic ');
+  etat.log.forEach((l, i) => { const y = gy0 + 8 + i * 13; if (y < h - 4) texte(ctx, l, col + 4, y, i === etat.log.length - 1 ? css : '#6f6c66', 10); });
+  if (actif === 3) {
+    texte(ctx, L.noteRevient, col + 4, Math.min(h - 8, gy0 + 8 + 8 * 13 + 4), OR, 10, 'left', 'italic ');
+  }
+  // les paquets qui voyagent : du tripode vers Orca ou le Norns, et la note d'Orca qui revient vers un moteur
+  etat.paquets = etat.paquets.filter((p) => (p.k += etat.dt * 2.2) < 1);
+  for (const p of etat.paquets) {
+    let a; let b; let c2 = css;
+    if (p.de === 'udp') { a = [cx, cy]; b = [pad + 40, gy0]; }
+    else if (p.de === 'osc') { a = [cx, cy]; b = [col + 40, gy0]; }
+    else { a = [pad + 60, gy0]; b = pieds[p.n]; c2 = OR; }
+    const x = a[0] + (b[0] - a[0]) * p.k; const y = a[1] + (b[1] - a[1]) * p.k;
+    ctx.fillStyle = c2; ctx.fillRect(x - 2, y - 2, 4, 4);
+  }
+  return { info: L.tripode, actif };
+}
+
 // ---------------------------------------------------------------- le panneau « comment ça marche »
 function panneau (ctx, x, y, w, h, R, css, L, compact) {
   const COUL = { encre: ENCRE, gris: GRIS, or: OR, css, sombre: '#55534e', ocre: OCRE };
@@ -487,7 +578,7 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
   });
 }
 
-const SCENES = { orca, cave, langue, teammate };
+const SCENES = { orca, cave, langue, teammate, tripode };
 
 export function lancerScene (canvas, id, css, locale) {
   const ctx = canvas.getContext('2d'); if (!ctx) return () => {};

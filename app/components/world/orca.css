@@ -344,3 +344,11 @@
 .orca .ex-alphabet .mot { color: var(--c); font-style: italic; }
 .orca .ex-alphabet .fait { color: var(--encre); font-size: 11px; }
 .orca .ex-alphabet .lien { color: var(--gris); font-size: 10px; font-style: italic; line-height: 14px; }
+
+/* ---- l'objet réel d'un projet, en 3D (projets › tripode) ---- */
+.orca .ex-liste[hidden] { display: none; }
+.orca .ex-objet { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.orca .ex-objet canvas { width: 100%; aspect-ratio: 16 / 9; display: block; background: #000; border: 1px solid var(--trait); cursor: grab; touch-action: pan-y; }
+.orca .ex-objet canvas:active { cursor: grabbing; }
+.orca .ex-objet figcaption { color: var(--gris); font-size: 10px; letter-spacing: .1em; }
+@media (max-width: 560px) { .orca .ex-objet canvas { aspect-ratio: 1 / 1; } }

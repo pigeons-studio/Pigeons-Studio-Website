@@ -77,18 +77,66 @@
      "p": "Parcours, réalisations du studio et collaborations."
     },
     {
-     "t": "cartes",
+     "t": "explorer",
      "items": [
       {
-       "nom": "Capteurs de mouvement AS-SIMT",
-       "sens": "Capteurs portables transformant le mouvement en retours visuels, haptiques et sonores en temps réel. Développés par Julien, joués par Koo sur scène. Biennale de Gwangju, IMPACT (Théâtre de Liège), HOT‑SHOP 14.",
+       "id": "tripode",
+       "nom": "TRIPODE AS-SIMT",
+       "sous": "Un capteur porté qui écrit dans Orca, et vibre en retour",
+       "statut": "joué sur scène",
+       "texte": [
+        "Le tripode est le capteur du langage As-Simt : un petit boîtier porté sur le corps, avec un gyroscope, un accéléromètre et un magnétomètre. Julien en a conçu l’électronique et le firmware ; Koo le joue sur scène. Il a tourné à la Biennale de Gwangju, à IMPACT (Théâtre de Liège) et à HOT‑SHOP 14.",
+        "Il parle directement aux outils du studio. En UDP, il écrit dans la grille d’Orca : le geste devient des glyphes posés sur la grille. En OSC, il envoie ses valeurs normalisées vers le Norns, où TEAMMATE les écoute. Chaque signal se règle depuis une page web embarquée, sans reprogrammer : quoi envoyer, en quel format, et à quelle cadence, d’une fois à deux cents fois par seconde.",
+        "Et il répond au corps. Orca peut jouer le tripode : une note (octave, note, vélocité, durée) reçue sur le réseau devient une vibration, à la fréquence exacte de la note, sur l’un de ses trois moteurs. Geste, son, toucher : la boucle se referme. Un écran affiche son glyphe et son état ; deux boutons coupent ou rallument l’UDP et l’OSC en plein jeu."
+       ],
+       "reperes": [
+        [
+         "Forme",
+         "Capteur portable à retour haptique"
+        ],
+        [
+         "Capteurs",
+         "Gyroscope, accéléromètre, magnétomètre"
+        ],
+        [
+         "Sorties",
+         "UDP vers Orca, OSC vers le Norns et TEAMMATE"
+        ],
+        [
+         "Retour",
+         "Trois moteurs vibrants, joués comme des notes"
+        ],
+        [
+         "Réglages",
+         "Page web embarquée, point d’accès ou réseau du lieu"
+        ],
+        [
+         "Technique",
+         "ESP32, écran TFT, PlatformIO"
+        ],
+        [
+         "Conception",
+         "Julien Thomas (électronique, firmware), Koo Des (jeu)"
+        ],
+        [
+         "Code",
+         "github.com/juthomas/Tripode-Firmware-V2"
+        ]
+       ],
        "tags": [
-        "Capteurs haptiques",
-        "PCB custom",
+        "capteurs",
+        "haptique",
         "ESP32",
-        "OSC"
-       ]
-      },
+        "OSC",
+        "Orca"
+       ],
+       "objet": "/models/tripode.bin"
+      }
+     ]
+    },
+    {
+     "t": "cartes",
+     "items": [
       {
        "nom": "Performance robotique Go2 (Unitree)",
        "sens": "Mouvements scénographiés, synchronisation avec lumière et audio, intégrations sur mesure. Modules scéniques et installations interactives.",
@@ -633,18 +681,66 @@
      "p": "Journey, studio work and collaborations."
     },
     {
-     "t": "cartes",
+     "t": "explorer",
      "items": [
       {
-       "nom": "AS-SIMT motion sensors",
-       "sens": "Wearable sensors turning movement into visual, haptic and sonic feedback in real time. Developed by Julien, played by Koo on stage. Gwangju Biennale, IMPACT (Théâtre de Liège), HOT‑SHOP 14.",
+       "id": "tripode",
+       "nom": "TRIPODE AS-SIMT",
+       "sous": "A wearable sensor that writes into Orca, and vibrates back",
+       "statut": "played on stage",
+       "texte": [
+        "The tripod is the sensor of the As-Simt language: a small box worn on the body, with a gyroscope, an accelerometer and a magnetometer. Julien designed its electronics and firmware; Koo plays it on stage. It has toured the Gwangju Biennale, IMPACT (Théâtre de Liège) and HOT‑SHOP 14.",
+        "It talks directly to the studio’s tools. Over UDP, it writes into the Orca grid: the gesture becomes glyphs placed on the grid. Over OSC, it sends its normalised values to the Norns, where TEAMMATE listens. Every signal is set from an embedded web page, without reflashing: what to send, in which format, and how often, from once to two hundred times a second.",
+        "And it answers the body. Orca can play the tripod: a note (octave, note, velocity, length) received over the network becomes a vibration, at the exact frequency of the note, on one of its three motors. Gesture, sound, touch: the loop closes. A screen shows its glyph and status; two buttons switch UDP and OSC off or on mid-performance."
+       ],
+       "reperes": [
+        [
+         "Form",
+         "Wearable sensor with haptic feedback"
+        ],
+        [
+         "Sensors",
+         "Gyroscope, accelerometer, magnetometer"
+        ],
+        [
+         "Outputs",
+         "UDP to Orca, OSC to the Norns and TEAMMATE"
+        ],
+        [
+         "Feedback",
+         "Three vibration motors, played as notes"
+        ],
+        [
+         "Settings",
+         "Embedded web page, access point or venue network"
+        ],
+        [
+         "Tech",
+         "ESP32, TFT screen, PlatformIO"
+        ],
+        [
+         "Design",
+         "Julien Thomas (electronics, firmware), Koo Des (performance)"
+        ],
+        [
+         "Code",
+         "github.com/juthomas/Tripode-Firmware-V2"
+        ]
+       ],
        "tags": [
-        "Haptic sensors",
-        "Custom PCB",
+        "sensors",
+        "haptics",
         "ESP32",
-        "OSC"
-       ]
-      },
+        "OSC",
+        "Orca"
+       ],
+       "objet": "/models/tripode.bin"
+      }
+     ]
+    },
+    {
+     "t": "cartes",
+     "items": [
       {
        "nom": "Go2 (Unitree) robotic performance",
        "sens": "Staged movement, light and audio sync, custom integrations. Stage modules and interactive installations.",

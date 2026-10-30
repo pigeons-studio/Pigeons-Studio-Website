@@ -18,7 +18,7 @@ type Locale = 'fr' | 'en';
 type Mode = '3d' | 'vers2d' | '2d' | 'vers3d';
 type Prix = 'coming' | 'quote' | 'soon';
 type Item = { nom: string; sens: string; tags?: string[]; prix?: Prix; panier?: number; src?: string; duree?: string };
-type Projet = { id: string; nom: string; sous: string; statut: string; texte: string[]; reperes: string[][]; tags: string[] };
+type Projet = { id: string; nom: string; sous: string; statut: string; texte: string[]; reperes: string[][]; tags: string[]; objet?: string };
 type Bloc = { t: string; p?: string; titre?: string; sur?: string; duo?: string; legende?: string; signe?: string; code?: string; vide?: string; items?: unknown[] };
 type Famille = { id: string; nom: string; code: string; signe: string; pourquoi: string; teinte: number; css: string; blocs: Bloc[] };
 
@@ -294,7 +294,7 @@ function Explorer({ items, css, locale }: { items: Projet[]; css: string; locale
   };
   return (
     <div className="explorer" style={{ ['--c' as string]: css }}>
-      <div className="ex-liste" role="tablist" aria-orientation="vertical" ref={liste} onKeyDown={clavier}>
+      <div className="ex-liste" role="tablist" aria-orientation="vertical" ref={liste} onKeyDown={clavier} hidden={items.length < 2}>
         {items.map((x, n) => (
           <button key={x.id} type="button" role="tab" aria-selected={n === i} tabIndex={n === i ? 0 : -1} onClick={() => choisir(n)}>
             <span className="ex-code">F.{String(n + 1).padStart(2, '0')}</span>
@@ -310,6 +310,12 @@ function Explorer({ items, css, locale }: { items: Projet[]; css: string; locale
           <p className="ex-sous">{p.sous}</p>
         </header>
         <div className="ex-corps">
+          {p.objet && (
+            <figure className="ex-objet">
+              <Objet url={p.objet} css={css} />
+              <figcaption>{locale === 'fr' ? 'l’objet réel, en 3D · glisser pour tourner' : 'the real object, in 3D · drag to turn'}</figcaption>
+            </figure>
+          )}
           <figure className="ex-film ex-scene">
             <Scene id={p.id} css={css} locale={locale} />
             <figcaption><i className="rec" />{locale === 'fr' ? 'en temps réel' : 'real time'}</figcaption>
@@ -359,6 +365,17 @@ function Alphabet({ css, locale }: { css: string; locale: Locale }) {
       </ol>
     </section>
   );
+}
+
+// l'objet réel d'un projet, en 3D, dans le trait du site
+function Objet({ url, css }: { url: string; css: string }) {
+  const ref = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    let stop: (() => void) | null = null; let annule = false;
+    import('./objet3d').then(({ lancerObjet }) => { if (!annule && ref.current) stop = lancerObjet(ref.current, url, css); });
+    return () => { annule = true; stop?.(); };
+  }, [url, css]);
+  return <canvas ref={ref} role="img" aria-label="3D" />;
 }
 
 // une scène qui tourne en direct, à la place d'une vidéo
