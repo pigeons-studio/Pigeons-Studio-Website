@@ -82,17 +82,25 @@
       {
        "id": "tripode",
        "nom": "TRIPODE AS-SIMT",
-       "sous": "Un capteur porté qui écrit dans Orca, et vibre en retour",
+       "sous": "Écrire du code avec le mouvement",
        "statut": "joué sur scène",
        "texte": [
-        "Le tripode est le capteur du langage As-Simt : un petit boîtier porté sur le corps, avec un gyroscope, un accéléromètre et un magnétomètre. Julien en a conçu l’électronique et le firmware ; Koo le joue sur scène. Il a tourné à la Biennale de Gwangju, à IMPACT (Théâtre de Liège) et à HOT‑SHOP 14.",
-        "Il parle directement aux outils du studio. En UDP, il écrit dans la grille d’Orca : le geste devient des glyphes posés sur la grille. En OSC, il envoie ses valeurs normalisées vers le Norns, où TEAMMATE les écoute. Chaque signal se règle depuis une page web embarquée, sans reprogrammer : quoi envoyer, en quel format, et à quelle cadence, d’une fois à deux cents fois par seconde.",
-        "Et il répond au corps. Orca peut jouer le tripode : une note (octave, note, vélocité, durée) reçue sur le réseau devient une vibration, à la fréquence exacte de la note, sur l’un de ses trois moteurs. Geste, son, toucher : la boucle se referme. Un écran affiche son glyphe et son état ; deux boutons coupent ou rallument l’UDP et l’OSC en plein jeu."
+        "Le tripode est le capteur du langage As-Simt : un petit boîtier porté sur le corps, avec un gyroscope, un accéléromètre et un magnétomètre. Il s’inscrit dans l’écosystème du studio, entre le live coding et le compagnon TEAMMATE, avec une idée : écrire du code avec le mouvement. Julien en a conçu l’électronique et le firmware ; Koo le joue sur scène. Il a tourné à la Biennale de Gwangju, à IMPACT (Théâtre de Liège) et à HOT‑SHOP 14.",
+        "Le geste devient du code. En UDP, le tripode écrit directement dans la grille d’Orca, aussi bien la version originale de Hundred Rabbits que ORCA//GLYPH : le mouvement pose des glyphes et lance des opérateurs. En OSC, il envoie ses valeurs vers le Norns, où TEAMMATE les reçoit et peut jouer les notes générées par les capteurs. Chaque signal se règle depuis une page web embarquée, sans reprogrammer : quoi envoyer, en quel format, et à quelle cadence, d’une fois à deux cents fois par seconde.",
+        "Et il répond au corps. Le tripode est aussi un capteur haptique : ses trois moteurs envoient des vibrations selon des codes précis, liés au mouvement. Orca peut le jouer : une note (octave, note, vélocité, durée) devient une vibration à la fréquence exacte de la note. Quand plusieurs personnes portent chacune un tripode, ces vibrations deviennent un langage commun : on peut travailler une communication non verbale, de corps à corps. Un écran affiche son glyphe et son état ; deux boutons coupent ou rallument l’UDP et l’OSC en plein jeu."
        ],
        "reperes": [
         [
+         "Idée",
+         "Écrire du code avec le mouvement"
+        ],
+        [
+         "Écosystème",
+         "Entre le live coding (Orca, ORCA//GLYPH) et le compagnon TEAMMATE"
+        ],
+        [
          "Forme",
-         "Capteur portable à retour haptique"
+         "Capteur portable et haptique"
         ],
         [
          "Capteurs",
@@ -100,11 +108,15 @@
         ],
         [
          "Sorties",
-         "UDP vers Orca, OSC vers le Norns et TEAMMATE"
+         "UDP vers Orca et ORCA//GLYPH, OSC vers le Norns et TEAMMATE"
         ],
         [
          "Retour",
-         "Trois moteurs vibrants, joués comme des notes"
+         "Trois moteurs : des vibrations codées selon le mouvement, ou les notes d’Orca"
+        ],
+        [
+         "À plusieurs",
+         "Une communication non verbale entre les porteurs de tripodes"
         ],
         [
          "Réglages",
@@ -124,11 +136,11 @@
         ]
        ],
        "tags": [
-        "capteurs",
+        "code et mouvement",
         "haptique",
-        "ESP32",
-        "OSC",
-        "Orca"
+        "Orca",
+        "TEAMMATE",
+        "non verbal"
        ],
        "objet": "/models/tripode.bin"
       }
@@ -686,17 +698,25 @@
       {
        "id": "tripode",
        "nom": "TRIPODE AS-SIMT",
-       "sous": "A wearable sensor that writes into Orca, and vibrates back",
+       "sous": "Writing code with movement",
        "statut": "played on stage",
        "texte": [
-        "The tripod is the sensor of the As-Simt language: a small box worn on the body, with a gyroscope, an accelerometer and a magnetometer. Julien designed its electronics and firmware; Koo plays it on stage. It has toured the Gwangju Biennale, IMPACT (Théâtre de Liège) and HOT‑SHOP 14.",
-        "It talks directly to the studio’s tools. Over UDP, it writes into the Orca grid: the gesture becomes glyphs placed on the grid. Over OSC, it sends its normalised values to the Norns, where TEAMMATE listens. Every signal is set from an embedded web page, without reflashing: what to send, in which format, and how often, from once to two hundred times a second.",
-        "And it answers the body. Orca can play the tripod: a note (octave, note, velocity, length) received over the network becomes a vibration, at the exact frequency of the note, on one of its three motors. Gesture, sound, touch: the loop closes. A screen shows its glyph and status; two buttons switch UDP and OSC off or on mid-performance."
+        "The tripod is the sensor of the As-Simt language: a small box worn on the body, with a gyroscope, an accelerometer and a magnetometer. It belongs to the studio’s ecosystem, between live coding and the TEAMMATE companion, with one idea: writing code with movement. Julien designed its electronics and firmware; Koo plays it on stage. It has toured the Gwangju Biennale, IMPACT (Théâtre de Liège) and HOT‑SHOP 14.",
+        "Gesture becomes code. Over UDP, the tripod writes straight into the Orca grid, both the original version by Hundred Rabbits and ORCA//GLYPH: movement places glyphs and triggers operators. Over OSC, it sends its values to the Norns, where TEAMMATE receives them and can play the notes generated by the sensors. Every signal is set from an embedded web page, without reflashing: what to send, in which format, and how often, from once to two hundred times a second.",
+        "And it answers the body. The tripod is also a haptic device: its three motors send vibrations following precise codes tied to movement. Orca can play it: a note (octave, note, velocity, length) becomes a vibration at the exact frequency of the note. When several people each wear a tripod, these vibrations become a shared language: you can work on non-verbal communication, body to body. A screen shows its glyph and status; two buttons switch UDP and OSC off or on mid-performance."
        ],
        "reperes": [
         [
+         "Idea",
+         "Writing code with movement"
+        ],
+        [
+         "Ecosystem",
+         "Between live coding (Orca, ORCA//GLYPH) and the TEAMMATE companion"
+        ],
+        [
          "Form",
-         "Wearable sensor with haptic feedback"
+         "Wearable, haptic sensor"
         ],
         [
          "Sensors",
@@ -704,11 +724,15 @@
         ],
         [
          "Outputs",
-         "UDP to Orca, OSC to the Norns and TEAMMATE"
+         "UDP to Orca and ORCA//GLYPH, OSC to the Norns and TEAMMATE"
         ],
         [
          "Feedback",
-         "Three vibration motors, played as notes"
+         "Three motors: vibrations coded by movement, or Orca’s notes"
+        ],
+        [
+         "Together",
+         "Non-verbal communication between tripod wearers"
         ],
         [
          "Settings",
@@ -728,11 +752,11 @@
         ]
        ],
        "tags": [
-        "sensors",
+        "code and movement",
         "haptics",
-        "ESP32",
-        "OSC",
-        "Orca"
+        "Orca",
+        "TEAMMATE",
+        "non-verbal"
        ],
        "objet": "/models/tripode.bin"
       }
