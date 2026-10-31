@@ -57,8 +57,8 @@ export function buildPageMetadata({
 }: PageMetadataOptions): Metadata {
   const safeLocale = normalizeLocale(locale);
   const alternates = buildAlternates(safeLocale, pathSegment);
-  const imageUrl = `${baseUrl}${toPath(safeLocale, 'opengraph-image')}`;
-  const twitterImageUrl = `${baseUrl}${toPath(safeLocale, 'twitter-image')}`;
+  const imageUrl = `${baseUrl}${toPath(safeLocale, 'opengraph-image')}.png`;
+  const twitterImageUrl = `${baseUrl}${toPath(safeLocale, 'twitter-image')}.png`;
 
   return {
     title,
@@ -91,7 +91,7 @@ export function buildPageMetadata({
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: 'Pigeons Studio',
+          alt: 'Pigeons Studio : le glyphe « double » et le pigeon d’or',
         },
       ],
     },
