@@ -352,3 +352,9 @@
 .orca .ex-objet canvas:active { cursor: grabbing; }
 .orca .ex-objet figcaption { color: var(--gris); font-size: 10px; letter-spacing: .1em; }
 @media (max-width: 560px) { .orca .ex-objet canvas { aspect-ratio: 1 / 1; } }
+/* la légende de l'objet 3D, en signes As-Simt */
+.orca .phrase-glyphes { display: flex; gap: 22px; align-items: flex-start; flex-wrap: wrap; }
+.orca .mot-glyphe { display: grid; grid-template-columns: 22px auto; grid-template-rows: auto auto; gap: 0 8px; align-items: center; }
+.orca .mot-glyphe svg { grid-row: 1 / span 2; width: 22px; height: 22px; }
+.orca .mot-glyphe em { font-style: italic; color: var(--encre); font-size: 11px; letter-spacing: .04em; }
+.orca .mot-glyphe small { color: var(--gris); font-size: 9px; letter-spacing: .06em; }

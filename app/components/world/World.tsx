@@ -313,7 +313,7 @@ function Explorer({ items, css, locale }: { items: Projet[]; css: string; locale
           {p.objet && (
             <figure className="ex-objet">
               <Objet url={p.objet} css={css} />
-              <figcaption>{/* tourné comme dans la Langue des images : des images concrètes, le verbe à la fin */}{locale === 'fr' ? 'objet · vrai · volume — main · objet · tourner' : 'object · real · volume — hand · object · turn'}</figcaption>
+              <PhraseGlyphes locale={locale} css={css} />
             </figure>
           )}
           <figure className="ex-film ex-scene">
@@ -364,6 +364,22 @@ function Alphabet({ css, locale }: { css: string; locale: Locale }) {
         ))}
       </ol>
     </section>
+  );
+}
+
+// la légende de l'objet 3D, écrite dans la Langue des images : des signes As-Simt, le verbe à la fin
+// machine (l'objet) · paume (la main) · cercle (tourner)
+const PHRASE = { fr: [['E119', 'machine', 'l’objet'], ['E083', 'paume', 'la main'], ['U', 'cercle', 'tourner']], en: [['E119', 'machine', 'the object'], ['E083', 'palm', 'the hand'], ['U', 'circle', 'to turn']] };
+function PhraseGlyphes({ locale, css }: { locale: Locale; css: string }) {
+  return (
+    <figcaption className="phrase-glyphes" aria-label={locale === 'fr' ? 'glisser pour tourner l’objet' : 'drag to turn the object'}>
+      {PHRASE[locale].map(([signe, mot, sens], i) => (
+        <span key={signe} className="mot-glyphe">
+          {signe.length === 1 ? <GlypheOp k={signe} couleur={i === 2 ? css : '#f2f0ea'} /> : <Glyphe signe={signe} couleur={i === 2 ? css : '#f2f0ea'} />}
+          <em>{mot}</em><small>{sens}</small>
+        </span>
+      ))}
+    </figcaption>
   );
 }
 
