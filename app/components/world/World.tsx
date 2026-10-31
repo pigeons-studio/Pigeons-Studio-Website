@@ -313,7 +313,7 @@ function Explorer({ items, css, locale }: { items: Projet[]; css: string; locale
           {p.objet && (
             <figure className="ex-objet">
               <Objet url={p.objet} css={css} />
-              <figcaption>{locale === 'fr' ? 'l’objet réel, en 3D · glisser pour tourner' : 'the real object, in 3D · drag to turn'}</figcaption>
+              <figcaption>{/* tourné comme dans la Langue des images : des images concrètes, le verbe à la fin */}{locale === 'fr' ? 'objet · vrai · volume — main · objet · tourner' : 'object · real · volume — hand · object · turn'}</figcaption>
             </figure>
           )}
           <figure className="ex-film ex-scene">
