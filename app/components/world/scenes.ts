@@ -13,14 +13,18 @@ const TEXTES = {
     sync: 'synchronisés', desync: 'désynchronisés', public: 'public', toi: 'toi', memoire: 'mémoire · 48 fragments', reponse: 'teammate',
     decisions: ['imiter', 'contraster', 'densifier', 's’éclaircir', 'se taire'],
     traits: ['hauteur', 'énergie', 'timbre', 'texture'],
-    timbre: 'timbre', hauteur: 'hauteur', zone: 'zone de sécurité', carteSon: 'CARTE DU SON', spatial: 'SPATIALISATION', pilotage: 'PILOTAGE',
+    timbre: 'timbre', hauteur: 'hauteur', zone: 'zone de sécurité', zoneGrains: 'zone de répartition', toutEspace: 'les grains dans tout l’espace', panoramique: 'le son suit le robot', titresSys: ['LIDAR', 'CARTE DU SON', 'MODE 1 · UNE ZONE', 'MODE 1 · TOUT L’ESPACE', 'MODE 2 · SONS PLACÉS', 'SPATIALISATION', 'PILOTAGE'],
     systema: {
       etapes: ['Le LiDAR du robot Unitree Go2 scanne le lieu : systema8os.xt dessine la carte de la salle et de ses obstacles.',
-        'Les sons sont découpés en grains et rangés par timbre et par hauteur : la carte du son se pose sur la carte du lieu, et on y place des sons.',
-        'Le robot marche sur la carte : là où il passe, les sons se déclenchent, et le son suit sa position dans l’espace. Le robot devient une source sonore qui marche.',
-        'On le pilote à la manette, au clavier ou à la voix, ou on le laisse errer dans une zone de sécurité ; sa position part en OSC vers TEAMMATE.'],
-      legende: [['css', 'LiDAR, trajet, zone'], ['or', 'son déclenché'], ['encre', 'robot Go2'], ['gris', 'grains de son']],
+        'Les sons sont découpés en grains, analysés et rangés par timbre et par hauteur : c’est la carte du son.',
+        'Premier mode : on trace une zone avec des balises, et les grains s’y dispersent. Le robot qui la traverse fait jouer ceux qu’il frôle.',
+        'Ou bien les grains se répartissent dans tout l’espace scanné, accrochés au relief que voit le LiDAR : toute la salle devient instrument.',
+        'Second mode : on pose des sons précis à des endroits choisis, une voix ici, une cloche là. Quand le robot y passe, ce son-là se déclenche.',
+        'Le robot marche : le son suit sa position, en stéréo ou en binaural. Il devient une source sonore qui marche.',
+        'On le pilote à la manette, au clavier ou à la voix, ou il erre seul dans une zone de sécurité ; sa position part en OSC vers TEAMMATE.'],
+      legende: [['css', 'LiDAR, zone, trajet'], ['or', 'son qui joue'], ['encre', 'robot Go2'], ['gris', 'grains de son']],
     },
+
     capteurs: ['gyroscope', 'accéléromètre', 'magnétomètre'], noteRevient: 'une note d’Orca revient → vibration',
     tripode: {
       etapes: ['Porté sur le corps, le tripode mesure le geste (gyroscope, accéléromètre, magnétomètre) pour écrire du code avec le mouvement.',
@@ -73,14 +77,18 @@ const TEXTES = {
     sync: 'in sync', desync: 'out of sync', public: 'audience', toi: 'you', memoire: 'memory · 48 fragments', reponse: 'teammate',
     decisions: ['imitate', 'contrast', 'densify', 'thin out', 'stay silent'],
     traits: ['pitch', 'energy', 'timbre', 'texture'],
-    timbre: 'timbre', hauteur: 'pitch', zone: 'safety zone', carteSon: 'SOUND MAP', spatial: 'SPATIALISATION', pilotage: 'STEERING',
+    timbre: 'timbre', hauteur: 'pitch', zone: 'safety zone', zoneGrains: 'scatter zone', toutEspace: 'grains across the whole space', panoramique: 'the sound follows the robot', titresSys: ['LIDAR', 'SOUND MAP', 'MODE 1 · A ZONE', 'MODE 1 · WHOLE SPACE', 'MODE 2 · PLACED SOUNDS', 'SPATIALISATION', 'STEERING'],
     systema: {
       etapes: ['The Unitree Go2 robot’s LiDAR scans the venue: systema8os.xt draws the map of the room and its obstacles.',
-        'Sounds are cut into grains and sorted by timbre and pitch: the sound map lies on top of the venue map, and sounds are placed on it.',
-        'The robot walks across the map: wherever it goes, sounds are triggered, and the sound follows its position in space. The robot becomes a walking sound source.',
+        'Sounds are cut into grains, analysed and sorted by timbre and pitch: this is the sound map.',
+        'First mode: you draw a zone with beacons, and the grains scatter inside it. The robot crossing it plays the ones it brushes past.',
+        'Or the grains spread across the whole scanned space, attached to the relief the LiDAR sees: the whole room becomes an instrument.',
+        'Second mode: you place specific sounds at chosen spots, a voice here, a bell there. When the robot passes, that sound is triggered.',
+        'The robot walks: the sound follows its position, in stereo or binaural. It becomes a walking sound source.',
         'Steer it with a gamepad, the keyboard or your voice, or let it wander inside a safety zone; its position goes out as OSC to TEAMMATE.'],
-      legende: [['css', 'LiDAR, path, zone'], ['or', 'triggered sound'], ['encre', 'Go2 robot'], ['gris', 'sound grains']],
+      legende: [['css', 'LiDAR, zone, path'], ['or', 'sound playing'], ['encre', 'Go2 robot'], ['gris', 'sound grains']],
     },
+
     capteurs: ['gyroscope', 'accelerometer', 'magnetometer'], noteRevient: 'an Orca note comes back → vibration',
     tripode: {
       etapes: ['Worn on the body, the tripod measures the gesture (gyroscope, accelerometer, magnetometer) to write code with movement.',
@@ -236,12 +244,12 @@ function orca (ctx, w, h, t, etat, css, L) {
   }
   // un cycle de 20 s : à plat, la levée en étages, le relief des données, les bangs qui voyagent
   // un cycle : quatre temps de 5 s, puis l'alphabet des 26 opérateurs, un signe toutes les 3,5 s
-  const PAS_ALPHA = 3.5; const ph = t % (20 + 26 * PAS_ALPHA);
-  if (ph >= 20) { avancerOrca(etat); return alphabet(ctx, w, h, Math.floor((ph - 20) / PAS_ALPHA), css, L); }
-  const actif = Math.floor(ph / 5); const ts = ph - actif * 5;
+  const PAS_ALPHA = 6; const ph = t % (80 + 26 * PAS_ALPHA);
+  if (ph >= 80) { avancerOrca(etat); return alphabet(ctx, w, h, Math.floor((ph - 80) / PAS_ALPHA), css, L); }
+  const actif = Math.floor(ph / 20); const ts = ph - actif * 20;
   const lisse = (x) => x * x * (3 - 2 * x);
   let m = actif === 0 ? 0 : actif === 1 ? lisse(Math.min(1, ts / 2)) : 1;
-  if (actif === 3 && ts > 3.8) m = 1 - lisse(Math.min(1, (ts - 3.8) / 1.2));
+  if (actif === 3 && ts > 18) m = 1 - lisse(Math.min(1, (ts - 18) / 2));
   const ext = actif === 2 ? lisse(Math.min(1, ts / 1.5)) : actif === 3 ? m : 0;
 
   avancerOrca(etat);
@@ -307,8 +315,8 @@ function cave (ctx, w, h, t, etat, css, L) {
     etat.ondes = []; etat.dernier = [0, 0, 0, 0];
   }
   // un cycle de 20 s : le public, les robots, puis ensemble, puis chacun son tempo
-  const ph = t % 20;
-  const actif = ph < 3 ? 0 : ph < 6 ? 1 : ph < 13 ? 2 : 3;
+  const ph = t % 72;
+  const actif = ph < 16 ? 0 : ph < 32 ? 1 : ph < 52 ? 2 : 3;
   const sync = actif !== 3;
   const ech = R / 120;
   // la grotte
@@ -356,19 +364,19 @@ function cave (ctx, w, h, t, etat, css, L) {
 
 // ---------------------------------------------------------------- Langue des images : un concept se compose de trois images
 function langue (ctx, w, h, t, etat, css, L) {
-  const DUREE = 10;
+  const DUREE = 32;
   const n = Math.floor(Math.max(0, t) / DUREE) % L.compos.length; const u = (t % DUREE) / DUREE;
   const [mot, images] = L.compos[n];
   const px = Math.max(3, Math.floor(Math.min(w / 34, h / 30)));
   const taille = px * 8; const gap = taille * 0.45;
   const total = taille * 3 + gap * 2; const x0 = (w - total) / 2; const y0 = h * 0.2;
   images.forEach(([signe, nom], i) => {
-    const debut = 0.1 + i * 0.12; const part = Math.min(1, Math.max(0, (u - debut) / 0.12));
+    const debut = 0.18 + i * 0.09; const part = Math.min(1, Math.max(0, (u - debut) / 0.12));
     const x = x0 + i * (taille + gap);
     if (part <= 0) { ctx.strokeStyle = SOMBRE; ctx.strokeRect(x - 0.5, y0 - 0.5, taille + 1, taille + 1); }
     bits(ctx, SIG[signe], x, y0, px, part >= 1 ? ENCRE : css, part, i + n * 3);
     if (part > 0.3) texte(ctx, nom, x + taille / 2, y0 + taille + 20, GRIS, 12, 'center');
-    if (u > 0.22 && u < 0.46 && part > 0) { viseur(ctx, x - 6, y0 - 6, taille + 12, taille + 12, css, 0.8); texte(ctx, '8 × 8', x + taille / 2, y0 - 12, css, 10, 'center'); }
+    if (u > 0.2 && u < 0.45 && part > 0) { viseur(ctx, x - 6, y0 - 6, taille + 12, taille + 12, css, 0.8); texte(ctx, '8 × 8', x + taille / 2, y0 - 12, css, 10, 'center'); }
     if (i < 2 && part >= 1) texte(ctx, '·', x + taille + gap / 2, y0 + taille / 2 + 5, GRIS, 18, 'center');
   });
   if (u > 0.62) {
@@ -379,13 +387,13 @@ function langue (ctx, w, h, t, etat, css, L) {
     ctx.globalAlpha = 1;
   }
   texte(ctx, `${n + 1} / ${L.compos.length}`, w - 12, h - 12, GRIS, 11, 'right');
-  const actif = u < 0.1 ? 0 : u < 0.46 ? 1 : u < 0.62 ? 2 : 3;
+  const actif = u < 0.18 ? 0 : u < 0.45 ? 1 : u < 0.62 ? 2 : 3;
   return { info: L.langue, actif };
 }
 
 // ---------------------------------------------------------------- TEAMMATE.POTO : une créature qui écoute, digère et répond
 function teammate (ctx, w, h, t, etat, css, L) {
-  const CYCLE = 20;
+  const CYCLE = 64;
   const k = Math.floor(t / CYCLE); const u = (t % CYCLE) / CYCLE;
   if (etat.k !== k) {
     etat.k = k;
@@ -477,7 +485,7 @@ function teammate (ctx, w, h, t, etat, css, L) {
 
 // ---------------------------------------------------------------- TRIPODE AS-SIMT : le geste part vers Orca et le Norns, la note revient en vibration
 function tripode (ctx, w, h, t, etat, css, L) {
-  const ph = t % 24; const actif = Math.floor(ph / 6); const ts = ph - actif * 6;
+  const ph = t % 80; const actif = Math.floor(ph / 20); const ts = ph - actif * 20;
   if (!etat.init) { etat.init = true; etat.hist = []; etat.paquets = []; etat.log = []; etat.grille = Array.from({ length: 3 }, () => Array(12).fill('.')); etat.vib = [0, 0, 0]; etat.dernier = 0; etat.note = 0; }
   // un geste simulé : neuf axes qui bougent ensemble, comme un bras qui tourne
   const ax = [];
@@ -551,74 +559,112 @@ function tripode (ctx, w, h, t, etat, css, L) {
 }
 
 // ---------------------------------------------------------------- SYSTEMA8OS.XT : la carte du lieu et la carte du son se superposent, le robot y joue en marchant
+// sept temps, lents : le scan, les grains, deux façons de les répartir, les sons placés, le robot qui marche, le pilotage
+const SYS_DUREES = [16, 16, 20, 20, 20, 20, 20];
 function systema (ctx, w, h, t, etat, css, L) {
-  const ph = t % 28; const actif = ph < 6 ? 0 : ph < 12 ? 1 : ph < 20 ? 2 : 3;
-  const pad = 12; const cx = w / 2; const cy = h / 2 + 4; const R = Math.min(w, h) * 0.42;
+  const total = SYS_DUREES.reduce((a, b) => a + b, 0); let ph = t % total; let actif = 0;
+  while (ph >= SYS_DUREES[actif]) { ph -= SYS_DUREES[actif]; actif++; }
+  const pad = 12; const cx = w / 2; const cy = h / 2 + 6; const R = Math.min(w, h) * 0.42;
+  const lisse = (x) => { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); };
   if (!etat.init) {
     etat.init = true;
     let s = 7; const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
-    // la salle : des murs irréguliers et deux obstacles, tels que le LiDAR les découvre
     etat.murs = [];
-    for (let i = 0; i < 160; i++) { const a = i / 160 * Math.PI * 2; const k = 1 + 0.08 * Math.sin(a * 3) + 0.05 * Math.sin(a * 7 + 1); etat.murs.push([Math.cos(a) * k * 1.08, Math.sin(a) * k * 0.82]); }
+    for (let i = 0; i < 170; i++) { const a = i / 170 * Math.PI * 2; const k = 1 + 0.08 * Math.sin(a * 3) + 0.05 * Math.sin(a * 7 + 1); etat.murs.push([Math.cos(a) * k * 1.08, Math.sin(a) * k * 0.82]); }
     for (let i = 0; i < 26; i++) { const a = i / 26 * Math.PI * 2; etat.murs.push([-0.42 + Math.cos(a) * 0.1, -0.22 + Math.sin(a) * 0.1]); etat.murs.push([0.5 + Math.cos(a) * 0.08, 0.3 + Math.sin(a) * 0.12]); }
     etat.ordre = etat.murs.map((_, i) => i).sort(() => rnd() - 0.5);
-    // les grains de son, rangés par timbre (x) et hauteur (y)
-    etat.grains = Array.from({ length: 90 }, () => { const x = rnd() * 2 - 1; const y = rnd() * 2 - 1; return [x * 0.85, y * 0.65, rnd()]; });
-    etat.pads = [[-0.6, 0.35], [-0.1, -0.5], [0.35, -0.05], [0.7, -0.35], [0.05, 0.45]].map(([x, y]) => ({ x, y, v: 0, dedans: false }));
-    etat.zone = [[-0.85, -0.6], [0.2, -0.75], [0.9, -0.2], [0.75, 0.6], [-0.3, 0.68], [-0.95, 0.15]];
+    // la zone de répartition, tracée par des balises
+    etat.zone = [[-0.75, -0.55], [0.05, -0.62], [0.35, -0.1], [0.05, 0.45], [-0.6, 0.4], [-0.85, -0.05]];
+    const dans = (x, y, poly) => { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const [xi, yi] = poly[i]; const [xj, yj] = poly[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c; } return c; };
+    // chaque grain a trois places : la carte du son (timbre, hauteur), la zone, tout l'espace (près du relief vu par le LiDAR)
+    etat.grains = Array.from({ length: 110 }, () => {
+      const v = rnd(); const tim = rnd();
+      let zx = 0; let zy = 0; do { zx = -0.9 + rnd() * 1.3; zy = -0.65 + rnd() * 1.15; } while (!dans(zx, zy, etat.zone));
+      const m = etat.murs[Math.floor(rnd() * etat.murs.length)]; const kk = 0.62 + rnd() * 0.3;
+      return { s: [-0.7 + tim * 1.4, 0.55 - v * 1.1], z: [zx, zy], e: [m[0] * kk, m[1] * kk], v, lum: 0 };
+    });
+    etat.pads = [['voix', -0.6, 0.35], ['cloche', -0.1, -0.5], ['pluie', 0.35, -0.05], ['souffle', 0.7, -0.35], ['tambour', 0.05, 0.48]].map(([nom, x, y]) => ({ nom, x, y, v: 0, dedans: false }));
+    etat.securite = [[-0.95, -0.65], [0.3, -0.8], [0.98, -0.25], [0.85, 0.62], [-0.3, 0.72], [-1.0, 0.15]];
     etat.trace = []; etat.ondes = [];
   }
   const P = (x, y) => [cx + x * R, cy + y * R];
-  // 1 · le LiDAR scanne : les points de la salle apparaissent peu à peu, puis restent
-  const vus = actif === 0 ? Math.floor(Math.min(1, ph / 5) * etat.murs.length) : etat.murs.length;
-  const balai = t * 2.2;
-  if (actif === 0) { ctx.strokeStyle = css; ctx.globalAlpha = 0.25; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(balai) * R * 1.2, cy + Math.sin(balai) * R * 1.2); ctx.stroke(); ctx.globalAlpha = 1; }
-  for (let i = 0; i < vus; i++) { const [x, y] = etat.murs[etat.ordre[i]]; const [px, py] = P(x, y); ctx.fillStyle = actif === 0 ? css : '#6f6c66'; ctx.fillRect(px - 1.2, py - 1.2, 2.4, 2.4); }
-  // 2 · la carte du son : les grains, colorés par leur hauteur
+  // le scan LiDAR
+  const vus = actif === 0 ? Math.floor(lisse(ph / 7) * etat.murs.length) : etat.murs.length;
+  if (actif === 0) { const a = t * 1.6; ctx.strokeStyle = css; ctx.globalAlpha = 0.3; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(a) * R * 1.25, cy + Math.sin(a) * R * 1.25); ctx.stroke(); ctx.globalAlpha = 1; texte(ctx, 'go2 · LiDAR', cx, cy + 4, css, 10, 'center'); }
+  for (let i = 0; i < vus; i++) { const [x, y] = etat.murs[etat.ordre[i]]; const [px, py] = P(x, y); ctx.fillStyle = actif === 0 ? css : '#55534e'; ctx.fillRect(px - 1.2, py - 1.2, 2.4, 2.4); }
+  // la zone de répartition (temps 3)
+  if (actif === 2) {
+    const a = lisse(ph / 2);
+    ctx.strokeStyle = css; ctx.globalAlpha = a; ctx.setLineDash([4, 4]); ctx.beginPath(); etat.zone.forEach(([x, y], i) => { const [px, py] = P(x, y); i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }); ctx.closePath(); ctx.stroke(); ctx.setLineDash([]);
+    etat.zone.forEach(([x, y]) => { const [px, py] = P(x, y); ctx.fillStyle = css; ctx.fillRect(px - 3, py - 3, 6, 6); });
+    ctx.globalAlpha = 1; const [zx, zy] = P(etat.zone[0][0], etat.zone[0][1]); texte(ctx, L.zoneGrains, zx, zy - 10, css, 10);
+  }
+  // les grains : sur la carte du son (2), dans la zone (3), dans tout l'espace (4), discrets ensuite
+  let rob = null;
+  if (actif >= 2) {
+    // le robot marche lentement à partir du temps 3
+    const u = ph / SYS_DUREES[actif];
+    const x = actif === 2 ? -0.7 + 0.9 * u : actif === 3 ? 0.75 * Math.cos(u * 4.4) : actif === 6 ? 0.55 * Math.cos(u * 4.8) + 0.1 * Math.sin(u * 13) : -0.75 + 1.5 * u + 0.1 * Math.sin(u * 8);
+    const y = actif === 2 ? -0.35 + 0.6 * Math.sin(u * 3.1) : actif === 3 ? 0.55 * Math.sin(u * 4.4) : actif === 6 ? 0.42 * Math.sin(u * 6.2) : 0.38 * Math.sin(u * 4.6) - 0.05;
+    rob = [x, y];
+  }
   if (actif >= 1) {
-    const a1 = actif === 1 ? Math.min(1, (ph - 6) / 2) : 0.55;
-    for (const [x, y, v] of etat.grains) { const [px, py] = P(x, y); ctx.fillStyle = v > 0.66 ? ENCRE : v > 0.33 ? GRIS : '#55534e'; ctx.globalAlpha = a1; ctx.fillRect(px - 1.5, py - 1.5, 3, 3); }
-    ctx.globalAlpha = 1;
+    const vers = actif === 1 ? 's' : actif === 2 ? 'z' : 'e'; const de = actif === 2 ? 's' : actif === 3 ? 'z' : null;
+    const k = de ? lisse(ph / 2.5) : 1;
+    const discret = actif >= 4;
     if (actif === 1) {
-      const [x0, y0] = P(-0.95, 0.85); texte(ctx, L.timbre + ' →', x0, y0, GRIS, 10);
-      const [x1, y1] = P(-1.08, -0.6); ctx.save(); ctx.translate(x1, y1); ctx.rotate(-Math.PI / 2); texte(ctx, L.hauteur + ' →', 0, 0, GRIS, 10); ctx.restore();
+      const a = lisse(ph / 2); ctx.strokeStyle = SOMBRE; ctx.strokeRect(cx - R * 0.8, cy - R * 0.65, R * 1.6, R * 1.3);
+      ctx.globalAlpha = a; texte(ctx, L.timbre + ' →', cx - R * 0.78, cy + R * 0.65 + 14, GRIS, 10); ctx.save(); ctx.translate(cx - R * 0.8 - 8, cy + R * 0.6); ctx.rotate(-Math.PI / 2); texte(ctx, L.hauteur + ' →', 0, 0, GRIS, 10); ctx.restore(); ctx.globalAlpha = 1;
     }
-    // les sons posés à des endroits précis
+    for (const g of etat.grains) {
+      const a = de ? g[de] : g[vers]; const b = g[vers];
+      const gx = a[0] + (b[0] - a[0]) * k; const gy = a[1] + (b[1] - a[1]) * k;
+      if (rob && actif <= 3 && Math.hypot(gx - rob[0], gy - rob[1]) < 0.14) g.lum = 1;
+      g.lum = Math.max(0, g.lum - etat.dt * 1.5);
+      const [px, py] = P(gx, gy);
+      ctx.fillStyle = g.lum > 0.05 ? OR : g.v > 0.66 ? ENCRE : g.v > 0.33 ? GRIS : '#6f6c66';
+      ctx.globalAlpha = discret ? 0.3 : (actif === 1 ? lisse(ph / 2) : 1);
+      const r = 1.6 + g.lum * 2.2; ctx.fillRect(px - r, py - r, r * 2, r * 2);
+    }
+    ctx.globalAlpha = 1;
+    if (actif === 3) texte(ctx, L.toutEspace, pad, h - 12, css, 10);
+  }
+  // les sons placés à des endroits choisis (temps 5 et après)
+  if (actif >= 4) {
+    const a = actif === 4 ? lisse(ph / 2) : 1;
     etat.pads.forEach((p, i) => {
-      const [px, py] = P(p.x, p.y); p.v = Math.max(0, p.v - etat.dt * 1.2);
-      ctx.strokeStyle = p.v > 0.05 ? OR : (actif === 1 ? css : '#55534e'); ctx.globalAlpha = 0.5 + p.v * 0.5;
-      ctx.beginPath(); ctx.arc(px, py, R * 0.09, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1;
-      texte(ctx, 'son ' + (i + 1), px, py - R * 0.09 - 4, p.v > 0.05 ? OR : GRIS, 9, 'center');
+      const [px, py] = P(p.x, p.y); p.v = Math.max(0, p.v - etat.dt * 0.9);
+      const pose = actif === 4 ? lisse((ph - 0.6 - i * 0.7) / 0.8) : 1; if (pose <= 0) return;
+      ctx.globalAlpha = a * pose; ctx.strokeStyle = p.v > 0.05 ? OR : css; ctx.lineWidth = 1 + p.v;
+      ctx.beginPath(); ctx.arc(px, py, R * 0.1 * (0.6 + 0.4 * pose), 0, Math.PI * 2); ctx.stroke(); ctx.lineWidth = 1;
+      texte(ctx, p.nom, px, py - R * 0.1 - 5, p.v > 0.05 ? OR : ENCRE, 10, 'center', 'italic '); ctx.globalAlpha = 1;
     });
   }
-  // 4 · la zone de sécurité, tracée par des balises
-  if (actif === 3) {
-    ctx.strokeStyle = css; ctx.setLineDash([4, 4]); ctx.beginPath(); etat.zone.forEach(([x, y], i) => { const [px, py] = P(x, y); i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }); ctx.closePath(); ctx.stroke(); ctx.setLineDash([]);
-    etat.zone.forEach(([x, y]) => { const [px, py] = P(x, y); ctx.fillStyle = css; ctx.fillRect(px - 3, py - 3, 6, 6); });
-    const [zx, zy] = P(etat.zone[0][0], etat.zone[0][1]); texte(ctx, L.zone, zx, zy - 8, css, 10);
+  // la zone de sécurité (temps 7)
+  if (actif === 6) {
+    ctx.strokeStyle = GRIS; ctx.setLineDash([2, 5]); ctx.beginPath(); etat.securite.forEach(([x, y], i) => { const [px, py] = P(x, y); i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }); ctx.closePath(); ctx.stroke(); ctx.setLineDash([]);
+    const [zx, zy] = P(etat.securite[0][0], etat.securite[0][1]); texte(ctx, L.zone, zx, zy - 8, GRIS, 10);
   }
-  // le robot : il marche sur la carte ; là où il passe, les sons partent et se spatialisent avec lui
-  if (actif >= 2) {
-    const u = actif === 2 ? (ph - 12) / 8 : (ph - 20) / 8;
-    const x = actif === 2 ? -0.75 + 1.5 * u + 0.12 * Math.sin(u * 9) : 0.55 * Math.cos(u * 6.2) + 0.12 * Math.sin(u * 17);
-    const y = actif === 2 ? 0.4 * Math.sin(u * 5.3) - 0.05 : 0.45 * Math.sin(u * 6.2 * 1.3);
-    const [rx, ry] = P(x, y);
-    etat.trace.push([rx, ry]); if (etat.trace.length > 160) etat.trace.shift();
-    ctx.strokeStyle = css; ctx.globalAlpha = 0.5; ctx.beginPath(); etat.trace.forEach(([a, b], i) => (i ? ctx.lineTo(a, b) : ctx.moveTo(a, b))); ctx.stroke(); ctx.globalAlpha = 1;
-    etat.pads.forEach((p) => { const d = Math.hypot(p.x - x, p.y - y); const dedans = d < 0.09; if (dedans && !p.dedans) { p.v = 1; etat.ondes.push({ x: rx, y: ry, r: 6 }); } p.dedans = dedans; });
-    if (Math.floor(t * 2) !== etat.pulse) { etat.pulse = Math.floor(t * 2); etat.ondes.push({ x: rx, y: ry, r: 6, faible: true }); }
-    const dir = etat.trace.length > 2 ? Math.atan2(ry - etat.trace[etat.trace.length - 3][1], rx - etat.trace[etat.trace.length - 3][0]) : 0;
+  // le robot
+  if (rob) {
+    const [rx, ry] = P(rob[0], rob[1]);
+    etat.trace.push([rx, ry]); if (etat.trace.length > 220) etat.trace.shift();
+    ctx.strokeStyle = css; ctx.globalAlpha = 0.45; ctx.beginPath(); etat.trace.forEach(([a, b], i) => (i ? ctx.lineTo(a, b) : ctx.moveTo(a, b))); ctx.stroke(); ctx.globalAlpha = 1;
+    if (actif >= 4) etat.pads.forEach((p) => { const d = Math.hypot(p.x - rob[0], p.y - rob[1]); const dedans = d < 0.1; if (dedans && !p.dedans) { p.v = 1; etat.ondes.push({ x: rx, y: ry, r: 6 }); } p.dedans = dedans; });
+    if (actif === 5 && Math.floor(t * 1.5) !== etat.pulse) { etat.pulse = Math.floor(t * 1.5); etat.ondes.push({ x: rx, y: ry, r: 6, faible: true }); }
+    const n = etat.trace.length; const dir = n > 3 ? Math.atan2(ry - etat.trace[n - 4][1], rx - etat.trace[n - 4][0]) : 0;
     ctx.save(); ctx.translate(rx, ry); ctx.rotate(dir);
-    ctx.fillStyle = ENCRE; ctx.fillRect(-9, -5, 18, 10); ctx.fillStyle = OR; ctx.fillRect(7, -2.5, 5, 5);
-    ctx.fillStyle = '#55534e'; [[-7, -7], [5, -7], [-7, 5], [5, 5]].forEach(([a, b]) => ctx.fillRect(a, b, 3, 2));
+    ctx.fillStyle = ENCRE; ctx.fillRect(-10, -5, 20, 10); ctx.fillStyle = OR; ctx.fillRect(8, -2.5, 5, 5);
+    ctx.fillStyle = '#55534e'; [[-8, -7.5], [6, -7.5], [-8, 5.5], [6, 5.5]].forEach(([a, b]) => ctx.fillRect(a, b, 3, 2));
     ctx.restore();
-    texte(ctx, 'go2', rx, ry + 20, ENCRE, 10, 'center');
-    if (actif === 3) texte(ctx, 'OSC → TEAMMATE  /go2/pos ' + ((x + 1) / 2).toFixed(2) + ' ' + ((1 - y) / 2).toFixed(2), pad, h - 12, css, 10);
+    texte(ctx, 'go2', rx, ry + 22, ENCRE, 10, 'center');
+    if (actif === 5) { texte(ctx, 'L', cx - R * 1.05, cy, GRIS, 11, 'center', '600 '); texte(ctx, 'R', cx + R * 1.05, cy, GRIS, 11, 'center', '600 '); const pan = rob[0]; ctx.fillStyle = css; ctx.fillRect(cx - R * 0.5, h - 18, R, 2); ctx.fillStyle = OR; ctx.fillRect(cx + pan * R * 0.5 - 3, h - 21, 6, 8); texte(ctx, L.panoramique, cx, h - 26, GRIS, 9, 'center'); }
+    if (actif === 6) texte(ctx, 'OSC → TEAMMATE  /go2/pos ' + ((rob[0] + 1) / 2).toFixed(2) + ' ' + ((1 - rob[1]) / 2).toFixed(2), pad, h - 12, css, 10);
   } else etat.trace = [];
-  etat.ondes = etat.ondes.filter((o) => (o.r += etat.dt * R * 0.6) < R * (o.faible ? 0.35 : 0.8));
-  for (const o of etat.ondes) { ctx.strokeStyle = o.faible ? css : OR; ctx.globalAlpha = Math.max(0, (o.faible ? 0.35 : 0.8) * (1 - o.r / (R * (o.faible ? 0.35 : 0.8)))); ctx.beginPath(); ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2); ctx.stroke(); }
+  etat.ondes = etat.ondes.filter((o) => (o.r += etat.dt * R * 0.45) < R * (o.faible ? 0.4 : 0.85));
+  for (const o of etat.ondes) { ctx.strokeStyle = o.faible ? css : OR; ctx.globalAlpha = Math.max(0, (o.faible ? 0.4 : 0.85) * (1 - o.r / (R * (o.faible ? 0.4 : 0.85)))); ctx.beginPath(); ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2); ctx.stroke(); }
   ctx.globalAlpha = 1;
-  texte(ctx, actif === 0 ? 'LIDAR' : actif === 1 ? L.carteSon : actif === 2 ? L.spatial : L.pilotage, pad, 20, css, 11, 'left', '600 ');
+  texte(ctx, L.titresSys[actif], pad, 20, css, 11, 'left', '600 ');
   return { info: L.systema, actif };
 }
 
@@ -643,9 +689,13 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
     texte(ctx, L.panneau.toUpperCase(), x + p, yy, GRIS, 10); yy += 18;
     const taille = 12; const ligne = 18;
     ctx.font = `${taille}px 'IBM Plex Mono', monospace`;
+    // beaucoup d'étapes : seule l'étape en cours s'écrit en entier, les autres tiennent sur une ligne
+    const hauteurTotale = etapes.reduce((acc, e) => acc + couper(ctx, e, w - p * 2 - 28).length * ligne + 10, 0);
+    const serre = hauteurTotale > h - 110;
     etapes.forEach((s, i) => {
       const on = i === R.actif;
-      const lignes = couper(ctx, s, w - p * 2 - 28);
+      let lignes = couper(ctx, s, w - p * 2 - 28);
+      if (serre && !on) { let l0 = lignes[0]; if (lignes.length > 1) { while (ctx.measureText(l0 + ' …').width > w - p * 2 - 28 && l0.includes(' ')) l0 = l0.slice(0, l0.lastIndexOf(' ')); l0 += ' …'; } lignes = [l0]; }
       if (on) { ctx.fillStyle = css; ctx.fillRect(x + p - 6, yy - taille, 2, lignes.length * ligne); }
       texte(ctx, String(i + 1).padStart(2, '0'), x + p, yy, on ? css : '#55534e', taille);
       lignes.forEach((l, j) => texte(ctx, l, x + p + 28, yy + j * ligne, on ? ENCRE : '#6f6c66', taille));

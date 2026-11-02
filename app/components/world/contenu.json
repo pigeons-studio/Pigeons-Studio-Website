@@ -602,7 +602,7 @@
        "statut": "en cours",
        "texte": [
         "systema8os.xt a été fait pour travailler avec les robots quadrupèdes Unitree Go2 : il transforme leurs déplacements en spatialisation sonore. Le robot devient à la fois une source et un curseur de son, qui marche dans l’espace réel. C’est le logiciel de la performance CAVE // FOUR ROBOTS : il fait jouer les quatre robots dans la grotte.",
-        "Le logiciel relie la carte du lieu et la carte du son. Le LiDAR du robot scanne la salle et construit, au fil des passages, une carte de ses obstacles. Les sons, eux, sont découpés en grains, analysés et rangés selon leur timbre et leur hauteur. Les deux cartes se superposent : on pose des sons à des endroits précis, et quand le robot y passe, ils se déclenchent. Le son suit sa position, en stéréo ou en binaural.",
+        "Le logiciel relie la carte du lieu et la carte du son. Le LiDAR du robot scanne la salle et construit, au fil des passages, une carte de ses obstacles. Les sons, eux, sont découpés en grains, analysés et rangés selon leur timbre et leur hauteur. Ensuite, deux modes. Dans le premier, les grains sont dispersés dans l’espace : soit dans une zone bien définie, tracée avec des balises, soit dans tout l’espace scanné. Le robot qui les traverse les fait jouer. Dans le second, on attribue des sons précis à des endroits choisis : quand le robot y passe, ce son-là se déclenche. Dans les deux cas, le son suit sa position, en stéréo ou en binaural.",
         "On pilote le robot à la manette ou au clavier, on enregistre et rejoue ses trajectoires, on le laisse errer seul dans une zone de sécurité tracée à la souris, ou on le guide à la voix : il rejoint le son le plus proche de ce qu’on chante. Sa caméra reconnaît les objets et les mouvements du corps. Sa position part en OSC vers TEAMMATE, qui la reçoit comme un capteur de plus. Autour, tout un instrument granulaire : capture du micro, de la caméra ou d’une fenêtre, analyse en temps réel, sorties MIDI."
        ],
        "reperes": [
@@ -621,6 +621,10 @@
         [
          "Espace",
          "La carte du lieu (LiDAR) et la carte du son (timbre, hauteur) superposées"
+        ],
+        [
+         "Modes",
+         "Grains dispersés dans une zone ou dans tout l’espace ; sons précis placés à des endroits choisis"
         ],
         [
          "Spatialisation",
@@ -1275,7 +1279,7 @@
        "statut": "in progress",
        "texte": [
         "systema8os.xt was made to work with Unitree Go2 quadruped robots: it turns their movements into sound spatialisation. The robot becomes both a source and a cursor of sound, walking through real space. It is the software behind the CAVE // FOUR ROBOTS performance: it makes the four robots play in the cave.",
-        "The software links the map of the venue and the map of sound. The robot’s LiDAR scans the room and builds, pass after pass, a map of its obstacles. Sounds are cut into grains, analysed and sorted by timbre and pitch. The two maps overlap: you place sounds at precise spots, and when the robot walks through them, they are triggered. The sound follows its position, in stereo or binaural.",
+        "The software links the map of the venue and the map of sound. The robot’s LiDAR scans the room and builds, pass after pass, a map of its obstacles. Sounds are cut into grains, analysed and sorted by timbre and pitch. Then come two modes. In the first, the grains are scattered through space: either inside a clearly defined zone drawn with beacons, or across the whole scanned space. The robot crossing them plays them. In the second, you assign specific sounds to chosen spots: when the robot passes, that sound is triggered. Either way, the sound follows its position, in stereo or binaural.",
         "You steer the robot with a gamepad or the keyboard, record and replay its paths, let it wander alone inside a safety zone drawn with the mouse, or guide it with your voice: it heads for the sound closest to what you sing. Its camera recognises objects and body movement. Its position goes out as OSC to TEAMMATE, which receives it as one more sensor. Around it, a whole granular instrument: capture from the microphone, camera or a window, real-time analysis, MIDI outputs."
        ],
        "reperes": [
@@ -1294,6 +1298,10 @@
         [
          "Space",
          "The venue map (LiDAR) and the sound map (timbre, pitch) overlaid"
+        ],
+        [
+         "Modes",
+         "Grains scattered inside a zone or across the whole space; specific sounds placed at chosen spots"
         ],
         [
          "Spatialisation",
