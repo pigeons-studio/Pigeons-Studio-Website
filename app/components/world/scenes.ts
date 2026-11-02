@@ -13,6 +13,14 @@ const TEXTES = {
     sync: 'synchronisés', desync: 'désynchronisés', public: 'public', toi: 'toi', memoire: 'mémoire · 48 fragments', reponse: 'teammate',
     decisions: ['imiter', 'contraster', 'densifier', 's’éclaircir', 'se taire'],
     traits: ['hauteur', 'énergie', 'timbre', 'texture'],
+    timbre: 'timbre', hauteur: 'hauteur', zone: 'zone de sécurité', carteSon: 'CARTE DU SON', spatial: 'SPATIALISATION', pilotage: 'PILOTAGE',
+    systema: {
+      etapes: ['Le LiDAR du robot Unitree Go2 scanne le lieu : systema8os.xt dessine la carte de la salle et de ses obstacles.',
+        'Les sons sont découpés en grains et rangés par timbre et par hauteur : la carte du son se pose sur la carte du lieu, et on y place des sons.',
+        'Le robot marche sur la carte : là où il passe, les sons se déclenchent, et le son suit sa position dans l’espace. Le robot devient une source sonore qui marche.',
+        'On le pilote à la manette, au clavier ou à la voix, ou on le laisse errer dans une zone de sécurité ; sa position part en OSC vers TEAMMATE.'],
+      legende: [['css', 'LiDAR, trajet, zone'], ['or', 'son déclenché'], ['encre', 'robot Go2'], ['gris', 'grains de son']],
+    },
     capteurs: ['gyroscope', 'accéléromètre', 'magnétomètre'], noteRevient: 'une note d’Orca revient → vibration',
     tripode: {
       etapes: ['Porté sur le corps, le tripode mesure le geste (gyroscope, accéléromètre, magnétomètre) pour écrire du code avec le mouvement.',
@@ -65,6 +73,14 @@ const TEXTES = {
     sync: 'in sync', desync: 'out of sync', public: 'audience', toi: 'you', memoire: 'memory · 48 fragments', reponse: 'teammate',
     decisions: ['imitate', 'contrast', 'densify', 'thin out', 'stay silent'],
     traits: ['pitch', 'energy', 'timbre', 'texture'],
+    timbre: 'timbre', hauteur: 'pitch', zone: 'safety zone', carteSon: 'SOUND MAP', spatial: 'SPATIALISATION', pilotage: 'STEERING',
+    systema: {
+      etapes: ['The Unitree Go2 robot’s LiDAR scans the venue: systema8os.xt draws the map of the room and its obstacles.',
+        'Sounds are cut into grains and sorted by timbre and pitch: the sound map lies on top of the venue map, and sounds are placed on it.',
+        'The robot walks across the map: wherever it goes, sounds are triggered, and the sound follows its position in space. The robot becomes a walking sound source.',
+        'Steer it with a gamepad, the keyboard or your voice, or let it wander inside a safety zone; its position goes out as OSC to TEAMMATE.'],
+      legende: [['css', 'LiDAR, path, zone'], ['or', 'triggered sound'], ['encre', 'Go2 robot'], ['gris', 'sound grains']],
+    },
     capteurs: ['gyroscope', 'accelerometer', 'magnetometer'], noteRevient: 'an Orca note comes back → vibration',
     tripode: {
       etapes: ['Worn on the body, the tripod measures the gesture (gyroscope, accelerometer, magnetometer) to write code with movement.',
@@ -534,6 +550,78 @@ function tripode (ctx, w, h, t, etat, css, L) {
   return { info: L.tripode, actif };
 }
 
+// ---------------------------------------------------------------- SYSTEMA8OS.XT : la carte du lieu et la carte du son se superposent, le robot y joue en marchant
+function systema (ctx, w, h, t, etat, css, L) {
+  const ph = t % 28; const actif = ph < 6 ? 0 : ph < 12 ? 1 : ph < 20 ? 2 : 3;
+  const pad = 12; const cx = w / 2; const cy = h / 2 + 4; const R = Math.min(w, h) * 0.42;
+  if (!etat.init) {
+    etat.init = true;
+    let s = 7; const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+    // la salle : des murs irréguliers et deux obstacles, tels que le LiDAR les découvre
+    etat.murs = [];
+    for (let i = 0; i < 160; i++) { const a = i / 160 * Math.PI * 2; const k = 1 + 0.08 * Math.sin(a * 3) + 0.05 * Math.sin(a * 7 + 1); etat.murs.push([Math.cos(a) * k * 1.08, Math.sin(a) * k * 0.82]); }
+    for (let i = 0; i < 26; i++) { const a = i / 26 * Math.PI * 2; etat.murs.push([-0.42 + Math.cos(a) * 0.1, -0.22 + Math.sin(a) * 0.1]); etat.murs.push([0.5 + Math.cos(a) * 0.08, 0.3 + Math.sin(a) * 0.12]); }
+    etat.ordre = etat.murs.map((_, i) => i).sort(() => rnd() - 0.5);
+    // les grains de son, rangés par timbre (x) et hauteur (y)
+    etat.grains = Array.from({ length: 90 }, () => { const x = rnd() * 2 - 1; const y = rnd() * 2 - 1; return [x * 0.85, y * 0.65, rnd()]; });
+    etat.pads = [[-0.6, 0.35], [-0.1, -0.5], [0.35, -0.05], [0.7, -0.35], [0.05, 0.45]].map(([x, y]) => ({ x, y, v: 0, dedans: false }));
+    etat.zone = [[-0.85, -0.6], [0.2, -0.75], [0.9, -0.2], [0.75, 0.6], [-0.3, 0.68], [-0.95, 0.15]];
+    etat.trace = []; etat.ondes = [];
+  }
+  const P = (x, y) => [cx + x * R, cy + y * R];
+  // 1 · le LiDAR scanne : les points de la salle apparaissent peu à peu, puis restent
+  const vus = actif === 0 ? Math.floor(Math.min(1, ph / 5) * etat.murs.length) : etat.murs.length;
+  const balai = t * 2.2;
+  if (actif === 0) { ctx.strokeStyle = css; ctx.globalAlpha = 0.25; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(balai) * R * 1.2, cy + Math.sin(balai) * R * 1.2); ctx.stroke(); ctx.globalAlpha = 1; }
+  for (let i = 0; i < vus; i++) { const [x, y] = etat.murs[etat.ordre[i]]; const [px, py] = P(x, y); ctx.fillStyle = actif === 0 ? css : '#6f6c66'; ctx.fillRect(px - 1.2, py - 1.2, 2.4, 2.4); }
+  // 2 · la carte du son : les grains, colorés par leur hauteur
+  if (actif >= 1) {
+    const a1 = actif === 1 ? Math.min(1, (ph - 6) / 2) : 0.55;
+    for (const [x, y, v] of etat.grains) { const [px, py] = P(x, y); ctx.fillStyle = v > 0.66 ? ENCRE : v > 0.33 ? GRIS : '#55534e'; ctx.globalAlpha = a1; ctx.fillRect(px - 1.5, py - 1.5, 3, 3); }
+    ctx.globalAlpha = 1;
+    if (actif === 1) {
+      const [x0, y0] = P(-0.95, 0.85); texte(ctx, L.timbre + ' →', x0, y0, GRIS, 10);
+      const [x1, y1] = P(-1.08, -0.6); ctx.save(); ctx.translate(x1, y1); ctx.rotate(-Math.PI / 2); texte(ctx, L.hauteur + ' →', 0, 0, GRIS, 10); ctx.restore();
+    }
+    // les sons posés à des endroits précis
+    etat.pads.forEach((p, i) => {
+      const [px, py] = P(p.x, p.y); p.v = Math.max(0, p.v - etat.dt * 1.2);
+      ctx.strokeStyle = p.v > 0.05 ? OR : (actif === 1 ? css : '#55534e'); ctx.globalAlpha = 0.5 + p.v * 0.5;
+      ctx.beginPath(); ctx.arc(px, py, R * 0.09, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1;
+      texte(ctx, 'son ' + (i + 1), px, py - R * 0.09 - 4, p.v > 0.05 ? OR : GRIS, 9, 'center');
+    });
+  }
+  // 4 · la zone de sécurité, tracée par des balises
+  if (actif === 3) {
+    ctx.strokeStyle = css; ctx.setLineDash([4, 4]); ctx.beginPath(); etat.zone.forEach(([x, y], i) => { const [px, py] = P(x, y); i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }); ctx.closePath(); ctx.stroke(); ctx.setLineDash([]);
+    etat.zone.forEach(([x, y]) => { const [px, py] = P(x, y); ctx.fillStyle = css; ctx.fillRect(px - 3, py - 3, 6, 6); });
+    const [zx, zy] = P(etat.zone[0][0], etat.zone[0][1]); texte(ctx, L.zone, zx, zy - 8, css, 10);
+  }
+  // le robot : il marche sur la carte ; là où il passe, les sons partent et se spatialisent avec lui
+  if (actif >= 2) {
+    const u = actif === 2 ? (ph - 12) / 8 : (ph - 20) / 8;
+    const x = actif === 2 ? -0.75 + 1.5 * u + 0.12 * Math.sin(u * 9) : 0.55 * Math.cos(u * 6.2) + 0.12 * Math.sin(u * 17);
+    const y = actif === 2 ? 0.4 * Math.sin(u * 5.3) - 0.05 : 0.45 * Math.sin(u * 6.2 * 1.3);
+    const [rx, ry] = P(x, y);
+    etat.trace.push([rx, ry]); if (etat.trace.length > 160) etat.trace.shift();
+    ctx.strokeStyle = css; ctx.globalAlpha = 0.5; ctx.beginPath(); etat.trace.forEach(([a, b], i) => (i ? ctx.lineTo(a, b) : ctx.moveTo(a, b))); ctx.stroke(); ctx.globalAlpha = 1;
+    etat.pads.forEach((p) => { const d = Math.hypot(p.x - x, p.y - y); const dedans = d < 0.09; if (dedans && !p.dedans) { p.v = 1; etat.ondes.push({ x: rx, y: ry, r: 6 }); } p.dedans = dedans; });
+    if (Math.floor(t * 2) !== etat.pulse) { etat.pulse = Math.floor(t * 2); etat.ondes.push({ x: rx, y: ry, r: 6, faible: true }); }
+    const dir = etat.trace.length > 2 ? Math.atan2(ry - etat.trace[etat.trace.length - 3][1], rx - etat.trace[etat.trace.length - 3][0]) : 0;
+    ctx.save(); ctx.translate(rx, ry); ctx.rotate(dir);
+    ctx.fillStyle = ENCRE; ctx.fillRect(-9, -5, 18, 10); ctx.fillStyle = OR; ctx.fillRect(7, -2.5, 5, 5);
+    ctx.fillStyle = '#55534e'; [[-7, -7], [5, -7], [-7, 5], [5, 5]].forEach(([a, b]) => ctx.fillRect(a, b, 3, 2));
+    ctx.restore();
+    texte(ctx, 'go2', rx, ry + 20, ENCRE, 10, 'center');
+    if (actif === 3) texte(ctx, 'OSC → TEAMMATE  /go2/pos ' + ((x + 1) / 2).toFixed(2) + ' ' + ((1 - y) / 2).toFixed(2), pad, h - 12, css, 10);
+  } else etat.trace = [];
+  etat.ondes = etat.ondes.filter((o) => (o.r += etat.dt * R * 0.6) < R * (o.faible ? 0.35 : 0.8));
+  for (const o of etat.ondes) { ctx.strokeStyle = o.faible ? css : OR; ctx.globalAlpha = Math.max(0, (o.faible ? 0.35 : 0.8) * (1 - o.r / (R * (o.faible ? 0.35 : 0.8)))); ctx.beginPath(); ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2); ctx.stroke(); }
+  ctx.globalAlpha = 1;
+  texte(ctx, actif === 0 ? 'LIDAR' : actif === 1 ? L.carteSon : actif === 2 ? L.spatial : L.pilotage, pad, 20, css, 11, 'left', '600 ');
+  return { info: L.systema, actif };
+}
+
 // ---------------------------------------------------------------- le panneau « comment ça marche »
 function panneau (ctx, x, y, w, h, R, css, L, compact) {
   const COUL = { encre: ENCRE, gris: GRIS, or: OR, css, sombre: '#55534e', ocre: OCRE };
@@ -578,7 +666,7 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
   });
 }
 
-const SCENES = { orca, cave, langue, teammate, tripode };
+const SCENES = { orca, cave, langue, teammate, tripode, systema };
 
 export function lancerScene (canvas, id, css, locale) {
   const ctx = canvas.getContext('2d'); if (!ctx) return () => {};

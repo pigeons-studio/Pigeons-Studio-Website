@@ -593,6 +593,63 @@
      "p": "Applications web, firmwares flashables en ligne et logiciels PC sous licence."
     },
     {
+     "t": "explorer",
+     "items": [
+      {
+       "id": "systema",
+       "nom": "SYSTEMA8OS.XT",
+       "sous": "La spatialisation sonore avec des robots quadrupèdes",
+       "statut": "en cours",
+       "texte": [
+        "systema8os.xt a été fait pour travailler avec les robots quadrupèdes Unitree Go2 : il transforme leurs déplacements en spatialisation sonore. Le robot devient à la fois une source et un curseur de son, qui marche dans l’espace réel.",
+        "Le logiciel relie la carte du lieu et la carte du son. Le LiDAR du robot scanne la salle et construit, au fil des passages, une carte de ses obstacles. Les sons, eux, sont découpés en grains, analysés et rangés selon leur timbre et leur hauteur. Les deux cartes se superposent : on pose des sons à des endroits précis, et quand le robot y passe, ils se déclenchent. Le son suit sa position, en stéréo ou en binaural.",
+        "On pilote le robot à la manette ou au clavier, on enregistre et rejoue ses trajectoires, on le laisse errer seul dans une zone de sécurité tracée à la souris, ou on le guide à la voix : il rejoint le son le plus proche de ce qu’on chante. Sa caméra reconnaît les objets et les mouvements du corps. Sa position part en OSC vers TEAMMATE, qui la reçoit comme un capteur de plus. Autour, tout un instrument granulaire : capture du micro, de la caméra ou d’une fenêtre, analyse en temps réel, sorties MIDI."
+       ],
+       "reperes": [
+        [
+         "Rôle",
+         "Spatialiser le son avec des robots quadrupèdes"
+        ],
+        [
+         "Robots",
+         "Unitree Go2 : LiDAR, pilotage, caméra"
+        ],
+        [
+         "Espace",
+         "La carte du lieu (LiDAR) et la carte du son (timbre, hauteur) superposées"
+        ],
+        [
+         "Spatialisation",
+         "Stéréo ou binaural ; des sons déclenchés par le passage du robot"
+        ],
+        [
+         "Pilotage",
+         "Manette, clavier, voix, trajectoires enregistrées, errance dans une zone de sécurité"
+        ],
+        [
+         "Liens",
+         "OSC vers TEAMMATE (Norns), MIDI"
+        ],
+        [
+         "Technique",
+         "Application web : JavaScript, Three.js, WebAudio, TensorFlow.js"
+        ],
+        [
+         "Code",
+         "github.com/kirikoodes/systema8os-xt"
+        ]
+       ],
+       "tags": [
+        "spatialisation",
+        "Unitree Go2",
+        "LiDAR",
+        "granulaire",
+        "OSC"
+       ]
+      }
+     ]
+    },
+    {
      "t": "cartes",
      "items": [
       {
@@ -1207,6 +1264,63 @@
     {
      "t": "texte",
      "p": "Web apps, firmwares you can flash online, and licensed desktop software."
+    },
+    {
+     "t": "explorer",
+     "items": [
+      {
+       "id": "systema",
+       "nom": "SYSTEMA8OS.XT",
+       "sous": "Sound spatialisation with quadruped robots",
+       "statut": "in progress",
+       "texte": [
+        "systema8os.xt was made to work with Unitree Go2 quadruped robots: it turns their movements into sound spatialisation. The robot becomes both a source and a cursor of sound, walking through real space.",
+        "The software links the map of the venue and the map of sound. The robot’s LiDAR scans the room and builds, pass after pass, a map of its obstacles. Sounds are cut into grains, analysed and sorted by timbre and pitch. The two maps overlap: you place sounds at precise spots, and when the robot walks through them, they are triggered. The sound follows its position, in stereo or binaural.",
+        "You steer the robot with a gamepad or the keyboard, record and replay its paths, let it wander alone inside a safety zone drawn with the mouse, or guide it with your voice: it heads for the sound closest to what you sing. Its camera recognises objects and body movement. Its position goes out as OSC to TEAMMATE, which receives it as one more sensor. Around it, a whole granular instrument: capture from the microphone, camera or a window, real-time analysis, MIDI outputs."
+       ],
+       "reperes": [
+        [
+         "Role",
+         "Spatialising sound with quadruped robots"
+        ],
+        [
+         "Robots",
+         "Unitree Go2: LiDAR, steering, camera"
+        ],
+        [
+         "Space",
+         "The venue map (LiDAR) and the sound map (timbre, pitch) overlaid"
+        ],
+        [
+         "Spatialisation",
+         "Stereo or binaural; sounds triggered as the robot passes"
+        ],
+        [
+         "Steering",
+         "Gamepad, keyboard, voice, recorded paths, wandering inside a safety zone"
+        ],
+        [
+         "Links",
+         "OSC to TEAMMATE (Norns), MIDI"
+        ],
+        [
+         "Tech",
+         "Web app: JavaScript, Three.js, WebAudio, TensorFlow.js"
+        ],
+        [
+         "Code",
+         "github.com/kirikoodes/systema8os-xt"
+        ]
+       ],
+       "tags": [
+        "spatialisation",
+        "Unitree Go2",
+        "LiDAR",
+        "granular",
+        "OSC"
+       ]
+      }
+     ]
     },
     {
      "t": "cartes",
