@@ -358,3 +358,6 @@
 .orca .mot-glyphe svg { grid-row: 1 / span 2; width: 22px; height: 22px; }
 .orca .mot-glyphe em { font-style: italic; color: var(--encre); font-size: 11px; letter-spacing: .04em; }
 .orca .mot-glyphe small { color: var(--gris); font-size: 9px; letter-spacing: .06em; }
+/* un nom de projet cité dans une autre fiche : un lien vers sa fiche */
+.orca .lien-projet { display: inline; padding: 0; color: var(--encre); text-decoration: underline; text-decoration-color: var(--c, var(--or)); text-underline-offset: 3px; text-decoration-thickness: 1px; font: inherit; letter-spacing: inherit; cursor: pointer; }
+.orca .lien-projet:hover { color: var(--c, var(--or)); }

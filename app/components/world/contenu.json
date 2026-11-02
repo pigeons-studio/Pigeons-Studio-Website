@@ -129,10 +129,6 @@
         [
          "Conception",
          "Julien Thomas (électronique, firmware), Koo Des (jeu)"
-        ],
-        [
-         "Code",
-         "github.com/juthomas/Tripode-Firmware-V2"
         ]
        ],
        "tags": [
@@ -641,10 +637,6 @@
         [
          "Technique",
          "Application web : JavaScript, Three.js, WebAudio, TensorFlow.js"
-        ],
-        [
-         "Code",
-         "github.com/kirikoodes/systema8os-xt"
         ]
        ],
        "tags": [
@@ -810,10 +802,6 @@
         [
          "Design",
          "Julien Thomas (electronics, firmware), Koo Des (performance)"
-        ],
-        [
-         "Code",
-         "github.com/juthomas/Tripode-Firmware-V2"
         ]
        ],
        "tags": [
@@ -1322,10 +1310,6 @@
         [
          "Tech",
          "Web app: JavaScript, Three.js, WebAudio, TensorFlow.js"
-        ],
-        [
-         "Code",
-         "github.com/kirikoodes/systema8os-xt"
         ]
        ],
        "tags": [

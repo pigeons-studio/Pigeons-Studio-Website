@@ -135,6 +135,14 @@ export default function World() {
   }, [locale]);
 
   // d'une page à l'autre en 2D : la page glisse, la nouvelle apparaît sur la dalle
+  // aller à la fiche d'un autre projet : on change d'étage si besoin, puis l'explorateur ouvre la bonne fiche
+  const [cible, setCible] = useState<{ id: string; n: number } | null>(null);
+  const allerProjet = (id: string) => {
+    const fam = FAMILLES.findIndex((g) => g.blocs.some((b) => b.t === 'explorer' && (b.items as Projet[]).some((x) => x.id === id)));
+    if (fam < 0) return;
+    setCible((c) => ({ id, n: (c?.n || 0) + 1 }));
+    if (fam !== etage) changer(fam);
+  };
   const changer = (n: number) => {
     if (n === etage) return;
     setSurvolHtml(null);
@@ -202,7 +210,7 @@ export default function World() {
             <Glyphe signe={f.signe} couleur={f.css} />
             <div><h1>{f.nom}</h1><p>{MOTS[locale][f.signe]}{f.pourquoi !== MOTS[locale][f.signe] ? ` · ${f.pourquoi}` : ''}</p></div>
           </div>
-          {f.blocs.map((b, i) => <BlocVue key={`${f.id}-${i}`} b={b} f={f} ui={ui} locale={locale} ouvrirContact={(sujet) => setTiroir({ quoi: 'contact', sujet })} />)}
+          {f.blocs.map((b, i) => <BlocVue key={`${f.id}-${i}`} b={b} f={f} ui={ui} locale={locale} ouvrirContact={(sujet) => setTiroir({ quoi: 'contact', sujet })} cible={cible} allerProjet={allerProjet} />)}
           <PiedPage ui={ui} />
         </div>
       </main>
@@ -244,14 +252,14 @@ function Traduction({ g, n, ici, ui, locale }: { g: Famille; n: number; ici: boo
 }
 
 // ---------------------------------------------------------------- les blocs d'une page 2D (comme remplir() de la page Claude)
-function BlocVue({ b, f, ui, locale, ouvrirContact }: { b: Bloc; f: Famille; ui: Ui; locale: Locale; ouvrirContact: (s: string) => void }) {
+function BlocVue({ b, f, ui, locale, ouvrirContact, cible, allerProjet }: { b: Bloc; f: Famille; ui: Ui; locale: Locale; ouvrirContact: (s: string) => void; cible: { id: string; n: number } | null; allerProjet: (id: string) => void }) {
   if (b.t === 'lead') return <div className="lead"><p className="sur">{b.sur}</p><p className="duo">{b.duo}</p><p className="legende">{b.legende}</p></div>;
   if (b.t === 'texte') return <section className="texte">{b.titre && <h2 className="etiquette">{b.titre}</h2>}<p>{b.p}</p></section>;
   if (b.t === 'vide') return <p className="vide">{b.p}</p>;
   if (b.t === 'deux') return <div className="bio">{(b.items as string[][]).map(([n, r, p]) => <section key={n}><h3>{n}</h3><h2>{r}</h2><p>{p}</p></section>)}</div>;
   if (b.t === 'liste') return <section className="liste"><h2 className="etiquette">{b.titre}</h2><dl>{(b.items as string[][]).flatMap(([k, v]) => [<dt key={`t${k}`}>{k}</dt>, <dd key={`d${k}`}>{v}</dd>])}</dl></section>;
   if (b.t === 'devis') return <div className="pied"><button type="button" className="btn" onClick={() => ouvrirContact('')}>{ui.devis}</button></div>;
-  if (b.t === 'explorer') return <Explorer items={b.items as Projet[]} css={f.css} locale={locale} />;
+  if (b.t === 'explorer') return <Explorer items={b.items as Projet[]} css={f.css} locale={locale} cible={cible} allerProjet={allerProjet} />;
   if (b.t === 'films') {
     return (
       <div className="films">
@@ -280,9 +288,17 @@ function BlocVue({ b, f, ui, locale, ouvrirContact }: { b: Bloc; f: Famille; ui:
 }
 
 // ---------------------------------------------------------------- futurs projets : un menu que l'on parcourt, une fiche par projet
-function Explorer({ items, css, locale }: { items: Projet[]; css: string; locale: Locale }) {
-  const [i, setI] = useState(0);
+function Explorer({ items, css, locale, cible, allerProjet }: { items: Projet[]; css: string; locale: Locale; cible: { id: string; n: number } | null; allerProjet: (id: string) => void }) {
+  const [i, setI] = useState(() => Math.max(0, items.findIndex((x) => x.id === cible?.id)));
   const liste = useRef<HTMLDivElement>(null);
+  const boite = useRef<HTMLDivElement>(null);
+  // une fiche demandée depuis un lien d'un autre projet : on l'ouvre et on la montre
+  useEffect(() => {
+    if (!cible) return;
+    const n = items.findIndex((x) => x.id === cible.id); if (n < 0) return;
+    setI(n);
+    window.setTimeout(() => boite.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 350);
+  }, [cible?.n]); // eslint-disable-line react-hooks/exhaustive-deps
   const p = items[i];
   const choisir = (n: number) => { setI(n); };
   const clavier = (e: React.KeyboardEvent) => {
@@ -293,7 +309,7 @@ function Explorer({ items, css, locale }: { items: Projet[]; css: string; locale
     (liste.current?.querySelectorAll('button')[n] as HTMLButtonElement | undefined)?.focus();
   };
   return (
-    <div className="explorer" style={{ ['--c' as string]: css }}>
+    <div className="explorer" ref={boite} style={{ ['--c' as string]: css }}>
       <div className="ex-liste" role="tablist" aria-orientation="vertical" ref={liste} onKeyDown={clavier} hidden={items.length < 2}>
         {items.map((x, n) => (
           <button key={x.id} type="button" role="tab" aria-selected={n === i} tabIndex={n === i ? 0 : -1} onClick={() => choisir(n)}>
@@ -321,8 +337,8 @@ function Explorer({ items, css, locale }: { items: Projet[]; css: string; locale
             <figcaption><i className="rec" />{locale === 'fr' ? 'en temps réel' : 'real time'}</figcaption>
           </figure>
           <div className="ex-texte">
-            {p.texte.map((t) => <p key={t}>{t}</p>)}
-            <dl>{p.reperes.flatMap(([k, v]) => [<dt key={`t${k}`}>{k}</dt>, <dd key={`d${k}`}>{v}</dd>])}</dl>
+            {p.texte.map((t) => <p key={t}><Lie texte={t} ici={p.id} aller={allerProjet} locale={locale} /></p>)}
+            <dl>{p.reperes.flatMap(([k, v]) => [<dt key={`t${k}`}>{k}</dt>, <dd key={`d${k}`}><Lie texte={v} ici={p.id} aller={allerProjet} locale={locale} /></dd>])}</dl>
             <div className="tags">{p.tags.map((x) => <span key={x}>{x}</span>)}</div>
           </div>
         </div>
@@ -381,6 +397,22 @@ function PhraseGlyphes({ locale, css }: { locale: Locale; css: string }) {
       ))}
     </figcaption>
   );
+}
+
+// les projets qui se citent : chaque nom d'un autre projet du site devient un lien vers sa fiche
+const NOMS_PROJETS: [string, string][] = [
+  ['TEAMMATE.POTO', 'teammate'], ['TEAMMATE', 'teammate'], ['ORCA//GLYPH', 'orca'], ['CAVE // FOUR ROBOTS', 'cave'],
+  ['SYSTEMA8OS.XT', 'systema'], ['systema8os.xt', 'systema'], ['TRIPODE AS-SIMT', 'tripode'], ['tripode AS-SIMT', 'tripode'],
+  ['Langue des images', 'langue'], ['Language of images', 'langue'],
+];
+const MOTIF_PROJETS = new RegExp('(' + NOMS_PROJETS.map(([n]) => n.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')).join('|') + ')', 'g');
+function Lie({ texte, ici, aller, locale }: { texte: string; ici: string; aller: (id: string) => void; locale: Locale }) {
+  const morceaux = texte.split(MOTIF_PROJETS);
+  return <>{morceaux.map((m, k) => {
+    const id = NOMS_PROJETS.find(([n]) => n === m)?.[1];
+    if (!id || id === ici) return m;
+    return <button key={k} type="button" className="lien-projet" onClick={() => aller(id)} title={locale === 'fr' ? 'voir la fiche' : 'see the project'}>{m}</button>;
+  })}</>;
 }
 
 // l'objet réel d'un projet, en 3D, dans le trait du site
