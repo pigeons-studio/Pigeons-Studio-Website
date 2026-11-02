@@ -25,6 +25,17 @@ const TEXTES = {
       legende: [['css', 'LiDAR, zone, trajet'], ['or', 'son qui joue'], ['encre', 'robot Go2'], ['gris', 'grains de son']],
     },
 
+    gene: 'gène', nutriments: ['glucose', 'oxygène'], voies: ['glycolyse', 'respiration', 'croissance', 'fermentation'], produits: ['CO₂', 'lactate', 'énergie'],
+    avatarNom: 'AVATAR', sonEntre: 'le son entre', fluxSon: 'les flux sonnent', balance: 'balance des flux',
+    titresAv: ['SÉQUENÇAGE', 'LE DOUBLE NUMÉRIQUE', 'LE SON NOURRIT LE MODÈLE', 'LES FLUX', 'UN DUO AVEC SOI-MÊME'],
+    avatar: {
+      etapes: ['On séquence les gènes que l’artiste exprime : la matière première, c’est son propre corps.',
+        'À partir de ces gènes, Damien Eveillard construit un modèle de son métabolisme à l’échelle du génome : des réactions reliées entre elles, des nutriments jusqu’aux produits. C’est l’avatar, un double numérique.',
+        'Le son devient une nourriture : ce que NSDOS joue règle ce que la cellule absorbe, comme du glucose ou de l’oxygène.',
+        'Le modèle calcule comment la matière et l’énergie circulent dans les voies (analyse de balance des flux, FBA) : certaines s’allument, d’autres s’éteignent.',
+        'Les flux deviennent du son : l’avatar répond en temps réel à ce que joue l’artiste. Sur scène, c’est un duo avec soi-même.'],
+      legende: [['css', 'gènes, voies actives'], ['or', 'flux, son de l’avatar'], ['encre', 'son de NSDOS'], ['gris', 'voie au repos']],
+    },
     capteurs: ['gyroscope', 'accéléromètre', 'magnétomètre'], noteRevient: 'une note d’Orca revient → vibration',
     tripode: {
       etapes: ['Porté sur le corps, le tripode mesure le geste (gyroscope, accéléromètre, magnétomètre) pour écrire du code avec le mouvement.',
@@ -89,6 +100,17 @@ const TEXTES = {
       legende: [['css', 'LiDAR, zone, path'], ['or', 'sound playing'], ['encre', 'Go2 robot'], ['gris', 'sound grains']],
     },
 
+    gene: 'gene', nutriments: ['glucose', 'oxygen'], voies: ['glycolysis', 'respiration', 'growth', 'fermentation'], produits: ['CO₂', 'lactate', 'energy'],
+    avatarNom: 'AVATAR', sonEntre: 'sound comes in', fluxSon: 'fluxes sound', balance: 'flux balance',
+    titresAv: ['SEQUENCING', 'THE DIGITAL DOUBLE', 'SOUND FEEDS THE MODEL', 'THE FLUXES', 'A DUET WITH ONESELF'],
+    avatar: {
+      etapes: ['The genes the artist expresses are sequenced: the raw material is his own body.',
+        'From these genes, Damien Eveillard builds a genome-scale model of his metabolism: reactions linked together, from nutrients to products. This is the avatar, a digital double.',
+        'Sound becomes food: what NSDOS plays sets what the cell takes in, such as glucose or oxygen.',
+        'The model computes how matter and energy flow through the pathways (flux balance analysis, FBA): some light up, others go quiet.',
+        'The fluxes become sound: the avatar answers what the artist plays in real time. On stage, it is a duet with oneself.'],
+      legende: [['css', 'genes, active pathways'], ['or', 'flux, avatar’s sound'], ['encre', 'NSDOS’s sound'], ['gris', 'resting pathway']],
+    },
     capteurs: ['gyroscope', 'accelerometer', 'magnetometer'], noteRevient: 'an Orca note comes back → vibration',
     tripode: {
       etapes: ['Worn on the body, the tripod measures the gesture (gyroscope, accelerometer, magnetometer) to write code with movement.',
@@ -668,6 +690,87 @@ function systema (ctx, w, h, t, etat, css, L) {
   return { info: L.systema, actif };
 }
 
+// ---------------------------------------------------------------- AVATAR MÉTABOLIQUE SONORE : des gènes au modèle, du son aux flux, des flux au son
+const AV_DUREES = [18, 18, 18, 20, 20];
+function avatar (ctx, w, h, t, etat, css, L) {
+  const total = AV_DUREES.reduce((a, b) => a + b, 0); let ph = t % total; let actif = 0;
+  while (ph >= AV_DUREES[actif]) { ph -= AV_DUREES[actif]; actif++; }
+  const lisse = (x) => { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); };
+  const pad = 12;
+  if (!etat.init) {
+    etat.init = true;
+    let s = 11; const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+    // le réseau métabolique : des couches, des nutriments vers les produits, chaque voie nommée
+    const couches = [[L.nutriments[0], L.nutriments[1]], [L.voies[0], '', ''], ['', L.voies[1], '', ''], [L.voies[2], '', L.voies[3], ''], [L.produits[0], L.produits[1], L.produits[2]]];
+    etat.noeuds = []; couches.forEach((c, i) => c.forEach((nom, j) => etat.noeuds.push({ i, j, n: c.length, nom, f: 0 })));
+    etat.liens = [];
+    etat.noeuds.forEach((a, ia) => etat.noeuds.forEach((b, ib) => { if (b.i === a.i + 1 && (rnd() < 0.55 || Math.abs(b.j / b.n - a.j / a.n) < 0.3)) etat.liens.push({ a: ia, b: ib, f: 0, ph: rnd() * 6 }); }));
+    etat.adn = Array.from({ length: 64 }, () => 'ACGT'[Math.floor(rnd() * 4)]);
+    etat.genes = [[6, 14], [22, 31], [40, 47], [52, 60]];
+    etat.particules = [];
+  }
+  // la zone du réseau
+  const nx0 = w * 0.24; const nx1 = w * 0.76; const ny0 = h * 0.2; const ny1 = h * 0.86;
+  const pos = (nd) => [nx0 + (nx1 - nx0) * nd.i / 4, ny0 + (ny1 - ny0) * (nd.j + 0.5) / nd.n];
+  // 1 · le séquençage : une double hélice qui défile, les gènes exprimés s'allument
+  if (actif === 0) {
+    const y0 = h * 0.42; const amp = h * 0.12; const pas = (w - pad * 2) / 64; const dec = t * 0.6;
+    for (let k = 0; k < 64; k++) {
+      const x = pad + k * pas; const a = k * 0.35 + dec; const y1 = y0 + Math.sin(a) * amp; const y2 = y0 - Math.sin(a) * amp;
+      const gene = etat.genes.some(([g0, g1], gi) => k >= g0 && k <= g1 && ph > 3 + gi * 3);
+      ctx.strokeStyle = gene ? css : SOMBRE; ctx.beginPath(); ctx.moveTo(x, y1); ctx.lineTo(x, y2); ctx.stroke();
+      ctx.fillStyle = gene ? css : GRIS; ctx.fillRect(x - 1.5, y1 - 1.5, 3, 3); ctx.fillRect(x - 1.5, y2 - 1.5, 3, 3);
+      if (k % 2 === 0) texte(ctx, etat.adn[k], x, y0 + amp + 22, gene ? css : '#55534e', 9, 'center');
+    }
+    etat.genes.forEach(([g0, g1], gi) => { if (ph > 3 + gi * 3) texte(ctx, L.gene + ' ' + (gi + 1), pad + (g0 + g1) / 2 * pas, y0 - amp - 14, css, 10, 'center', 'italic '); });
+    texte(ctx, L.titresAv[0], pad, 20, css, 11, 'left', '600 ');
+    return { info: L.avatar, actif };
+  }
+  // 2 → 5 · le réseau du modèle
+  const montre = actif === 1 ? lisse(ph / 10) : 1;
+  const nbLiens = Math.floor(etat.liens.length * montre);
+  // flux : le son entre (étape 3), le modèle calcule (4), les flux sonnent (5)
+  const entree = actif >= 2 ? 0.5 + 0.5 * Math.abs(Math.sin(t * 1.7) * Math.sin(t * 0.43)) : 0;
+  etat.liens.forEach((l, k) => { const cible = actif >= 3 ? 0.25 + 0.75 * Math.abs(Math.sin(t * 0.5 + l.ph)) * entree : actif === 2 ? 0.15 : 0; l.f += (cible - l.f) * Math.min(1, etat.dt * 2); });
+  for (let k = 0; k < nbLiens; k++) {
+    const l = etat.liens[k]; const [ax, ay] = pos(etat.noeuds[l.a]); const [bx, by] = pos(etat.noeuds[l.b]);
+    ctx.strokeStyle = l.f > 0.2 ? css : SOMBRE; ctx.globalAlpha = l.f > 0.2 ? 0.35 + l.f * 0.6 : 1; ctx.lineWidth = 1 + l.f * 3;
+    ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke();
+  }
+  ctx.globalAlpha = 1; ctx.lineWidth = 1;
+  // les particules de matière qui circulent (étapes 4 et 5)
+  if (actif >= 3 && etat.liens.length) {
+    if (Math.random() < etat.dt * 30) { const l = etat.liens[Math.floor(Math.random() * etat.liens.length)]; if (l.f > 0.3) etat.particules.push({ l, k: 0 }); }
+    etat.particules = etat.particules.filter((p) => (p.k += etat.dt * (0.4 + p.l.f)) < 1);
+    for (const p of etat.particules) { const [ax, ay] = pos(etat.noeuds[p.l.a]); const [bx, by] = pos(etat.noeuds[p.l.b]); ctx.fillStyle = OR; ctx.fillRect(ax + (bx - ax) * p.k - 2, ay + (by - ay) * p.k - 2, 4, 4); }
+  }
+  etat.noeuds.forEach((nd, k) => {
+    const [x, y] = pos(nd); const vu = actif === 1 ? lisse(ph / 10 * 1.2 - nd.i * 0.12) : 1; if (vu <= 0) return;
+    const f = etat.liens.filter((l) => l.b === k || l.a === k).reduce((a, l) => Math.max(a, l.f), 0);
+    ctx.globalAlpha = vu; ctx.fillStyle = '#000'; ctx.strokeStyle = f > 0.3 ? css : GRIS; ctx.beginPath(); ctx.arc(x, y, 4 + f * 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    if (nd.nom) texte(ctx, nd.nom, x, y - 10 - f * 4, f > 0.3 ? ENCRE : GRIS, 10, 'center', 'italic ');
+    ctx.globalAlpha = 1;
+  });
+  // à gauche : le son de NSDOS qui entre ; à droite : la réponse de l'avatar
+  const onde = (x0, x1, yc, amp, phase, couleur, alpha) => { ctx.strokeStyle = couleur; ctx.globalAlpha = alpha; ctx.beginPath(); for (let x = x0; x <= x1; x += 2) { const u = (x - x0) / (x1 - x0); const y = yc + Math.sin(u * 22 + phase) * amp * Math.sin(u * Math.PI) * (0.6 + 0.4 * Math.sin(phase * 0.7 + u * 5)); x === x0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); } ctx.stroke(); ctx.globalAlpha = 1; };
+  const yc = (ny0 + ny1) / 2;
+  if (actif >= 2) {
+    onde(pad, nx0 - 22, yc, h * 0.08 * entree, t * 4, ENCRE, 1);
+    texte(ctx, 'NSDOS', pad, yc - h * 0.14, ENCRE, 10, 'left', '600 '); texte(ctx, L.sonEntre, pad, yc + h * 0.14, GRIS, 9);
+    ctx.strokeStyle = GRIS; ctx.beginPath(); ctx.moveTo(nx0 - 18, yc); ctx.lineTo(nx0 - 8, yc); ctx.stroke();
+  }
+  if (actif >= 4) {
+    const rep = etat.liens.reduce((a, l) => a + l.f, 0) / etat.liens.length;
+    onde(nx1 + 22, w - pad, yc, h * 0.1 * Math.min(1, rep * 1.6), t * 3.1 + 1, OR, 1);
+    texte(ctx, L.avatarNom, w - pad, yc - h * 0.14, OR, 10, 'right', '600 '); texte(ctx, L.fluxSon, w - pad, yc + h * 0.14, GRIS, 9, 'right');
+    // les notes jouées par les voies les plus actives
+    etat.noeuds.forEach((nd, k) => { if (!nd.nom) return; const f = etat.liens.filter((l) => l.a === k).reduce((a, l) => Math.max(a, l.f), 0); if (f > 0.8) { const [x, y] = pos(nd); ctx.strokeStyle = OR; ctx.globalAlpha = (f - 0.8) * 4; ctx.beginPath(); ctx.arc(x, y, 14, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1; } });
+  }
+  if (actif === 3) texte(ctx, 'FBA · ' + L.balance, w / 2, h - 10, css, 10, 'center');
+  texte(ctx, L.titresAv[actif], pad, 20, css, 11, 'left', '600 ');
+  return { info: L.avatar, actif };
+}
+
 // ---------------------------------------------------------------- le panneau « comment ça marche »
 function panneau (ctx, x, y, w, h, R, css, L, compact) {
   const COUL = { encre: ENCRE, gris: GRIS, or: OR, css, sombre: '#55534e', ocre: OCRE };
@@ -691,7 +794,7 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
     ctx.font = `${taille}px 'IBM Plex Mono', monospace`;
     // beaucoup d'étapes : seule l'étape en cours s'écrit en entier, les autres tiennent sur une ligne
     const hauteurTotale = etapes.reduce((acc, e) => acc + couper(ctx, e, w - p * 2 - 28).length * ligne + 10, 0);
-    const serre = hauteurTotale > h - 110;
+    const serre = hauteurTotale > h - 80;
     etapes.forEach((s, i) => {
       const on = i === R.actif;
       let lignes = couper(ctx, s, w - p * 2 - 28);
@@ -716,7 +819,7 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
   });
 }
 
-const SCENES = { orca, cave, langue, teammate, tripode, systema };
+const SCENES = { orca, cave, langue, teammate, tripode, systema, avatar };
 
 export function lancerScene (canvas, id, css, locale) {
   const ctx = canvas.getContext('2d'); if (!ctx) return () => {};

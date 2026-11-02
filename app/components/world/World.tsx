@@ -18,7 +18,7 @@ type Locale = 'fr' | 'en';
 type Mode = '3d' | 'vers2d' | '2d' | 'vers3d';
 type Prix = 'coming' | 'quote' | 'soon';
 type Item = { nom: string; sens: string; tags?: string[]; prix?: Prix; panier?: number; src?: string; duree?: string };
-type Projet = { id: string; nom: string; sous: string; statut: string; texte: string[]; reperes: string[][]; tags: string[]; objet?: string };
+type Projet = { id: string; nom: string; sous: string; statut: string; texte: string[]; reperes: string[][]; tags: string[]; objet?: string; video?: string };
 type Bloc = { t: string; p?: string; titre?: string; sur?: string; duo?: string; legende?: string; signe?: string; code?: string; vide?: string; items?: unknown[] };
 type Famille = { id: string; nom: string; code: string; signe: string; pourquoi: string; teinte: number; css: string; blocs: Bloc[] };
 
@@ -336,6 +336,7 @@ function Explorer({ items, css, locale, cible, allerProjet }: { items: Projet[];
             <Scene id={p.id} css={css} locale={locale} />
             <figcaption><i className="rec" />{locale === 'fr' ? 'en temps réel' : 'real time'}</figcaption>
           </figure>
+          {p.video && <Video id={p.video} locale={locale} />}
           <div className="ex-texte">
             {p.texte.map((t) => <p key={t}><Lie texte={t} ici={p.id} aller={allerProjet} locale={locale} /></p>)}
             <dl>{p.reperes.flatMap(([k, v]) => [<dt key={`t${k}`}>{k}</dt>, <dd key={`d${k}`}><Lie texte={v} ici={p.id} aller={allerProjet} locale={locale} /></dd>])}</dl>
@@ -404,6 +405,7 @@ const NOMS_PROJETS: [string, string][] = [
   ['TEAMMATE.POTO', 'teammate'], ['TEAMMATE', 'teammate'], ['ORCA//GLYPH', 'orca'], ['CAVE // FOUR ROBOTS', 'cave'],
   ['SYSTEMA8OS.XT', 'systema'], ['systema8os.xt', 'systema'], ['TRIPODE AS-SIMT', 'tripode'], ['tripode AS-SIMT', 'tripode'],
   ['Langue des images', 'langue'], ['Language of images', 'langue'],
+  ['AVATAR MÉTABOLIQUE SONORE', 'avatar'], ['Avatar métabolique sonore', 'avatar'], ['Sonic Metabolic Avatar', 'avatar'],
 ];
 const MOTIF_PROJETS = new RegExp('(' + NOMS_PROJETS.map(([n]) => n.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')).join('|') + ')', 'g');
 function Lie({ texte, ici, aller, locale }: { texte: string; ici: string; aller: (id: string) => void; locale: Locale }) {
@@ -413,6 +415,20 @@ function Lie({ texte, ici, aller, locale }: { texte: string; ici: string; aller:
     if (!id || id === ici) return m;
     return <button key={k} type="button" className="lien-projet" onClick={() => aller(id)} title={locale === 'fr' ? 'voir la fiche' : 'see the project'}>{m}</button>;
   })}</>;
+}
+
+// la vidéo d'un projet (YouTube) : une vignette d'abord, le lecteur ne se charge qu'au clic
+function Video({ id, locale }: { id: string; locale: Locale }) {
+  const [ouvert, setOuvert] = useState(false);
+  const titre = locale === 'fr' ? 'la conférence performée, en vidéo' : 'the performed lecture, on video';
+  return (
+    <figure className="ex-video">
+      {ouvert
+        ? <iframe src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`} title={titre} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />
+        : <button type="button" onClick={() => setOuvert(true)} aria-label={titre} style={{ backgroundImage: `url(https://i.ytimg.com/vi/${id}/hqdefault.jpg)` }}><span>▶ {locale === 'fr' ? 'lire la vidéo' : 'play the video'}</span></button>}
+      <figcaption>{titre} · <a href={`https://www.youtube.com/watch?v=${id}`} target="_blank" rel="noopener noreferrer">YouTube</a></figcaption>
+    </figure>
+  );
 }
 
 // l'objet réel d'un projet, en 3D, dans le trait du site

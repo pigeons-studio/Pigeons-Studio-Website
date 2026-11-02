@@ -361,3 +361,11 @@
 /* un nom de projet cité dans une autre fiche : un lien vers sa fiche */
 .orca .lien-projet { display: inline; padding: 0; color: var(--encre); text-decoration: underline; text-decoration-color: var(--c, var(--or)); text-underline-offset: 3px; text-decoration-thickness: 1px; font: inherit; letter-spacing: inherit; cursor: pointer; }
 .orca .lien-projet:hover { color: var(--c, var(--or)); }
+/* la vidéo d'un projet : une vignette en niveaux de gris, le lecteur au clic */
+.orca .ex-video { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.orca .ex-video button, .orca .ex-video iframe { width: 100%; aspect-ratio: 16 / 9; display: block; border: 1px solid var(--trait); background: #000 center / cover no-repeat; }
+.orca .ex-video button { position: relative; filter: grayscale(1) contrast(1.1) brightness(.7); transition: filter .3s; }
+.orca .ex-video button:hover { filter: none; }
+.orca .ex-video button span { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 8px 14px; border: 1px solid var(--c, var(--or)); color: var(--encre); background: rgba(0,0,0,.75); letter-spacing: .12em; text-transform: uppercase; font-size: 11px; }
+.orca .ex-video figcaption { color: var(--gris); font-size: 10px; letter-spacing: .1em; }
+.orca .ex-video figcaption a { color: var(--gris); text-decoration: underline; text-underline-offset: 3px; }

@@ -139,6 +139,54 @@
         "non verbal"
        ],
        "objet": "/models/tripode.bin"
+      },
+      {
+       "id": "avatar",
+       "nom": "AVATAR MÉTABOLIQUE SONORE",
+       "sous": "Faire du métabolisme d’un corps un instrument",
+       "statut": "joué sur scène",
+       "video": "TbVlwrFNA8E",
+       "texte": [
+        "Un projet de NSDOS avec Damien Eveillard, professeur d’informatique au Laboratoire des Sciences du Numérique de Nantes (LS2N), chercheur en biologie des systèmes. Ils se sont rencontrés à la Nuit Blanche des Chercheur·es et travaillent ensemble depuis. Leur question : comment transformer des données biologiques en signaux sonores, pour rendre le vivant audible ?",
+        "À partir du séquençage des gènes exprimés de l’artiste, ils ont construit un avatar métabolique : un double numérique, un modèle de son métabolisme à l’échelle du génome. Le son entre dans le modèle comme une nourriture : il règle ce que la cellule absorbe. Le modèle, résolu par analyse de balance des flux (FBA), calcule alors comment la matière et l’énergie circulent dans les voies métaboliques, et ces flux deviennent du son.",
+        "Sur scène, c’est un duo avec soi-même : NSDOS joue, son avatar métabolique lui répond en temps réel. Le projet a été en résidence à Stereolux, à Nantes, et présenté en conférence performée à la Nuit Blanche des Chercheur·es, le 6 février 2025. Il se prolonge dans METABO, l’avatar métabolique de TEAMMATE.POTO."
+       ],
+       "reperes": [
+        [
+         "Forme",
+         "Conférence performée, entre concert et conférence"
+        ],
+        [
+         "Duo",
+         "NSDOS × Damien Eveillard (LS2N, Nantes Université)"
+        ],
+        [
+         "Données",
+         "Le séquençage des gènes exprimés de l’artiste"
+        ],
+        [
+         "Modèle",
+         "Un réseau métabolique à l’échelle du génome, résolu par analyse de balance des flux (FBA)"
+        ],
+        [
+         "Son",
+         "Le son nourrit le modèle ; les flux métaboliques deviennent musique"
+        ],
+        [
+         "Lieux",
+         "Résidence à Stereolux ; Nuit Blanche des Chercheur·es 2025, Nantes"
+        ],
+        [
+         "Prolongement",
+         "METABO, dans TEAMMATE.POTO"
+        ]
+       ],
+       "tags": [
+        "sonification",
+        "métabolisme",
+        "arts et sciences",
+        "IA et biologie"
+       ]
       }
      ]
     },
@@ -816,6 +864,54 @@
         "non-verbal"
        ],
        "objet": "/models/tripode.bin"
+      },
+      {
+       "id": "avatar",
+       "nom": "AVATAR MÉTABOLIQUE SONORE",
+       "sous": "Turning a body’s metabolism into an instrument",
+       "statut": "played on stage",
+       "video": "TbVlwrFNA8E",
+       "texte": [
+        "A project by NSDOS with Damien Eveillard, professor of computer science at the Laboratoire des Sciences du Numérique de Nantes (LS2N), a systems-biology researcher. They met at the Nuit Blanche des Chercheur·es and have worked together since. Their question: how do you turn biological data into sound signals, to make the living audible?",
+        "From the sequencing of the artist’s expressed genes, they built a metabolic avatar: a digital double, a genome-scale model of his metabolism. Sound enters the model as food: it sets what the cell takes in. The model, solved by flux balance analysis (FBA), then computes how matter and energy flow through the metabolic pathways, and those fluxes become sound.",
+        "On stage, it is a duet with oneself: NSDOS plays, his metabolic avatar answers in real time. The project was in residency at Stereolux, Nantes, and presented as a performed lecture at the Nuit Blanche des Chercheur·es on 6 February 2025. It continues in METABO, the metabolic avatar of TEAMMATE.POTO."
+       ],
+       "reperes": [
+        [
+         "Form",
+         "Performed lecture, between concert and talk"
+        ],
+        [
+         "Duo",
+         "NSDOS × Damien Eveillard (LS2N, Nantes Université)"
+        ],
+        [
+         "Data",
+         "Sequencing of the artist’s expressed genes"
+        ],
+        [
+         "Model",
+         "A genome-scale metabolic network, solved by flux balance analysis (FBA)"
+        ],
+        [
+         "Sound",
+         "Sound feeds the model; metabolic fluxes become music"
+        ],
+        [
+         "Venues",
+         "Residency at Stereolux; Nuit Blanche des Chercheur·es 2025, Nantes"
+        ],
+        [
+         "Continuation",
+         "METABO, in TEAMMATE.POTO"
+        ]
+       ],
+       "tags": [
+        "sonification",
+        "metabolism",
+        "art and science",
+        "AI and biology"
+       ]
       }
      ]
     },
