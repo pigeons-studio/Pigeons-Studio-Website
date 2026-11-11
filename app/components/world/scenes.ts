@@ -25,19 +25,19 @@ const TEXTES = {
       legende: [['css', 'LiDAR, zone, trajet'], ['or', 'son qui joue'], ['encre', 'robot Go2'], ['gris', 'grains de son']],
     },
 
-    connecter: 'connecter', modeJeu: 'lancé en mode Jeu, comme un jeu', ponts: ['contrôle · ws :8766', 'LiDAR · ws :8765', 'vidéo · WebRTC :8081'],
+    connecter: 'connecter', modeJeu: 'lancé en mode Jeu, comme un jeu', ponts: ['contrôle', 'LiDAR', 'vidéo'], surBilly: 'sur le dos de Billy', unite: 'unité',
     ordres: 'les ordres partent vers le robot', retours: 'la vidéo, le scan et la batterie reviennent',
     postures: ['debout', 'couché', 'équilibre', 'relever'], sticks: ['stick G avance · stick D tourne', 'stick G : de côté'],
-    camera: 'caméra', scan: 'scan 3D', scanGlyphes: 'le LiDAR scanne : chaque point s’écrit en glyphe As-Simt', visite: 'visite : les sticks déplacent le regard',
-    norns48: 'grains des Norns · 48 par unité', resonne: 'A : le Norns joue le grain, la matière résonne', horloge: 'horloge commune', relais: 'le Pi relaie en OSC',
+    camera: 'caméra', scan: 'scan 3D', scanGlyphes: 'dans les yeux de Billy : chaque surface touchée devient un glyphe', visite: 'visite : on prend de la hauteur',
+    norns48: 'TEAMMATE.POTO · 48 grains par unité', resonne: 'A : l’unité joue le grain, la matière résonne', horloge: 'horloge commune', relais: 'le Pi relaie en OSC',
     titresBi: ['LE DECK · LE PI · BILLY', 'CONDUIRE', 'VOIR', 'PADS · LES SONS DANS LE SCAN', 'SÉQUENCES'],
     billy: {
       etapes: ['Billy est un robot Unitree Go2. Sur son dos, un Raspberry Pi sert la page de pilotage : le Steam Deck n’a besoin que d’un navigateur. On lance BILLY depuis la bibliothèque Steam, en mode Jeu, comme un jeu.',
         'Le Deck devient télécommande : stick gauche pour avancer et aller de côté, stick droit pour tourner. A debout, B couché, X équilibre, Y relever, RT stop. Les ordres partent en Wi-Fi vers le Pi, qui les transmet au robot.',
-        'Billy renvoie ce qu’il voit : sa caméra, et le scan 3D de son LiDAR, écrit en glyphes As-Simt plutôt qu’en points. RB échange les deux vues ; LT lance la visite, et les sticks déplacent alors le regard dans le scan.',
-        'PADS : le Deck devient une MPC en 3D. Les grains de son des Norns (TEAMMATE, 48 par unité) s’accrochent aux surfaces que Billy a vues, un mur, une table, une couleur par unité. Un doigt dessus, ou A : le Norns joue le grain, et la matière autour résonne.',
-        'SÉQUENCES : sur le plan vu de dessus, on relie les sons en quatre séquences de 16 pas. Ce n’est pas le Deck qui joue : chaque Norns reçoit les séquences par le Pi et joue ses propres pas sur une horloge commune. Toutes les unités tombent ensemble.'],
-      legende: [['css', 'Deck, liaisons, scan'], ['or', 'son qui joue, bouton'], ['encre', 'Billy (Go2)'], ['#ff1fce', 'grains des Norns U1'], ['#b6ff00', 'U2'], ['#a24dff', 'U3']],
+        'Billy renvoie ce qu’il voit. On est dans ses yeux : à mesure qu’il avance dans les couloirs, chaque surface que touche son LiDAR s’écrit en glyphe As-Simt, et le monde se génère autour de lui. RB échange avec la caméra ; LT lance la visite : on quitte ses yeux et on prend de la hauteur pour voir tout le lieu.',
+        'PADS : le Deck devient une MPC en 3D. Les grains de son de TEAMMATE.POTO (48 par unité) s’accrochent aux surfaces que Billy a vues, un mur, une table : une couleur pour TEAMMATE.POTO unité 1, unité 2, unité 3. Un doigt dessus, ou A : l’unité joue le grain, et la matière autour résonne.',
+        'SÉQUENCES : sur le plan vu de dessus, on relie les sons en quatre séquences de 16 pas. Ce n’est pas le Deck qui joue : chaque unité TEAMMATE.POTO reçoit les séquences par le Pi et joue ses propres pas sur une horloge commune. Toutes les unités tombent ensemble.'],
+      legende: [['css', 'Deck, liaisons, scan'], ['or', 'son qui joue, bouton'], ['encre', 'Billy (Go2)'], ['#ff1fce', 'TEAMMATE.POTO unité 1'], ['#b6ff00', 'unité 2'], ['#a24dff', 'unité 3']],
     },
 
     gene: 'gène', nutriments: ['glucose', 'oxygène'], voies: ['glycolyse', 'respiration', 'croissance', 'fermentation'], produits: ['CO₂', 'lactate', 'énergie'],
@@ -115,19 +115,19 @@ const TEXTES = {
       legende: [['css', 'LiDAR, zone, path'], ['or', 'sound playing'], ['encre', 'Go2 robot'], ['gris', 'sound grains']],
     },
 
-    connecter: 'connect', modeJeu: 'launched in Game mode, like a game', ponts: ['control · ws :8766', 'LiDAR · ws :8765', 'video · WebRTC :8081'],
+    connecter: 'connect', modeJeu: 'launched in Game mode, like a game', ponts: ['control', 'LiDAR', 'video'], surBilly: 'on Billy’s back', unite: 'unit',
     ordres: 'commands go out to the robot', retours: 'video, scan and battery come back',
     postures: ['stand up', 'lie down', 'balance', 'recover'], sticks: ['left stick forward · right stick turn', 'left stick: sideways'],
-    camera: 'camera', scan: '3D scan', scanGlyphes: 'the LiDAR scans: each point is written as an As-Simt glyph', visite: 'tour: the sticks move the view',
-    norns48: 'Norns grains · 48 per unit', resonne: 'A: the Norns plays the grain, the matter resonates', horloge: 'shared clock', relais: 'the Pi relays as OSC',
+    camera: 'camera', scan: '3D scan', scanGlyphes: 'behind Billy’s eyes: every surface it touches becomes a glyph', visite: 'tour: rising above the place',
+    norns48: 'TEAMMATE.POTO · 48 grains per unit', resonne: 'A: the unit plays the grain, the matter resonates', horloge: 'shared clock', relais: 'the Pi relays as OSC',
     titresBi: ['THE DECK · THE PI · BILLY', 'DRIVING', 'SEEING', 'PADS · SOUNDS IN THE SCAN', 'SEQUENCES'],
     billy: {
       etapes: ['Billy is a Unitree Go2 robot. On its back, a Raspberry Pi serves the control page: the Steam Deck only needs a browser. BILLY is launched from the Steam library, in Game mode, like a game.',
         'The Deck becomes a remote: left stick to move forward and sideways, right stick to turn. A stand up, B lie down, X balance, Y recover, RT stop. Commands go over Wi-Fi to the Pi, which passes them to the robot.',
-        'Billy sends back what it sees: its camera, and the 3D scan from its LiDAR, written in As-Simt glyphs rather than dots. RB swaps the two views; LT starts the tour, and the sticks then move the view inside the scan.',
-        'PADS: the Deck becomes a 3D MPC. The Norns’ sound grains (TEAMMATE, 48 per unit) attach to the surfaces Billy has seen, a wall, a table, one colour per unit. A finger on one, or A: the Norns plays the grain, and the matter around it resonates.',
-        'SEQUENCES: on the top-down plan, you link sounds into four sequences of 16 steps. The Deck does not play them: each Norns receives the sequences through the Pi and plays its own steps on a shared clock. All units land together.'],
-      legende: [['css', 'Deck, links, scan'], ['or', 'sound playing, button'], ['encre', 'Billy (Go2)'], ['#ff1fce', 'Norns grains U1'], ['#b6ff00', 'U2'], ['#a24dff', 'U3']],
+        'Billy sends back what it sees. We are behind its eyes: as it moves down the corridors, every surface its LiDAR touches is written as an As-Simt glyph, and the world generates itself around it. RB swaps to the camera; LT starts the tour: we leave its eyes and rise to see the whole place.',
+        'PADS: the Deck becomes a 3D MPC. TEAMMATE.POTO’s sound grains (48 per unit) attach to the surfaces Billy has seen, a wall, a table: one colour for TEAMMATE.POTO unit 1, unit 2, unit 3. A finger on one, or A: the unit plays the grain, and the matter around it resonates.',
+        'SEQUENCES: on the top-down plan, you link sounds into four sequences of 16 steps. The Deck does not play them: each TEAMMATE.POTO unit receives the sequences through the Pi and plays its own steps on a shared clock. All units land together.'],
+      legende: [['css', 'Deck, links, scan'], ['or', 'sound playing, button'], ['encre', 'Billy (Go2)'], ['#ff1fce', 'TEAMMATE.POTO unit 1'], ['#b6ff00', 'unit 2'], ['#a24dff', 'unit 3']],
     },
 
     gene: 'gene', nutriments: ['glucose', 'oxygen'], voies: ['glycolysis', 'respiration', 'growth', 'fermentation'], produits: ['CO₂', 'lactate', 'energy'],
@@ -841,6 +841,58 @@ function go2Profil (ctx, x, y, s, css, debout = 1) {
   ctx.fillRect(x + 17 * s, y - hp - 12 * s, 9 * s, 8 * s); ctx.fillStyle = OR; ctx.fillRect(x + 24 * s, y - hp - 9 * s, 3 * s, 3 * s);
   ctx.fillStyle = css; ctx.fillRect(x - 10 * s, y - hp - 14 * s, 16 * s, 5 * s);
 }
+// le monde de Billy : des couloirs, des portes, des objets ; chaque surface que le LiDAR touche devient un glyphe
+const SPRITES = {};
+function sprite (g, couleur) {
+  const k = g + couleur; if (SPRITES[k]) return SPRITES[k];
+  const c = document.createElement('canvas'); c.width = 8; c.height = 8;
+  bits(c.getContext('2d'), SIG[g], 0, 0, 1, couleur); return (SPRITES[k] = c);
+}
+function mondeBilly (rnd) {
+  const cles = Object.keys(SIG); const pts = [];
+  const add = (x, y, z, surf) => pts.push({ x, y, z, surf, g: cles[Math.floor(rnd() * cles.length)], vu: -1 });
+  // trois pièces reliées par des portes : 12 m × 10 m, murs de 2,4 m
+  const murs = [[0, 0, 12, 0], [12, 0, 12, 10], [12, 10, 0, 10], [0, 10, 0, 0], [4, 0, 4, 6], [4, 8, 4, 10], [8, 0, 8, 2], [8, 4, 8, 10], [8, 5.5, 10.5, 5.5]];
+  for (const [x0, z0, x1, z1] of murs) { const n = Math.round(Math.hypot(x1 - x0, z1 - z0) / 0.32); for (let i = 0; i <= n; i++) { const u = i / n; for (let k = 0; k < 7; k++) add(x0 + (x1 - x0) * u, 0.15 + k * 0.34, z0 + (z1 - z0) * u, 'mur'); } }
+  for (let x = 0.3; x < 12; x += 0.6) for (let z = 0.3; z < 10; z += 0.6) add(x + (rnd() - 0.5) * 0.12, 0, z + (rnd() - 0.5) * 0.12, 'sol');
+  const boite = (cx, cz, lx, ly, lz) => {
+    for (let x = -lx / 2; x <= lx / 2 + 1e-6; x += 0.2) for (let z = -lz / 2; z <= lz / 2 + 1e-6; z += 0.2) add(cx + x, ly, cz + z, 'objet');
+    for (let y = 0.1; y < ly; y += 0.22) { for (let x = -lx / 2; x <= lx / 2 + 1e-6; x += 0.22) { add(cx + x, y, cz - lz / 2, 'objet'); add(cx + x, y, cz + lz / 2, 'objet'); } for (let z = -lz / 2; z <= lz / 2 + 1e-6; z += 0.22) { add(cx - lx / 2, y, cz + z, 'objet'); add(cx + lx / 2, y, cz + z, 'objet'); } }
+  };
+  boite(1.8, 2.2, 1.4, 0.75, 0.8); boite(2.8, 8.9, 0.5, 0.45, 0.5); boite(10.3, 8, 1, 0.9, 0.8); boite(11.1, 9, 0.6, 0.6, 0.6); boite(9.6, 0.6, 1.6, 1.1, 0.5);
+  for (let y = 0.1; y < 2.4; y += 0.24) for (let a = 0; a < 6.28; a += 0.55) add(6 + Math.cos(a) * 0.3, y, 5 + Math.sin(a) * 0.3, 'objet');
+  return pts;
+}
+// une caméra : position, point visé, champ ; renvoie la projection à l'écran
+function camera3d (pos, cible, w, h, fov) {
+  const dx = cible[0] - pos[0]; const dy = cible[1] - pos[1]; const dz = cible[2] - pos[2];
+  const yaw = Math.atan2(dx, dz); const pitch = Math.atan2(dy, Math.hypot(dx, dz));
+  const cy = Math.cos(yaw); const sy = Math.sin(yaw); const cp = Math.cos(pitch); const sp = Math.sin(pitch);
+  const f = h * 0.5 / Math.tan(fov / 2);
+  return { f, p: (x, y, z) => { const X = x - pos[0]; const Y = y - pos[1]; const Z = z - pos[2]; const x1 = X * cy - Z * sy; const z1 = X * sy + Z * cy; const y2 = Y * cp - z1 * sp; const z2 = Y * sp + z1 * cp; return z2 < 0.15 ? null : [w / 2 - f * x1 / z2, h / 2 - f * y2 / z2, z2]; } };
+}
+// dessine les glyphes du monde, du plus loin au plus proche, dans un brouillard
+function rendreMonde (ctx, cam, pts, t, css, o) {
+  const liste = [];
+  for (const p of pts) { if (!o.tout && p.vu < 0) continue; const q = cam.p(p.x, p.y, p.z); if (q) liste.push([q, p]); }
+  liste.sort((a, b) => b[0][2] - a[0][2]);
+  ctx.imageSmoothingEnabled = false;
+  for (const [[sx, sy, z], p] of liste) {
+    let s = Math.max(1.6, Math.min(13, cam.f * 0.085 / z)); let c = p.surf === 'mur' ? css : p.surf === 'objet' ? ENCRE : '#6f6c66';
+    let al = Math.max(0, Math.min(1, 1.25 - z / o.portee)) * (p.surf === 'sol' ? 0.6 : 1);
+    if (!o.tout && t - p.vu < 0.7) { const k = 1 - (t - p.vu) / 0.7; if (k > 0.6) c = OR; s *= 1 + k * 0.3; }
+    if (o.teinte) { const tt = o.teinte(p); if (tt) { c = tt[0]; al = Math.max(al, tt[1]); } }
+    if (al <= 0.02) continue;
+    ctx.globalAlpha = al; ctx.drawImage(sprite(p.g, c), sx - s / 2, sy - s / 2, s, s);
+  }
+  ctx.globalAlpha = 1;
+}
+// le trajet de Billy dans le lieu
+const CHEMIN = [[2, 9], [2.2, 7], [6, 7], [6, 3], [10, 3], [11.2, 4], [11.2, 7.5], [9.5, 9]];
+function surChemin (s) {
+  for (let i = 1; i < CHEMIN.length; i++) { const [ax, az] = CHEMIN[i - 1]; const [bx, bz] = CHEMIN[i]; const l = Math.hypot(bx - ax, bz - az); if (s <= l) return [ax + (bx - ax) * s / l, az + (bz - az) * s / l]; s -= l; }
+  return CHEMIN[CHEMIN.length - 1];
+}
 function billy (ctx, w, h, t, etat, css, L) {
   const total = BI_DUREES.reduce((a, b) => a + b, 0); let ph = t % total; let actif = 0;
   while (ph >= BI_DUREES[actif]) { ph -= BI_DUREES[actif]; actif++; }
@@ -849,35 +901,13 @@ function billy (ctx, w, h, t, etat, css, L) {
   if (!etat.init) {
     etat.init = true;
     let s = 5; const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
-    const cles = Object.keys(SIG);
-    // la pièce que Billy a scannée : le sol, deux murs, une table ; chaque point du scan est un glyphe
-    etat.pts = [];
-    const add = (x, y, z, surf) => etat.pts.push({ x, y, z, surf, g: cles[Math.floor(rnd() * cles.length)], lum: 0 });
-    for (let i = 0; i < 9; i++) for (let j = 0; j < 9; j++) add(i / 8, 0, j / 8, 'sol');
-    for (let i = 0; i < 9; i++) for (let k = 1; k < 6; k++) add(i / 8, k / 8, 0, 'mur1');
-    for (let j = 1; j < 9; j++) for (let k = 1; k < 6; k++) add(0, k / 8, j / 8, 'mur2');
-    for (let i = 0; i < 4; i++) for (let j = 0; j < 3; j++) add(0.5 + i / 12, 0.22, 0.45 + j / 12, 'table');
-    etat.ordre = etat.pts.map((_, i) => i).sort(() => rnd() - 0.5);
-    // les pads : un grain d'une unité accroché à une surface
-    const centres = [[0.3, 0.25, 0, 1, 7], [0.75, 0.38, 0, 2, 12], [0, 0.3, 0.55, 3, 3], [0.58, 0.22, 0.5, 1, 31], [0, 0.5, 0.2, 2, 18], [0.85, 0, 0.75, 3, 40]];
-    etat.pads = centres.map(([x, y, z, u, g]) => ({ x, y, z, u, g, v: 0 }));
-    etat.paquets = []; etat.ondes = [];
+    etat.monde = mondeBilly(rnd);
+    // les pads : un grain d'une unité TEAMMATE.POTO accroché à une surface (mètres)
+    etat.pads = [[1.8, 0.8, 2.2, 1, 7], [4, 1.4, 3, 2, 12], [6, 1.6, 5, 3, 3], [10.3, 0.95, 8, 1, 31], [12, 1.2, 2.5, 2, 18], [0, 1.0, 7.5, 3, 40]].map(([x, y, z, u, g]) => ({ x, y, z, u, g, v: 0 }));
+    etat.paquets = []; etat.ondes = []; etat.chemin = [];
   }
-  if (etat.dernier !== actif) { etat.dernier = actif; etat.rob = { x: 0.5, y: 0.6, a: -Math.PI / 2, debout: 0 }; etat.trace = []; etat.ondes = []; etat.cible = 0; etat.vise = -1; }
+  if (etat.dernier !== actif) { etat.dernier = actif; etat.rob = { x: 0.5, y: 0.6, a: -Math.PI / 2, debout: 0 }; etat.trace = []; etat.ondes = []; etat.cible = 0; etat.vise = -1; if (actif === 2) etat.chemin = []; }
   const e = { l: null, r: null, btn: null, trig: null };
-
-  // la projection de la pièce (en perspective cavalière), qui peut tourner pendant la visite
-  const proj = (p, cx, cy, k, yaw) => { const x = p.x - 0.5; const z = p.z - 0.5; const xr = x * Math.cos(yaw) - z * Math.sin(yaw); const zr = x * Math.sin(yaw) + z * Math.cos(yaw); return [cx + (xr - zr) * k * 0.87, cy + (xr + zr) * k * 0.5 - p.y * k * 1.1]; };
-  const piece = (cx, cy, k, yaw, vus, alpha, onde) => {
-    const px = Math.max(0.6, Math.min(1, k / 220));
-    for (let n = 0; n < vus; n++) {
-      const p = etat.pts[etat.ordre[n]]; const [x, y] = proj(p, cx, cy, k, yaw);
-      let c = p.surf === 'table' ? ENCRE : css; let al = alpha;
-      if (onde) { const d = Math.hypot(p.x - onde.x, p.y - onde.y, p.z - onde.z); const front = Math.abs(d - onde.r); if (front < 0.07) { c = OR; al = 1; } }
-      ctx.globalAlpha = al * (p.surf === 'sol' ? 0.55 : 0.9); bits(ctx, SIG[p.g], x - 4 * px, y - 4 * px, px, c);
-    }
-    ctx.globalAlpha = 1;
-  };
 
   if (actif === 0) {
     // 1 · Deck → Pi (Wi-Fi) → Go2 (Ethernet) ; la vidéo et le scan reviennent
@@ -889,7 +919,7 @@ function billy (ctx, w, h, t, etat, css, L) {
     const montrePi = lisse((ph - 2) / 1.5);
     ctx.globalAlpha = montrePi;
     ctx.strokeStyle = css; ctx.strokeRect(pix - 34, piy - 14, 68, 28); texte(ctx, 'RASPBERRY PI', pix, piy + 4, css, 9, 'center', '600 ');
-    texte(ctx, 'billy.local:8090', pix, piy - 22, GRIS, 9, 'center');
+    texte(ctx, L.surBilly, pix, piy - 22, GRIS, 9, 'center');
     L.ponts.forEach((p, i) => texte(ctx, p, pix, piy + 32 + i * 13, '#6f6c66', 9, 'center'));
     ctx.globalAlpha = 1;
     const gx = w * 0.82; const gy = h * 0.82;
@@ -900,7 +930,7 @@ function billy (ctx, w, h, t, etat, css, L) {
     ctx.setLineDash([3, 4]); ctx.strokeStyle = css; ctx.globalAlpha = montrePi * 0.7; ctx.beginPath(); ctx.moveTo(A[0], A[1]); ctx.quadraticCurveTo((A[0] + B[0]) / 2, A[1] - 30, B[0], B[1]); ctx.stroke();
     ctx.globalAlpha = montreGo * 0.7; ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(C[0], C[1]); ctx.lineTo(D[0], D[1]); ctx.stroke(); ctx.globalAlpha = 1;
     if (montrePi > 0.5) texte(ctx, 'Wi-Fi', (A[0] + B[0]) / 2, Math.min(A[1], B[1]) - 18, GRIS, 9, 'center', 'italic ');
-    if (montreGo > 0.5) texte(ctx, 'Ethernet · DDS', (C[0] + D[0]) / 2 + 8, (C[1] + D[1]) / 2, GRIS, 9, 'left', 'italic ');
+    if (montreGo > 0.5) texte(ctx, 'Ethernet', (C[0] + D[0]) / 2 + 8, (C[1] + D[1]) / 2, GRIS, 9, 'left', 'italic ');
     if (ph > 6 && Math.floor(t * 2) !== etat.tick) { etat.tick = Math.floor(t * 2); etat.paquets.push({ k: 0, aller: true }); if (ph > 9) etat.paquets.push({ k: 0, aller: false }); }
     etat.paquets = etat.paquets.filter((p) => (p.k += etat.dt * 0.6) < 1);
     for (const p of etat.paquets) {
@@ -931,52 +961,67 @@ function billy (ctx, w, h, t, etat, css, L) {
     steamDeck(ctx, dx, dy, W, css, e, (sx, sy, sw, sh) => { const mot = ordre.toUpperCase(); let tl = Math.max(7, sw * 0.07); ctx.font = `${tl}px 'IBM Plex Mono', monospace`; while (tl > 6 && ctx.measureText(mot).width > sw - 12) { tl -= 0.5; ctx.font = `${tl}px 'IBM Plex Mono', monospace`; } texte(ctx, mot, sx + sw / 2, sy + sh / 2 + 3, e.btn || e.trig ? OR : css, tl, 'center'); });
     texte(ctx, ordre, w / 2, h - 12, e.btn || e.trig ? OR : css, 10, 'center', 'italic ');
   } else if (actif === 2) {
-    // 3 · voir : la caméra et le scan LiDAR, écrit en glyphes ; RB échange ; LT visite
-    const camGrand = ph > 7 && ph < 12;
-    const visite = ph >= 12;
-    const vus = Math.floor(lisse(ph / 7) * etat.pts.length);
-    const yaw = visite ? Math.sin((ph - 12) * 0.35) * 0.9 : 0;
-    const camera = (x, y, cw, chh) => {
-      // la vraie caméra redessinée en aplats « façon simulation »
+    // 3 · voir : à la première personne, le monde s'écrit en glyphes à mesure que Billy avance ; puis on prend de la hauteur
+    if (etat.vuCycle !== Math.floor(t / total)) { etat.vuCycle = Math.floor(t / total); etat.monde.forEach((p) => { p.vu = -1; }); etat.chemin = []; etat.sDernier = null; }
+    const sb = ph * 1.05; const [bx, bz] = surChemin(sb); const [ax, az] = surChemin(sb + 1.6);
+    etat.chemin.push([bx, bz]); if (etat.chemin.length > 900) etat.chemin.shift();
+    // le LiDAR : ce qui est à portée et devant (ou autour, vu d'en haut) devient glyphe
+    const fx = ax - bx; const fz = az - bz; const fl = Math.hypot(fx, fz) || 1; let nouveaux = 0;
+    for (const p of etat.monde) { if (p.vu >= 0) continue; const dx = p.x - bx; const dz = p.z - bz; const d = Math.hypot(dx, dz); if (d < 5.2 && (dx * fx + dz * fz) / fl > -0.4 * d && nouveaux < 70) { p.vu = t; nouveaux++; } }
+    // rattrapage : si l'image a sauté, ce que Billy a croisé en chemin est déjà scanné
+    for (let s2 = (etat.sDernier ?? sb) + 0.6; s2 < sb - 0.6; s2 += 0.6) { const [cx2, cz2] = surChemin(s2); for (const p of etat.monde) if (p.vu < 0 && Math.hypot(p.x - cx2, p.z - cz2) < 4) p.vu = t - 1; }
+    etat.sDernier = sb;
+    const k = lisse((ph - 11) / 4.5);
+    const mix = (a, b) => a.map((v, i) => v + (b[i] - v) * k);
+    const pos = mix([bx, 0.6, bz], [6, 12.5, 17]); const cible = mix([ax, 0.35, az], [6, 0, 4.6]);
+    const cam = camera3d(pos, cible, w, h, 1.25 - 0.4 * k);
+    rendreMonde(ctx, cam, etat.monde, t, css, { portee: 7 + 18 * k });
+    // les rayons du LiDAR vers les glyphes qui viennent de naître
+    if (k < 0.3) { ctx.strokeStyle = css; ctx.globalAlpha = 0.18; ctx.beginPath(); let n = 0; for (const p of etat.monde) { if (t - p.vu < 0.12 && n < 24) { const q = cam.p(p.x, p.y, p.z); if (q) { ctx.moveTo(w / 2, h * 0.98); ctx.lineTo(q[0], q[1]); n++; } } } ctx.stroke(); ctx.globalAlpha = 1; }
+    // vu d'en haut : Billy et son trajet
+    if (k > 0.3) {
+      ctx.strokeStyle = css; ctx.globalAlpha = 0.5 * k; ctx.beginPath(); let premier = true; for (const [x, z] of etat.chemin) { const q = cam.p(x, 0.05, z); if (!q) continue; premier ? ctx.moveTo(q[0], q[1]) : ctx.lineTo(q[0], q[1]); premier = false; } ctx.stroke(); ctx.globalAlpha = 1;
+      const q = cam.p(bx, 0.3, bz); if (q) { go2Dessus(ctx, q[0], q[1], Math.atan2(az - bz, ax - bx) * 0.5, 0.9); texte(ctx, 'BILLY', q[0], q[1] - 12, ENCRE, 9, 'center', '600 '); }
+    }
+    // la vraie caméra, en vignette, quand on est dans ses yeux
+    if (k < 0.5) {
       const PAL = ['#c8beaa', '#5a5046', '#2858dc', '#e6e6f0', '#e63c3c', '#f0c83c', '#28be78', '#00c8ff'];
-      const n = 14; const m = Math.round(n * chh / cw); const cs = cw / n;
-      for (let i = 0; i < n; i++) for (let j = 0; j < m; j++) { const k = j < m * 0.45 ? (i < n * 0.3 ? 3 : i > n * 0.75 ? 2 : 0) : j > m * 0.8 ? 1 : (i > n * 0.4 && i < n * 0.65 && j < m * 0.7 ? 4 : 0); ctx.fillStyle = PAL[(k + ((i + j + Math.floor(t * 0.5)) % 7 === 0 ? 5 : 0)) % PAL.length]; ctx.globalAlpha = 0.85; ctx.fillRect(x + i * cs, y + j * cs, cs - 0.5, cs - 0.5); }
-      ctx.globalAlpha = 1; ctx.strokeStyle = GRIS; ctx.strokeRect(x + 0.5, y + 0.5, cw - 1, chh - 1); texte(ctx, L.camera, x + 4, y + chh - 4, '#000', 9, 'left', '600 ');
-    };
-    const k = Math.min(w / 1.9, (h - 80) / 1.75); const cyS = 44 + k * 1.2;
-    if (camGrand) { camera(pad + 20, 40, w - pad * 2 - 40, h - 90); ctx.fillStyle = '#000'; ctx.fillRect(w - pad - 120, h - 120, 110, 80); ctx.strokeStyle = GRIS; ctx.strokeRect(w - pad - 120, h - 120, 110, 80); piece(w - pad - 65, h - 70, 60, 0, vus, 0.8); texte(ctx, L.scan, w - pad - 116, h - 108, css, 8); }
-    else { piece(w / 2, cyS, k, yaw, vus, 1); camera(w - pad - 110, 36, 100, 64); }
-    if (!camGrand) { const [rx, ry] = proj({ x: 0.5, y: 0, z: 0.6 }, w / 2, cyS, k, yaw); go2Dessus(ctx, rx, ry, -Math.PI / 4, 0.9); }
-    const etiquette = ph < 7 ? L.scanGlyphes : camGrand ? 'RB ⇄ ' + L.camera : 'LT · ' + L.visite;
-    texte(ctx, etiquette, pad, h - 12, ph >= 7 ? OR : css, 10);
+      const cw = 96; const chh = 60; const x = w - pad - cw; const y = 34; const n = 12; const cs = cw / n; const m = Math.round(chh / cs);
+      ctx.globalAlpha = 1 - k * 2;
+      for (let i = 0; i < n; i++) for (let j = 0; j < m; j++) { const c = j < m * 0.45 ? (i < n * 0.3 ? 3 : i > n * 0.75 ? 2 : 0) : j > m * 0.8 ? 1 : (i > n * 0.4 && i < n * 0.65 && j < m * 0.7 ? 4 : 0); ctx.fillStyle = PAL[(c + ((i + j + Math.floor(t * 0.5)) % 7 === 0 ? 5 : 0)) % PAL.length]; ctx.fillRect(x + i * cs, y + j * cs, cs - 0.5, cs - 0.5); }
+      ctx.strokeStyle = GRIS; ctx.strokeRect(x + 0.5, y + 0.5, cw - 1, chh - 1); texte(ctx, 'RB · ' + L.camera, x, y + chh + 12, GRIS, 9); ctx.globalAlpha = 1;
+    }
+    texte(ctx, k < 0.5 ? L.scanGlyphes : 'LT · ' + L.visite, pad, h - 12, k < 0.5 ? css : OR, 10);
   } else if (actif === 3) {
-    // 4 · pads : les grains des Norns accrochés aux surfaces ; le viseur, A, la matière résonne
-    const k = Math.min(w / 1.9, (h - 80) / 1.75); const cx = w / 2; const cy = 44 + k * 1.2;
-    // le viseur passe d'un pad à l'autre ; à chaque arrivée, A joue le grain
+    // 4 · pads : on tourne lentement dans le lieu ; les grains de TEAMMATE.POTO habitent les surfaces
+    const a = 0.6 + ph * 0.05;
+    const cam = camera3d([6 + Math.cos(a) * 9.5, 9, 5 + Math.sin(a) * 8.5], [6, 0.3, 5], w, h, 1.0);
     const per = 3.2; const idx = Math.floor(ph / per) % etat.pads.length; const u = (ph % per) / per;
-    const a = etat.pads[(idx + etat.pads.length - 1) % etat.pads.length]; const b = etat.pads[idx];
-    const m = lisse(u / 0.45); const vise = { x: a.x + (b.x - a.x) * m, y: a.y + (b.y - a.y) * m, z: a.z + (b.z - a.z) * m };
-    if (u > 0.5 && etat.vise !== idx + Math.floor(ph / per) * 10) { etat.vise = idx + Math.floor(ph / per) * 10; b.v = 1; etat.ondes.push({ x: b.x, y: b.y, z: b.z, r: 0 }); }
-    etat.ondes = etat.ondes.filter((o) => (o.r += etat.dt * 0.35) < 0.7);
-    piece(cx, cy, k, 0, etat.pts.length, 0.35, etat.ondes[etat.ondes.length - 1]);
-    etat.pads.forEach((p) => {
-      p.v = Math.max(0, p.v - etat.dt * 0.8);
-      const [x, y] = proj(p, cx, cy, k, 0); const c = UNITES[p.u]; const respire = 0.6 + 0.4 * Math.sin(t * 2 + p.g);
-      ctx.fillStyle = c; ctx.globalAlpha = 0.25 + 0.35 * respire + p.v * 0.4; ctx.beginPath(); ctx.ellipse(x, y, 16 + p.v * 8, 9 + p.v * 5, 0, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
-      texte(ctx, String(p.u).padStart(2, '0') + String(p.g).padStart(2, '0'), x, y - 14, p.v > 0.1 ? OR : c, 9, 'center');
-    });
-    const [vx, vy] = proj(vise, cx, cy, k, 0);
-    ctx.strokeStyle = ENCRE; ctx.beginPath(); ctx.moveTo(vx - 12, vy); ctx.lineTo(vx - 4, vy); ctx.moveTo(vx + 4, vy); ctx.lineTo(vx + 12, vy); ctx.moveTo(vx, vy - 12); ctx.lineTo(vx, vy - 4); ctx.moveTo(vx, vy + 4); ctx.lineTo(vx, vy + 12); ctx.stroke();
-    if (u > 0.5 && u < 0.75) texte(ctx, 'A', vx + 14, vy - 8, OR, 11, 'left', '600 ');
-    [1, 2, 3].forEach((n, i) => { ctx.fillStyle = UNITES[n]; ctx.fillRect(w - pad - 96 + i * 32, 30, 8, 8); texte(ctx, 'U' + n, w - pad - 84 + i * 32, 38, GRIS, 9); });
+    const pa = etat.pads[(idx + etat.pads.length - 1) % etat.pads.length]; const pb = etat.pads[idx];
+    if (u > 0.5 && etat.vise !== Math.floor(ph / per)) { etat.vise = Math.floor(ph / per); pb.v = 1; etat.ondes.push({ x: pb.x, y: pb.y, z: pb.z, r: 0 }); }
+    etat.ondes = etat.ondes.filter((o) => (o.r += etat.dt * 1.6) < 3.2);
+    const onde = etat.ondes[etat.ondes.length - 1];
+    rendreMonde(ctx, cam, etat.monde, t, css, { tout: true, portee: 16, teinte: (p) => {
+      if (onde) { const d = Math.hypot(p.x - onde.x, p.y - onde.y, p.z - onde.z); if (Math.abs(d - onde.r) < 0.28) return [OR, 1]; }
+      for (const q of etat.pads) { if (Math.abs(p.x - q.x) < 0.6 && Math.abs(p.z - q.z) < 0.6 && Math.abs(p.y - q.y) < 0.6) return [UNITES[q.u], 0.5 + 0.4 * Math.sin(t * 2 + q.g) + q.v * 0.3]; }
+      return null;
+    } });
+    etat.pads.forEach((p) => { p.v = Math.max(0, p.v - etat.dt * 0.8); const q = cam.p(p.x, p.y + 0.5, p.z); if (q) texte(ctx, String(p.u).padStart(2, '0') + String(p.g).padStart(2, '0'), q[0], q[1], p.v > 0.1 ? OR : UNITES[p.u], 10, 'center', '600 '); });
+    const qa = cam.p(pa.x, pa.y, pa.z); const qb = cam.p(pb.x, pb.y, pb.z);
+    if (qa && qb) {
+      const m = lisse(u / 0.45); const vx = qa[0] + (qb[0] - qa[0]) * m; const vy = qa[1] + (qb[1] - qa[1]) * m;
+      ctx.strokeStyle = ENCRE; ctx.beginPath(); ctx.moveTo(vx - 14, vy); ctx.lineTo(vx - 5, vy); ctx.moveTo(vx + 5, vy); ctx.lineTo(vx + 14, vy); ctx.moveTo(vx, vy - 14); ctx.lineTo(vx, vy - 5); ctx.moveTo(vx, vy + 5); ctx.lineTo(vx, vy + 14); ctx.stroke();
+      if (u > 0.5 && u < 0.75) texte(ctx, 'A', vx + 16, vy - 8, OR, 11, 'left', '600 ');
+    }
+    [1, 2, 3].forEach((n, i) => { ctx.fillStyle = UNITES[n]; ctx.fillRect(w - pad - 150 + i * 52, 30, 8, 8); texte(ctx, L.unite + ' ' + n, w - pad - 138 + i * 52, 38, GRIS, 9); });
     texte(ctx, L.norns48, w - pad, 54, GRIS, 9, 'right');
     texte(ctx, L.resonne, pad, h - 12, OR, 10);
   } else {
     // 5 · séquences : le plan vu de dessus, des liens entre les sons, une impulsion à l'horloge commune
-    const x0 = pad + 30; const y0 = 44; const S = Math.min(w - pad * 2 - 140, h - 110);
-    const P = (p) => [x0 + p.x * S, y0 + p.z * S];
-    etat.pts.forEach((p) => { if (p.surf === 'sol') return; const [x, y] = P(p); ctx.fillStyle = p.surf === 'table' ? '#6f6c66' : SOMBRE; ctx.fillRect(x - 1.5, y - 1.5, 3, 3); });
-    ctx.strokeStyle = SOMBRE; ctx.strokeRect(x0, y0, S, S);
+    const x0 = pad + 30; const y0 = 44; const S = Math.min(w - pad * 2 - 180, (h - 110) * 1.2);
+    const P = (p) => [x0 + p.x / 12 * S, y0 + p.z / 12 * S];
+    etat.monde.forEach((p) => { if (p.surf === 'sol' || (p.surf === 'mur' && p.y > 0.2)) return; const [x, y] = P(p); ctx.fillStyle = p.surf === 'objet' ? '#6f6c66' : '#3c3b38'; ctx.fillRect(x - 1, y - 1, 2, 2); });
+    ctx.strokeStyle = SOMBRE; ctx.strokeRect(x0, y0, S, S * 10 / 12);
     const seqA = [0, 3, 1, 5, 2, 4];
     const bpm = 120; const temps = t * bpm / 60; const pas = Math.floor(temps) % seqA.length; const fr = temps % 1;
     const nLie = Math.min(seqA.length, 1 + Math.floor(ph / 1.8));
@@ -992,10 +1037,10 @@ function billy (ctx, w, h, t, etat, css, L) {
     for (let i = 0; i < 16; i++) { const on = joue && i % seqA.length === pas && i < seqA.length; ctx.fillStyle = i < nLie ? (on ? OR : UNITES[etat.pads[seqA[i]].u]) : SOMBRE; ctx.globalAlpha = i < nLie && !on ? 0.5 : 1; ctx.fillRect(x0 + 16 + i * (cw + 3), h - 40, cw, 12); }
     ctx.globalAlpha = 1;
     // les Norns, chacun joue ses pas
-    const nx = w - pad - 100;
-    [1, 2, 3].forEach((n, i) => { const on = joue && etat.pads[seqA[pas]].u === n && fr < 0.5; const y = 60 + i * 40; ctx.strokeStyle = on ? OR : UNITES[n]; ctx.strokeRect(nx, y, 86, 26); texte(ctx, 'NORNS U' + n, nx + 43, y + 17, on ? OR : UNITES[n], 9, 'center', '600 '); });
-    texte(ctx, L.horloge + ' · ' + bpm + ' BPM', nx + 86, 60 + 3 * 40 + 6, GRIS, 9, 'right');
-    texte(ctx, L.relais, nx + 86, 60 + 3 * 40 + 20, '#6f6c66', 9, 'right');
+    const nx = w - pad - 108;
+    [1, 2, 3].forEach((n, i) => { const on = joue && etat.pads[seqA[pas]].u === n && fr < 0.5; const y = 60 + i * 40; ctx.strokeStyle = on ? OR : UNITES[n]; ctx.strokeRect(nx, y, 94, 32); texte(ctx, 'TEAMMATE.POTO', nx + 47, y + 13, on ? OR : UNITES[n], 9, 'center', '600 '); texte(ctx, L.unite + ' ' + n, nx + 47, y + 26, on ? OR : UNITES[n], 9, 'center'); });
+    texte(ctx, L.horloge + ' · ' + bpm + ' BPM', nx + 94, 60 + 3 * 40 + 6, GRIS, 9, 'right');
+    texte(ctx, L.relais, nx + 94, 60 + 3 * 40 + 20, '#6f6c66', 9, 'right');
   }
   texte(ctx, L.titresBi[actif], pad, 20, css, 11, 'left', '600 ');
   return { info: L.billy, actif };

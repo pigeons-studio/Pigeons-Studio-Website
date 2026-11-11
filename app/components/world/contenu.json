@@ -707,7 +707,7 @@
        "texte": [
         "BILLY // STEAM DECK transforme le Steam Deck en télécommande et en instrument pour Billy, un robot quadrupède Unitree Go2. C’est la version de poche de systema8os.xt : mêmes briques (le pilotage, le scan LiDAR, sa vue en 3D), sans ordinateur. Un Raspberry Pi monté sur le robot sert la page ; le Deck l’ouvre en plein écran, lancé depuis la bibliothèque Steam en mode Jeu, comme un jeu.",
         "Les deux sticks conduisent : avancer, aller de côté, tourner. Les boutons font changer Billy de posture (debout, couché, équilibre, relever), RT l’arrête net, la croix règle sa lumière. Le Deck reçoit en retour la caméra du robot, qu’on peut redessiner en aplats « façon simulation », et le scan 3D de son LiDAR, écrit en glyphes As-Simt plutôt qu’en points. RB échange les deux vues ; LT lance une visite où les sticks déplacent le regard dans le scan.",
-        "Le Deck devient aussi une MPC en 3D. Les grains de son des Norns de TEAMMATE s’accrochent aux surfaces que Billy a vues : un pan de mur, le dessus d’une table, un objet reconnu. Un doigt dessus, et le Norns joue le grain pendant que la matière autour résonne. Sur un plan vu de dessus, on relie ces sons en quatre séquences de seize pas ; chaque Norns joue ses propres pas sur une horloge commune, et toutes les unités tombent ensemble."
+        "Le Deck devient aussi une MPC en 3D. Les grains de son de TEAMMATE.POTO s’accrochent aux surfaces que Billy a vues : un pan de mur, le dessus d’une table, un objet reconnu, avec une couleur pour TEAMMATE.POTO unité 1, unité 2, unité 3. Un doigt dessus, et l’unité joue le grain pendant que la matière autour résonne. Sur un plan vu de dessus, on relie ces sons en quatre séquences de seize pas ; chaque unité TEAMMATE.POTO joue ses propres pas sur une horloge commune, et toutes les unités tombent ensemble."
        ],
        "reperes": [
         [
@@ -732,15 +732,15 @@
         ],
         [
          "Pads",
-         "Les grains des Norns accrochés aux surfaces du scan, une couleur par unité"
+         "Les grains de TEAMMATE.POTO accrochés aux surfaces du scan, une couleur par unité (unité 1, 2, 3)"
         ],
         [
          "Séquences",
-         "Quatre séquences de 16 pas, jouées par les Norns sur une horloge commune"
+         "Quatre séquences de 16 pas, jouées par les unités TEAMMATE.POTO sur une horloge commune"
         ],
         [
          "Liens",
-         "Version de poche de systema8os.xt ; joue le corpus de TEAMMATE (OSC)"
+         "Version de poche de systema8os.xt ; joue le corpus de TEAMMATE.POTO (OSC)"
         ],
         [
          "Technique",
@@ -1488,7 +1488,7 @@
        "texte": [
         "BILLY // STEAM DECK turns the Steam Deck into a remote and an instrument for Billy, a Unitree Go2 quadruped robot. It is the pocket version of systema8os.xt: the same building blocks (steering, the LiDAR scan, its 3D view), with no computer. A Raspberry Pi mounted on the robot serves the page; the Deck opens it full screen, launched from the Steam library in Game mode, like a game.",
         "The two sticks drive: forward, sideways, turning. The buttons change Billy’s posture (stand up, lie down, balance, recover), RT stops it dead, the d-pad sets its light. In return the Deck receives the robot’s camera, which can be redrawn in flat “simulation” colours, and the 3D scan from its LiDAR, written in As-Simt glyphs rather than dots. RB swaps the two views; LT starts a tour where the sticks move the view inside the scan.",
-        "The Deck also becomes a 3D MPC. The sound grains of TEAMMATE’s Norns attach to the surfaces Billy has seen: a stretch of wall, a tabletop, a recognised object. A finger on one, and the Norns plays the grain while the matter around it resonates. On a top-down plan, you link these sounds into four sequences of sixteen steps; each Norns plays its own steps on a shared clock, and all units land together."
+        "The Deck also becomes a 3D MPC. TEAMMATE.POTO’s sound grains attach to the surfaces Billy has seen: a stretch of wall, a tabletop, a recognised object, with one colour for TEAMMATE.POTO unit 1, unit 2, unit 3. A finger on one, and the unit plays the grain while the matter around it resonates. On a top-down plan, you link these sounds into four sequences of sixteen steps; each TEAMMATE.POTO unit plays its own steps on a shared clock, and all units land together."
        ],
        "reperes": [
         [
@@ -1513,15 +1513,15 @@
         ],
         [
          "Pads",
-         "The Norns’ grains attached to surfaces in the scan, one colour per unit"
+         "TEAMMATE.POTO’s grains attached to surfaces in the scan, one colour per unit (unit 1, 2, 3)"
         ],
         [
          "Sequences",
-         "Four 16-step sequences, played by the Norns on a shared clock"
+         "Four 16-step sequences, played by the TEAMMATE.POTO units on a shared clock"
         ],
         [
          "Links",
-         "Pocket version of systema8os.xt; plays TEAMMATE’s corpus (OSC)"
+         "Pocket version of systema8os.xt; plays TEAMMATE.POTO’s corpus (OSC)"
         ],
         [
          "Tech",
