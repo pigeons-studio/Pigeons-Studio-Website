@@ -651,7 +651,7 @@
        "texte": [
         "systema8os.xt a été fait pour travailler avec les robots quadrupèdes Unitree Go2 : il transforme leurs déplacements en spatialisation sonore. Le robot devient à la fois une source et un curseur de son, qui marche dans l’espace réel. C’est le logiciel de la performance CAVE // FOUR ROBOTS : il fait jouer les quatre robots dans la grotte.",
         "Le logiciel relie la carte du lieu et la carte du son. Le LiDAR du robot scanne la salle et construit, au fil des passages, une carte de ses obstacles. Les sons, eux, sont découpés en grains, analysés et rangés selon leur timbre et leur hauteur. Ensuite, deux modes. Dans le premier, les grains sont dispersés dans l’espace : soit dans une zone bien définie, tracée avec des balises, soit dans tout l’espace scanné. Le robot qui les traverse les fait jouer. Dans le second, on attribue des sons précis à des endroits choisis : quand le robot y passe, ce son-là se déclenche. Dans les deux cas, le son suit sa position, en stéréo ou en binaural.",
-        "On pilote le robot à la manette ou au clavier, on enregistre et rejoue ses trajectoires, on le laisse errer seul dans une zone de sécurité tracée à la souris, ou on le guide à la voix : il rejoint le son le plus proche de ce qu’on chante. Sa caméra reconnaît les objets et les mouvements du corps. Sa position part en OSC vers TEAMMATE, qui la reçoit comme un capteur de plus. Autour, tout un instrument granulaire : capture du micro, de la caméra ou d’une fenêtre, analyse en temps réel, sorties MIDI."
+        "On pilote le robot à la manette ou au clavier, on enregistre et rejoue ses trajectoires, on le laisse errer seul dans une zone de sécurité tracée à la souris, ou on le guide à la voix : il rejoint le son le plus proche de ce qu’on chante. Sa caméra reconnaît les objets et les mouvements du corps. Sa position part en OSC vers TEAMMATE, qui la reçoit comme un capteur de plus. Autour, tout un instrument granulaire : capture du micro, de la caméra ou d’une fenêtre, analyse en temps réel, sorties MIDI. Pour le piloter sans ordinateur, il a sa version de poche sur Steam Deck : BILLY // STEAM DECK."
        ],
        "reperes": [
         [
@@ -696,6 +696,62 @@
         "Unitree Go2",
         "LiDAR",
         "granulaire",
+        "OSC"
+       ]
+      },
+      {
+       "id": "billy",
+       "nom": "BILLY // STEAM DECK",
+       "sous": "Piloter le robot Billy et jouer le lieu, depuis le Steam Deck",
+       "statut": "en cours",
+       "texte": [
+        "BILLY // STEAM DECK transforme le Steam Deck en télécommande et en instrument pour Billy, un robot quadrupède Unitree Go2. C’est la version de poche de systema8os.xt : mêmes briques (le pilotage, le scan LiDAR, sa vue en 3D), sans ordinateur. Un Raspberry Pi monté sur le robot sert la page ; le Deck l’ouvre en plein écran, lancé depuis la bibliothèque Steam en mode Jeu, comme un jeu.",
+        "Les deux sticks conduisent : avancer, aller de côté, tourner. Les boutons font changer Billy de posture (debout, couché, équilibre, relever), RT l’arrête net, la croix règle sa lumière. Le Deck reçoit en retour la caméra du robot, qu’on peut redessiner en aplats « façon simulation », et le scan 3D de son LiDAR, écrit en glyphes As-Simt plutôt qu’en points. RB échange les deux vues ; LT lance une visite où les sticks déplacent le regard dans le scan.",
+        "Le Deck devient aussi une MPC en 3D. Les grains de son des Norns de TEAMMATE s’accrochent aux surfaces que Billy a vues : un pan de mur, le dessus d’une table, un objet reconnu. Un doigt dessus, et le Norns joue le grain pendant que la matière autour résonne. Sur un plan vu de dessus, on relie ces sons en quatre séquences de seize pas ; chaque Norns joue ses propres pas sur une horloge commune, et toutes les unités tombent ensemble."
+       ],
+       "reperes": [
+        [
+         "Rôle",
+         "Piloter le robot Billy et jouer avec le lieu qu’il scanne"
+        ],
+        [
+         "Robot",
+         "Billy, Unitree Go2 : LiDAR, caméra, postures, lumière"
+        ],
+        [
+         "Matériel",
+         "Steam Deck en mode Jeu ; Raspberry Pi embarqué sur le robot"
+        ],
+        [
+         "Pilotage",
+         "Deux sticks, postures aux boutons, arrêt d’urgence sur RT, conduite au doigt"
+        ],
+        [
+         "Vues",
+         "Caméra (ou texture « simulation ») et scan 3D en glyphes, visite libre"
+        ],
+        [
+         "Pads",
+         "Les grains des Norns accrochés aux surfaces du scan, une couleur par unité"
+        ],
+        [
+         "Séquences",
+         "Quatre séquences de 16 pas, jouées par les Norns sur une horloge commune"
+        ],
+        [
+         "Liens",
+         "Version de poche de systema8os.xt ; joue le corpus de TEAMMATE (OSC)"
+        ],
+        [
+         "Technique",
+         "Page web servie par le robot : JavaScript, Three.js, WebSocket, WebRTC, OSC"
+        ]
+       ],
+       "tags": [
+        "Steam Deck",
+        "Unitree Go2",
+        "LiDAR",
+        "pads 3D",
         "OSC"
        ]
       }
@@ -1376,7 +1432,7 @@
        "texte": [
         "systema8os.xt was made to work with Unitree Go2 quadruped robots: it turns their movements into sound spatialisation. The robot becomes both a source and a cursor of sound, walking through real space. It is the software behind the CAVE // FOUR ROBOTS performance: it makes the four robots play in the cave.",
         "The software links the map of the venue and the map of sound. The robot’s LiDAR scans the room and builds, pass after pass, a map of its obstacles. Sounds are cut into grains, analysed and sorted by timbre and pitch. Then come two modes. In the first, the grains are scattered through space: either inside a clearly defined zone drawn with beacons, or across the whole scanned space. The robot crossing them plays them. In the second, you assign specific sounds to chosen spots: when the robot passes, that sound is triggered. Either way, the sound follows its position, in stereo or binaural.",
-        "You steer the robot with a gamepad or the keyboard, record and replay its paths, let it wander alone inside a safety zone drawn with the mouse, or guide it with your voice: it heads for the sound closest to what you sing. Its camera recognises objects and body movement. Its position goes out as OSC to TEAMMATE, which receives it as one more sensor. Around it, a whole granular instrument: capture from the microphone, camera or a window, real-time analysis, MIDI outputs."
+        "You steer the robot with a gamepad or the keyboard, record and replay its paths, let it wander alone inside a safety zone drawn with the mouse, or guide it with your voice: it heads for the sound closest to what you sing. Its camera recognises objects and body movement. Its position goes out as OSC to TEAMMATE, which receives it as one more sensor. Around it, a whole granular instrument: capture from the microphone, camera or a window, real-time analysis, MIDI outputs. To steer it with no computer, it has a pocket version on the Steam Deck: BILLY // STEAM DECK."
        ],
        "reperes": [
         [
@@ -1421,6 +1477,62 @@
         "Unitree Go2",
         "LiDAR",
         "granular",
+        "OSC"
+       ]
+      },
+      {
+       "id": "billy",
+       "nom": "BILLY // STEAM DECK",
+       "sous": "Steering the robot Billy and playing the place, from the Steam Deck",
+       "statut": "in progress",
+       "texte": [
+        "BILLY // STEAM DECK turns the Steam Deck into a remote and an instrument for Billy, a Unitree Go2 quadruped robot. It is the pocket version of systema8os.xt: the same building blocks (steering, the LiDAR scan, its 3D view), with no computer. A Raspberry Pi mounted on the robot serves the page; the Deck opens it full screen, launched from the Steam library in Game mode, like a game.",
+        "The two sticks drive: forward, sideways, turning. The buttons change Billy’s posture (stand up, lie down, balance, recover), RT stops it dead, the d-pad sets its light. In return the Deck receives the robot’s camera, which can be redrawn in flat “simulation” colours, and the 3D scan from its LiDAR, written in As-Simt glyphs rather than dots. RB swaps the two views; LT starts a tour where the sticks move the view inside the scan.",
+        "The Deck also becomes a 3D MPC. The sound grains of TEAMMATE’s Norns attach to the surfaces Billy has seen: a stretch of wall, a tabletop, a recognised object. A finger on one, and the Norns plays the grain while the matter around it resonates. On a top-down plan, you link these sounds into four sequences of sixteen steps; each Norns plays its own steps on a shared clock, and all units land together."
+       ],
+       "reperes": [
+        [
+         "Role",
+         "Steering the robot Billy and playing with the place it scans"
+        ],
+        [
+         "Robot",
+         "Billy, Unitree Go2: LiDAR, camera, postures, light"
+        ],
+        [
+         "Hardware",
+         "Steam Deck in Game mode; Raspberry Pi on board the robot"
+        ],
+        [
+         "Steering",
+         "Two sticks, postures on the buttons, emergency stop on RT, touch driving"
+        ],
+        [
+         "Views",
+         "Camera (or “simulation” texture) and 3D scan in glyphs, free tour"
+        ],
+        [
+         "Pads",
+         "The Norns’ grains attached to surfaces in the scan, one colour per unit"
+        ],
+        [
+         "Sequences",
+         "Four 16-step sequences, played by the Norns on a shared clock"
+        ],
+        [
+         "Links",
+         "Pocket version of systema8os.xt; plays TEAMMATE’s corpus (OSC)"
+        ],
+        [
+         "Tech",
+         "Web page served by the robot: JavaScript, Three.js, WebSocket, WebRTC, OSC"
+        ]
+       ],
+       "tags": [
+        "Steam Deck",
+        "Unitree Go2",
+        "LiDAR",
+        "3D pads",
         "OSC"
        ]
       }

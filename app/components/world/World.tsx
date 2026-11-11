@@ -406,6 +406,7 @@ const NOMS_PROJETS: [string, string][] = [
   ['SYSTEMA8OS.XT', 'systema'], ['systema8os.xt', 'systema'], ['TRIPODE AS-SIMT', 'tripode'], ['tripode AS-SIMT', 'tripode'],
   ['Langue des images', 'langue'], ['Language of images', 'langue'],
   ['AVATAR MÉTABOLIQUE SONORE', 'avatar'], ['Avatar métabolique sonore', 'avatar'], ['Sonic Metabolic Avatar', 'avatar'],
+  ['BILLY // STEAM DECK', 'billy'],
 ];
 const MOTIF_PROJETS = new RegExp('(' + NOMS_PROJETS.map(([n]) => n.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')).join('|') + ')', 'g');
 function Lie({ texte, ici, aller, locale }: { texte: string; ici: string; aller: (id: string) => void; locale: Locale }) {

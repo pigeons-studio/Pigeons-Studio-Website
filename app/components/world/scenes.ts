@@ -25,6 +25,21 @@ const TEXTES = {
       legende: [['css', 'LiDAR, zone, trajet'], ['or', 'son qui joue'], ['encre', 'robot Go2'], ['gris', 'grains de son']],
     },
 
+    connecter: 'connecter', modeJeu: 'lancé en mode Jeu, comme un jeu', ponts: ['contrôle · ws :8766', 'LiDAR · ws :8765', 'vidéo · WebRTC :8081'],
+    ordres: 'les ordres partent vers le robot', retours: 'la vidéo, le scan et la batterie reviennent',
+    postures: ['debout', 'couché', 'équilibre', 'relever'], sticks: ['stick G avance · stick D tourne', 'stick G : de côté'],
+    camera: 'caméra', scan: 'scan 3D', scanGlyphes: 'le LiDAR scanne : chaque point s’écrit en glyphe As-Simt', visite: 'visite : les sticks déplacent le regard',
+    norns48: 'grains des Norns · 48 par unité', resonne: 'A : le Norns joue le grain, la matière résonne', horloge: 'horloge commune', relais: 'le Pi relaie en OSC',
+    titresBi: ['LE DECK · LE PI · BILLY', 'CONDUIRE', 'VOIR', 'PADS · LES SONS DANS LE SCAN', 'SÉQUENCES'],
+    billy: {
+      etapes: ['Billy est un robot Unitree Go2. Sur son dos, un Raspberry Pi sert la page de pilotage : le Steam Deck n’a besoin que d’un navigateur. On lance BILLY depuis la bibliothèque Steam, en mode Jeu, comme un jeu.',
+        'Le Deck devient télécommande : stick gauche pour avancer et aller de côté, stick droit pour tourner. A debout, B couché, X équilibre, Y relever, RT stop. Les ordres partent en Wi-Fi vers le Pi, qui les transmet au robot.',
+        'Billy renvoie ce qu’il voit : sa caméra, et le scan 3D de son LiDAR, écrit en glyphes As-Simt plutôt qu’en points. RB échange les deux vues ; LT lance la visite, et les sticks déplacent alors le regard dans le scan.',
+        'PADS : le Deck devient une MPC en 3D. Les grains de son des Norns (TEAMMATE, 48 par unité) s’accrochent aux surfaces que Billy a vues, un mur, une table, une couleur par unité. Un doigt dessus, ou A : le Norns joue le grain, et la matière autour résonne.',
+        'SÉQUENCES : sur le plan vu de dessus, on relie les sons en quatre séquences de 16 pas. Ce n’est pas le Deck qui joue : chaque Norns reçoit les séquences par le Pi et joue ses propres pas sur une horloge commune. Toutes les unités tombent ensemble.'],
+      legende: [['css', 'Deck, liaisons, scan'], ['or', 'son qui joue, bouton'], ['encre', 'Billy (Go2)'], ['#ff1fce', 'grains des Norns U1'], ['#b6ff00', 'U2'], ['#a24dff', 'U3']],
+    },
+
     gene: 'gène', nutriments: ['glucose', 'oxygène'], voies: ['glycolyse', 'respiration', 'croissance', 'fermentation'], produits: ['CO₂', 'lactate', 'énergie'],
     avatarNom: 'AVATAR', sonEntre: 'le son entre', fluxSon: 'les flux sonnent', balance: 'balance des flux',
     titresAv: ['SÉQUENÇAGE', 'LE DOUBLE NUMÉRIQUE', 'LE SON NOURRIT LE MODÈLE', 'LES FLUX', 'UN DUO AVEC SOI-MÊME'],
@@ -98,6 +113,21 @@ const TEXTES = {
         'The robot walks: the sound follows its position, in stereo or binaural. It becomes a walking sound source.',
         'Steer it with a gamepad, the keyboard or your voice, or let it wander inside a safety zone; its position goes out as OSC to TEAMMATE.'],
       legende: [['css', 'LiDAR, zone, path'], ['or', 'sound playing'], ['encre', 'Go2 robot'], ['gris', 'sound grains']],
+    },
+
+    connecter: 'connect', modeJeu: 'launched in Game mode, like a game', ponts: ['control · ws :8766', 'LiDAR · ws :8765', 'video · WebRTC :8081'],
+    ordres: 'commands go out to the robot', retours: 'video, scan and battery come back',
+    postures: ['stand up', 'lie down', 'balance', 'recover'], sticks: ['left stick forward · right stick turn', 'left stick: sideways'],
+    camera: 'camera', scan: '3D scan', scanGlyphes: 'the LiDAR scans: each point is written as an As-Simt glyph', visite: 'tour: the sticks move the view',
+    norns48: 'Norns grains · 48 per unit', resonne: 'A: the Norns plays the grain, the matter resonates', horloge: 'shared clock', relais: 'the Pi relays as OSC',
+    titresBi: ['THE DECK · THE PI · BILLY', 'DRIVING', 'SEEING', 'PADS · SOUNDS IN THE SCAN', 'SEQUENCES'],
+    billy: {
+      etapes: ['Billy is a Unitree Go2 robot. On its back, a Raspberry Pi serves the control page: the Steam Deck only needs a browser. BILLY is launched from the Steam library, in Game mode, like a game.',
+        'The Deck becomes a remote: left stick to move forward and sideways, right stick to turn. A stand up, B lie down, X balance, Y recover, RT stop. Commands go over Wi-Fi to the Pi, which passes them to the robot.',
+        'Billy sends back what it sees: its camera, and the 3D scan from its LiDAR, written in As-Simt glyphs rather than dots. RB swaps the two views; LT starts the tour, and the sticks then move the view inside the scan.',
+        'PADS: the Deck becomes a 3D MPC. The Norns’ sound grains (TEAMMATE, 48 per unit) attach to the surfaces Billy has seen, a wall, a table, one colour per unit. A finger on one, or A: the Norns plays the grain, and the matter around it resonates.',
+        'SEQUENCES: on the top-down plan, you link sounds into four sequences of 16 steps. The Deck does not play them: each Norns receives the sequences through the Pi and plays its own steps on a shared clock. All units land together.'],
+      legende: [['css', 'Deck, links, scan'], ['or', 'sound playing, button'], ['encre', 'Billy (Go2)'], ['#ff1fce', 'Norns grains U1'], ['#b6ff00', 'U2'], ['#a24dff', 'U3']],
     },
 
     gene: 'gene', nutriments: ['glucose', 'oxygen'], voies: ['glycolysis', 'respiration', 'growth', 'fermentation'], produits: ['CO₂', 'lactate', 'energy'],
@@ -771,6 +801,206 @@ function avatar (ctx, w, h, t, etat, css, L) {
   return { info: L.avatar, actif };
 }
 
+// ---------------------------------------------------------------- BILLY // STEAM DECK : piloter Billy (Unitree Go2) depuis le Steam Deck, et jouer le scan comme une MPC en 3D
+// cinq temps : la chaîne Deck → Pi → robot, conduire, voir (le scan en glyphes), les pads, les séquences
+const BI_DUREES = [18, 20, 20, 20, 20];
+const UNITES = { 1: '#ff1fce', 2: '#b6ff00', 3: '#a24dff' };
+function steamDeck (ctx, x, y, W, css, e, ecran) {
+  const H = W * 0.42; const r = H * 0.28;
+  // gâchettes
+  [['LT', 0.08], ['LB', 0.2], ['RB', 0.72], ['RT', 0.84]].forEach(([n, k]) => { const on = e.trig === n; ctx.fillStyle = on ? css : '#0b0b0a'; ctx.strokeStyle = on ? css : GRIS; ctx.fillRect(x + W * k, y - 7, W * 0.08, 7); ctx.strokeRect(x + W * k + 0.5, y - 6.5, W * 0.08 - 1, 6); texte(ctx, n, x + W * (k + 0.04), y - 10, on ? css : '#55534e', 8, 'center'); });
+  ctx.fillStyle = '#0b0b0a'; ctx.strokeStyle = GRIS; ctx.beginPath(); ctx.roundRect(x, y, W, H, r); ctx.fill(); ctx.stroke();
+  // l'écran
+  const sx = x + W * 0.25; const sy = y + H * 0.14; const sw = W * 0.5; const sh = H * 0.72;
+  ctx.fillStyle = '#000'; ctx.fillRect(sx, sy, sw, sh); ctx.strokeStyle = SOMBRE; ctx.strokeRect(sx + 0.5, sy + 0.5, sw - 1, sh - 1);
+  if (ecran) { ctx.save(); ctx.beginPath(); ctx.rect(sx, sy, sw, sh); ctx.clip(); ecran(sx, sy, sw, sh); ctx.restore(); }
+  // sticks
+  const stick = (cx, cy, v, on) => { const R = H * 0.12; ctx.strokeStyle = on ? css : GRIS; ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke(); ctx.fillStyle = on ? css : '#55534e'; ctx.beginPath(); ctx.arc(cx + (v ? v[0] : 0) * R * 0.55, cy + (v ? v[1] : 0) * R * 0.55, R * 0.5, 0, Math.PI * 2); ctx.fill(); };
+  const actifL = e.l && Math.hypot(e.l[0], e.l[1]) > 0.05; const actifR = e.r && Math.hypot(e.r[0], e.r[1]) > 0.05;
+  stick(x + W * 0.125, y + H * 0.33, e.l, actifL); stick(x + W * 0.875, y + H * 0.7, e.r, actifR);
+  // croix
+  const dx = x + W * 0.125; const dy = y + H * 0.72; const d = H * 0.07; ctx.fillStyle = '#55534e'; ctx.fillRect(dx - d * 1.5, dy - d / 2, d * 3, d); ctx.fillRect(dx - d / 2, dy - d * 1.5, d, d * 3);
+  // A B X Y
+  const bx = x + W * 0.875; const by = y + H * 0.31; const b = H * 0.1;
+  [['Y', 0, -1], ['X', -1, 0], ['B', 1, 0], ['A', 0, 1]].forEach(([n, i, j]) => { const on = e.btn === n; const px = bx + i * b * 1.15; const py = by + j * b * 1.15; ctx.fillStyle = on ? OR : '#000'; ctx.strokeStyle = on ? OR : GRIS; ctx.beginPath(); ctx.arc(px, py, b * 0.62, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); texte(ctx, n, px, py + 3, on ? '#000' : GRIS, Math.max(7, b * 0.8), 'center', '600 '); });
+  return { sx, sy, sw, sh, H };
+}
+function go2Dessus (ctx, x, y, a, s = 1) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(a); ctx.scale(s, s);
+  ctx.fillStyle = ENCRE; ctx.fillRect(-10, -5, 20, 10); ctx.fillStyle = OR; ctx.fillRect(8, -2.5, 5, 5);
+  ctx.fillStyle = '#55534e'; [[-8, -7.5], [6, -7.5], [-8, 5.5], [6, 5.5]].forEach(([u, v]) => ctx.fillRect(u, v, 3, 2));
+  ctx.restore();
+}
+function go2Profil (ctx, x, y, s, css, debout = 1) {
+  // de profil : le corps, la tête, quatre pattes ; le Raspberry Pi sur le dos
+  const hp = 16 * s * (0.45 + 0.55 * debout);
+  ctx.strokeStyle = ENCRE; ctx.lineWidth = 2;
+  [[-14, 1], [-9, -1], [9, 1], [14, -1]].forEach(([u, k]) => { ctx.beginPath(); ctx.moveTo(x + u * s, y - hp); ctx.lineTo(x + u * s + k * 4 * s, y - hp / 2); ctx.lineTo(x + u * s, y); ctx.stroke(); });
+  ctx.lineWidth = 1;
+  ctx.fillStyle = ENCRE; ctx.fillRect(x - 18 * s, y - hp - 9 * s, 36 * s, 9 * s);
+  ctx.fillRect(x + 17 * s, y - hp - 12 * s, 9 * s, 8 * s); ctx.fillStyle = OR; ctx.fillRect(x + 24 * s, y - hp - 9 * s, 3 * s, 3 * s);
+  ctx.fillStyle = css; ctx.fillRect(x - 10 * s, y - hp - 14 * s, 16 * s, 5 * s);
+}
+function billy (ctx, w, h, t, etat, css, L) {
+  const total = BI_DUREES.reduce((a, b) => a + b, 0); let ph = t % total; let actif = 0;
+  while (ph >= BI_DUREES[actif]) { ph -= BI_DUREES[actif]; actif++; }
+  const lisse = (x) => { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); };
+  const pad = 12;
+  if (!etat.init) {
+    etat.init = true;
+    let s = 5; const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+    const cles = Object.keys(SIG);
+    // la pièce que Billy a scannée : le sol, deux murs, une table ; chaque point du scan est un glyphe
+    etat.pts = [];
+    const add = (x, y, z, surf) => etat.pts.push({ x, y, z, surf, g: cles[Math.floor(rnd() * cles.length)], lum: 0 });
+    for (let i = 0; i < 9; i++) for (let j = 0; j < 9; j++) add(i / 8, 0, j / 8, 'sol');
+    for (let i = 0; i < 9; i++) for (let k = 1; k < 6; k++) add(i / 8, k / 8, 0, 'mur1');
+    for (let j = 1; j < 9; j++) for (let k = 1; k < 6; k++) add(0, k / 8, j / 8, 'mur2');
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 3; j++) add(0.5 + i / 12, 0.22, 0.45 + j / 12, 'table');
+    etat.ordre = etat.pts.map((_, i) => i).sort(() => rnd() - 0.5);
+    // les pads : un grain d'une unité accroché à une surface
+    const centres = [[0.3, 0.25, 0, 1, 7], [0.75, 0.38, 0, 2, 12], [0, 0.3, 0.55, 3, 3], [0.58, 0.22, 0.5, 1, 31], [0, 0.5, 0.2, 2, 18], [0.85, 0, 0.75, 3, 40]];
+    etat.pads = centres.map(([x, y, z, u, g]) => ({ x, y, z, u, g, v: 0 }));
+    etat.paquets = []; etat.ondes = [];
+  }
+  if (etat.dernier !== actif) { etat.dernier = actif; etat.rob = { x: 0.5, y: 0.6, a: -Math.PI / 2, debout: 0 }; etat.trace = []; etat.ondes = []; etat.cible = 0; etat.vise = -1; }
+  const e = { l: null, r: null, btn: null, trig: null };
+
+  // la projection de la pièce (en perspective cavalière), qui peut tourner pendant la visite
+  const proj = (p, cx, cy, k, yaw) => { const x = p.x - 0.5; const z = p.z - 0.5; const xr = x * Math.cos(yaw) - z * Math.sin(yaw); const zr = x * Math.sin(yaw) + z * Math.cos(yaw); return [cx + (xr - zr) * k * 0.87, cy + (xr + zr) * k * 0.5 - p.y * k * 1.1]; };
+  const piece = (cx, cy, k, yaw, vus, alpha, onde) => {
+    const px = Math.max(0.6, Math.min(1, k / 220));
+    for (let n = 0; n < vus; n++) {
+      const p = etat.pts[etat.ordre[n]]; const [x, y] = proj(p, cx, cy, k, yaw);
+      let c = p.surf === 'table' ? ENCRE : css; let al = alpha;
+      if (onde) { const d = Math.hypot(p.x - onde.x, p.y - onde.y, p.z - onde.z); const front = Math.abs(d - onde.r); if (front < 0.07) { c = OR; al = 1; } }
+      ctx.globalAlpha = al * (p.surf === 'sol' ? 0.55 : 0.9); bits(ctx, SIG[p.g], x - 4 * px, y - 4 * px, px, c);
+    }
+    ctx.globalAlpha = 1;
+  };
+
+  if (actif === 0) {
+    // 1 · Deck → Pi (Wi-Fi) → Go2 (Ethernet) ; la vidéo et le scan reviennent
+    const W = Math.min(w * 0.32, 220); const dx = pad + 6; const dy = h * 0.52;
+    const dk = steamDeck(ctx, dx, dy, W, css, e, (sx, sy, sw, sh) => { texte(ctx, 'BILLY', sx + sw / 2, sy + sh * 0.45, css, Math.max(9, sw * 0.12), 'center', '600 '); texte(ctx, '[A] ' + L.connecter, sx + sw / 2, sy + sh * 0.72, GRIS, Math.max(7, sw * 0.06), 'center'); });
+    texte(ctx, 'STEAM DECK', dx + W / 2, dy + dk.H + 18, ENCRE, 10, 'center', '600 ');
+    texte(ctx, L.modeJeu, dx + W / 2, dy + dk.H + 31, GRIS, 9, 'center');
+    const pix = w * 0.56; const piy = h * 0.3;
+    const montrePi = lisse((ph - 2) / 1.5);
+    ctx.globalAlpha = montrePi;
+    ctx.strokeStyle = css; ctx.strokeRect(pix - 34, piy - 14, 68, 28); texte(ctx, 'RASPBERRY PI', pix, piy + 4, css, 9, 'center', '600 ');
+    texte(ctx, 'billy.local:8090', pix, piy - 22, GRIS, 9, 'center');
+    L.ponts.forEach((p, i) => texte(ctx, p, pix, piy + 32 + i * 13, '#6f6c66', 9, 'center'));
+    ctx.globalAlpha = 1;
+    const gx = w * 0.82; const gy = h * 0.82;
+    const montreGo = lisse((ph - 4) / 1.5);
+    ctx.globalAlpha = montreGo; go2Profil(ctx, gx, gy, Math.min(1.6, w / 300), css, 1); texte(ctx, 'BILLY · UNITREE GO2', gx, gy + 16, ENCRE, 10, 'center', '600 '); ctx.globalAlpha = 1;
+    // les liaisons
+    const A = [dx + W, dy + dk.H * 0.3]; const B = [pix - 34, piy]; const C = [pix + 34, piy]; const D = [gx - 8, gy - 40];
+    ctx.setLineDash([3, 4]); ctx.strokeStyle = css; ctx.globalAlpha = montrePi * 0.7; ctx.beginPath(); ctx.moveTo(A[0], A[1]); ctx.quadraticCurveTo((A[0] + B[0]) / 2, A[1] - 30, B[0], B[1]); ctx.stroke();
+    ctx.globalAlpha = montreGo * 0.7; ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(C[0], C[1]); ctx.lineTo(D[0], D[1]); ctx.stroke(); ctx.globalAlpha = 1;
+    if (montrePi > 0.5) texte(ctx, 'Wi-Fi', (A[0] + B[0]) / 2, Math.min(A[1], B[1]) - 18, GRIS, 9, 'center', 'italic ');
+    if (montreGo > 0.5) texte(ctx, 'Ethernet · DDS', (C[0] + D[0]) / 2 + 8, (C[1] + D[1]) / 2, GRIS, 9, 'left', 'italic ');
+    if (ph > 6 && Math.floor(t * 2) !== etat.tick) { etat.tick = Math.floor(t * 2); etat.paquets.push({ k: 0, aller: true }); if (ph > 9) etat.paquets.push({ k: 0, aller: false }); }
+    etat.paquets = etat.paquets.filter((p) => (p.k += etat.dt * 0.6) < 1);
+    for (const p of etat.paquets) {
+      const u = p.aller ? p.k : 1 - p.k; let x; let y;
+      if (u < 0.5) { const v = u * 2; x = (1 - v) * (1 - v) * A[0] + 2 * (1 - v) * v * (A[0] + B[0]) / 2 + v * v * B[0]; y = (1 - v) * (1 - v) * A[1] + 2 * (1 - v) * v * (A[1] - 30) + v * v * B[1]; } else { const v = (u - 0.5) * 2; x = C[0] + (D[0] - C[0]) * v; y = C[1] + (D[1] - C[1]) * v; }
+      ctx.fillStyle = p.aller ? css : GRIS; ctx.fillRect(x - 2, y - 2, 4, 4);
+    }
+    if (ph > 9) { texte(ctx, '→ ' + L.ordres, pad, h - 26, css, 9); texte(ctx, '← ' + L.retours, pad, h - 12, GRIS, 9); }
+  } else if (actif === 1) {
+    // 2 · conduire : les sticks bougent, Billy suit
+    const salle = { x: pad + 20, y: 34, w: w - pad * 2 - 40, h: h * 0.5 - 30 };
+    ctx.strokeStyle = SOMBRE; ctx.strokeRect(salle.x, salle.y, salle.w, salle.h);
+    const r = etat.rob; let vx = 0; let vy = 0; let vr = 0; let ordre = '';
+    if (ph < 3.5) { e.btn = 'A'; r.debout = Math.min(1, r.debout + etat.dt); ordre = 'A · ' + L.postures[0]; }
+    else if (ph < 9) { e.l = [0, -0.9]; e.r = [Math.sin((ph - 3.5) * 0.9) * 0.8, 0]; vx = 0.09; vr = e.r[0] * 0.9; ordre = L.sticks[0]; }
+    else if (ph < 13) { e.l = [0.85, 0]; vy = 0.08; ordre = L.sticks[1]; }
+    else if (ph < 15.5) { e.btn = 'X'; ordre = 'X · ' + L.postures[2]; }
+    else if (ph < 18) { e.btn = 'B'; r.debout = Math.max(0.2, r.debout - etat.dt); ordre = 'B · ' + L.postures[1]; }
+    else { e.trig = 'RT'; ordre = 'RT · STOP'; }
+    r.a += vr * etat.dt; r.x += (Math.cos(r.a) * vx - Math.sin(r.a) * vy) * etat.dt; r.y += (Math.sin(r.a) * vx + Math.cos(r.a) * vy) * etat.dt;
+    r.x = Math.max(0.06, Math.min(0.94, r.x)); r.y = Math.max(0.1, Math.min(0.9, r.y));
+    const rx = salle.x + r.x * salle.w; const ry = salle.y + r.y * salle.h;
+    etat.trace.push([rx, ry]); if (etat.trace.length > 400) etat.trace.shift();
+    ctx.strokeStyle = css; ctx.globalAlpha = 0.45; ctx.beginPath(); etat.trace.forEach(([a, b], i) => (i ? ctx.lineTo(a, b) : ctx.moveTo(a, b))); ctx.stroke(); ctx.globalAlpha = 1;
+    go2Dessus(ctx, rx, ry, r.a, 1.2 + r.debout * 0.6);
+    if (e.trig === 'RT') { ctx.strokeStyle = OR; ctx.strokeRect(rx - 16, ry - 16, 32, 32); }
+    const W = Math.min(w - pad * 2 - 20, (h * 0.42) / 0.42 * 0.95, 360); const dx = (w - W) / 2; const dy = h - W * 0.42 - 34;
+    steamDeck(ctx, dx, dy, W, css, e, (sx, sy, sw, sh) => { const mot = ordre.toUpperCase(); let tl = Math.max(7, sw * 0.07); ctx.font = `${tl}px 'IBM Plex Mono', monospace`; while (tl > 6 && ctx.measureText(mot).width > sw - 12) { tl -= 0.5; ctx.font = `${tl}px 'IBM Plex Mono', monospace`; } texte(ctx, mot, sx + sw / 2, sy + sh / 2 + 3, e.btn || e.trig ? OR : css, tl, 'center'); });
+    texte(ctx, ordre, w / 2, h - 12, e.btn || e.trig ? OR : css, 10, 'center', 'italic ');
+  } else if (actif === 2) {
+    // 3 · voir : la caméra et le scan LiDAR, écrit en glyphes ; RB échange ; LT visite
+    const camGrand = ph > 7 && ph < 12;
+    const visite = ph >= 12;
+    const vus = Math.floor(lisse(ph / 7) * etat.pts.length);
+    const yaw = visite ? Math.sin((ph - 12) * 0.35) * 0.9 : 0;
+    const camera = (x, y, cw, chh) => {
+      // la vraie caméra redessinée en aplats « façon simulation »
+      const PAL = ['#c8beaa', '#5a5046', '#2858dc', '#e6e6f0', '#e63c3c', '#f0c83c', '#28be78', '#00c8ff'];
+      const n = 14; const m = Math.round(n * chh / cw); const cs = cw / n;
+      for (let i = 0; i < n; i++) for (let j = 0; j < m; j++) { const k = j < m * 0.45 ? (i < n * 0.3 ? 3 : i > n * 0.75 ? 2 : 0) : j > m * 0.8 ? 1 : (i > n * 0.4 && i < n * 0.65 && j < m * 0.7 ? 4 : 0); ctx.fillStyle = PAL[(k + ((i + j + Math.floor(t * 0.5)) % 7 === 0 ? 5 : 0)) % PAL.length]; ctx.globalAlpha = 0.85; ctx.fillRect(x + i * cs, y + j * cs, cs - 0.5, cs - 0.5); }
+      ctx.globalAlpha = 1; ctx.strokeStyle = GRIS; ctx.strokeRect(x + 0.5, y + 0.5, cw - 1, chh - 1); texte(ctx, L.camera, x + 4, y + chh - 4, '#000', 9, 'left', '600 ');
+    };
+    const k = Math.min(w / 1.9, (h - 80) / 1.75); const cyS = 44 + k * 1.2;
+    if (camGrand) { camera(pad + 20, 40, w - pad * 2 - 40, h - 90); ctx.fillStyle = '#000'; ctx.fillRect(w - pad - 120, h - 120, 110, 80); ctx.strokeStyle = GRIS; ctx.strokeRect(w - pad - 120, h - 120, 110, 80); piece(w - pad - 65, h - 70, 60, 0, vus, 0.8); texte(ctx, L.scan, w - pad - 116, h - 108, css, 8); }
+    else { piece(w / 2, cyS, k, yaw, vus, 1); camera(w - pad - 110, 36, 100, 64); }
+    if (!camGrand) { const [rx, ry] = proj({ x: 0.5, y: 0, z: 0.6 }, w / 2, cyS, k, yaw); go2Dessus(ctx, rx, ry, -Math.PI / 4, 0.9); }
+    const etiquette = ph < 7 ? L.scanGlyphes : camGrand ? 'RB ⇄ ' + L.camera : 'LT · ' + L.visite;
+    texte(ctx, etiquette, pad, h - 12, ph >= 7 ? OR : css, 10);
+  } else if (actif === 3) {
+    // 4 · pads : les grains des Norns accrochés aux surfaces ; le viseur, A, la matière résonne
+    const k = Math.min(w / 1.9, (h - 80) / 1.75); const cx = w / 2; const cy = 44 + k * 1.2;
+    // le viseur passe d'un pad à l'autre ; à chaque arrivée, A joue le grain
+    const per = 3.2; const idx = Math.floor(ph / per) % etat.pads.length; const u = (ph % per) / per;
+    const a = etat.pads[(idx + etat.pads.length - 1) % etat.pads.length]; const b = etat.pads[idx];
+    const m = lisse(u / 0.45); const vise = { x: a.x + (b.x - a.x) * m, y: a.y + (b.y - a.y) * m, z: a.z + (b.z - a.z) * m };
+    if (u > 0.5 && etat.vise !== idx + Math.floor(ph / per) * 10) { etat.vise = idx + Math.floor(ph / per) * 10; b.v = 1; etat.ondes.push({ x: b.x, y: b.y, z: b.z, r: 0 }); }
+    etat.ondes = etat.ondes.filter((o) => (o.r += etat.dt * 0.35) < 0.7);
+    piece(cx, cy, k, 0, etat.pts.length, 0.35, etat.ondes[etat.ondes.length - 1]);
+    etat.pads.forEach((p) => {
+      p.v = Math.max(0, p.v - etat.dt * 0.8);
+      const [x, y] = proj(p, cx, cy, k, 0); const c = UNITES[p.u]; const respire = 0.6 + 0.4 * Math.sin(t * 2 + p.g);
+      ctx.fillStyle = c; ctx.globalAlpha = 0.25 + 0.35 * respire + p.v * 0.4; ctx.beginPath(); ctx.ellipse(x, y, 16 + p.v * 8, 9 + p.v * 5, 0, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
+      texte(ctx, String(p.u).padStart(2, '0') + String(p.g).padStart(2, '0'), x, y - 14, p.v > 0.1 ? OR : c, 9, 'center');
+    });
+    const [vx, vy] = proj(vise, cx, cy, k, 0);
+    ctx.strokeStyle = ENCRE; ctx.beginPath(); ctx.moveTo(vx - 12, vy); ctx.lineTo(vx - 4, vy); ctx.moveTo(vx + 4, vy); ctx.lineTo(vx + 12, vy); ctx.moveTo(vx, vy - 12); ctx.lineTo(vx, vy - 4); ctx.moveTo(vx, vy + 4); ctx.lineTo(vx, vy + 12); ctx.stroke();
+    if (u > 0.5 && u < 0.75) texte(ctx, 'A', vx + 14, vy - 8, OR, 11, 'left', '600 ');
+    [1, 2, 3].forEach((n, i) => { ctx.fillStyle = UNITES[n]; ctx.fillRect(w - pad - 96 + i * 32, 30, 8, 8); texte(ctx, 'U' + n, w - pad - 84 + i * 32, 38, GRIS, 9); });
+    texte(ctx, L.norns48, w - pad, 54, GRIS, 9, 'right');
+    texte(ctx, L.resonne, pad, h - 12, OR, 10);
+  } else {
+    // 5 · séquences : le plan vu de dessus, des liens entre les sons, une impulsion à l'horloge commune
+    const x0 = pad + 30; const y0 = 44; const S = Math.min(w - pad * 2 - 140, h - 110);
+    const P = (p) => [x0 + p.x * S, y0 + p.z * S];
+    etat.pts.forEach((p) => { if (p.surf === 'sol') return; const [x, y] = P(p); ctx.fillStyle = p.surf === 'table' ? '#6f6c66' : SOMBRE; ctx.fillRect(x - 1.5, y - 1.5, 3, 3); });
+    ctx.strokeStyle = SOMBRE; ctx.strokeRect(x0, y0, S, S);
+    const seqA = [0, 3, 1, 5, 2, 4];
+    const bpm = 120; const temps = t * bpm / 60; const pas = Math.floor(temps) % seqA.length; const fr = temps % 1;
+    const nLie = Math.min(seqA.length, 1 + Math.floor(ph / 1.8));
+    ctx.setLineDash([4, 4]); ctx.strokeStyle = css;
+    for (let i = 1; i < nLie; i++) { const [ax, ay] = P(etat.pads[seqA[i - 1]]); const [bx, by] = P(etat.pads[seqA[i]]); ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke(); }
+    if (nLie === seqA.length) { const [ax, ay] = P(etat.pads[seqA[seqA.length - 1]]); const [bx, by] = P(etat.pads[seqA[0]]); ctx.globalAlpha = 0.4; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke(); ctx.globalAlpha = 1; }
+    ctx.setLineDash([]);
+    const joue = nLie === seqA.length;
+    etat.pads.forEach((p, i) => { const [x, y] = P(p); const on = joue && seqA[pas] === i; const c = UNITES[p.u]; ctx.fillStyle = on ? OR : c; ctx.globalAlpha = on ? 1 : 0.7; ctx.beginPath(); ctx.arc(x, y, on ? 9 - fr * 3 : 6, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1; texte(ctx, String(p.u).padStart(2, '0') + String(p.g).padStart(2, '0'), x, y - 12, on ? OR : GRIS, 9, 'center'); });
+    if (joue) { const [ax, ay] = P(etat.pads[seqA[pas]]); const [bx, by] = P(etat.pads[seqA[(pas + 1) % seqA.length]]); ctx.fillStyle = OR; ctx.fillRect(ax + (bx - ax) * fr - 2, ay + (by - ay) * fr - 2, 4, 4); }
+    // les 16 pas de la séquence A
+    const cw = Math.min(14, (S - 30) / 16); texte(ctx, 'A', x0, h - 30, css, 10, 'left', '600 ');
+    for (let i = 0; i < 16; i++) { const on = joue && i % seqA.length === pas && i < seqA.length; ctx.fillStyle = i < nLie ? (on ? OR : UNITES[etat.pads[seqA[i]].u]) : SOMBRE; ctx.globalAlpha = i < nLie && !on ? 0.5 : 1; ctx.fillRect(x0 + 16 + i * (cw + 3), h - 40, cw, 12); }
+    ctx.globalAlpha = 1;
+    // les Norns, chacun joue ses pas
+    const nx = w - pad - 100;
+    [1, 2, 3].forEach((n, i) => { const on = joue && etat.pads[seqA[pas]].u === n && fr < 0.5; const y = 60 + i * 40; ctx.strokeStyle = on ? OR : UNITES[n]; ctx.strokeRect(nx, y, 86, 26); texte(ctx, 'NORNS U' + n, nx + 43, y + 17, on ? OR : UNITES[n], 9, 'center', '600 '); });
+    texte(ctx, L.horloge + ' · ' + bpm + ' BPM', nx + 86, 60 + 3 * 40 + 6, GRIS, 9, 'right');
+    texte(ctx, L.relais, nx + 86, 60 + 3 * 40 + 20, '#6f6c66', 9, 'right');
+  }
+  texte(ctx, L.titresBi[actif], pad, 20, css, 11, 'left', '600 ');
+  return { info: L.billy, actif };
+}
+
 // ---------------------------------------------------------------- le panneau « comment ça marche »
 function panneau (ctx, x, y, w, h, R, css, L, compact) {
   const COUL = { encre: ENCRE, gris: GRIS, or: OR, css, sombre: '#55534e', ocre: OCRE };
@@ -814,12 +1044,12 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
   leg.forEach(([c, nom], i) => {
     const col = i % 2; const rang = Math.floor(i / 2);
     const lx = x + p + col * (w - p * 2) / 2; const ly2 = ly + rang * 16;
-    ctx.fillStyle = COUL[c]; ctx.fillRect(lx, ly2 - 8, 8, 8);
+    ctx.fillStyle = COUL[c] || c; ctx.fillRect(lx, ly2 - 8, 8, 8);
     texte(ctx, nom, lx + 14, ly2, GRIS, 10);
   });
 }
 
-const SCENES = { orca, cave, langue, teammate, tripode, systema, avatar };
+const SCENES = { orca, cave, langue, teammate, tripode, systema, avatar, billy };
 
 export function lancerScene (canvas, id, css, locale) {
   const ctx = canvas.getContext('2d'); if (!ctx) return () => {};
