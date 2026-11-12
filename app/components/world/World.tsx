@@ -129,6 +129,10 @@ export default function World() {
         },
       });
       mondeRef.current = monde;
+      // un lien direct vers un étage (?etage=services) : on y descend tout de suite, en 2D
+      const voulu = new URLSearchParams(window.location.search).get('etage');
+      const n = voulu ? FAMILLES.findIndex((g) => g.id === voulu) : -1;
+      if (n >= 0) window.setTimeout(() => { if (!annule) monde?.descendre(n); }, 400);
     });
     return () => { annule = true; monde?.detruire(); mondeRef.current = null; };
     // eslint-disable-next-line react-hooks/exhaustive-deps

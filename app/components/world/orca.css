@@ -371,17 +371,17 @@
 .orca .ex-video figcaption a { color: var(--gris); text-decoration: underline; text-underline-offset: 3px; }
 
 /* à son rythme : les boutons pour passer d'une étape à l'autre, posés sur le panneau « comment ça marche » ;
-   ce sont des glyphes d'opérateurs (E avance, W recule), et la traduction s'écrit à côté au survol */
+   ce sont des glyphes d'opérateurs (E avance, W recule) ; la traduction de « suite » reste écrite pour qu'on comprenne tout de suite */
 .orca .ex-scene { position: relative; }
-.orca .pas-nav { position: absolute; right: 10px; display: flex; align-items: center; gap: 6px; z-index: 2; }
-.orca .pas-nav button { width: 30px; height: 30px; padding: 0; display: grid; place-items: center; background: #000; border: 1px solid var(--trait); }
-.orca .pas-nav button.suite { border-color: var(--c); }
-.orca .pas-nav button svg { width: 16px; height: 16px; display: block; }
-.orca .pas-nav button:hover, .orca .pas-nav button:focus-visible { border-color: var(--c); background: rgba(255,255,255,.08); outline: none; }
-.orca .pas-nav .trad { order: -1; margin-right: 4px; font-size: 10px; letter-spacing: .06em; color: var(--gris); white-space: nowrap; opacity: 0; transition: opacity .15s; pointer-events: none; }
+.orca .pas-nav { position: absolute; right: 8px; display: flex; align-items: center; gap: 6px; z-index: 2; }
+.orca .pas-nav button { width: 38px; height: 38px; padding: 0; display: grid; place-items: center; background: #000; border: 1px solid var(--trait); cursor: pointer; }
+.orca .pas-nav button.suite { width: 46px; border-color: var(--c); background: color-mix(in srgb, var(--c) 16%, #000); }
+.orca .pas-nav button svg { width: 20px; height: 20px; display: block; }
+.orca .pas-nav button:hover, .orca .pas-nav button:focus-visible { border-color: var(--c); background: color-mix(in srgb, var(--c) 30%, #000); outline: none; }
+.orca .pas-nav .trad { order: -1; margin-right: 6px; font-size: 11px; letter-spacing: .06em; color: var(--gris); white-space: nowrap; opacity: 0; transition: opacity .15s; pointer-events: none; }
 .orca .pas-nav .trad.vu { opacity: 1; }
 .orca .pas-nav .trad i { color: var(--c); }
-.orca .pas-nav .trad b { color: var(--encre); font-weight: 400; text-transform: uppercase; letter-spacing: .14em; }
-.orca .pas-nav.pret .suite { animation: invite 1.4s ease-in-out infinite; }
-@keyframes invite { 50% { background: color-mix(in srgb, var(--c) 35%, #000); } }
-@media (prefers-reduced-motion: reduce) { .orca .pas-nav.pret .suite { animation: none; background: color-mix(in srgb, var(--c) 35%, #000); } .orca .pas-nav .trad { transition: none; } }
+.orca .pas-nav .trad b { color: var(--c); font-weight: 600; text-transform: uppercase; letter-spacing: .16em; }
+.orca .pas-nav.pret .suite { animation: invite 1.2s ease-in-out infinite; }
+@keyframes invite { 50% { background: color-mix(in srgb, var(--c) 55%, #000); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 25%, transparent); } }
+@media (prefers-reduced-motion: reduce) { .orca .pas-nav.pret .suite { animation: none; background: color-mix(in srgb, var(--c) 45%, #000); } .orca .pas-nav .trad { transition: none; } }
