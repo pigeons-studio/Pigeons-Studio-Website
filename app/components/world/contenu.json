@@ -674,7 +674,7 @@
        "id": "orca",
        "nom": "ORCA//GLYPH",
        "sous": "Un langage de code à nous, en trois dimensions",
-       "statut": "en cours",
+       "statut": "bientôt en téléchargement",
        "texte": [
         "ORCA//GLYPH part d’une volonté : un langage de code né de la créolisation informatique. L’idée vient de la résidence de Koo à la Villa Albertine, à La Nouvelle-Orléans, consacrée à la créolisation du langage informatique ; ORCA//GLYPH en est la continuité. Un code fondé sur notre propre vision du code et sur le sens de ce qu’on écrit, qui prolonge l’alphabet As-Simt, où chaque signe est une image concrète (graine, paume, vibration) et non une lettre neutre.",
         "Orca, l’original de Hundred Rabbits, est déjà un langage de code ésotérique : une grille où chaque lettre est une machine. ORCA//GLYPH s’inscrit dans cette lignée et pousse la réflexion plus loin. Orca devient la façon de coder de manière dynamique avec les glyphes : chaque opérateur dit quelque chose, C est « battement », D « pluie », T « tisser ». Écrire un patch, c’est composer une phrase autant qu’un programme. Derrière, l’idée d’un nouveau langage de code qui nous appartient, dont on reprend possession.",
@@ -1837,7 +1837,7 @@
        "id": "orca",
        "nom": "ORCA//GLYPH",
        "sous": "A code language of our own, in three dimensions",
-       "statut": "in progress",
+       "statut": "download coming soon",
        "texte": [
         "ORCA//GLYPH starts from a wish: a code language born from computational creolisation. The idea comes from Koo’s residency at Villa Albertine in New Orleans, devoted to the creolisation of computer language; ORCA//GLYPH is its continuation. Code grounded in our own vision of code and in the meaning of what we write, extending the As-Simt alphabet, where each sign is a concrete image (seed, palm, vibration) rather than a neutral letter.",
         "Orca, the original by Hundred Rabbits, is already an esoteric programming language: a grid where every letter is a machine. ORCA//GLYPH belongs to that lineage and pushes the thinking further. Orca becomes the way to code dynamically with glyphs: each operator says something, C is “beat”, D “rain”, T “weave”. Writing a patch means composing a sentence as much as a program. Behind it lies the idea of a new code language that belongs to us, one we take back ownership of.",
