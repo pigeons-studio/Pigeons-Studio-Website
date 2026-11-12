@@ -612,29 +612,39 @@
       {
        "id": "sv-repar",
        "nom": "Réparation hi-fi & synthés",
-       "sous": "Synthétiseurs analogiques, amplis, matériel hi-fi",
+       "sous": "Remise à neuf, réparation, recalibrage et modifications",
        "statut": "sur devis",
        "texte": [
-        "Réparation et remise en état de synthétiseurs analogiques, d’amplis et de matériel hi-fi. Diagnostic, remplacement des composants fatigués, reprise des soudures, nettoyage, réglage et calibration : on rend au matériel le son qu’il avait."
+        "On répare les synthétiseurs analogiques, les amplis et le matériel hi-fi. À chaque intervention, quelle que soit la panne, on remet à neuf les composants qui vieillissent avec le temps, comme les condensateurs électrolytiques.",
+        "Puis on diagnostique la panne et on la répare, avant de tout recalibrer. Sur les synthés, on peut aussi faire des modifications et des upgrades : les midifier, leur ajouter des fonctions."
        ],
        "reperes": [
         [
+         "Systématique",
+         "Remise à neuf des composants qui vieillissent (condensateurs électrolytiques, etc.), quelle que soit la panne"
+        ],
+        [
+         "Réparation",
+         "Diagnostic de la panne et réparation"
+        ],
+        [
+         "Réglage",
+         "Recalibrage complet"
+        ],
+        [
+         "Synthés",
+         "Modifications et upgrades : midification, ajout de fonctions"
+        ],
+        [
          "Matériel",
          "Synthétiseurs analogiques, amplis, hi-fi"
-        ],
-        [
-         "On fait",
-         "Diagnostic, réparation, entretien, calibration"
-        ],
-        [
-         "Outils",
-         "Oscilloscope, station de soudure, mesures"
         ]
        ],
        "tags": [
+        "Remise à neuf",
         "Réparation",
-        "Synthés analogiques",
-        "Hi-fi & amplis"
+        "Recalibrage",
+        "Midification"
        ]
       }
      ]
@@ -1765,29 +1775,39 @@
       {
        "id": "sv-repar",
        "nom": "Hi-fi & synth repair",
-       "sous": "Analogue synthesizers, amplifiers, hi-fi gear",
+       "sous": "Overhaul, repair, recalibration and mods",
        "statut": "on request",
        "texte": [
-        "Repair and restoration of analogue synthesizers, amplifiers and hi-fi gear. Diagnosis, replacement of worn components, reflowed solder joints, cleaning, adjustment and calibration: we give the gear back the sound it had."
+        "We repair analogue synthesizers, amplifiers and hi-fi gear. Every time, whatever the fault, we renew the parts that age over time, such as electrolytic capacitors.",
+        "Then we diagnose and repair the fault, before recalibrating everything. On synths we can also do mods and upgrades: adding MIDI, adding functions."
        ],
        "reperes": [
         [
+         "Every time",
+         "Renewal of ageing parts (electrolytic capacitors, etc.), whatever the fault"
+        ],
+        [
+         "Repair",
+         "Fault diagnosis and repair"
+        ],
+        [
+         "Adjustment",
+         "Full recalibration"
+        ],
+        [
+         "Synths",
+         "Mods and upgrades: MIDI retrofit, added functions"
+        ],
+        [
          "Gear",
          "Analogue synths, amplifiers, hi-fi"
-        ],
-        [
-         "We do",
-         "Diagnosis, repair, servicing, calibration"
-        ],
-        [
-         "Tools",
-         "Oscilloscope, soldering station, measurements"
         ]
        ],
        "tags": [
+        "Overhaul",
         "Repair",
-        "Analogue synths",
-        "Hi-fi & amps"
+        "Recalibration",
+        "MIDI retrofit"
        ]
       }
      ]
