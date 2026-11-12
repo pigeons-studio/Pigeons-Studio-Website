@@ -10,7 +10,7 @@ const TOUS = { ...GLYPHES.symboles, ...GLYPHES.operateurs };
 const TEXTES = {
   fr: {
     svLegende: [["css", "ce qu’on conçoit"], ["or", "ce qui agit, le signal"], ["encre", "l’objet, le corps"], ["gris", "le contexte"]],
-    sv: {"sv-data": {"titres": ["MESURER", "STRUCTURER", "DONNER FORME"], "etapes": ["Tout part de mesures : capteurs, stations météo, flux ouverts. Les chiffres arrivent bruts, en continu.", "On les nettoie et on les structure : chaque valeur trouve sa place dans une grille, une série, une carte.", "Puis on leur donne une forme qu’on peut voir et entendre : une image, un son, un objet. Ici, la série devient un paysage de glyphes."], "mots": ["capteurs", "mesures brutes", "nettoyer, structurer", "une forme : image, son, objet"]}, "sv-conseil": {"titres": ["L’IDÉE", "TROIS MONDES", "LA FEUILLE DE ROUTE"], "etapes": ["Un projet commence souvent flou : une envie, un lieu, un public, un délai. On écoute et on pose les contraintes.", "On le regarde avec trois paires d’yeux, l’art, le design et l’ingénierie, jusqu’à trouver ce qui tient des trois.", "Puis on trace la route : idée, prototype, test, scène. Chaque étape a son livrable, et on sait où l’on va."], "mots": ["une idée, des contraintes", "budget", "public", "délai", "lieu", "art", "design", "ingénierie", "le projet", "idée", "prototype", "test", "scène"]}, "sv-da": {"titres": ["LES RÉFÉRENCES", "LES CHOIX", "L’UNIVERS"], "etapes": ["On réunit des références : matières, motifs, signes, images. Elles se répondent, et une direction se dessine.", "On choisit : une palette, une typographie, une couleur de son. Peu d’éléments, mais tenus partout.", "Ensemble, ils forment un univers cohérent, qu’on retrouve dans l’image, l’objet, la scène et le son."], "mots": ["références", "couleurs", "typographie", "son", "un univers cohérent"]}, "sv-digital": {"titres": ["L’ESPACE", "LUMIÈRE ET SON", "LE PUBLIC AGIT"], "etapes": ["Tout part d’un lieu et de ceux qui le traversent : ses murs, ses volumes, ses visiteurs.", "On l’habite d’images projetées et de sons spatialisés : la pièce devient une œuvre.", "Et l’œuvre écoute : chaque présence, chaque mouvement du public la transforme en temps réel."], "mots": ["un espace, des visiteurs", "projection et son", "chaque présence modifie l’œuvre"]}, "sv-physique": {"titres": ["LE DESSIN", "LA FABRICATION", "LES MATIÈRES"], "etapes": ["On dessine l’objet en 3D, à la cote : volumes, assemblages, place de l’électronique.", "La machine l’usine : la fraiseuse CNC suit son parcours, passe après passe.", "On assemble les matières, bois, métal, résine, silicone, et l’électronique s’y intègre."], "mots": ["le dessin, à la cote", "usinage CNC", "bois", "métal", "résine", "silicone", "électronique intégrée"]}, "sv-cdm": {"titres": ["LE CORPS", "LES CAPTEURS", "LA MUSIQUE"], "etapes": ["Tout part du corps en mouvement : une danse, un geste, un appui.", "Des capteurs aux poignets et aux chevilles traduisent le mouvement en données.", "Ces données écrivent la musique : le mouvement déclenche les pas d’une séquence et module le son. TRIPODE AS-SIMT en est un outil."], "mots": ["le corps", "capteurs → données", "une séquence jouée par le mouvement"]}, "sv-robot": {"titres": ["UN GESTE", "UN ORCHESTRE", "L’AUTONOMIE"], "etapes": ["Un actionneur, un solénoïde, frappe un objet : un geste mécanique devient un son.", "Plusieurs actionneurs sur plusieurs objets, cloche, peau, bois, métal : ils jouent ensemble, selon un motif.", "Le dispositif devient autonome : il écoute, décide et joue, en boucle. CAVE // FOUR ROBOTS pousse cette idée jusqu’aux robots."], "mots": ["solénoïde", "un geste mécanique, un son", "cloche", "peau", "bois", "métal", "écouter", "décider", "jouer", "autonome"]}, "sv-audio": {"titres": ["LE CIRCUIT", "L’OBJET", "SUR SCÈNE"], "etapes": ["Tout commence par un circuit : un oscillateur, des résistances, des condensateurs, et un signal qui naît.", "Il prend corps dans un boîtier : des boutons, des entrées et sorties, des câbles de patch.", "Puis il monte sur scène et devient un instrument. TEAMMATE.POTO est né de cette façon."], "mots": ["oscillateur", "résistance", "condensateur", "boutons, patch, boîtier", "sur scène"]}, "sv-capteurs": {"titres": ["LE GESTE", "LA MESURE", "LA RÉPONSE"], "etapes": ["Une main dessine dans l’air. C’est elle qu’on veut entendre et voir.", "Un capteur la mesure : une centrale inertielle donne ses mouvements sur trois axes, en continu.", "Ces mesures pilotent la lumière et le son : plus la main monte, plus la lampe brille et plus le son monte. Voir TRIPODE AS-SIMT."], "mots": ["un geste", "centrale inertielle : x, y, z", "hauteur de la main", "lumière", "son"]}, "sv-objets": {"titres": ["LE PROTOTYPE", "L’INTÉGRATION", "EN SCÈNE"], "etapes": ["Sur l’établi, un premier prototype : un boîtier, une carte, une lumière qui clignote.", "On l’intègre dans un dispositif : plusieurs modules reliés à un contrôleur qui les fait dialoguer.", "Puis tout part en scène, monté, éclairé, prêt pour le public. TEAMMATE.POTO est passé par là."], "mots": ["le prototype, sur l’établi", "contrôleur", "en scène"]}, "sv-3d": {"titres": ["LA FORME", "L’USAGE", "LE PROTOTYPE"], "etapes": ["On cherche la forme : des volumes qu’on tourne, qu’on affine, qu’on compare.", "On la confronte à l’usage : la main, la prise, les points de contact.", "Puis on l’imprime en 3D, couche par couche, pour la tenir en main dès le lendemain."], "mots": ["la forme", "la main, l’usage", "impression 3D, couche par couche"]}, "sv-lumiere": {"titres": ["LE PLAN DE FEUX", "LE DMX", "LA LUMIÈRE RÉACTIVE"], "etapes": ["On dessine le plan de feux : où sont les projecteurs, et ce qu’ils éclairent.", "Chaque projecteur se pilote en DMX : un canal, une valeur de 0 à 255.", "Et la lumière devient réactive : elle suit le son, le geste ou les données, en temps réel."], "mots": ["scène", "DMX : un canal, une valeur", "la lumière suit le son"]}, "sv-go2": {"titres": ["LE ROBOT", "LA CHORÉGRAPHIE", "LES MODULES"], "etapes": ["Le Go2 de Unitree : un robot quadrupède, agile, qu’on programme pour la scène.", "On écrit sa chorégraphie : des points de passage, des postures, un rythme.", "On lui ajoute des modules scéniques, comme un mégaphone sur le dos. Voir CAVE // FOUR ROBOTS et BILLY // STEAM DECK."], "mots": ["Go2 · Unitree", "les points de passage", "module scénique : mégaphone"]}, "sv-repar": {"titres": ["LE DIAGNOSTIC", "LA RÉPARATION", "LE RÉGLAGE"], "etapes": ["On écoute et on mesure : à l’oscilloscope, le signal d’un synthé ou d’un ampli fatigué dit ce qui ne va pas : souffle, craquements, saturation.", "On répare : condensateurs fatigués remplacés, soudures reprises, potentiomètres nettoyés.", "Puis on règle : un signal propre, un synthé accordé note par note, un ampli qui sonne comme au premier jour."], "mots": ["synthétiseur, ampli, hi-fi", "souffle, craquements, saturation", "condensateurs fatigués", "soudures, potentiomètres", "un signal propre", "accordé"]}},
+    sv: {"sv-data": {"titres": ["LES DONNÉES", "VISUEL OU MUSIQUE", "POUR QUI, POUR OÙ"], "etapes": ["Des capteurs, des stations, des flux : les données arrivent de partout et convergent.", "On les convertit en forme artistique : un visuel qui se construit, ou une musique qui en joue les variations.", "Cette forme trouve sa place : au musée, en concert, dans une installation ou un système interactif où le public la fait réagir."], "mots": ["capteurs, mesures", "les données", "un visuel", "une musique", "musée", "concert", "installation interactive"]}, "sv-conseil": {"titres": ["L’IDÉE", "TROIS MONDES", "LA FEUILLE DE ROUTE"], "etapes": ["Un projet commence souvent flou : une envie, un lieu, un public, un délai. On écoute et on pose les contraintes.", "On le regarde avec trois paires d’yeux, l’art, le design et l’ingénierie, jusqu’à trouver ce qui tient des trois.", "Puis on trace la route : idée, prototype, test, scène. Chaque étape a son livrable, et on sait où l’on va."], "mots": ["une idée, des contraintes", "budget", "public", "délai", "lieu", "art", "design", "ingénierie", "le projet", "idée", "prototype", "test", "scène"]}, "sv-da": {"titres": ["LES RÉFÉRENCES", "LES CHOIX", "L’UNIVERS"], "etapes": ["On réunit des références : matières, motifs, signes, images. Elles se répondent, et une direction se dessine.", "On choisit : une palette, une typographie, une couleur de son. Peu d’éléments, mais tenus partout.", "Ensemble, ils forment un univers cohérent, qu’on retrouve dans l’image, l’objet, la scène et le son."], "mots": ["références", "couleurs", "typographie", "son", "un univers cohérent"]}, "sv-digital": {"titres": ["L’ESPACE", "LUMIÈRE ET SON", "LE PUBLIC AGIT"], "etapes": ["Tout part d’un lieu et de ceux qui le traversent : ses murs, ses volumes, ses visiteurs.", "On l’habite d’images projetées et de sons spatialisés : la pièce devient une œuvre.", "Et l’œuvre écoute : chaque présence, chaque mouvement du public la transforme en temps réel."], "mots": ["un espace, des visiteurs", "projection et son", "chaque présence modifie l’œuvre"]}, "sv-physique": {"titres": ["L’IDÉE", "LA FABRICATION", "SA PLACE"], "etapes": ["On imagine avec vous un objet qui n’existe pas encore, et on le dessine en 3D, à la cote.", "Puis on le fabrique : machine, bois, métal, résine, et l’électronique intégrée quand il le faut.", "La pièce rejoint son lieu : un musée, une installation, la scène d’un artiste. Elle est unique, faite pour lui."], "mots": ["un objet imaginé pour vous", "la machine", "bois", "métal", "résine", "une pièce unique", "musée", "installation"]}, "sv-cdm": {"titres": ["LE CORPS", "LES CAPTEURS", "LA MUSIQUE"], "etapes": ["Tout part du corps en mouvement : une danse, un geste, un appui.", "Des capteurs aux poignets et aux chevilles traduisent le mouvement en données.", "Ces données écrivent la musique : le mouvement déclenche les pas d’une séquence et module le son. TRIPODE AS-SIMT en est un outil."], "mots": ["le corps", "capteurs → données", "une séquence jouée par le mouvement"]}, "sv-robot": {"titres": ["UN ACTIONNEUR", "TOUTE LA ROBOTIQUE", "EN SCÈNE"], "etapes": ["Un bras robotique frappe une cloche : un geste mécanique devient un son.", "On travaille avec tout type de robotique : bras, bases roulantes, quadrupèdes, sculptures cinétiques.", "Sur scène, robots, lumière et son jouent la même partition. CAVE // FOUR ROBOTS pousse cette idée jusqu’au bout."], "mots": ["bras robotique", "cloche", "bras", "base roulante", "quadrupède", "sculpture cinétique", "robots, lumière, son : une seule partition", "le public"]}, "sv-audio": {"titres": ["UN PETIT OBJET", "IL SONNE", "UNE FAMILLE D’OBJETS"], "etapes": ["Un petit objet tient dans la main : une coque, un écran, quelques boutons, un glyphe gravé.", "On le touche, il sonne : chaque objet a sa voix, son geste, son caractère.", "Ensemble, ils forment une famille d’objets sonores qu’on joue sur scène ou qu’on pose dans une installation. TEAMMATE.POTO en est né."], "mots": ["un petit objet sonore", "notre esthétique", "on le touche", "il sonne", "une famille d’objets"]}, "sv-capteurs": {"titres": ["LE CORPS ÉQUIPÉ", "LES SIGNAUX", "LA SCÈNE RÉPOND"], "etapes": ["On conçoit des capteurs faits pour le corps : légers, portés aux poignets et aux chevilles d’un danseur ou sur l’instrument d’un musicien.", "Ils envoient le mouvement sans fil, en continu, vers un récepteur : le geste devient données.", "Et la scène répond : la lumière suit la main du danseur, le son suit le musicien, la scénographie bouge avec eux."], "mots": ["capteur", "un danseur équipé", "récepteur sans fil", "le mouvement, en données", "danseur", "musicien", "la lumière suit le geste"]}, "sv-objets": {"titres": ["LE PROTOTYPE", "L’INTÉGRATION", "EN SCÈNE"], "etapes": ["Sur l’établi, un premier prototype : un boîtier, une carte, une lumière qui clignote.", "On l’intègre dans un dispositif : plusieurs modules reliés à un contrôleur qui les fait dialoguer.", "Puis tout part en scène, monté, éclairé, prêt pour le public. TEAMMATE.POTO est passé par là."], "mots": ["le prototype, sur l’établi", "contrôleur", "en scène"]}, "sv-3d": {"titres": ["LA FORME", "L’USAGE", "LE PROTOTYPE"], "etapes": ["On cherche la forme : des volumes qu’on tourne, qu’on affine, qu’on compare.", "On la confronte à l’usage : la main, la prise, les points de contact.", "Puis on l’imprime en 3D, couche par couche, pour la tenir en main dès le lendemain."], "mots": ["la forme", "la main, l’usage", "impression 3D, couche par couche"]}, "sv-lumiere": {"titres": ["UN OBJET LUMINEUX", "PILOTÉ EN WI-FI", "LA SCÈNE LUMIÈRE"], "etapes": ["On crée des objets lumineux intelligents : la lumière, et dedans un microcontrôleur qui la pilote.", "Ils se pilotent sans fil, en Wi-Fi, depuis une console ou un ordinateur : chaque lampe répond. On travaille avec différents microcontrôleurs selon le projet.", "Ensemble, ils deviennent une scénographie lumière : une vague traverse la scène, la lumière suit le son ou le geste."], "mots": ["microcontrôleur", "un objet lumineux", "console, Wi-Fi", "chaque lampe répond", "une scène de lumière"]}, "sv-go2": {"titres": ["LE ROBOT", "LA CHORÉGRAPHIE", "À LOUER, SUR MESURE"], "etapes": ["Le Go2 de Unitree : un robot quadrupède agile, qu’on programme pour la scène et l’installation.", "On écrit sa chorégraphie : des points de passage, des postures, un rythme, calés sur la musique.", "On peut le louer pour une scénographie, équipé sur mesure (mégaphone, lumière, capteurs), pour que vous puissiez vous projeter avec lui. Voir CAVE // FOUR ROBOTS et BILLY // STEAM DECK."], "mots": ["Go2 · Unitree", "les points de passage", "à louer, équipé sur mesure", "le public"]}, "sv-repar": {"titres": ["LE DIAGNOSTIC", "LA RÉPARATION", "LE RÉGLAGE"], "etapes": ["On écoute et on mesure : à l’oscilloscope, le signal d’un synthé ou d’un ampli fatigué dit ce qui ne va pas : souffle, craquements, saturation.", "On répare : condensateurs fatigués remplacés, soudures reprises, potentiomètres nettoyés.", "Puis on règle : un signal propre, un synthé accordé note par note, un ampli qui sonne comme au premier jour."], "mots": ["synthétiseur, ampli, hi-fi", "souffle, craquements, saturation", "condensateurs fatigués", "soudures, potentiomètres", "un signal propre", "accordé"]}, "gear-capteurs": {"titres": ["LE CAPTEUR", "PORTÉ SUR LE CORPS", "ENVOYER", "RECEVOIR : L’ÉCOUTE HAPTIQUE"], "etapes": ["Un petit boîtier imprimé en 3D. Dedans : une carte ESP32, un capteur de mouvement (accéléromètre et magnétomètre) et trois moteurs de vibration.", "On le porte au poignet, à la cheville, sur un instrument : il mesure le mouvement sur trois axes, en continu.", "Il envoie ce mouvement sans fil : en Wi-Fi vers l’ordinateur (OSC), vers un synthé ou un logiciel (MIDI), et vers une page web pour le régler depuis un téléphone.", "Et il reçoit : le son ou les données reviennent jusqu’au capteur, et ses trois moteurs les font vibrer. On entend aussi par la peau : c’est l’écoute haptique."], "mots": ["carte ESP32", "capteur de mouvement", "moteurs de vibration", "un capteur au poignet", "x · y · z", "ordinateur · Wi-Fi · OSC", "synthé · MIDI", "téléphone · page web", "le son revient", "on l’entend par la peau"]}, "gear-pcb": {"titres": ["LE TRACÉ", "LES COMPOSANTS", "LA PETITE SÉRIE"], "etapes": ["On part de votre besoin, et on dessine le circuit : les pistes se tracent sur la carte.", "Puis on place les composants : microcontrôleur, connecteurs, alimentation, capteurs.", "On fabrique en petite série, et la carte prend place dans son objet, prête à fonctionner."], "mots": ["le tracé des pistes", "microcontrôleur", "capteur", "connecteurs", "une petite série", "dans son objet"]}},
     panneau: 'comment ça marche', legende: 'légende', suivant: 'suite', precedent: 'précédent',
     sync: 'synchronisés', desync: 'désynchronisés', public: 'public', toi: 'toi', memoire: 'mémoire · 48 fragments', reponse: 'teammate',
     decisions: ['imiter', 'contraster', 'densifier', 's’éclaircir', 'se taire'],
@@ -102,7 +102,7 @@ const TEXTES = {
   },
   en: {
     svLegende: [["css", "what we design"], ["or", "what acts, the signal"], ["encre", "the object, the body"], ["gris", "the context"]],
-    sv: {"sv-data": {"titres": ["MEASURE", "STRUCTURE", "GIVE FORM"], "etapes": ["It all starts with measurements: sensors, weather stations, open feeds. The numbers arrive raw and continuous.", "We clean and structure them: each value finds its place in a grid, a series, a map.", "Then we give them a form you can see and hear: an image, a sound, an object. Here the series becomes a landscape of glyphs."], "mots": ["sensors", "raw measurements", "clean, structure", "a form: image, sound, object"]}, "sv-conseil": {"titres": ["THE IDEA", "THREE WORLDS", "THE ROADMAP"], "etapes": ["A project often starts blurry: a wish, a place, an audience, a deadline. We listen and lay out the constraints.", "We look at it with three pairs of eyes, art, design and engineering, until we find what holds all three.", "Then we draw the road: idea, prototype, test, stage. Each step has its deliverable, and we know where we are going."], "mots": ["an idea, constraints", "budget", "audience", "deadline", "venue", "art", "design", "engineering", "the project", "idea", "prototype", "test", "stage"]}, "sv-da": {"titres": ["REFERENCES", "CHOICES", "THE WORLD"], "etapes": ["We gather references: materials, patterns, signs, images. They answer each other, and a direction appears.", "We choose: a palette, a typeface, a colour of sound. Few elements, but held everywhere.", "Together they form a coherent world, found in the image, the object, the stage and the sound."], "mots": ["references", "colours", "typeface", "sound", "a coherent world"]}, "sv-digital": {"titres": ["THE SPACE", "LIGHT AND SOUND", "THE AUDIENCE ACTS"], "etapes": ["It all starts with a place and those who cross it: its walls, its volumes, its visitors.", "We fill it with projected images and spatialised sound: the room becomes a work.", "And the work listens: every presence, every movement of the audience changes it in real time."], "mots": ["a space, visitors", "projection and sound", "every presence changes the work"]}, "sv-physique": {"titres": ["THE DRAWING", "MAKING", "MATERIALS"], "etapes": ["We draw the object in 3D, to size: volumes, joints, room for the electronics.", "The machine cuts it: the CNC router follows its path, pass after pass.", "We bring the materials together, wood, metal, resin, silicone, and the electronics fit inside."], "mots": ["the drawing, to size", "CNC machining", "wood", "metal", "resin", "silicone", "built-in electronics"]}, "sv-cdm": {"titres": ["THE BODY", "THE SENSORS", "THE MUSIC"], "etapes": ["It all starts with the moving body: a dance, a gesture, a step.", "Sensors on wrists and ankles translate movement into data.", "That data writes the music: movement triggers the steps of a sequence and shapes the sound. TRIPODE AS-SIMT is one such tool."], "mots": ["the body", "sensors → data", "a sequence played by movement"]}, "sv-robot": {"titres": ["ONE GESTURE", "AN ORCHESTRA", "AUTONOMY"], "etapes": ["An actuator, a solenoid, strikes an object: a mechanical gesture becomes a sound.", "Several actuators on several objects, bell, skin, wood, metal: they play together, following a pattern.", "The device becomes autonomous: it listens, decides and plays, in a loop. CAVE // FOUR ROBOTS takes this idea all the way to robots."], "mots": ["solenoid", "a mechanical gesture, a sound", "bell", "skin", "wood", "metal", "listen", "decide", "play", "autonomous"]}, "sv-audio": {"titres": ["THE CIRCUIT", "THE OBJECT", "ON STAGE"], "etapes": ["It all starts with a circuit: an oscillator, resistors, capacitors, and a signal being born.", "It takes shape in a case: knobs, inputs and outputs, patch cables.", "Then it goes on stage and becomes an instrument. TEAMMATE.POTO was born this way."], "mots": ["oscillator", "resistor", "capacitor", "knobs, patch, case", "on stage"]}, "sv-capteurs": {"titres": ["THE GESTURE", "THE MEASURE", "THE RESPONSE"], "etapes": ["A hand draws in the air. That is what we want to hear and see.", "A sensor measures it: an inertial unit gives its movements on three axes, continuously.", "Those measurements drive light and sound: the higher the hand, the brighter the lamp and the higher the sound. See TRIPODE AS-SIMT."], "mots": ["a gesture", "inertial unit: x, y, z", "hand height", "light", "sound"]}, "sv-objets": {"titres": ["THE PROTOTYPE", "INTEGRATION", "ON STAGE"], "etapes": ["On the workbench, a first prototype: a case, a board, a blinking light.", "We integrate it into a device: several modules linked to a controller that makes them talk.", "Then everything goes on stage, rigged, lit, ready for the audience. TEAMMATE.POTO went this way."], "mots": ["the prototype, on the bench", "controller", "on stage"]}, "sv-3d": {"titres": ["THE FORM", "THE USE", "THE PROTOTYPE"], "etapes": ["We look for the form: volumes we turn, refine, compare.", "We test it against use: the hand, the grip, the contact points.", "Then we 3D-print it, layer by layer, to hold it in hand the next day."], "mots": ["the form", "the hand, the use", "3D printing, layer by layer"]}, "sv-lumiere": {"titres": ["THE LIGHTING PLOT", "DMX", "REACTIVE LIGHT"], "etapes": ["We draw the lighting plot: where the fixtures are, and what they light.", "Each fixture is driven over DMX: one channel, one value from 0 to 255.", "And light becomes reactive: it follows sound, gesture or data, in real time."], "mots": ["stage", "DMX: one channel, one value", "light follows sound"]}, "sv-go2": {"titres": ["THE ROBOT", "THE CHOREOGRAPHY", "THE MODULES"], "etapes": ["Unitree’s Go2: an agile quadruped robot that we program for the stage.", "We write its choreography: waypoints, postures, a rhythm.", "We add stage modules, like a megaphone on its back. See CAVE // FOUR ROBOTS and BILLY // STEAM DECK."], "mots": ["Go2 · Unitree", "the waypoints", "stage module: megaphone"]}, "sv-repar": {"titres": ["DIAGNOSIS", "REPAIR", "CALIBRATION"], "etapes": ["We listen and measure: on the oscilloscope, the signal of a tired synth or amp tells what is wrong: hiss, crackle, clipping.", "We repair: worn capacitors replaced, solder joints redone, pots cleaned.", "Then we calibrate: a clean signal, a synth tuned note by note, an amp that sounds like the first day."], "mots": ["synth, amp, hi-fi", "hiss, crackle, clipping", "worn capacitors", "solder joints, pots", "a clean signal", "tuned"]}},
+    sv: {"sv-data": {"titres": ["THE DATA", "VISUALS OR MUSIC", "FOR WHOM, WHERE"], "etapes": ["Sensors, stations, feeds: data comes from everywhere and converges.", "We turn it into an artistic form: visuals that build themselves, or music that plays its variations.", "That form finds its place: in a museum, at a concert, in an installation or an interactive system where the audience makes it react."], "mots": ["sensors, measurements", "the data", "visuals", "music", "museum", "concert", "interactive installation"]}, "sv-conseil": {"titres": ["THE IDEA", "THREE WORLDS", "THE ROADMAP"], "etapes": ["A project often starts blurry: a wish, a place, an audience, a deadline. We listen and lay out the constraints.", "We look at it with three pairs of eyes, art, design and engineering, until we find what holds all three.", "Then we draw the road: idea, prototype, test, stage. Each step has its deliverable, and we know where we are going."], "mots": ["an idea, constraints", "budget", "audience", "deadline", "venue", "art", "design", "engineering", "the project", "idea", "prototype", "test", "stage"]}, "sv-da": {"titres": ["REFERENCES", "CHOICES", "THE WORLD"], "etapes": ["We gather references: materials, patterns, signs, images. They answer each other, and a direction appears.", "We choose: a palette, a typeface, a colour of sound. Few elements, but held everywhere.", "Together they form a coherent world, found in the image, the object, the stage and the sound."], "mots": ["references", "colours", "typeface", "sound", "a coherent world"]}, "sv-digital": {"titres": ["THE SPACE", "LIGHT AND SOUND", "THE AUDIENCE ACTS"], "etapes": ["It all starts with a place and those who cross it: its walls, its volumes, its visitors.", "We fill it with projected images and spatialised sound: the room becomes a work.", "And the work listens: every presence, every movement of the audience changes it in real time."], "mots": ["a space, visitors", "projection and sound", "every presence changes the work"]}, "sv-physique": {"titres": ["THE IDEA", "MAKING", "ITS PLACE"], "etapes": ["We imagine with you an object that does not exist yet, and draw it in 3D, to size.", "Then we make it: machine, wood, metal, resin, and built-in electronics when needed.", "The piece joins its place: a museum, an installation, an artist’s stage. It is unique, made for it."], "mots": ["an object imagined for you", "the machine", "wood", "metal", "resin", "a one-off piece", "museum", "installation"]}, "sv-cdm": {"titres": ["THE BODY", "THE SENSORS", "THE MUSIC"], "etapes": ["It all starts with the moving body: a dance, a gesture, a step.", "Sensors on wrists and ankles translate movement into data.", "That data writes the music: movement triggers the steps of a sequence and shapes the sound. TRIPODE AS-SIMT is one such tool."], "mots": ["the body", "sensors → data", "a sequence played by movement"]}, "sv-robot": {"titres": ["ONE ACTUATOR", "ALL ROBOTICS", "ON STAGE"], "etapes": ["A robotic arm strikes a bell: a mechanical gesture becomes a sound.", "We work with all kinds of robotics: arms, rolling bases, quadrupeds, kinetic sculptures.", "On stage, robots, light and sound play the same score. CAVE // FOUR ROBOTS takes this idea all the way."], "mots": ["robotic arm", "bell", "arm", "rolling base", "quadruped", "kinetic sculpture", "robots, light, sound: one score", "the audience"]}, "sv-audio": {"titres": ["A SMALL OBJECT", "IT SOUNDS", "A FAMILY OF OBJECTS"], "etapes": ["A small object fits in the hand: a shell, a screen, a few knobs, an engraved glyph.", "You touch it, it sounds: each object has its voice, its gesture, its character.", "Together they form a family of sound objects, played on stage or set in an installation. TEAMMATE.POTO was born this way."], "mots": ["a small sound object", "our style", "you touch it", "it sounds", "a family of objects"]}, "sv-capteurs": {"titres": ["THE EQUIPPED BODY", "THE SIGNALS", "THE STAGE ANSWERS"], "etapes": ["We design sensors made for the body: light, worn on a dancer’s wrists and ankles or on a musician’s instrument.", "They send movement wirelessly and continuously to a receiver: gesture becomes data.", "And the stage answers: light follows the dancer’s hand, sound follows the musician, the set moves with them."], "mots": ["sensor", "an equipped dancer", "wireless receiver", "movement, as data", "dancer", "musician", "light follows the gesture"]}, "sv-objets": {"titres": ["THE PROTOTYPE", "INTEGRATION", "ON STAGE"], "etapes": ["On the workbench, a first prototype: a case, a board, a blinking light.", "We integrate it into a device: several modules linked to a controller that makes them talk.", "Then everything goes on stage, rigged, lit, ready for the audience. TEAMMATE.POTO went this way."], "mots": ["the prototype, on the bench", "controller", "on stage"]}, "sv-3d": {"titres": ["THE FORM", "THE USE", "THE PROTOTYPE"], "etapes": ["We look for the form: volumes we turn, refine, compare.", "We test it against use: the hand, the grip, the contact points.", "Then we 3D-print it, layer by layer, to hold it in hand the next day."], "mots": ["the form", "the hand, the use", "3D printing, layer by layer"]}, "sv-lumiere": {"titres": ["A LIGHT OBJECT", "CONTROLLED OVER WI-FI", "A STAGE OF LIGHT"], "etapes": ["We create smart light objects: the light, and inside, a microcontroller that drives it.", "They are controlled wirelessly over Wi-Fi from a desk or a computer: each lamp answers. We work with different microcontrollers depending on the project.", "Together they become a lighting design: a wave crosses the stage, light follows sound or gesture."], "mots": ["microcontroller", "a light object", "desk, Wi-Fi", "each lamp answers", "a stage of light"]}, "sv-go2": {"titres": ["THE ROBOT", "THE CHOREOGRAPHY", "FOR HIRE, CUSTOM-BUILT"], "etapes": ["Unitree’s Go2: an agile quadruped robot we program for stage and installation.", "We write its choreography: waypoints, postures, a rhythm, locked to the music.", "It can be hired for a stage design, custom-equipped (megaphone, light, sensors), so you can picture it in your own project. See CAVE // FOUR ROBOTS and BILLY // STEAM DECK."], "mots": ["Go2 · Unitree", "the waypoints", "for hire, custom-equipped", "the audience"]}, "sv-repar": {"titres": ["DIAGNOSIS", "REPAIR", "CALIBRATION"], "etapes": ["We listen and measure: on the oscilloscope, the signal of a tired synth or amp tells what is wrong: hiss, crackle, clipping.", "We repair: worn capacitors replaced, solder joints redone, pots cleaned.", "Then we calibrate: a clean signal, a synth tuned note by note, an amp that sounds like the first day."], "mots": ["synth, amp, hi-fi", "hiss, crackle, clipping", "worn capacitors", "solder joints, pots", "a clean signal", "tuned"]}, "gear-capteurs": {"titres": ["THE SENSOR", "WORN ON THE BODY", "SENDING", "RECEIVING: HAPTIC LISTENING"], "etapes": ["A small 3D-printed case. Inside: an ESP32 board, a motion sensor (accelerometer and magnetometer) and three vibration motors.", "You wear it on the wrist, the ankle, on an instrument: it measures movement on three axes, continuously.", "It sends that movement wirelessly: over Wi-Fi to a computer (OSC), to a synth or software (MIDI), and to a web page to set it up from a phone.", "And it receives: sound or data come back to the sensor, and its three motors turn them into vibration. You also hear through the skin: that is haptic listening."], "mots": ["ESP32 board", "motion sensor", "vibration motors", "a sensor on the wrist", "x · y · z", "computer · Wi-Fi · OSC", "synth · MIDI", "phone · web page", "the sound comes back", "you hear it through the skin"]}, "gear-pcb": {"titres": ["THE LAYOUT", "THE COMPONENTS", "THE SMALL RUN"], "etapes": ["We start from your need and draw the circuit: the traces are laid out on the board.", "Then we place the components: microcontroller, connectors, power, sensors.", "We make a small run, and the board takes its place in its object, ready to work."], "mots": ["the trace layout", "microcontroller", "sensor", "connectors", "a small run", "in its object"]}},
     panneau: 'how it works', legende: 'key', suivant: 'next', precedent: 'previous',
     sync: 'in sync', desync: 'out of sync', public: 'audience', toi: 'you', memoire: 'memory · 48 fragments', reponse: 'teammate',
     decisions: ['imitate', 'contrast', 'densify', 'thin out', 'stay silent'],
@@ -1416,9 +1416,380 @@ const SV = {
     },
   ],
 };
+// ---------------------------------------------------------------- SERVICES en 3D : des lieux en glyphes, comme pour BILLY, pour qu'on se projette
+// un petit atelier 3D : des points (chacun un glyphe), une caméra, des étiquettes posées dans l'espace
+const K3 = {
+  pt (L, x, y, z, r, t = 0.06) { L.push({ x, y, z, r, t, g: GCLES[(L.length * 7 + 3) % GCLES.length] }); },
+  ligne (L, a, b, r, pas = 0.08, t) { const d = Math.hypot(b[0] - a[0], b[1] - a[1], b[2] - a[2]); const n = Math.max(1, Math.round(d / pas)); for (let i = 0; i <= n; i++) { const u = i / n; K3.pt(L, a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u, a[2] + (b[2] - a[2]) * u, r, t); } },
+  boite (L, cx, cy, cz, lx, ly, lz, r, pas = 0.12, t) {
+    // les arêtes, et les faces en pointillé
+    const X = [cx - lx / 2, cx + lx / 2]; const Y = [cy, cy + ly]; const Z = [cz - lz / 2, cz + lz / 2];
+    for (const y of Y) for (const z of Z) K3.ligne(L, [X[0], y, z], [X[1], y, z], r, pas, t);
+    for (const x of X) for (const z of Z) K3.ligne(L, [x, Y[0], z], [x, Y[1], z], r, pas, t);
+    for (const x of X) for (const y of Y) K3.ligne(L, [x, y, Z[0]], [x, y, Z[1]], r, pas, t);
+    for (let x = X[0] + pas * 2; x < X[1] - pas; x += pas * 2) for (let z = Z[0] + pas * 2; z < Z[1] - pas; z += pas * 2) K3.pt(L, x, Y[1], z, r, t);
+  },
+  cylindre (L, cx, cz, rr, y0, y1, r, pas = 0.12, t) { const n = Math.max(8, Math.round(rr * 6.28 / pas)); for (let y = y0; y <= y1 + 1e-6; y += pas * 1.5) for (let i = 0; i < n; i++) { const a = i / n * 6.283; K3.pt(L, cx + Math.cos(a) * rr, y, cz + Math.sin(a) * rr, r, t); } },
+  sphere (L, cx, cy, cz, rr, r, n = 60, t) { for (let i = 0; i < n; i++) { const k = 1 - 2 * (i + 0.5) / n; const a = i * 2.39996; const s = Math.sqrt(1 - k * k); K3.pt(L, cx + Math.cos(a) * s * rr, cy + k * rr, cz + Math.sin(a) * s * rr, r, t); } },
+  sol (L, x0, z0, x1, z1, pas = 0.5, r = 'sombre') { for (let x = x0; x <= x1 + 1e-6; x += pas) for (let z = z0; z <= z1 + 1e-6; z += pas) K3.pt(L, x, 0, z, r, 0.05); },
+  mur (L, x0, z0, x1, z1, h, r = 'gris', pas = 0.35) { const n = Math.round(Math.hypot(x1 - x0, z1 - z0) / pas); for (let i = 0; i <= n; i++) for (let y = 0.2; y <= h; y += pas) K3.pt(L, x0 + (x1 - x0) * i / n, y, z0 + (z1 - z0) * i / n, r, 0.06); },
+  humain (L, x, z, t, r = 'encre', danse = 1, tourne = 0) {
+    // un corps en mouvement ; renvoie ses poignets et chevilles (pour y poser des capteurs)
+    const a = Math.sin(t * 2.2) * danse; const b = Math.sin(t * 2.2 + 1.7) * danse; const c = Math.cos(tourne); const s = Math.sin(tourne);
+    const P = (dx, y, dz) => [x + dx * c - dz * s, y, z + dx * s + dz * c];
+    const cou = P(0, 1.45, 0); const bassin = P(0.05 * a, 0.95, 0); const tete = P(0, 1.62, 0);
+    const mainG = P(-0.45 - 0.1 * a, 1.2 + 0.45 * Math.max(0, a), 0.15 * b); const mainD = P(0.45 + 0.1 * b, 1.2 + 0.45 * Math.max(0, b), -0.15 * a);
+    const piedG = P(-0.18 - 0.1 * b, 0.02 + 0.12 * Math.max(0, b), 0.1 * a); const piedD = P(0.18 + 0.1 * a, 0.02 + 0.12 * Math.max(0, a), -0.1 * b);
+    const genouG = P(-0.14, 0.5 + 0.1 * Math.max(0, b), 0.12 + 0.1 * b); const genouD = P(0.14, 0.5 + 0.1 * Math.max(0, a), 0.12 + 0.1 * a);
+    const coudeG = P(-0.3, 1.25 + 0.2 * Math.max(0, a), 0.1); const coudeD = P(0.3, 1.25 + 0.2 * Math.max(0, b), 0.1);
+    [[cou, bassin], [cou, coudeG], [coudeG, mainG], [cou, coudeD], [coudeD, mainD], [bassin, genouG], [genouG, piedG], [bassin, genouD], [genouD, piedD]].forEach(([u, v]) => K3.ligne(L, u, v, r, 0.06, 0.05));
+    K3.sphere(L, tete[0], tete[1], tete[2], 0.11, r, 16, 0.05);
+    return { mainG, mainD, piedG, piedD, tete };
+  },
+  go2 (L, x, z, ang, t, r = 'encre', marche = 1) {
+    // le robot quadrupède : corps, tête, quatre pattes qui marchent
+    const c = Math.cos(ang); const s = Math.sin(ang); const P = (dx, y, dz) => [x + dx * c - dz * s, y, z + dx * s + dz * c];
+    const h = 0.32; for (let dx = -0.3; dx <= 0.3; dx += 0.06) for (const dz of [-0.11, 0.11]) { K3.pt(L, ...P(dx, h, dz), r, 0.05); K3.pt(L, ...P(dx, h + 0.1, dz), r, 0.05); }
+    const hp = P(0.36, h + 0.02, 0); K3.boite(L, hp[0], hp[1], hp[2], 0.12, 0.1, 0.12, 'or', 0.05, 0.05);
+    [[0.24, 0.13], [0.24, -0.13], [-0.24, 0.13], [-0.24, -0.13]].forEach(([dx, dz], i) => { const p = Math.sin(t * 7 + (i % 3 === 0 ? 0 : Math.PI)) * 0.06 * marche; const hanche = P(dx, h, dz); const genou = P(dx + 0.06 + p, h / 2, dz); const pied = P(dx + p * 1.5, 0.01 + Math.max(0, p) * 0.4, dz); K3.ligne(L, hanche, genou, r, 0.05, 0.05); K3.ligne(L, genou, pied, r, 0.05, 0.05); });
+    return P(0, h + 0.12, 0);
+  },
+};
+const GCLES = Object.keys(SIG);
+function orbite (w, h, cx, cy, cz, R, haut, ang, fov = 1.0) { return camera3d([cx + Math.cos(ang) * R, haut, cz + Math.sin(ang) * R], [cx, cy, cz], w, h, fov); }
+function rendre3d (ctx, cam, L, css, o = {}) {
+  const col = { css, or: OR, encre: ENCRE, gris: GRIS, ocre: OCRE, sombre: '#4a4844', eau: '#72dec2', rose: '#ff1fce', ...(o.couleurs || {}) };
+  const liste = []; for (const p of L) { const q = cam.p(p.x, p.y, p.z); if (q) liste.push([q, p]); }
+  liste.sort((a, b) => b[0][2] - a[0][2]); ctx.imageSmoothingEnabled = false; const portee = o.portee || 18;
+  for (const [[sx, sy, z], p] of liste) {
+    const s = Math.max(1.4, Math.min(12, cam.f * (p.t || 0.06) / z)); const al = Math.max(0, Math.min(1, 1.3 - z / portee)) * (p.a ?? 1); if (al <= 0.02) continue;
+    const c = col[p.r] || p.r; ctx.globalAlpha = al;
+    if (p.r === 'sombre') { const d = Math.max(1, s * 0.3); ctx.fillStyle = c; ctx.fillRect(sx - d / 2, sy - d / 2, d, d); } else if (s < 3.2) { ctx.fillStyle = c; ctx.fillRect(sx - s / 2, sy - s / 2, s, s); } else ctx.drawImage(sprite(p.g, c), sx - s / 2, sy - s / 2, s, s);
+  }
+  ctx.globalAlpha = 1;
+}
+function etiq (ctx, cam, p, txt, coul = GRIS, taille = 10, align = 'center', style = '') { const q = cam.p(p[0], p[1], p[2]); if (q) texte(ctx, txt, q[0], q[1], coul, taille, align, style); return q; }
+function anneaux (L, cx, cy, cz, t, r, n = 3, rmax = 2.5, vit = 0.8, plan = 'h') {
+  // des ondes qui s'éloignent (un son, un signal) : des cercles de points
+  for (let k = 0; k < n; k++) { const u = ((t * vit + k / n) % 1); const rr = 0.2 + u * rmax; const m = Math.round(rr * 18); for (let i = 0; i < m; i++) { const a = i / m * 6.283; const p = plan === 'h' ? [cx + Math.cos(a) * rr, cy, cz + Math.sin(a) * rr] : [cx + Math.cos(a) * rr, cy + Math.sin(a) * rr, cz]; L.push({ x: p[0], y: p[1], z: p[2], r, t: 0.05, a: 1 - u, g: GCLES[i % GCLES.length] }); } }
+}
+
+Object.assign(SV, {
+  // ---- data → art : les données deviennent visuel ou musique, pour le musée, le concert, l'installation
+  'sv-data': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -4, -4, 4, 4, 0.6);
+      // une station de mesure, des capteurs, et les données qui convergent vers un noyau
+      K3.ligne(L, [-2.6, 0, -1], [-2.6, 2.4, -1], 'encre', 0.08); for (let k = 0; k < 3; k++) { const a = t * 4 + k * 2.1; K3.ligne(L, [-2.6, 2.4, -1], [-2.6 + Math.cos(a) * 0.4, 2.4, -1 + Math.sin(a) * 0.4], 'encre', 0.06); }
+      [[-2.2, 0, 1.6], [2.4, 0, -1.8], [2.2, 0, 1.8]].forEach(([x, y, z]) => K3.boite(L, x, y, z, 0.3, 0.5, 0.3, 'css', 0.08));
+      const sources = [[-2.6, 2.4, -1], [-2.2, 0.5, 1.6], [2.4, 0.5, -1.8], [2.2, 0.5, 1.8]];
+      sources.forEach((a, i) => { for (let k = 0; k < 10; k++) { const u = ((t * 0.35 + k / 10 + i * 0.13) % 1); const p = [a[0] * (1 - u), a[1] * (1 - u) + 1.2 * u + Math.sin(u * 3.1) * 0.5, a[2] * (1 - u)]; L.push({ x: p[0], y: p[1], z: p[2], r: k % 3 ? 'gris' : 'or', t: 0.09, g: GCLES[(k + i * 5) % GCLES.length] }); } });
+      K3.sphere(L, 0, 1.2, 0, 0.35 + 0.05 * Math.sin(t * 3), 'or', 50, 0.07);
+      const cam = orbite(w, h, 0, 0.9, 0, 6.5, 2.6, 0.6 + t * 0.06, 1.0); rendre3d(ctx, cam, L, css);
+      etiq(ctx, cam, [-2.6, 2.75, -1], m[0], ENCRE); etiq(ctx, cam, [0, 1.75, 0], m[1], OR, 11);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -5, -4, 5, 4, 0.6);
+      K3.sphere(L, 0, 1.2, 0, 0.3, 'or', 40, 0.07);
+      // à gauche : un paysage visuel fait de colonnes de glyphes
+      const k = lis(ph / 5);
+      for (let i = 0; i < 7; i++) for (let j = 0; j < 5; j++) { const v = 0.5 + 0.5 * Math.sin(i * 0.8 + j * 0.6 + t * 0.7); const n = Math.round(v * 6 * k); for (let y = 0; y < n; y++) K3.pt(L, -4.2 + i * 0.35, 0.15 + y * 0.28, -0.9 + j * 0.35, y > 4 ? 'or' : 'css', 0.13); }
+      // à droite : la musique, des ondes et une partition qui défile
+      anneaux(L, 3, 0.05, 0, t, 'css', 4, 2.0 * k, 0.5);
+      for (let i = 0; i < 12; i++) { const on = hsh(i + Math.floor(t * 2)) > 0.55; K3.pt(L, 2 + i * 0.2, 1.2 + (hsh(i * 3) * 0.8) * (on ? 1 : 0), 0, on ? 'or' : 'sombre', 0.12); }
+      [[-1.5, 0], [1.5, 0]].forEach(([x], i) => { for (let q = 0; q < 6; q++) { const u = ((t * 0.5 + q / 6) % 1); K3.pt(L, x * u * (i ? 1 : 1), 1.2 - u * 0.4, 0, 'or', 0.07); } });
+      const cam = orbite(w, h, 0, 0.8, 0, 7.5, 3.2, 1.45 + Math.sin(t * 0.2) * 0.25, 1.0); rendre3d(ctx, cam, L, css);
+      etiq(ctx, cam, [-3.2, 2.4, 0], m[2], css, 11, 'center', '600 '); etiq(ctx, cam, [3, 2.4, 0], m[3], css, 11, 'center', '600 '); etiq(ctx, cam, [0, 1.7, 0], m[1], OR);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      if (!s.L) {
+        s.L = []; const L = s.L; K3.sol(L, -6, -6, 6, 6, 0.7);
+        // le musée : des cadres au mur ; le concert : une scène, des enceintes ; l'installation : une salle
+        K3.mur(L, -6, -6, -1, -6, 2.6); for (let i = 0; i < 3; i++) K3.boite(L, -5 + i * 1.6, 1, -5.95, 1, 0.8, 0.02, 'css', 0.1);
+        K3.boite(L, 3.2, 0, -3.5, 4, 0.4, 2, 'gris', 0.25); K3.boite(L, 1.6, 0.4, -4, 0.5, 1.3, 0.5, 'encre', 0.12); K3.boite(L, 4.8, 0.4, -4, 0.5, 1.3, 0.5, 'encre', 0.12);
+        K3.mur(L, -6, 6, -6, 1, 2.6); K3.mur(L, -6, 1, -2, 1, 2.6, 'sombre');
+      }
+      const L = s.L.slice();
+      for (let i = 0; i < 8; i++) K3.pt(L, 1.4 + (i % 4) * 0.8, 0.9, -1.6 + Math.floor(i / 4) * 0.7, 'encre', 0.12);
+      const vx = -4 + Math.sin(t * 0.6) * 1.2; const vz = 3.5 + Math.cos(t * 0.5) * 1.2; K3.humain(L, vx, vz, t, 'encre', 0.4); anneaux(L, vx, 0.02, vz, t, 'or', 3, 1.4, 0.9);
+      anneaux(L, 3.2, 1.6, -3.4, t, 'or', 3, 1.8, 0.7, 'v');
+      for (let i = 0; i < 3; i++) for (let k = 0; k < 8; k++) { const u = ((t * 0.4 + k / 8) % 1); const dest = [[-4, 1.4, -5.8], [3.2, 1.2, -3.4], [vx, 1.2, vz]][i]; K3.pt(L, dest[0] * u, 3 - u * (3 - dest[1]), dest[2] * u, 'or', 0.07); }
+      K3.sphere(L, 0, 3, 0, 0.25, 'or', 30, 0.06);
+      const cam = orbite(w, h, -0.5, 0.6, -0.5, 11, 6.5, 0.9 + ph * 0.035, 0.95); rendre3d(ctx, cam, L, css, { portee: 26 });
+      etiq(ctx, cam, [-3.5, 2.4, -5.9], m[4], css, 11, 'center', '600 '); etiq(ctx, cam, [3.2, 2.2, -3.5], m[5], css, 11, 'center', '600 '); etiq(ctx, cam, [-4, 2.3, 3.5], m[6], css, 11, 'center', '600 ');
+    },
+  ],
+  // ---- créations physiques sur mesure : l'idée, la fabrication, sa place (musée, installation, artiste)
+  'sv-physique': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -3, -3, 3, 3, 0.5);
+      // un objet sur mesure, dessiné en fil : une sculpture sonore et lumineuse
+      for (let k = 0; k < 7; k++) { const y = 0.3 + k * 0.25; const rr = 0.45 + 0.25 * Math.sin(k * 0.7); const n = 22; for (let i = 0; i < n; i++) { const a = i / n * 6.283; K3.pt(L, Math.cos(a) * rr, y, Math.sin(a) * rr, 'css', 0.06); } }
+      K3.ligne(L, [0, 0, 0], [0, 2.1, 0], 'gris', 0.1); K3.sphere(L, 0, 2.3, 0, 0.18, 'or', 24, 0.06);
+      K3.ligne(L, [-0.9, 0.05, 1.2], [0.9, 0.05, 1.2], 'gris', 0.1);
+      const cam = orbite(w, h, 0, 1.1, 0, 4.6, 2.2, t * 0.3, 1.0); rendre3d(ctx, cam, L, css);
+      etiq(ctx, cam, [0, 0.12, 1.4], '1 800 mm', GRIS, 9); etiq(ctx, cam, [0, 2.7, 0], m[0], ENCRE);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -3, -3, 3, 3, 0.5); const k = lis(ph / 12); const haut = 0.3 + k * 1.8;
+      // la pièce se construit, couche après couche (bois, métal, résine), sous la tête de la machine
+      for (let kk = 0; kk < 7; kk++) { const y = 0.3 + kk * 0.25; if (y > haut) break; const rr = 0.45 + 0.25 * Math.sin(kk * 0.7); const n = 26; for (let i = 0; i < n; i++) { const a = i / n * 6.283; K3.pt(L, Math.cos(a) * rr, y, Math.sin(a) * rr, kk < 2 ? 'ocre' : kk < 5 ? 'gris' : 'css', 0.09); } }
+      const tx = Math.cos(t * 2.2) * 0.55; const tz = Math.sin(t * 2.2) * 0.55;
+      K3.boite(L, 0, 2.6, 0, 3, 0.1, 0.12, 'gris', 0.15); K3.ligne(L, [tx, 2.6, tz], [tx, haut + 0.15, tz], 'encre', 0.06); K3.sphere(L, tx, haut + 0.1, tz, 0.06, 'or', 10, 0.05);
+      for (let p = 0; p < 10; p++) { const a = t * 8 + p; K3.pt(L, tx + Math.cos(a) * 0.25 * hsh(p), haut + hsh(p + 9) * 0.3, tz + Math.sin(a) * 0.25 * hsh(p + 3), 'ocre', 0.05); }
+      const cam = orbite(w, h, 0, 1.1, 0, 4.4, 2.4, 0.8 + t * 0.12, 1.0); rendre3d(ctx, cam, L, css);
+      etiq(ctx, cam, [1.6, 2.85, 0], m[1], ENCRE); etiq(ctx, cam, [0.9, 0.35, 0], m[2], OCRE); etiq(ctx, cam, [0.95, 1.1, 0], m[3], GRIS); etiq(ctx, cam, [0.9, 1.75, 0], m[4], css);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      if (!s.L) {
+        s.L = []; const L = s.L; K3.sol(L, -5, -5, 5, 5, 0.6); K3.mur(L, -5, -5, 5, -5, 3); K3.mur(L, -5, -5, -5, 5, 3);
+        K3.boite(L, 0, 0, 0, 1, 0.8, 1, 'gris', 0.12);
+        for (let k = 0; k < 7; k++) { const y = 1.1 + k * 0.25; const rr = 0.45 + 0.25 * Math.sin(k * 0.7); for (let i = 0; i < 26; i++) { const a = i / 26 * 6.283; K3.pt(L, Math.cos(a) * rr, y, Math.sin(a) * rr, k < 2 ? 'ocre' : k < 5 ? 'gris' : 'css', 0.08); } }
+        K3.boite(L, -3.5, 0, -3.8, 0.8, 1.2, 0.8, 'gris', 0.12); K3.boite(L, 3.4, 0, -3.6, 1.2, 0.6, 0.6, 'gris', 0.12);
+      }
+      const L = s.L.slice();
+      for (let k = 0; k < 40; k++) { const u = k / 40; const y = 4.2 - u * 2.2; const rr = u * 1.1; const a = k * 2.4; L.push({ x: Math.cos(a) * rr, y, z: Math.sin(a) * rr, r: 'or', t: 0.05, a: 0.4, g: GCLES[k % GCLES.length] }); }
+      K3.sphere(L, 0, 3.15, 0, 0.18 + 0.04 * Math.sin(t * 4), 'or', 22, 0.07);
+      [[2, 1.5, 0.4], [-2, 2, 1.8], [1.4, -2, 3]].forEach(([x, z, d], i) => K3.humain(L, x + Math.sin(t * 0.3 + i) * 0.3, z, t * 0.3 + i, 'encre', 0.15, Math.atan2(-z, -x) + Math.PI / 2));
+      const cam = orbite(w, h, 0, 1.2, 0, 8.5, 4.5, 0.6 + ph * 0.04, 0.95); rendre3d(ctx, cam, L, css, { portee: 22 });
+      etiq(ctx, cam, [0, 3.6, 0], m[5], css, 11, 'center', '600 '); etiq(ctx, cam, [-3.5, 1.5, -3.8], m[6], GRIS); etiq(ctx, cam, [3.4, 0.9, -3.6], m[7], GRIS);
+    },
+  ],
+  // ---- capteurs & interaction : des objets dédiés aux danseurs, aux musiciens, à la scénographie
+  'sv-capteurs': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -3, -3, 3, 3, 0.5);
+      const J = K3.humain(L, 0, 0, t, 'encre', 1);
+      [J.mainG, J.mainD, J.piedG, J.piedD].forEach((p) => K3.boite(L, p[0], p[1] - 0.04, p[2], 0.1, 0.08, 0.1, 'or', 0.04, 0.05));
+      const cam = orbite(w, h, 0, 1, 0, 4, 1.7, 0.4 + t * 0.15, 1.0); rendre3d(ctx, cam, L, css);
+      etiq(ctx, cam, [J.mainD[0] + 0.1, J.mainD[1] + 0.2, J.mainD[2]], m[0], OR); etiq(ctx, cam, [0, 2.1, 0], m[1], ENCRE);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -3, -3, 3, 3, 0.5);
+      const J = K3.humain(L, 0, 0, t, 'encre', 1); const cap = [J.mainG, J.mainD, J.piedG, J.piedD];
+      cap.forEach((p) => K3.boite(L, p[0], p[1] - 0.04, p[2], 0.1, 0.08, 0.1, 'or', 0.04, 0.05));
+      // le récepteur, et les signaux sans fil qui le rejoignent
+      const R = [2.2, 1, -1.2]; K3.boite(L, R[0], 0, R[2], 0.4, 1, 0.3, 'css', 0.08);
+      cap.forEach((p, i) => { for (let k = 0; k < 7; k++) { const u = ((t * 0.9 + k / 7 + i * 0.21) % 1); K3.pt(L, p[0] + (R[0] - p[0]) * u, p[1] + (R[1] - p[1]) * u + Math.sin(u * 3.14) * 0.6, p[2] + (R[2] - p[2]) * u, 'or', 0.06); } });
+      // les courbes de mouvement, écrites dans l'air au-dessus
+      for (let i = 0; i < 40; i++) { const u = i / 40; K3.pt(L, -1.8 + u * 3.6, 2.6 + Math.sin(u * 9 - t * 2) * 0.18, -1.5, 'css', 0.05); K3.pt(L, -1.8 + u * 3.6, 2.2 + Math.sin(u * 5 - t * 3) * 0.15, -1.5, 'or', 0.05); }
+      const cam = orbite(w, h, 0.3, 1.2, -0.3, 4.6, 2, 0.9 + t * 0.08, 1.0); rendre3d(ctx, cam, L, css);
+      etiq(ctx, cam, [R[0], R[1] + 0.25, R[2]], m[2], css); etiq(ctx, cam, [0, 3, -1.5], m[3], GRIS);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -5, -4, 5, 4, 0.6); K3.boite(L, 0, 0, -0.5, 7, 0.3, 5, 'sombre', 0.4);
+      const J = K3.humain(L, -1.2, 0.2, t, 'encre', 1); const v = Math.max(0, Math.min(1, (J.mainD[1] - 1.1) / 0.6));
+      // la lumière suit la main du danseur, le son suit le musicien
+      [-2.6, -1.2, 0.2].forEach((x, i) => { const n = 30; for (let k = 0; k < n; k++) { const u = k / n; const rr = u * 0.9; const a = k * 2.4 + t; L.push({ x: x + Math.cos(a) * rr, y: 4 - u * 3.6, z: 0.2 + Math.sin(a) * rr, r: 'or', t: 0.06, a: 0.2 + 0.6 * v * (i === 1 ? 1 : 0.5), g: GCLES[k % GCLES.length] }); } K3.boite(L, x, 4, 0.2, 0.25, 0.2, 0.25, 'encre', 0.06); });
+      K3.humain(L, 2.4, -0.8, t * 0.6, 'encre', 0.3); K3.boite(L, 2.4, 0, -0.3, 0.9, 0.8, 0.4, 'gris', 0.1); anneaux(L, 2.4, 1, -0.3, t, 'css', 3, 1.6, 0.8, 'v');
+      [J.mainG, J.mainD].forEach((p) => K3.boite(L, p[0], p[1] - 0.04, p[2], 0.1, 0.08, 0.1, 'or', 0.04, 0.05));
+      const cam = orbite(w, h, 0, 1.2, 0, 8, 3, 1.3 + Math.sin(t * 0.2) * 0.3, 0.95); rendre3d(ctx, cam, L, css, { portee: 20 });
+      etiq(ctx, cam, [-1.2, 2.2, 0.2], m[4], ENCRE); etiq(ctx, cam, [2.4, 2.1, -0.8], m[5], ENCRE); etiq(ctx, cam, [-1.2, 4.4, 0.2], m[6], OR);
+    },
+  ],
+  // ---- Go2 sur mesure : le robot, sa chorégraphie, la location pour la scène
+  'sv-go2': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -2, -2, 2, 2, 0.35); const tete = K3.go2(L, 0, 0, 0, t, 'encre', 1);
+      const cam = orbite(w, h, 0, 0.3, 0, 2.6, 1.2, t * 0.35, 1.0); rendre3d(ctx, cam, L, css, { portee: 9 });
+      etiq(ctx, cam, [0, 0.75, 0], m[0], ENCRE, 11);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -4, -3, 4, 3, 0.5); K3.boite(L, 0, 0, 0, 7, 0.02, 5, 'sombre', 0.5);
+      const pts = [[-2.5, -1.5], [2, -1.8], [2.6, 1.4], [-0.5, 1.8], [-1.8, 0.4]];
+      pts.forEach((p, i) => { const q = pts[(i + 1) % 5]; for (let k = 0; k < 14; k++) if (k % 2 === 0) K3.pt(L, p[0] + (q[0] - p[0]) * k / 14, 0.02, p[1] + (q[1] - p[1]) * k / 14, 'css', 0.06); K3.boite(L, p[0], 0, p[1], 0.18, 0.04, 0.18, 'css', 0.05); });
+      const u = (t * 0.1) % 1 * 5; const i = Math.floor(u); const f = lis(u - i); const a = pts[i]; const b = pts[(i + 1) % 5];
+      K3.go2(L, a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, Math.atan2(b[1] - a[1], b[0] - a[0]), t, 'encre', 1);
+      const cam = orbite(w, h, 0, 0, 0, 6.5, 4.2, 1.2 + Math.sin(t * 0.15) * 0.3, 1.0); rendre3d(ctx, cam, L, css);
+      pts.forEach((p, k) => etiq(ctx, cam, [p[0], 0.3, p[1]], String(k + 1), css, 10)); etiq(ctx, cam, [0, 0.1, 3.2], m[1], GRIS);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      if (!s.L) { s.L = []; K3.sol(s.L, -5, -4, 5, 5, 0.6); K3.boite(s.L, 0, 0, 0, 7, 0.3, 4.5, 'sombre', 0.45); for (let i = 0; i < 12; i++) K3.pt(s.L, -3.3 + (i % 6) * 1.3, 0.9, 3.4 + Math.floor(i / 6) * 0.8, 'gris', 0.14); }
+      const L = s.L.slice();
+      // le robot loué, équipé sur mesure : un mégaphone, une lumière ; il joue pour le public
+      const x = Math.sin(t * 0.35) * 2; const ang = Math.cos(t * 0.35) > 0 ? 0 : Math.PI; const dos = K3.go2(L, x, 0, ang, t, 'encre', 1); const dy = 0.3;
+      K3.ligne(L, [dos[0], dos[1] + dy - 0.3, dos[2]], [dos[0] + 0.3, dos[1] + dy, dos[2]], 'encre', 0.04); for (let a = 0; a < 6.28; a += 0.5) K3.pt(L, dos[0] + 0.32, dos[1] + dy + Math.sin(a) * 0.12, dos[2] + Math.cos(a) * 0.12, 'encre', 0.04);
+      anneaux(L, dos[0] + 0.45, dos[1] + dy, dos[2], t, 'or', 3, 1.8, 0.8, 'v');
+      for (let k = 0; k < 24; k++) { const u = k / 24; L.push({ x: x + Math.cos(k * 2.4) * u * 0.8, y: 3.6 - u * 3.2, z: Math.sin(k * 2.4) * u * 0.8, r: 'css', t: 0.06, a: 0.35, g: GCLES[k % GCLES.length] }); }
+      const cam = orbite(w, h, 0, 0.6, 0.6, 7.5, 3, 1.57 + Math.sin(t * 0.18) * 0.35, 0.95); rendre3d(ctx, cam, L, css, { portee: 20 });
+      etiq(ctx, cam, [0, 1.9, 0], m[2], css, 11, 'center', '600 '); etiq(ctx, cam, [0, 1.4, 4], m[3], GRIS);
+    },
+  ],
+  // ---- robotique pour la scène : un actionneur, toute la robotique, en scène
+  'sv-robot': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -2.5, -2.5, 2.5, 2.5, 0.4);
+      // un bras robotique frappe une cloche
+      const a1 = 0.6 + Math.sin(t * 2) * 0.35; const a2 = -1 + Math.max(0, Math.sin(t * 2)) * 0.9; const base = [-0.8, 0, 0]; const ep = [base[0], 0.9, 0]; const coude = [ep[0] + Math.cos(a1) * 0.8, ep[1] + Math.sin(a1) * 0.8, 0]; const main = [coude[0] + Math.cos(a1 + a2) * 0.7, coude[1] + Math.sin(a1 + a2) * 0.7, 0];
+      K3.boite(L, base[0], 0, 0, 0.4, 0.2, 0.4, 'gris', 0.08); K3.ligne(L, base, ep, 'encre', 0.05); K3.ligne(L, ep, coude, 'encre', 0.05); K3.ligne(L, coude, main, 'css', 0.05); K3.sphere(L, ...main, 0.06, 'or', 10, 0.05);
+      for (let k = 0; k < 6; k++) { const rr = 0.15 + k * 0.08; for (let i = 0; i < 16; i++) { const a = i / 16 * 6.28; K3.pt(L, 0.9 + Math.cos(a) * rr, 0.75 - k * 0.12, Math.sin(a) * rr, 'ocre', 0.05); } }
+      const frappe = Math.sin(t * 2) > 0.92; if (frappe || ((t * 2) % 6.283) < 2) anneaux(L, 0.9, 0.5, 0, t, 'or', 3, 1.8, 1.2);
+      const cam = orbite(w, h, 0.1, 0.7, 0, 3.4, 1.5, 0.9 + Math.sin(t * 0.2) * 0.4, 1.0); rendre3d(ctx, cam, L, css);
+      etiq(ctx, cam, [coude[0], coude[1] + 0.25, 0], m[0], css); etiq(ctx, cam, [0.9, 0.95, 0], m[1], OCRE);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -5, -4, 5, 4, 0.6);
+      // toute sorte de robotique : bras, base roulante, quadrupède, sculpture cinétique
+      const a1 = 0.6 + Math.sin(t * 2) * 0.4; K3.boite(L, -3, 0, -1, 0.4, 0.2, 0.4, 'gris', 0.08); K3.ligne(L, [-3, 0, -1], [-3, 0.9, -1], 'encre', 0.06); const c = [-3 + Math.cos(a1) * 0.8, 0.9 + Math.sin(a1) * 0.8, -1]; K3.ligne(L, [-3, 0.9, -1], c, 'css', 0.06);
+      const rx = -0.8 + Math.sin(t * 0.7) * 1; K3.boite(L, rx, 0.15, 1.6, 0.8, 0.4, 0.6, 'encre', 0.08); [[-0.3, 0.3], [0.3, 0.3], [-0.3, -0.3], [0.3, -0.3]].forEach(([dx, dz]) => K3.sphere(L, rx + dx, 0.12, 1.6 + dz, 0.12, 'gris', 10, 0.04)); K3.ligne(L, [rx, 0.55, 1.6], [rx, 1.6, 1.6], 'gris', 0.08); K3.sphere(L, rx, 1.7, 1.6, 0.15, 'or', 18, 0.05);
+      K3.go2(L, 1.6, -1.5, t * 0.4, t, 'encre', 1);
+      for (let i = 0; i < 5; i++) { const ang = Math.sin(t * 1.2 + i * 0.7) * 0.5; const top = [3.4 + i * 0.3, 3.2, 1]; K3.ligne(L, top, [top[0] + Math.sin(ang) * 1.6, 3.2 - Math.cos(ang) * 1.6, 1], 'gris', 0.1); K3.sphere(L, top[0] + Math.sin(ang) * 1.6, 3.2 - Math.cos(ang) * 1.6, 1, 0.1, 'css', 12, 0.05); }
+      const cam = orbite(w, h, 0.3, 1, 0, 8, 3.2, 1.2 + Math.sin(t * 0.15) * 0.4, 0.95); rendre3d(ctx, cam, L, css, { portee: 20 });
+      etiq(ctx, cam, [-3, 2.1, -1], m[2], GRIS); etiq(ctx, cam, [rx, 2.1, 1.6], m[3], GRIS); etiq(ctx, cam, [1.6, 0.9, -1.5], m[4], GRIS); etiq(ctx, cam, [4, 3.5, 1], m[5], GRIS);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      if (!s.L) { s.L = []; K3.sol(s.L, -6, -4, 6, 6, 0.6); K3.boite(s.L, 0, 0, 0, 9, 0.3, 5, 'sombre', 0.45); for (let i = 0; i < 18; i++) K3.pt(s.L, -4 + (i % 9), 0.9, 4 + Math.floor(i / 9) * 0.9, 'gris', 0.14); }
+      const L = s.L.slice(); const pas = Math.floor(t * 2) % 4;
+      [-3, -1, 1, 3].forEach((x, i) => { const on = i === pas; const ang = on ? 1.2 : 0.4; K3.boite(L, x, 0.3, -1, 0.4, 0.2, 0.4, 'gris', 0.08); K3.ligne(L, [x, 0.3, -1], [x, 1.2, -1], 'encre', 0.06); K3.ligne(L, [x, 1.2, -1], [x + Math.cos(ang) * 0.7, 1.2 + Math.sin(ang) * 0.7, -1], on ? 'or' : 'css', 0.06);
+        for (let k = 0; k < 20; k++) { const u = k / 20; L.push({ x: x + Math.cos(k * 2.4) * u * 0.7, y: 4 - u * 3.6, z: -1 + Math.sin(k * 2.4) * u * 0.7, r: on ? 'or' : 'css', t: 0.06, a: on ? 0.5 : 0.12, g: GCLES[k % GCLES.length] }); }
+        if (on) anneaux(L, x, 1.6, -1, t, 'or', 2, 1.4, 1.4, 'v'); });
+      const cam = orbite(w, h, 0, 1, 1, 9.5, 3.4, 1.57 + Math.sin(t * 0.15) * 0.3, 0.95); rendre3d(ctx, cam, L, css, { portee: 24 });
+      etiq(ctx, cam, [0, 4.4, -1], m[6], css, 11, 'center', '600 '); etiq(ctx, cam, [0, 1.6, 4.5], m[7], GRIS);
+    },
+  ],
+  // ---- objets audio : un petit objet sonore à notre esthétique, il sonne, une famille d'objets
+  'sv-audio': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -1.5, -1.5, 1.5, 1.5, 0.25);
+      // un petit objet rond : la coque, un écran, des boutons, un glyphe gravé
+      for (let k = 0; k < 6; k++) { const y = 0.05 + k * 0.05; const rr = 0.5 - Math.abs(k - 2.5) * 0.04; for (let i = 0; i < 40; i++) { const a = i / 40 * 6.283; K3.pt(L, Math.cos(a) * rr, y, Math.sin(a) * rr, 'encre', 0.035); } }
+      K3.boite(L, -0.18, 0.32, -0.05, 0.22, 0.01, 0.16, 'css', 0.03, 0.03);
+      for (let i = 0; i < 3; i++) { const bx = 0.12 + i * 0.1; for (let a = 0; a < 6.28; a += 0.8) K3.pt(L, bx + Math.cos(a) * 0.035, 0.33, 0.15 + Math.sin(a) * 0.035, 'or', 0.025); }
+      for (let i = 0; i < 6; i++) { const a = i / 6 * 6.283 + 0.5; K3.pt(L, Math.cos(a) * 0.53, 0.18, Math.sin(a) * 0.53, 'ocre', 0.04); }
+      const cam = orbite(w, h, 0, 0.15, 0, 1.5, 0.9, t * 0.35, 1.0); rendre3d(ctx, cam, L, css, { portee: 6 });
+      etiq(ctx, cam, [0, 0.55, 0], m[0], ENCRE, 11); etiq(ctx, cam, [0.55, 0.2, 0.4], m[1], OCRE, 9);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -2, -2, 2, 2, 0.3);
+      for (let k = 0; k < 6; k++) { const y = 0.05 + k * 0.05; const rr = 0.5 - Math.abs(k - 2.5) * 0.04; for (let i = 0; i < 40; i++) { const a = i / 40 * 6.283; K3.pt(L, Math.cos(a) * rr, y, Math.sin(a) * rr, 'encre', 0.035); } }
+      const doigt = (t % 2) < 0.3; const dy = doigt ? 0.36 : 0.6 + Math.sin(t) * 0.05; K3.ligne(L, [0.2, dy, 0.15], [0.5, dy + 0.5, 0.5], 'gris', 0.04);
+      anneaux(L, 0, 0.3, 0, t, 'css', 4, 1.8, 0.7); anneaux(L, 0, 0.3, 0, t + 0.3, 'or', 2, 1.2, 0.7, 'v');
+      const cam = orbite(w, h, 0, 0.3, 0, 2.6, 1.3, 0.7 + t * 0.15, 1.0); rendre3d(ctx, cam, L, css, { portee: 8 });
+      etiq(ctx, cam, [0.6, 1.1, 0.5], m[2], GRIS); etiq(ctx, cam, [0, 1.3, 0], m[3], css, 11);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.boite(L, 0, 0, 0, 4.2, 0.75, 1.6, 'ocre', 0.25); const tour = Math.floor(t * 1.5) % 5;
+      [-1.6, -0.8, 0, 0.8, 1.6].forEach((x, i) => { const rr = 0.22 + (i % 2) * 0.06; for (let k = 0; k < 4; k++) for (let a = 0; a < 6.28; a += 0.35) K3.pt(L, x + Math.cos(a) * rr, 0.8 + k * 0.05, Math.sin(a) * rr * (i % 3 === 0 ? 0.6 : 1), i === tour ? 'or' : 'encre', 0.035); if (i === tour) anneaux(L, x, 1, 0, t, 'or', 2, 1, 1.2); });
+      const cam = orbite(w, h, 0, 0.8, 0, 4, 2.2, 1.2 + Math.sin(t * 0.2) * 0.4, 1.0); rendre3d(ctx, cam, L, css, { portee: 10 });
+      etiq(ctx, cam, [0, 1.6, 0], m[4], css, 11);
+    },
+  ],
+  // ---- scénographie & lumière : un objet lumineux intelligent, piloté en Wi-Fi, une scène de lumière
+  'sv-lumiere': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -1.5, -1.5, 1.5, 1.5, 0.25); const v = 0.5 + 0.5 * Math.sin(t * 1.5);
+      // un tube lumineux, et sa carte électronique dedans
+      K3.cylindre(L, 0, 0, 0.14, 0.2, 1.6, 'encre', 0.08, 0.04); for (let y = 0.25; y < 1.6; y += 0.08) L.push({ x: 0, y, z: 0, r: 'or', t: 0.07, a: 0.3 + 0.7 * v, g: GCLES[Math.round(y * 50) % GCLES.length] });
+      K3.boite(L, 0, 0, 0, 0.5, 0.2, 0.5, 'gris', 0.06); K3.boite(L, 0, 0.06, 0, 0.22, 0.02, 0.14, 'css', 0.03, 0.03);
+      const cam = orbite(w, h, 0, 0.8, 0, 2.6, 1.1, t * 0.3, 1.0); rendre3d(ctx, cam, L, css, { portee: 8 });
+      etiq(ctx, cam, [0.35, 0.15, 0], m[0], css, 10, 'left'); etiq(ctx, cam, [0, 1.85, 0], m[1], OR, 11);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -4, -3, 4, 3, 0.5); const C = [-3, 0.9, 2];
+      K3.boite(L, C[0], 0.7, C[2], 0.6, 0.05, 0.4, 'css', 0.06); K3.ligne(L, [C[0], 0, C[2]], [C[0], 0.7, C[2]], 'gris', 0.1);
+      const lampes = [[-1, -1.5], [0.5, -1.8], [2, -1.2], [1.2, 0.8], [-0.4, 0.6]];
+      lampes.forEach(([x, z], i) => { const v = 0.5 + 0.5 * Math.sin(t * 2 + i * 1.3); K3.cylindre(L, x, z, 0.1, 0.1, 1.3, 'encre', 0.1, 0.035); for (let y = 0.15; y < 1.3; y += 0.12) L.push({ x, y, z, r: i % 2 ? 'css' : 'or', t: 0.08, a: 0.2 + 0.8 * v, g: GCLES[(i * 9 + Math.round(y * 10)) % GCLES.length] });
+        for (let k = 0; k < 6; k++) { const u = ((t * 0.7 + k / 6 + i * 0.17) % 1); K3.pt(L, C[0] + (x - C[0]) * u, 0.9 + Math.sin(u * 3.14) * 1.2 + (1.3 - 0.9) * u, C[2] + (z - C[2]) * u, 'css', 0.05); } });
+      const cam = orbite(w, h, -0.5, 0.7, 0, 6, 2.6, 1.0 + Math.sin(t * 0.2) * 0.3, 1.0); rendre3d(ctx, cam, L, css);
+      etiq(ctx, cam, [C[0], 1.05, C[2]], m[2], css); etiq(ctx, cam, [0.5, 2.6, -0.3], m[3], OR);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      if (!s.L) { s.L = []; K3.sol(s.L, -6, -4, 6, 6, 0.6); K3.boite(s.L, 0, 0, 0, 10, 0.3, 5, 'sombre', 0.45); for (let i = 0; i < 18; i++) K3.pt(s.L, -4 + (i % 9), 0.9, 4 + Math.floor(i / 9) * 0.9, 'gris', 0.14); }
+      const L = s.L.slice();
+      // une forêt de tubes lumineux : une vague de lumière les traverse
+      for (let i = 0; i < 9; i++) for (let j = 0; j < 3; j++) { const x = -4 + i; const z = -1.5 + j * 1.2; const v = 0.5 + 0.5 * Math.sin(t * 2.5 - i * 0.6 - j * 0.4); for (let y = 0.4; y < 2.2; y += 0.18) L.push({ x, y, z, r: v > 0.7 ? 'or' : 'css', t: 0.09, a: 0.12 + 0.88 * v, g: GCLES[(i * 5 + j * 3 + Math.round(y * 10)) % GCLES.length] }); }
+      const cam = orbite(w, h, 0, 1.1, 0.5, 9, 3.2, 1.57 + Math.sin(t * 0.15) * 0.35, 0.95); rendre3d(ctx, cam, L, css, { portee: 24 });
+      etiq(ctx, cam, [0, 2.8, -0.3], m[4], css, 11, 'center', '600 ');
+    },
+  ],
+});
+
+// ---------------------------------------------------------------- BOUTIQUE · electronic gear : les capteurs AS-SIMT et les PCB sur mesure, en 3D
+function tripode3d (L, x, y, z, ang, s = 1, r = 'encre') {
+  // le capteur : un petit boîtier imprimé en 3D, qui porte sa carte
+  const c = Math.cos(ang); const sn = Math.sin(ang); const P = (dx, dy, dz) => [x + dx * c - dz * sn, y + dy, z + dx * sn + dz * c];
+  const lx = 0.16 * s; const ly = 0.2 * s; const lz = 0.07 * s; const pas = 0.025 * s;
+  for (const dz of [-lz, lz]) for (let dx = -lx; dx <= lx + 1e-6; dx += pas) { K3.pt(L, ...P(dx, 0, dz), r, 0.012 * s); K3.pt(L, ...P(dx, ly, dz), r, 0.012 * s); }
+  for (const dx of [-lx, lx]) for (const dz of [-lz, lz]) for (let dy = 0; dy <= ly + 1e-6; dy += pas) K3.pt(L, ...P(dx, dy, dz), r, 0.012 * s);
+  for (let dx = -lx * 0.7; dx <= lx * 0.7; dx += pas * 1.5) for (let dy = ly * 0.15; dy <= ly * 0.85; dy += pas * 1.5) K3.pt(L, ...P(dx, dy, lz + 0.005), 'css', 0.012 * s);
+}
+Object.assign(SV, {
+  'gear-capteurs': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -1, -1, 1, 1, 0.15);
+      const a = 0; tripode3d(L, 0, 0.05, 0, a, 2.6);
+      // dedans : la carte ESP32, le capteur de mouvement, trois moteurs de vibration
+      K3.boite(L, 0.14, 0.3, 0.19, 0.1, 0.02, 0.06, 'or', 0.02, 0.025);
+      const M = [[-0.25, 0.15, 0.1], [-0.25, 0.3, 0.1], [-0.25, 0.45, 0.1]]; M.forEach((p) => K3.sphere(L, ...p, 0.04, 'ocre', 12, 0.025));
+      const cam = orbite(w, h, 0, 0.3, 0, 1.9, 0.9, 0.9 + Math.sin(t * 0.3) * 0.6, 1.0); rendre3d(ctx, cam, L, css, { portee: 6 });
+      etiq(ctx, cam, [0, 0.7, 0.19], m[0], css, 10); etiq(ctx, cam, [0.5, 0.05, 0.19], m[1], OR, 10, 'left'); etiq(ctx, cam, [-0.55, 0.75, 0.1], m[2], OCRE, 10, 'right');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -2.5, -2.5, 2.5, 2.5, 0.4);
+      const J = K3.humain(L, 0, 0, t, 'encre', 1);
+      tripode3d(L, J.mainD[0], J.mainD[1] - 0.03, J.mainD[2], t, 0.6, 'or'); tripode3d(L, J.mainG[0], J.mainG[1] - 0.03, J.mainG[2], t, 0.6, 'or');
+      // le mouvement mesuré : trois courbes, x y z, écrites dans l'air
+      ['css', 'or', 'encre'].forEach((c, i) => { for (let k = 0; k < 40; k++) { const u = k / 40; K3.pt(L, -1.6 + u * 3.2, 2.4 + i * 0.25 + Math.sin(u * (6 + i * 3) - t * (2 + i)) * 0.1, -1, c, 0.04); } });
+      const cam = orbite(w, h, 0, 1.3, -0.3, 4, 1.8, 1.2 + Math.sin(t * 0.2) * 0.4, 1.0); rendre3d(ctx, cam, L, css, { portee: 10 });
+      etiq(ctx, cam, [J.mainD[0], J.mainD[1] + 0.2, J.mainD[2]], m[3], OR); etiq(ctx, cam, [1.8, 2.65, -1], m[4], GRIS, 10, 'left');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -3, -2.5, 3, 2.5, 0.45);
+      const J = K3.humain(L, -1.6, 0.4, t, 'encre', 0.8); const src = J.mainD; tripode3d(L, src[0], src[1] - 0.03, src[2], t, 0.6, 'or');
+      // trois façons d'envoyer : OSC en Wi-Fi vers l'ordinateur, MIDI vers un synthé, la page web vers un téléphone
+      const D = [[1.8, 0.9, -1.4], [2.2, 0.7, 0.4], [1.4, 1.1, 1.8]];
+      K3.boite(L, D[0][0], 0.75, D[0][2], 0.7, 0.04, 0.45, 'css', 0.06); K3.boite(L, D[0][0], 0.79, D[0][2] - 0.22, 0.7, 0.42, 0.02, 'css', 0.06);
+      K3.boite(L, D[1][0], 0.55, D[1][2], 0.9, 0.12, 0.35, 'encre', 0.06);
+      K3.boite(L, D[2][0], 1, D[2][2], 0.18, 0.32, 0.03, 'css', 0.04);
+      D.forEach((d, i) => { for (let k = 0; k < 10; k++) { const u = ((t * 0.6 + k / 10 + i * 0.27) % 1); K3.pt(L, src[0] + (d[0] - src[0]) * u, src[1] + (d[1] - src[1]) * u + Math.sin(u * 3.14) * 0.6, src[2] + (d[2] - src[2]) * u, 'or', 0.06); } });
+      anneaux(L, src[0], src[1], src[2], t, 'css', 2, 1, 0.8, 'v');
+      const cam = orbite(w, h, 0.3, 0.9, 0.2, 5.6, 2.4, 1.35 + Math.sin(t * 0.2) * 0.3, 1.0); rendre3d(ctx, cam, L, css, { portee: 14 });
+      etiq(ctx, cam, [D[0][0], 1.35, D[0][2]], m[5], css); etiq(ctx, cam, [D[1][0], 0.95, D[1][2]], m[6], ENCRE); etiq(ctx, cam, [D[2][0], 1.5, D[2][2]], m[7], css);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.sol(L, -2, -2, 2, 2, 0.3);
+      // le retour : le son revient sur le poignet, les trois moteurs vibrent, on l'entend par la peau
+      const P = [0, 0.9, 0]; K3.ligne(L, [-1.6, 0.85, 0], [0.4, 0.95, 0], 'encre', 0.04); for (let i = 0; i < 12; i++) { const a = i / 12 * 6.283; K3.ligne(L, [0.4, 0.95, 0], [0.55 + Math.cos(a) * 0.06, 0.95 + Math.sin(a) * 0.06, 0], 'encre', 0.04); }
+      tripode3d(L, P[0], P[1], P[2], t * 0.2, 0.9, 'or');
+      const C = [-1.4, 1.6, -1.2]; K3.boite(L, C[0], 1.2, C[2], 0.6, 0.04, 0.4, 'css', 0.05);
+      for (let k = 0; k < 10; k++) { const u = ((t * 0.6 + k / 10) % 1); K3.pt(L, C[0] + (P[0] - C[0]) * u, 1.25 + (P[1] - 1.25) * u + Math.sin(u * 3.14) * 0.4, C[2] + (P[2] - C[2]) * u, 'css', 0.05); }
+      [0, 1, 2].forEach((k) => { const x = -0.12 + k * 0.12; const z = 0; const on = Math.floor(t * 3) % 3 === k; if (on) for (let q = 0; q < 3; q++) { const rr = 0.06 + ((t * 2 + q / 3) % 1) * 0.3; for (let i = 0; i < 14; i++) { const b = i / 14 * 6.283; L.push({ x: x + Math.cos(b) * rr, y: 0.97, z: z + Math.sin(b) * rr, r: 'ocre', t: 0.025, a: 1 - rr / 0.36, g: GCLES[i] }); } } });
+      const cam = orbite(w, h, -0.2, 0.95, 0, 1.9, 1.5, 1.0 + Math.sin(t * 0.25) * 0.4, 1.0); rendre3d(ctx, cam, L, css, { portee: 7 });
+      etiq(ctx, cam, [C[0], 1.45, C[2]], m[8], css); etiq(ctx, cam, [0, 1.25, 0], m[9], OCRE, 11);
+    },
+  ],
+  'gear-pcb': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; const k = lis(ph / 12);
+      // le schéma devient un tracé : des pistes qui se dessinent sur la carte
+      K3.boite(L, 0, 0, 0, 2.4, 0.04, 1.6, '#3a7d44', 0.08);
+      const pistes = [[[-1, -0.6], [-0.3, -0.6], [-0.3, 0.1], [0.6, 0.1]], [[-1, 0.5], [0.2, 0.5], [0.2, -0.4], [1, -0.4]], [[-0.6, -0.2], [-0.6, 0.6]], [[0.6, 0.6], [1, 0.6], [1, 0]]];
+      pistes.forEach((p, i) => { for (let j = 1; j < p.length; j++) { const u = Math.max(0, Math.min(1, k * 4 - i - (j - 1) * 0.3)); if (u <= 0) continue; const a = p[j - 1]; const b = p[j]; K3.ligne(L, [a[0], 0.05, a[1]], [a[0] + (b[0] - a[0]) * u, 0.05, a[1] + (b[1] - a[1]) * u], 'or', 0.04, 0.035); } });
+      const cam = orbite(w, h, 0, 0, 0, 2.6, 2.2, 1.57 + Math.sin(t * 0.2) * 0.4, 1.0); rendre3d(ctx, cam, L, css, { portee: 8 });
+      etiq(ctx, cam, [0, 0.3, -0.9], m[0], GRIS);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = []; K3.boite(L, 0, 0, 0, 2.4, 0.04, 1.6, '#3a7d44', 0.08);
+      const comps = [[-0.5, 0, 0.5, 0.12, 0.5, 'encre'], [0.6, 0.3, 0.3, 0.06, 0.3, 'encre'], [0.6, -0.4, 0.2, 0.15, 0.1, 'ocre'], [-0.9, -0.5, 0.25, 0.25, 0.25, 'gris'], [0.9, 0.55, 0.15, 0.2, 0.15, 'css'], [-0.1, -0.55, 0.12, 0.05, 0.3, 'encre']];
+      comps.forEach(([x, z, lx, ly, lz, c], i) => { const u = lis((ph - i * 1.4) / 1); if (u <= 0) return; K3.boite(L, x, 0.04 + (1 - u) * 0.8, z, lx, ly, lz, c, 0.04, 0.035); });
+      const cam = orbite(w, h, 0, 0.1, 0, 2.6, 1.6, 0.8 + t * 0.15, 1.0); rendre3d(ctx, cam, L, css, { portee: 8 });
+      etiq(ctx, cam, [-0.5, 0.35, 0.5], m[1], ENCRE); etiq(ctx, cam, [0.9, 0.45, 0.55], m[2], css); etiq(ctx, cam, [-0.9, 0.5, -0.5], m[3], GRIS);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const L = [];
+      // une petite série : les cartes s'empilent, puis l'une d'elles s'allume dans son objet
+      const n = Math.min(6, 1 + Math.floor(ph / 1.5)); for (let i = 0; i < n; i++) K3.boite(L, -1, i * 0.12, 0, 1.2, 0.03, 0.8, '#3a7d44', 0.1);
+      K3.boite(L, 1.1, 0, 0, 1.3, 0.5, 0.9, 'encre', 0.1); K3.boite(L, 1.1, 0.15, 0, 1, 0.03, 0.6, '#3a7d44', 0.08);
+      const on = Math.sin(t * 5) > 0; K3.sphere(L, 1.4, 0.5, 0, 0.06, on ? 'or' : 'sombre', 12, 0.04); if (on) anneaux(L, 1.4, 0.55, 0, t, 'or', 2, 0.5, 1.2);
+      const cam = orbite(w, h, 0, 0.3, 0, 3.2, 1.8, 1.2 + Math.sin(t * 0.2) * 0.4, 1.0); rendre3d(ctx, cam, L, css, { portee: 9 });
+      etiq(ctx, cam, [-1, 0.9, 0], m[4], GRIS); etiq(ctx, cam, [1.1, 0.85, 0], m[5], css);
+    },
+  ],
+});
+
 function serviceScene (id) {
   return (ctx, w, h, t, etat, css, L) => {
-    const total = SV_D.reduce((a, b) => a + b, 0); let ph = t % total; let actif = 0; while (ph >= SV_D[actif]) { ph -= SV_D[actif]; actif++; }
+    const D = SV[id].map(() => 16); const total = D.reduce((a, b) => a + b, 0); let ph = t % total; let actif = 0; while (ph >= D[actif]) { ph -= D[actif]; actif++; }
     const T = L.sv[id]; const cle = actif + '/' + (etat.relance || 0); if (etat.cle !== cle) { etat.cle = cle; etat.s = {}; }
     SV[id][actif](ctx, w, h, t, ph, etat.s, css, T.mots);
     texte(ctx, T.titres[actif], 12, 20, css, 11, 'left', '600 ');
@@ -1444,7 +1815,7 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
     ctx.font = "13px 'IBM Plex Mono', monospace";
     couper(ctx, etapes[R.actif], w - p * 2).forEach((l) => { texte(ctx, l, x + p, yy, ENCRE, 13); yy += 19; });
   } else {
-    texte(ctx, L.panneau.toUpperCase(), x + p, yy, GRIS, 10); yy += 36;
+    texte(ctx, L.panneau.toUpperCase(), x + p, yy, GRIS, 10); yy += 36 + (R.decal || 0);
     const taille = 12; const ligne = 18;
     ctx.font = `${taille}px 'IBM Plex Mono', monospace`;
     // beaucoup d'étapes : seule l'étape en cours s'écrit en entier, les autres tiennent sur une ligne
@@ -1490,7 +1861,7 @@ const ETAPES = {
   systema: cumul(SYS_DUREES),
   avatar: cumul(AV_DUREES),
   billy: cumul(BI_DUREES),
-  ...Object.fromEntries(Object.keys(SV).map((id) => [id, cumul(SV_D)])),
+  ...Object.fromEntries(Object.keys(SV).map((id) => [id, cumul(SV[id].map(() => 16))])),
 };
 function bornes (coupures, t) {
   const total = coupures[coupures.length - 1]; const base = Math.floor(t / total) * total; const ph = t - base;
@@ -1559,10 +1930,11 @@ export function lancerScene (canvas, id, css, locale) {
     ctx.save(); ctx.beginPath(); ctx.rect(0, 0, sw, sh); ctx.clip();
     const R = f(ctx, sw, sh, t, etat, css, L);
     ctx.restore();
+    const serre = large && w - sw < 430; R.decal = serre ? 30 : 0;
     if (large) panneau(ctx, sw, 0, w - sw, h, R, css, L, false);
     else panneau(ctx, 0, sh, w, h - sh, R, css, L, true);
     dernierR = R;
-    const top = (large ? 4 : sh + 4) + 'px'; if (nav.style.top !== top) nav.style.top = top;
+    const top = (large ? (serre ? 26 : 4) : sh + 4) + 'px'; if (nav.style.top !== top) nav.style.top = top;
   };
   const boucle = (now) => {
     const dt = Math.max(0, Math.min((now - avant) / 1000, 0.1)); avant = now; t += dt; etat.dt = dt;

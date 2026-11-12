@@ -17,9 +17,9 @@ import './orca.css';
 type Locale = 'fr' | 'en';
 type Mode = '3d' | 'vers2d' | '2d' | 'vers3d';
 type Prix = 'coming' | 'quote' | 'soon';
-type Item = { nom: string; sens: string; tags?: string[]; prix?: Prix; panier?: number; src?: string; duree?: string };
+type Item = { nom: string; sens: string; tags?: string[]; prix?: Prix; panier?: number; src?: string; duree?: string; image?: string; alt?: string; couleurs?: [string, string][]; glyphes?: [string, string][]; glyphesSens?: string; collab?: { texte: string; nom: string; lien: string }; details?: [string, string][]; tarif?: string; commande?: string };
 type Projet = { id: string; nom: string; sous: string; statut: string; texte: string[]; reperes: string[][]; tags: string[]; objet?: string; video?: string };
-type Bloc = { t: string; p?: string; titre?: string; sur?: string; duo?: string; legende?: string; signe?: string; code?: string; vide?: string; items?: unknown[] };
+type Bloc = { t: string; p?: string; titre?: string; sur?: string; duo?: string; legende?: string; signe?: string; code?: string; vide?: string; items?: unknown[]; fiches?: unknown[] };
 type Famille = { id: string; nom: string; code: string; signe: string; pourquoi: string; teinte: number; css: string; blocs: Bloc[] };
 
 const EMAIL = 'contact@punkhazard.org';
@@ -46,8 +46,8 @@ const PATCHS: Record<Locale, Record<string, string[]>> = {
 
 // les signes de l'alphabet partagé, et leur mot
 const MOTS: Record<Locale, Record<string, string>> = {
-  fr: { E113: 'double', E132: 'faire', E140: 'donner', E0EE: 'graine', E083: 'paume', E130: 'signal', E082: 'peau', E119: 'machine', E11C: 'vibration' },
-  en: { E113: 'double', E132: 'make', E140: 'give', E0EE: 'seed', E083: 'palm', E130: 'signal', E082: 'skin', E119: 'machine', E11C: 'vibration' },
+  fr: { E113: 'double', E132: 'faire', E140: 'donner', E0EE: 'graine', E083: 'paume', E130: 'signal', E082: 'peau', E119: 'machine', E11C: 'vibration', E167: 'petit', E16C: 'doux', E0CA: 'montagne' },
+  en: { E113: 'double', E132: 'make', E140: 'give', E0EE: 'seed', E083: 'palm', E130: 'signal', E082: 'skin', E119: 'machine', E11C: 'vibration', E167: 'small', E16C: 'soft', E0CA: 'mountain' },
 };
 
 const UI = {
@@ -282,6 +282,7 @@ function BlocVue({ b, f, ui, locale, ouvrirContact, cible, allerProjet }: { b: B
         <div className="rayon"><Glyphe signe={b.signe} couleur={f.css} /><h2>{b.titre}</h2><span>{MOTS[locale][b.signe]}</span></div>
       )}
       {b.vide && <p className="vide">{b.vide}</p>}
+      {b.fiches && <Explorer items={b.fiches as Projet[]} css={f.css} code={b.code || f.code} locale={locale} cible={cible} allerProjet={allerProjet} />}
       {b.items && (
         <div className="grille">
           {(b.items as Item[]).map((it, i) => <Carte key={it.nom} it={it} code={b.code || f.code} i={i} ui={ui} locale={locale} ouvrirContact={ouvrirContact} />)}
@@ -477,21 +478,38 @@ function Carte({ it, code, i, ui, locale, ouvrirContact }: { it: Item; code: str
     setAjoute(true); window.setTimeout(() => setAjoute(false), 1200);
   };
   return (
-    <article className="prod">
+    <article className={'prod' + (it.image ? ' large' : '')}>
+      {it.image && (
+        <figure className="prod-photo">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={it.image} alt={it.alt || it.nom} loading="lazy" />
+          {it.couleurs && <figcaption className="coloris">{it.couleurs.map(([n, c]) => <span key={n}><i style={{ background: c }} />{n}</span>)}</figcaption>}
+        </figure>
+      )}
+      <div className="prod-corps">
       <div className="ref">{code}.{String(i + 1).padStart(2, '0')}</div>
       <h2>{it.nom}</h2>
+      {it.glyphes && (
+        <div className="nom-glyphes">
+          <div className="mots">{it.glyphes.map(([sg, mot]) => <span key={sg} className="mot-glyphe"><Glyphe signe={sg} couleur="#ffb545" /><em>{mot}</em></span>)}</div>
+          {it.glyphesSens && <small>{it.glyphesSens}</small>}
+        </div>
+      )}
       <p>{it.sens}</p>
+      {it.collab && <p className="collab">{it.collab.texte} <a href={it.collab.lien} target="_blank" rel="noopener noreferrer">{it.collab.nom}</a></p>}
+      {it.details && <dl className="details">{it.details.flatMap(([k, v]) => [<dt key={`t${k}`}>{k}</dt>, <dd key={`d${k}`}>{v}</dd>])}</dl>}
       {it.tags && <div className="tags">{it.tags.map((x) => <span key={x}>{x}</span>)}</div>}
       {it.prix && (
         <div className="pied">
-          <span className="prix">{ui.prix[it.prix]}</span>
+          <span className="prix">{it.tarif || ui.prix[it.prix]}</span>
           {it.panier ? (
             <button type="button" className="btn" onClick={ajouter}>{ajoute ? ui.ajoute : ui.ajouter}</button>
           ) : (
-            <button type="button" className="btn" onClick={() => ouvrirContact(it.nom)}>{it.prix === 'quote' ? ui.devis : ui.prevenir}</button>
+            <button type="button" className="btn" onClick={() => ouvrirContact(it.nom)}>{it.commande || (it.prix === 'quote' ? ui.devis : ui.prevenir)}</button>
           )}
         </div>
       )}
+      </div>
     </article>
   );
 }

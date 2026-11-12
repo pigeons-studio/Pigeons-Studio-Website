@@ -253,23 +253,23 @@
       {
        "id": "sv-data",
        "nom": "Data visualisation & data intelligence",
-       "sous": "Faire parler les données environnementales",
+       "sous": "Transformer les données en œuvre : visuel ou musique",
        "statut": "sur devis",
        "texte": [
-        "Extraire et mettre en forme les données environnementales pour en faire des visualisations artistiques. On part des mesures, on les rend lisibles, puis sensibles : images, sons, objets. AVATAR MÉTABOLIQUE SONORE en est un exemple, où des données biologiques deviennent musique."
+        "Avec des données, on peut faire de l’art. On convertit toutes sortes de données en forme artistique, en visuels ou en musique, pour le musée, le concert, les systèmes interactifs et l’installation. AVATAR MÉTABOLIQUE SONORE en est un exemple, où des données biologiques deviennent musique."
        ],
        "reperes": [
         [
          "Pour qui",
-         "Institutions, laboratoires, marques"
+         "Musées, salles de concert, festivals, institutions, marques"
         ],
         [
          "On livre",
-         "Visualisations, sonifications, dispositifs"
+         "Visuels génératifs, musiques de données, installations interactives"
         ],
         [
          "Outils",
-         "Capteurs, Python, JavaScript, Three.js"
+         "Capteurs, Python, JavaScript, Three.js, synthèse sonore"
         ]
        ],
        "tags": [
@@ -365,19 +365,19 @@
       {
        "id": "sv-physique",
        "nom": "Créations physiques sur mesure",
-       "sous": "Design et électronique, de la cote à la matière",
+       "sous": "Des objets custom pour les musées, l’installation et les artistes",
        "statut": "sur devis",
        "texte": [
-        "Design et électronique, CNC, métal, résines, bois, plastiques, silicones. On conçoit et on fabrique des pièces uniques ou de petites séries, de l’objet scénique au boîtier d’instrument."
+        "On imagine et on fabrique des objets sur mesure pour les musées, l’installation et les artistes : des pièces custom, uniques, en bois, métal, résines, plastiques ou silicones, avec ou sans électronique."
        ],
        "reperes": [
         [
          "Pour qui",
-         "Artistes, scénographes, marques, studios"
+         "Musées, artistes, scénographes, lieux, marques"
         ],
         [
          "On livre",
-         "Pièces uniques, petites séries, prototypes"
+         "Objets custom, pièces uniques, petites séries"
         ],
         [
          "Atelier",
@@ -421,23 +421,23 @@
       {
        "id": "sv-robot",
        "nom": "Robotic Sound Hardware",
-       "sous": "Objets sonores robotiques et dispositifs autonomes",
+       "sous": "Toute la robotique, pour le son et pour la scène",
        "statut": "sur devis",
        "texte": [
-        "Objets sonores robotiques et dispositifs autonomes. Actionneurs, moteurs et capteurs font sonner la matière, seuls ou en orchestre."
+        "On travaille avec tout type de robotique, pour le son comme pour la scénographie : objets sonores robotiques, dispositifs autonomes, robots de scène. Bras, bases roulantes, quadrupèdes, sculptures cinétiques : on regarde large."
        ],
        "reperes": [
         [
          "Pour qui",
-         "Artistes, lieux, festivals, musées"
+         "Artistes, compagnies, lieux, festivals, musées"
         ],
         [
          "On livre",
-         "Instruments robotiques, installations autonomes"
+         "Instruments robotiques, robots de scène, installations autonomes"
         ],
         [
          "Outils",
-         "Solénoïdes, moteurs, microcontrôleurs, capteurs"
+         "Moteurs, solénoïdes, microcontrôleurs, capteurs, ROS"
         ]
        ],
        "tags": [
@@ -449,19 +449,19 @@
       {
        "id": "sv-audio",
        "nom": "Création d’objets audio",
-       "sous": "Synthés, contrôleurs et modules sur mesure",
+       "sous": "De petits objets qui font du son, à notre esthétique",
        "statut": "sur devis",
        "texte": [
-        "Objets et modules sur mesure pour la scène et l’installation : synthés, contrôleurs, modules sonores, pièces uniques."
+        "On crée de petits objets qui font du son, avec notre esthétique : synthés de poche, contrôleurs, modules, pièces uniques, pour la scène, l’installation ou la maison."
        ],
        "reperes": [
         [
          "Pour qui",
-         "Musiciens, performeurs, studios"
+         "Musiciens, performeurs, lieux, collectionneurs"
         ],
         [
          "On livre",
-         "Synthés, contrôleurs, modules, pièces uniques"
+         "Objets sonores, synthés, contrôleurs, pièces uniques"
         ],
         [
          "Outils",
@@ -477,23 +477,23 @@
       {
        "id": "sv-capteurs",
        "nom": "Capteurs & interaction",
-       "sous": "Le geste, le mouvement, la lumière",
+       "sous": "Des capteurs dédiés aux danseurs, aux musiciens, à la scénographie",
        "statut": "sur devis",
        "texte": [
-        "Capteurs et interfaces pour les gestes, le mouvement et la lumière. On mesure, on traduit, et le corps pilote la scène."
+        "On crée des capteurs et des objets d’interaction dédiés aux danseurs, aux musiciens et à la scénographie. Notre expertise : mesurer le geste et le traduire en lumière, en son, en mouvement de scène. TRIPODE AS-SIMT en est un exemple."
        ],
        "reperes": [
         [
          "Pour qui",
-         "Performeurs, scénographes, installations"
+         "Danseurs, musiciens, chorégraphes, scénographes"
         ],
         [
          "On livre",
-         "Capteurs portables, interfaces, mapping"
+         "Capteurs portables, objets d’interaction, mapping"
         ],
         [
          "Outils",
-         "Centrales inertielles, distance, lumière, OSC, MIDI"
+         "Centrales inertielles, sans fil, OSC, MIDI, DMX"
         ]
        ],
        "tags": [
@@ -558,10 +558,10 @@
       {
        "id": "sv-lumiere",
        "nom": "Scénographie & lumière",
-       "sous": "Dispositifs lumineux et interactions pour l’espace scénique",
+       "sous": "Des objets lumineux intelligents, pilotés en Wi-Fi",
        "statut": "sur devis",
        "texte": [
-        "Dispositifs lumineux et interactions pour l’espace scénique : lumière réactive, mapping et DMX."
+        "Avec notre expertise, on crée des objets lumineux assez intelligents pour être pilotés en Wi-Fi, en travaillant avec différents microcontrôleurs, pour faire de la scénographie lumière : lumière réactive, mapping et DMX."
        ],
        "reperes": [
         [
@@ -570,11 +570,11 @@
         ],
         [
          "On livre",
-         "Scénographies, conduites lumière, dispositifs réactifs"
+         "Objets lumineux sur mesure, scénographies, conduites lumière"
         ],
         [
          "Outils",
-         "DMX, mapping, capteurs, temps réel"
+         "ESP32 et autres microcontrôleurs, Wi-Fi, DMX, temps réel"
         ]
        ],
        "tags": [
@@ -585,19 +585,19 @@
       {
        "id": "sv-go2",
        "nom": "Go2 (Unitree) sur mesure",
-       "sous": "Le robot quadrupède, pour la scène et l’installation",
+       "sous": "Le robot quadrupède, sur mesure et à louer pour la scène",
        "statut": "sur devis",
        "texte": [
-        "Robot quadrupède pour performances, installations et créations : chorégraphies, modules scéniques et pilotage sur mesure."
+        "Le robot quadrupède Go2 de Unitree pour les performances, les installations et la scénographie. On peut le louer et l’équiper sur mesure (chorégraphies, modules scéniques, pilotage), pour que chaque client imagine son propre usage."
        ],
        "reperes": [
         [
          "Pour qui",
-         "Compagnies, festivals, marques, musées"
+         "Compagnies, festivals, marques, musées, événements"
         ],
         [
-         "On livre",
-         "Chorégraphies, modules, logiciels de pilotage"
+         "On propose",
+         "Location pour la scénographie, chorégraphies, modules sur mesure"
         ],
         [
          "Outils",
@@ -850,82 +850,150 @@
    "blocs": [
     {
      "t": "texte",
-     "p": "Matériel audio et artistique, objets et disques, conçus et fabriqués au studio. Le paiement en ligne arrive bientôt : en attendant, on écrit au studio."
+     "p": "Objets à porter et matériel électronique, conçus au studio. Le paiement en ligne arrive bientôt : en attendant, on pré-commande en écrivant au studio."
     },
     {
      "t": "rayon",
      "titre": "Accessoires",
      "signe": "E082",
      "code": "A",
-     "vide": "Objets à porter, à venir."
+     "items": [
+      {
+       "nom": "Bonnet pompon",
+       "sens": "Un bonnet couvert de pompons faits main, qui forme comme une petite montagne douce autour du visage. Crocheté à l’aiguille 3,5, pompons faits à la main, cordons réalisés au tricotin manuel.",
+       "image": "/boutique/bonnet-pompon-orange.jpg",
+       "alt": "Le bonnet pompon orange porté, visage recouvert de glyphes As-Simt",
+       "couleurs": [
+        [
+         "orange",
+         "#ff6a1f"
+        ],
+        [
+         "noir",
+         "#111111"
+        ]
+       ],
+       "glyphes": [
+        [
+         "E167",
+         "petit"
+        ],
+        [
+         "E16C",
+         "doux"
+        ],
+        [
+         "E0CA",
+         "montagne"
+        ]
+       ],
+       "glyphesSens": "« petite montagne douce » en glyphes As-Simt",
+       "collab": {
+        "texte": "Une collaboration : ce pompon a été imaginé avec",
+        "nom": "@maiky_bulles",
+        "lien": "https://www.instagram.com/maiky_bulles"
+       },
+       "details": [
+        [
+         "Coloris",
+         "Orange ou noir"
+        ],
+        [
+         "Fabrication",
+         "Crochet à l’aiguille 3,5 · pompons faits main · cordons au tricotin manuel"
+        ],
+        [
+         "Matière",
+         "100 % acrylique (parfois certifié OEKO-TEX Standard 100, sans substances nocives)"
+        ],
+        [
+         "Lavage",
+         "30 °C maximum, programme laine ou délicat, essorage doux ; à la main possible à 30-40 °C, sans frotter ni tordre"
+        ],
+        [
+         "Blanchiment",
+         "Interdit : ni javel, ni chlore"
+        ]
+       ],
+       "prix": "coming",
+       "tarif": "300 € · pré-commande",
+       "commande": "pré-commander"
+      }
+     ]
     },
     {
      "t": "rayon",
      "titre": "Electronic gear",
      "signe": "E119",
      "code": "G",
-     "items": [
+     "fiches": [
       {
+       "id": "gear-capteurs",
        "nom": "Capteurs AS-SIMT",
-       "sens": "Capteurs portables esthétiques transformant le mouvement en retours visuels, haptiques et sonores en temps réel.",
-       "prix": "coming",
-       "panier": 1
+       "sous": "Des capteurs de mouvement à porter, qui s’écoutent aussi par la peau",
+       "statut": "bientôt disponible",
+       "objet": "/models/tripode.bin",
+       "texte": [
+        "Les capteurs AS-SIMT sont de petits boîtiers imprimés en 3D qu’on porte sur le corps ou qu’on pose sur un instrument. Ils mesurent le mouvement en temps réel et l’envoient sans fil, pour jouer de la musique, piloter de la lumière ou écrire du code avec le geste.",
+        "Ils fonctionnent dans les deux sens : ils envoient le mouvement, et ils reçoivent le son ou les données, que leurs trois moteurs de vibration rendent sensibles. On écoute aussi par la peau : c’est l’écoute haptique. Ce sont les capteurs de TRIPODE AS-SIMT.",
+        "Pour les musiciens, les danseurs, les performeurs, et toutes celles et ceux qui veulent des capteurs de mouvement simples à brancher sur leurs outils."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Musiciens, danseurs, performeurs, créateurs d’installations"
+        ],
+        [
+         "Dedans",
+         "Carte ESP32, accéléromètre et magnétomètre, 3 moteurs de vibration"
+        ],
+        [
+         "Envoyer",
+         "Wi-Fi : OSC vers l’ordinateur, MIDI vers un synthé ou un logiciel"
+        ],
+        [
+         "Recevoir",
+         "Retour haptique : le son et les données se sentent sur la peau"
+        ],
+        [
+         "Réglages",
+         "Une page web, depuis un téléphone ou un ordinateur"
+        ]
+       ],
+       "tags": [
+        "Capteurs de mouvement",
+        "Haptique",
+        "OSC · MIDI · Wi-Fi"
+       ]
       },
       {
-       "nom": "Système Audio Multi-canal",
-       "sens": "Système audio embarqué avec 3 amplificateurs I2S pour un rendu sonore multi-canal riche.",
-       "prix": "coming",
-       "panier": 2
-      },
-      {
-       "nom": "PCB Sur-mesure",
-       "sens": "Conception et industrialisation de PCB sur-mesure pour vos projets électroniques.",
-       "prix": "quote",
-       "panier": 3
-      },
-      {
-       "nom": "Base XXL",
-       "sens": "Plateforme scénographique avec 3 enceintes, écran tactile, transducteurs et dock de recharge pour capteurs.",
-       "prix": "quote",
-       "panier": 4
-      }
-     ]
-    },
-    {
-     "t": "rayon",
-     "titre": "Musique",
-     "signe": "E11C",
-     "code": "M",
-     "items": [
-      {
-       "nom": "Activate Cities",
-       "sens": "2025, NSDOS × NORKHAT. Une carte sonore qui relie l’album à la ville.",
-       "prix": "coming",
-       "panier": 101
-      },
-      {
-       "nom": "Champignonner.Photomontage.Ultrasonique Vol. 1 & 2",
-       "sens": "2024.",
-       "prix": "coming",
-       "panier": 102
-      },
-      {
-       "nom": "Micro Club",
-       "sens": "2021.",
-       "prix": "coming",
-       "panier": 103
-      },
-      {
-       "nom": "Intuition Vol. 1 & 2",
-       "sens": "2017-2018, données de mouvement captées en Alaska.",
-       "prix": "coming",
-       "panier": 104
-      },
-      {
-       "nom": "Money Exchange",
-       "sens": "2016, Standalone Complex.",
-       "prix": "coming",
-       "panier": 105
+       "id": "gear-pcb",
+       "nom": "PCB sur mesure",
+       "sous": "Des cartes électroniques dessinées pour votre projet",
+       "statut": "sur devis",
+       "texte": [
+        "On conçoit et on fabrique des circuits imprimés sur mesure : du schéma au tracé des pistes, du choix des composants à la petite série, jusqu’à l’intégration dans votre objet.",
+        "C’est le même savoir-faire que pour nos capteurs AS-SIMT et nos objets sonores : des cartes pensées pour la scène, l’installation et les objets qui doivent fonctionner longtemps."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Artistes, studios, designers, entreprises"
+        ],
+        [
+         "On fait",
+         "Schéma, routage, choix des composants, fabrication, montage"
+        ],
+        [
+         "Formats",
+         "Prototype, petite série, intégration dans un objet"
+        ]
+       ],
+       "tags": [
+        "Électronique",
+        "Prototype",
+        "Petite série"
+       ]
       }
      ]
     }
@@ -1338,23 +1406,23 @@
       {
        "id": "sv-data",
        "nom": "Data visualisation & data intelligence",
-       "sous": "Making environmental data speak",
+       "sous": "Turning data into art: visuals or music",
        "statut": "on request",
        "texte": [
-        "Extracting and shaping environmental data into artistic visualisations. We start from measurements, make them readable, then sensible: images, sounds, objects. SONIC METABOLIC AVATAR is one example, where biological data becomes music."
+        "With data, you can make art. We turn all kinds of data into an artistic form, visuals or music, for museums, concerts, interactive systems and installations. SONIC METABOLIC AVATAR is one example, where biological data becomes music."
        ],
        "reperes": [
         [
          "For",
-         "Institutions, labs, brands"
+         "Museums, concert halls, festivals, institutions, brands"
         ],
         [
          "We deliver",
-         "Visualisations, sonifications, devices"
+         "Generative visuals, data music, interactive installations"
         ],
         [
          "Tools",
-         "Sensors, Python, JavaScript, Three.js"
+         "Sensors, Python, JavaScript, Three.js, sound synthesis"
         ]
        ],
        "tags": [
@@ -1450,19 +1518,19 @@
       {
        "id": "sv-physique",
        "nom": "Custom physical work",
-       "sous": "Design and electronics, from drawing to material",
+       "sous": "Custom objects for museums, installations and artists",
        "statut": "on request",
        "texte": [
-        "Design and electronics, CNC, metal, resins, wood, plastics, silicones. We design and make one-off pieces or small runs, from stage objects to instrument cases."
+        "We imagine and make custom objects for museums, installations and artists: one-off pieces in wood, metal, resins, plastics or silicones, with or without electronics."
        ],
        "reperes": [
         [
          "For",
-         "Artists, set designers, brands, studios"
+         "Museums, artists, set designers, venues, brands"
         ],
         [
          "We deliver",
-         "One-offs, small runs, prototypes"
+         "Custom objects, one-offs, small runs"
         ],
         [
          "Workshop",
@@ -1506,23 +1574,23 @@
       {
        "id": "sv-robot",
        "nom": "Robotic Sound Hardware",
-       "sous": "Robotic sound objects and autonomous devices",
+       "sous": "All kinds of robotics, for sound and for the stage",
        "statut": "on request",
        "texte": [
-        "Robotic sound objects and autonomous devices. Actuators, motors and sensors make matter sound, alone or as an orchestra."
+        "We work with all kinds of robotics, for sound as well as stage design: robotic sound objects, autonomous devices, stage robots. Arms, rolling bases, quadrupeds, kinetic sculptures: we look wide."
        ],
        "reperes": [
         [
          "For",
-         "Artists, venues, festivals, museums"
+         "Artists, companies, venues, festivals, museums"
         ],
         [
          "We deliver",
-         "Robotic instruments, autonomous installations"
+         "Robotic instruments, stage robots, autonomous installations"
         ],
         [
          "Tools",
-         "Solenoids, motors, microcontrollers, sensors"
+         "Motors, solenoids, microcontrollers, sensors, ROS"
         ]
        ],
        "tags": [
@@ -1534,19 +1602,19 @@
       {
        "id": "sv-audio",
        "nom": "Audio objects",
-       "sous": "Custom synths, controllers and modules",
+       "sous": "Small objects that make sound, in our own style",
        "statut": "on request",
        "texte": [
-        "Custom objects and modules for stage and installation: synths, controllers, sound modules, one-off pieces."
+        "We create small objects that make sound, in our own style: pocket synths, controllers, modules, one-off pieces, for the stage, installations or the home."
        ],
        "reperes": [
         [
          "For",
-         "Musicians, performers, studios"
+         "Musicians, performers, venues, collectors"
         ],
         [
          "We deliver",
-         "Synths, controllers, modules, one-offs"
+         "Sound objects, synths, controllers, one-offs"
         ],
         [
          "Tools",
@@ -1562,23 +1630,23 @@
       {
        "id": "sv-capteurs",
        "nom": "Sensors & interaction",
-       "sous": "Gesture, movement, light",
+       "sous": "Sensors made for dancers, musicians and stage design",
        "statut": "on request",
        "texte": [
-        "Sensors and interfaces for gesture, movement and light. We measure, translate, and the body drives the stage."
+        "We create sensors and interaction objects made for dancers, musicians and stage design. Our expertise: measuring gesture and translating it into light, sound and stage movement. TRIPODE AS-SIMT is one example."
        ],
        "reperes": [
         [
          "For",
-         "Performers, set designers, installations"
+         "Dancers, musicians, choreographers, set designers"
         ],
         [
          "We deliver",
-         "Wearable sensors, interfaces, mapping"
+         "Wearable sensors, interaction objects, mapping"
         ],
         [
          "Tools",
-         "Inertial units, distance, light, OSC, MIDI"
+         "Inertial units, wireless, OSC, MIDI, DMX"
         ]
        ],
        "tags": [
@@ -1643,10 +1711,10 @@
       {
        "id": "sv-lumiere",
        "nom": "Scenography & light",
-       "sous": "Light devices and interactions for the stage",
+       "sous": "Smart light objects, controlled over Wi-Fi",
        "statut": "on request",
        "texte": [
-        "Light devices and interactions for the stage: reactive light, mapping and DMX."
+        "With our expertise, we create light objects smart enough to be controlled over Wi-Fi, working with different microcontrollers, for stage lighting design: reactive light, mapping and DMX."
        ],
        "reperes": [
         [
@@ -1655,11 +1723,11 @@
         ],
         [
          "We deliver",
-         "Scenography, light cues, reactive devices"
+         "Custom light objects, lighting designs, light cues"
         ],
         [
          "Tools",
-         "DMX, mapping, sensors, real time"
+         "ESP32 and other microcontrollers, Wi-Fi, DMX, real time"
         ]
        ],
        "tags": [
@@ -1670,19 +1738,19 @@
       {
        "id": "sv-go2",
        "nom": "Custom Go2 (Unitree)",
-       "sous": "The quadruped robot, for stage and installation",
+       "sous": "The quadruped robot, custom-built and for hire for the stage",
        "statut": "on request",
        "texte": [
-        "Quadruped robot for performances, installations and creations: choreographies, stage modules and custom control."
+        "Unitree’s Go2 quadruped robot for performances, installations and stage design. It can be hired and custom-equipped (choreographies, stage modules, control), so each client can imagine their own use."
        ],
        "reperes": [
         [
          "For",
-         "Companies, festivals, brands, museums"
+         "Companies, festivals, brands, museums, events"
         ],
         [
-         "We deliver",
-         "Choreographies, modules, control software"
+         "We offer",
+         "Hire for stage design, choreographies, custom modules"
         ],
         [
          "Tools",
@@ -1935,82 +2003,150 @@
    "blocs": [
     {
      "t": "texte",
-     "p": "Audio and art hardware, objects and records, designed and made in the studio. Online payment is coming soon: in the meantime, write to the studio."
+     "p": "Wearables and electronic gear, designed at the studio. Online payment is coming soon: until then, pre-order by writing to the studio."
     },
     {
      "t": "rayon",
      "titre": "Accessories",
      "signe": "E082",
      "code": "A",
-     "vide": "Things to wear, coming soon."
+     "items": [
+      {
+       "nom": "Pompom hood",
+       "sens": "A hood covered with handmade pompoms, like a small soft mountain around the face. Crocheted with a 3.5 hook, handmade pompoms, cords made on a hand knitting spool.",
+       "image": "/boutique/bonnet-pompon-orange.jpg",
+       "alt": "The orange pompom hood being worn, the face covered with As-Simt glyphs",
+       "couleurs": [
+        [
+         "orange",
+         "#ff6a1f"
+        ],
+        [
+         "black",
+         "#111111"
+        ]
+       ],
+       "glyphes": [
+        [
+         "E167",
+         "small"
+        ],
+        [
+         "E16C",
+         "soft"
+        ],
+        [
+         "E0CA",
+         "mountain"
+        ]
+       ],
+       "glyphesSens": "“small soft mountain” in As-Simt glyphs",
+       "collab": {
+        "texte": "A collaboration: this pompom was imagined with",
+        "nom": "@maiky_bulles",
+        "lien": "https://www.instagram.com/maiky_bulles"
+       },
+       "details": [
+        [
+         "Colours",
+         "Orange or black"
+        ],
+        [
+         "Making",
+         "Crocheted with a 3.5 hook · handmade pompoms · cords on a hand knitting spool"
+        ],
+        [
+         "Material",
+         "100% acrylic (sometimes OEKO-TEX Standard 100 certified, free of harmful substances)"
+        ],
+        [
+         "Washing",
+         "30 °C max, wool or delicate cycle, gentle spin; hand wash possible at 30-40 °C, without rubbing or wringing"
+        ],
+        [
+         "Bleach",
+         "Do not bleach: no chlorine"
+        ]
+       ],
+       "prix": "coming",
+       "tarif": "€300 · pre-order",
+       "commande": "pre-order"
+      }
+     ]
     },
     {
      "t": "rayon",
      "titre": "Electronic gear",
      "signe": "E119",
      "code": "G",
-     "items": [
+     "fiches": [
       {
-       "nom": "AS-SIMT Sensors",
-       "sens": "Aesthetic wearable sensors transforming movement into visual, haptic and sonic feedback in real time.",
-       "prix": "coming",
-       "panier": 1
+       "id": "gear-capteurs",
+       "nom": "AS-SIMT sensors",
+       "sous": "Wearable motion sensors you can also hear through the skin",
+       "statut": "coming soon",
+       "objet": "/models/tripode.bin",
+       "texte": [
+        "AS-SIMT sensors are small 3D-printed cases worn on the body or placed on an instrument. They measure movement in real time and send it wirelessly, to play music, drive light or write code with gesture.",
+        "They work both ways: they send movement, and they receive sound or data, which their three vibration motors make tangible. You also listen through the skin: that is haptic listening. They are the sensors of TRIPODE AS-SIMT.",
+        "For musicians, dancers, performers, and anyone who wants motion sensors that plug easily into their tools."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Musicians, dancers, performers, installation makers"
+        ],
+        [
+         "Inside",
+         "ESP32 board, accelerometer and magnetometer, 3 vibration motors"
+        ],
+        [
+         "Send",
+         "Wi-Fi: OSC to a computer, MIDI to a synth or software"
+        ],
+        [
+         "Receive",
+         "Haptic feedback: sound and data are felt on the skin"
+        ],
+        [
+         "Setup",
+         "A web page, from a phone or a computer"
+        ]
+       ],
+       "tags": [
+        "Motion sensors",
+        "Haptics",
+        "OSC · MIDI · Wi-Fi"
+       ]
       },
       {
-       "nom": "Multi-channel Audio System",
-       "sens": "Embedded audio system with 3 I2S amplifiers for rich multi-channel sound rendering.",
-       "prix": "coming",
-       "panier": 2
-      },
-      {
-       "nom": "Custom PCB",
-       "sens": "Design and industrialization of custom PCBs for your electronic projects.",
-       "prix": "quote",
-       "panier": 3
-      },
-      {
-       "nom": "XXL Base",
-       "sens": "Scenographic platform with 3 speakers, touch screen, transducers and charging dock for sensors.",
-       "prix": "quote",
-       "panier": 4
-      }
-     ]
-    },
-    {
-     "t": "rayon",
-     "titre": "Music",
-     "signe": "E11C",
-     "code": "M",
-     "items": [
-      {
-       "nom": "Activate Cities",
-       "sens": "2025, NSDOS × NORKHAT. A sound map linking the album to the city.",
-       "prix": "coming",
-       "panier": 101
-      },
-      {
-       "nom": "Champignonner.Photomontage.Ultrasonique Vol. 1 & 2",
-       "sens": "2024.",
-       "prix": "coming",
-       "panier": 102
-      },
-      {
-       "nom": "Micro Club",
-       "sens": "2021.",
-       "prix": "coming",
-       "panier": 103
-      },
-      {
-       "nom": "Intuition Vol. 1 & 2",
-       "sens": "2017-2018, movement data captured in Alaska.",
-       "prix": "coming",
-       "panier": 104
-      },
-      {
-       "nom": "Money Exchange",
-       "sens": "2016, Standalone Complex.",
-       "prix": "coming",
-       "panier": 105
+       "id": "gear-pcb",
+       "nom": "Custom PCBs",
+       "sous": "Circuit boards designed for your project",
+       "statut": "on quote",
+       "texte": [
+        "We design and make custom printed circuit boards: from schematic to trace layout, from component choice to small runs, all the way to integration in your object.",
+        "It is the same know-how as for our AS-SIMT sensors and sound objects: boards made for the stage, installations and objects that must last."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Artists, studios, designers, companies"
+        ],
+        [
+         "We do",
+         "Schematic, routing, component choice, manufacturing, assembly"
+        ],
+        [
+         "Formats",
+         "Prototype, small run, integration in an object"
+        ]
+       ],
+       "tags": [
+        "Electronics",
+        "Prototype",
+        "Small run"
+       ]
       }
      ]
     }
