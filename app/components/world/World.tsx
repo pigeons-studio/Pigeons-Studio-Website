@@ -18,9 +18,9 @@ import './orca.css';
 type Locale = 'fr' | 'en';
 type Mode = '3d' | 'vers2d' | '2d' | 'vers3d';
 type Prix = 'coming' | 'quote' | 'soon';
-type Item = { nom: string; sens: string; tags?: string[]; prix?: Prix; panier?: number; src?: string; duree?: string };
+type Item = { nom: string; sens: string; tags?: string[]; prix?: Prix; panier?: number; src?: string; duree?: string; image?: string; alt?: string; couleurs?: [string, string][]; glyphes?: [string, string][]; glyphesSens?: string; collab?: { texte: string; nom: string; lien: string }; details?: [string, string][]; tarif?: string; commande?: string };
 type Projet = { id: string; nom: string; sous: string; statut: string; texte: string[]; reperes: string[][]; tags: string[]; objet?: string; video?: string };
-type Bloc = { t: string; p?: string; titre?: string; sur?: string; duo?: string; legende?: string; signe?: string; code?: string; vide?: string; items?: unknown[] };
+type Bloc = { t: string; p?: string; titre?: string; sur?: string; duo?: string; legende?: string; signe?: string; code?: string; vide?: string; items?: unknown[]; fiches?: unknown[] };
 type Famille = { id: string; nom: string; code: string; signe: string; pourquoi: string; teinte: number; css: string; blocs: Bloc[] };
 
 const EMAIL = 'contact@punkhazard.org';
@@ -47,8 +47,8 @@ const PATCHS: Record<Locale, Record<string, string[]>> = {
 
 // les signes de l'alphabet partagé, et leur mot
 const MOTS: Record<Locale, Record<string, string>> = {
-  fr: { E113: 'double', E132: 'faire', E140: 'donner', E0EE: 'graine', E083: 'paume', E130: 'signal', E082: 'peau', E119: 'machine', E11C: 'vibration' },
-  en: { E113: 'double', E132: 'make', E140: 'give', E0EE: 'seed', E083: 'palm', E130: 'signal', E082: 'skin', E119: 'machine', E11C: 'vibration' },
+  fr: { E113: 'double', E132: 'faire', E140: 'donner', E0EE: 'graine', E083: 'paume', E130: 'signal', E082: 'peau', E119: 'machine', E11C: 'vibration', E167: 'petit', E16C: 'doux', E0CA: 'montagne' },
+  en: { E113: 'double', E132: 'make', E140: 'give', E0EE: 'seed', E083: 'palm', E130: 'signal', E082: 'skin', E119: 'machine', E11C: 'vibration', E167: 'small', E16C: 'soft', E0CA: 'mountain' },
 };
 
 const UI = {
@@ -164,7 +164,17 @@ export default function World() {
         },
       });
       mondeRef.current = monde;
-      if (!annule) { premierRef.current = true; setPret(true); }
+      if (!annule) {
+        premierRef.current = true;
+        setPret(true);
+        // un ancien lien ?etage=services : on l'ouvre dans le routeur, puis on descend
+        const voulu = new URLSearchParams(window.location.search).get('etage');
+        const n = voulu ? FAMILLES.findIndex((g) => g.id === voulu) : -1;
+        if (n >= 0 && voulu) {
+          pousserRef.current(voulu);
+          window.setTimeout(() => { if (!annule) monde?.descendre(n, true); }, 400);
+        }
+      }
     });
     return () => { annule = true; setPret(false); monde?.detruire(); mondeRef.current = null; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -315,7 +325,7 @@ function BlocVue({ b, f, ui, locale, ouvrirContact, fiche, onFiche, allerProjet 
   if (b.t === 'deux') return <div className="bio">{(b.items as string[][]).map(([n, r, p]) => <section key={n}><h3>{n}</h3><h2>{r}</h2><p>{p}</p></section>)}</div>;
   if (b.t === 'liste') return <section className="liste"><h2 className="etiquette">{b.titre}</h2><dl>{(b.items as string[][]).flatMap(([k, v]) => [<dt key={`t${k}`}>{k}</dt>, <dd key={`d${k}`}>{v}</dd>])}</dl></section>;
   if (b.t === 'devis') return <div className="pied"><button type="button" className="btn" onClick={() => ouvrirContact('')}>{ui.devis}</button></div>;
-  if (b.t === 'explorer') return <Explorer items={b.items as Projet[]} css={f.css} locale={locale} fiche={fiche} onFiche={onFiche} allerProjet={allerProjet} />;
+  if (b.t === 'explorer') return <Explorer items={b.items as Projet[]} css={f.css} code={f.code} locale={locale} fiche={fiche} onFiche={onFiche} allerProjet={allerProjet} />;
   if (b.t === 'events') return <Suspense fallback={null}><EventsPanel locale={locale} css={f.css} fiche={fiche} onFiche={onFiche} /></Suspense>;
   if (b.t === 'films') {
     return (
@@ -335,6 +345,7 @@ function BlocVue({ b, f, ui, locale, ouvrirContact, fiche, onFiche, allerProjet 
         <div className="rayon"><Glyphe signe={b.signe} couleur={f.css} /><h2>{b.titre}</h2><span>{MOTS[locale][b.signe]}</span></div>
       )}
       {b.vide && <p className="vide">{b.vide}</p>}
+      {b.fiches && <Explorer items={b.fiches as Projet[]} css={f.css} code={b.code || f.code} locale={locale} fiche={fiche} onFiche={onFiche} allerProjet={allerProjet} />}
       {b.items && (
         <div className="grille">
           {(b.items as Item[]).map((it, i) => <Carte key={it.nom} it={it} code={b.code || f.code} i={i} ui={ui} locale={locale} ouvrirContact={ouvrirContact} />)}
@@ -345,7 +356,7 @@ function BlocVue({ b, f, ui, locale, ouvrirContact, fiche, onFiche, allerProjet 
 }
 
 // ---------------------------------------------------------------- futurs projets : un menu que l'on parcourt, une fiche par projet
-function Explorer({ items, css, locale, fiche, onFiche, allerProjet }: { items: Projet[]; css: string; locale: Locale; fiche?: string; onFiche: (id: string) => void; allerProjet: (id: string) => void }) {
+function Explorer({ items, css, code = 'F', locale, fiche, onFiche, allerProjet }: { items: Projet[]; css: string; code?: string; locale: Locale; fiche?: string; onFiche: (id: string) => void; allerProjet: (id: string) => void }) {
   const [i, setI] = useState(() => {
     const n = items.findIndex((x) => x.id === fiche);
     return n >= 0 ? n : 0;
@@ -379,7 +390,7 @@ function Explorer({ items, css, locale, fiche, onFiche, allerProjet }: { items: 
       <div className="ex-liste" role="tablist" aria-orientation="vertical" ref={liste} onKeyDown={clavier} hidden={items.length < 2}>
         {items.map((x, n) => (
           <button key={x.id} type="button" role="tab" aria-selected={n === i} tabIndex={n === i ? 0 : -1} onClick={() => choisir(n)}>
-            <span className="ex-code">F.{String(n + 1).padStart(2, '0')}</span>
+            <span className="ex-code">{code}.{String(n + 1).padStart(2, '0')}</span>
             <span className="ex-nom">{x.nom}</span>
             <span className="ex-statut">{x.statut}</span>
           </button>
@@ -387,7 +398,7 @@ function Explorer({ items, css, locale, fiche, onFiche, allerProjet }: { items: 
       </div>
       <article className="ex-fiche" role="tabpanel" key={p.id}>
         <header>
-          <div className="ex-code">F.{String(i + 1).padStart(2, '0')} · {p.statut}</div>
+          <div className="ex-code">{code}.{String(i + 1).padStart(2, '0')} · {p.statut}</div>
           <h2>{p.nom}</h2>
           <p className="ex-sous">{p.sous}</p>
         </header>
@@ -471,7 +482,8 @@ const NOMS_PROJETS: [string, string][] = [
   ['TEAMMATE.POTO', 'teammate'], ['TEAMMATE', 'teammate'], ['ORCA//GLYPH', 'orca'], ['CAVE // FOUR ROBOTS', 'cave'],
   ['SYSTEMA8OS.XT', 'systema'], ['systema8os.xt', 'systema'], ['TRIPODE AS-SIMT', 'tripode'], ['tripode AS-SIMT', 'tripode'],
   ['Langue des images', 'langue'], ['Language of images', 'langue'],
-  ['AVATAR MÉTABOLIQUE SONORE', 'avatar'], ['Avatar métabolique sonore', 'avatar'], ['Sonic Metabolic Avatar', 'avatar'],
+  ['AVATAR MÉTABOLIQUE SONORE', 'avatar'], ['Avatar métabolique sonore', 'avatar'], ['Sonic Metabolic Avatar', 'avatar'], ['SONIC METABOLIC AVATAR', 'avatar'],
+  ['BILLY // STEAM DECK', 'billy'],
 ];
 const MOTIF_PROJETS = new RegExp('(' + NOMS_PROJETS.map(([n]) => n.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')).join('|') + ')', 'g');
 function Lie({ texte, ici, aller, locale }: { texte: string; ici: string; aller: (id: string) => void; locale: Locale }) {
@@ -538,21 +550,38 @@ function Carte({ it, code, i, ui, locale, ouvrirContact }: { it: Item; code: str
     setAjoute(true); window.setTimeout(() => setAjoute(false), 1200);
   };
   return (
-    <article className="prod">
+    <article className={'prod' + (it.image ? ' large' : '')}>
+      {it.image && (
+        <figure className="prod-photo">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={it.image} alt={it.alt || it.nom} loading="lazy" />
+          {it.couleurs && <figcaption className="coloris">{it.couleurs.map(([n, c]) => <span key={n}><i style={{ background: c }} />{n}</span>)}</figcaption>}
+        </figure>
+      )}
+      <div className="prod-corps">
       <div className="ref">{code}.{String(i + 1).padStart(2, '0')}</div>
       <h2>{it.nom}</h2>
+      {it.glyphes && (
+        <div className="nom-glyphes">
+          <div className="mots">{it.glyphes.map(([sg, mot]) => <span key={sg} className="mot-glyphe"><Glyphe signe={sg} couleur="#ffb545" /><em>{mot}</em></span>)}</div>
+          {it.glyphesSens && <small>{it.glyphesSens}</small>}
+        </div>
+      )}
       <p>{it.sens}</p>
+      {it.collab && <p className="collab">{it.collab.texte} <a href={it.collab.lien} target="_blank" rel="noopener noreferrer">{it.collab.nom}</a></p>}
+      {it.details && <dl className="details">{it.details.flatMap(([k, v]) => [<dt key={`t${k}`}>{k}</dt>, <dd key={`d${k}`}>{v}</dd>])}</dl>}
       {it.tags && <div className="tags">{it.tags.map((x) => <span key={x}>{x}</span>)}</div>}
       {it.prix && (
         <div className="pied">
-          <span className="prix">{ui.prix[it.prix]}</span>
+          <span className="prix">{it.tarif || ui.prix[it.prix]}</span>
           {it.panier ? (
             <button type="button" className="btn" onClick={ajouter}>{ajoute ? ui.ajoute : ui.ajouter}</button>
           ) : (
-            <button type="button" className="btn" onClick={() => ouvrirContact(it.nom)}>{it.prix === 'quote' ? ui.devis : ui.prevenir}</button>
+            <button type="button" className="btn" onClick={() => ouvrirContact(it.nom)}>{it.commande || (it.prix === 'quote' ? ui.devis : ui.prevenir)}</button>
           )}
         </div>
       )}
+      </div>
     </article>
   );
 }

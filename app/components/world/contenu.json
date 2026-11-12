@@ -189,10 +189,477 @@
        ]
       },
       {
+       "nom": "Installations interactives",
+       "sens": "Dispositifs scéniques pilotés en temps réel, synchronisation audio‑lumière avec retours capteurs. Électronique et firmware dédiés.",
+       "tags": [
+        "Audio I2S",
+        "IMU 9 axes",
+        "DMX/Art‑Net"
+       ]
+      }
+     ]
+    },
+    {
+     "t": "liste",
+     "titre": "Parcours de Koo",
+     "items": [
+      [
+       "Intuition · Alaska · 2017-2018",
+       "Stations météorologiques et biofeedback : les mouvements de la nature, convertis en données, deviennent sons, textures et rythmes."
+      ],
+      [
+       "S.E.L.M. · Villa Albertine · 2023",
+       "Résidence à La Nouvelle-Orléans : une danse abstraite du corps, par compilation de gestes captés et « réhumanisation » de la donnée."
+      ],
+      [
+       "Activate Cities · NSDOS × NORKHAT · 2025",
+       "Parcours urbains et QR codes dans l’espace public : une carte sonore interactive qui relie l’album à la ville."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "services",
+   "nom": "services",
+   "code": "S",
+   "signe": "E140",
+   "pourquoi": "ce que l’on offre",
+   "teinte": 10475775,
+   "css": "#9fd8ff",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "Du prototype à l’industrialisation. Marques, institutions, robotique et IA : parlons de votre projet."
+    },
+    {
+     "t": "explorer",
+     "items": [
+      {
+       "id": "sv-data",
+       "nom": "Data visualisation & data intelligence",
+       "sous": "Transformer les données en œuvre : visuel ou musique",
+       "statut": "sur devis",
+       "texte": [
+        "Avec des données, on peut faire de l’art. On convertit toutes sortes de données en forme artistique, en visuels ou en musique, pour le musée, le concert, les systèmes interactifs et l’installation. AVATAR MÉTABOLIQUE SONORE en est un exemple, où des données biologiques deviennent musique."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Musées, salles de concert, festivals, institutions, marques"
+        ],
+        [
+         "On livre",
+         "Visuels génératifs, musiques de données, installations interactives"
+        ],
+        [
+         "Outils",
+         "Capteurs, Python, JavaScript, Three.js, synthèse sonore"
+        ]
+       ],
+       "tags": [
+        "Données",
+        "Visualisation",
+        "Sonification"
+       ]
+      },
+      {
+       "id": "sv-conseil",
+       "nom": "Consulting en creative technology",
+       "sous": "Du flou de l’idée au plan de route",
+       "statut": "sur devis",
+       "texte": [
+        "Projets à la croisée de l’art, du design et de l’ingénierie. On aide à cadrer une idée, à choisir les bonnes technologies et à planifier sa réalisation, du premier prototype jusqu’à la scène ou l’exposition."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Marques, institutions, artistes, studios"
+        ],
+        [
+         "On livre",
+         "Cadrage, choix techniques, feuille de route"
+        ],
+        [
+         "Format",
+         "Ateliers, accompagnement, suivi de production"
+        ]
+       ],
+       "tags": [
+        "Conseil",
+        "Art × ingénierie",
+        "Prototype"
+       ]
+      },
+      {
+       "id": "sv-da",
+       "nom": "Direction artistique",
+       "sous": "Un univers, des langages visuels et sonores",
+       "statut": "sur devis",
+       "texte": [
+        "Univers, expériences et langages visuels et sonores. On construit une identité qui tient d’un support à l’autre : image, objet, scène, son, et jusqu’aux glyphes qu’on dessine nous-mêmes."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Artistes, marques, festivals, institutions"
+        ],
+        [
+         "On livre",
+         "Univers, chartes, directions visuelles et sonores"
+        ],
+        [
+         "Supports",
+         "Scène, installation, web, objets"
+        ]
+       ],
+       "tags": [
+        "Direction artistique",
+        "Identité",
+        "Son"
+       ]
+      },
+      {
+       "id": "sv-digital",
+       "nom": "Digital Art",
+       "sous": "Installations et dispositifs immersifs",
+       "statut": "sur devis",
+       "texte": [
+        "Installations et dispositifs immersifs. Projection, son spatialisé, capteurs : on transforme un lieu en une œuvre qui réagit à ceux qui la traversent."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Musées, festivals, lieux, marques"
+        ],
+        [
+         "On livre",
+         "Installations clés en main, de la conception au montage"
+        ],
+        [
+         "Outils",
+         "Projection, son spatialisé, capteurs, temps réel"
+        ]
+       ],
+       "tags": [
+        "Installation",
+        "Immersif",
+        "Interactif"
+       ]
+      },
+      {
+       "id": "sv-physique",
+       "nom": "Créations physiques sur mesure",
+       "sous": "Des objets custom pour les musées, l’installation et les artistes",
+       "statut": "sur devis",
+       "texte": [
+        "On imagine et on fabrique des objets sur mesure pour les musées, l’installation et les artistes : des pièces custom, uniques, en bois, métal, résines, plastiques ou silicones, avec ou sans électronique."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Musées, artistes, scénographes, lieux, marques"
+        ],
+        [
+         "On livre",
+         "Objets custom, pièces uniques, petites séries"
+        ],
+        [
+         "Atelier",
+         "CNC, impression 3D, moulage, électronique"
+        ]
+       ],
+       "tags": [
+        "Fabrication",
+        "CNC",
+        "Matières"
+       ]
+      },
+      {
+       "id": "sv-cdm",
+       "nom": "Computer Dance Music",
+       "sous": "Une musique écrite avec et pour le corps",
+       "statut": "sur devis",
+       "texte": [
+        "Musique écrite avec et pour le corps en mouvement. Le geste devient partition : capteurs, séquences et synthèse se répondent en temps réel, sur scène comme en studio."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Chorégraphes, compagnies, festivals"
+        ],
+        [
+         "On livre",
+         "Créations musicales, dispositifs de captation"
+        ],
+        [
+         "Outils",
+         "Capteurs portables, séquenceurs, synthèse"
+        ]
+       ],
+       "tags": [
+        "Musique",
+        "Danse",
+        "Capteurs"
+       ]
+      },
+      {
+       "id": "sv-robot",
+       "nom": "Robotic Sound Hardware",
+       "sous": "Toute la robotique, pour le son et pour la scène",
+       "statut": "sur devis",
+       "texte": [
+        "On travaille avec tout type de robotique, pour le son comme pour la scénographie : objets sonores robotiques, dispositifs autonomes, robots de scène. Bras, bases roulantes, quadrupèdes, sculptures cinétiques : on regarde large."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Artistes, compagnies, lieux, festivals, musées"
+        ],
+        [
+         "On livre",
+         "Instruments robotiques, robots de scène, installations autonomes"
+        ],
+        [
+         "Outils",
+         "Moteurs, solénoïdes, microcontrôleurs, capteurs, ROS"
+        ]
+       ],
+       "tags": [
+        "Robotique",
+        "Son",
+        "Autonome"
+       ]
+      },
+      {
+       "id": "sv-audio",
+       "nom": "Création d’objets audio",
+       "sous": "De petits objets qui font du son, à notre esthétique",
+       "statut": "sur devis",
+       "texte": [
+        "On crée de petits objets qui font du son, avec notre esthétique : synthés de poche, contrôleurs, modules, pièces uniques, pour la scène, l’installation ou la maison."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Musiciens, performeurs, lieux, collectionneurs"
+        ],
+        [
+         "On livre",
+         "Objets sonores, synthés, contrôleurs, pièces uniques"
+        ],
+        [
+         "Outils",
+         "Électronique analogique et numérique, boîtiers sur mesure"
+        ]
+       ],
+       "tags": [
+        "Synthés/contrôleurs",
+        "Modules sonores",
+        "Pièces uniques"
+       ]
+      },
+      {
+       "id": "sv-capteurs",
+       "nom": "Capteurs & interaction",
+       "sous": "Des capteurs dédiés aux danseurs, aux musiciens, à la scénographie",
+       "statut": "sur devis",
+       "texte": [
+        "On crée des capteurs et des objets d’interaction dédiés aux danseurs, aux musiciens et à la scénographie. Notre expertise : mesurer le geste et le traduire en lumière, en son, en mouvement de scène. TRIPODE AS-SIMT en est un exemple."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Danseurs, musiciens, chorégraphes, scénographes"
+        ],
+        [
+         "On livre",
+         "Capteurs portables, objets d’interaction, mapping"
+        ],
+        [
+         "Outils",
+         "Centrales inertielles, sans fil, OSC, MIDI, DMX"
+        ]
+       ],
+       "tags": [
+        "Gestes & mouvement",
+        "Interaction scénique"
+       ]
+      },
+      {
+       "id": "sv-objets",
+       "nom": "Objets & installation",
+       "sous": "Du prototype à la scène",
+       "statut": "sur devis",
+       "texte": [
+        "Intégration d’objets et de dispositifs pour la performance : du prototype à la scène, des systèmes sur mesure qui tiennent la tournée."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Compagnies, artistes, lieux"
+        ],
+        [
+         "On livre",
+         "Dispositifs scéniques, intégration, montage"
+        ],
+        [
+         "Approche",
+         "Prototype → scène, systèmes sur mesure"
+        ]
+       ],
+       "tags": [
+        "Prototype → scène",
+        "Systèmes sur mesure"
+       ]
+      },
+      {
+       "id": "sv-3d",
+       "nom": "Conception 3D",
+       "sous": "Forme, matière et usage",
+       "statut": "sur devis",
+       "texte": [
+        "Forme, matière et usage pour des objets expressifs : design d’objets et prototypage rapide."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Designers, artistes, marques"
+        ],
+        [
+         "On livre",
+         "Modèles 3D, prototypes imprimés, fichiers de fabrication"
+        ],
+        [
+         "Outils",
+         "Modélisation 3D, impression 3D, CNC"
+        ]
+       ],
+       "tags": [
+        "Design d’objets",
+        "Prototypage rapide"
+       ]
+      },
+      {
+       "id": "sv-lumiere",
+       "nom": "Scénographie & lumière",
+       "sous": "Des objets lumineux intelligents, pilotés en Wi-Fi",
+       "statut": "sur devis",
+       "texte": [
+        "Avec notre expertise, on crée des objets lumineux assez intelligents pour être pilotés en Wi-Fi, en travaillant avec différents microcontrôleurs, pour faire de la scénographie lumière : lumière réactive, mapping et DMX."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Compagnies, festivals, lieux, marques"
+        ],
+        [
+         "On livre",
+         "Objets lumineux sur mesure, scénographies, conduites lumière"
+        ],
+        [
+         "Outils",
+         "ESP32 et autres microcontrôleurs, Wi-Fi, DMX, temps réel"
+        ]
+       ],
+       "tags": [
+        "Lumière réactive",
+        "Mapping & DMX"
+       ]
+      },
+      {
+       "id": "sv-go2",
+       "nom": "Go2 (Unitree) sur mesure",
+       "sous": "Le robot quadrupède, sur mesure et à louer pour la scène",
+       "statut": "sur devis",
+       "texte": [
+        "Le robot quadrupède Go2 de Unitree pour les performances, les installations et la scénographie. On peut le louer et l’équiper sur mesure (chorégraphies, modules scéniques, pilotage), pour que chaque client imagine son propre usage."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Compagnies, festivals, marques, musées, événements"
+        ],
+        [
+         "On propose",
+         "Location pour la scénographie, chorégraphies, modules sur mesure"
+        ],
+        [
+         "Outils",
+         "Unitree Go2, LiDAR, Raspberry Pi, son spatialisé"
+        ]
+       ],
+       "tags": [
+        "Chorégraphies",
+        "Modules scéniques"
+       ]
+      },
+      {
+       "id": "sv-repar",
+       "nom": "Réparation hi-fi & synthés",
+       "sous": "Remise à neuf, réparation, recalibrage et modifications",
+       "statut": "sur devis",
+       "texte": [
+        "On répare les synthétiseurs analogiques, les amplis et le matériel hi-fi. À chaque intervention, quelle que soit la panne, on remet à neuf les composants qui vieillissent avec le temps, comme les condensateurs électrolytiques.",
+        "Puis on diagnostique la panne et on la répare, avant de tout recalibrer. Sur les synthés, on peut aussi faire des modifications et des upgrades : les midifier, leur ajouter des fonctions."
+       ],
+       "reperes": [
+        [
+         "Systématique",
+         "Remise à neuf des composants qui vieillissent (condensateurs électrolytiques, etc.), quelle que soit la panne"
+        ],
+        [
+         "Réparation",
+         "Diagnostic de la panne et réparation"
+        ],
+        [
+         "Réglage",
+         "Recalibrage complet"
+        ],
+        [
+         "Synthés",
+         "Modifications et upgrades : midification, ajout de fonctions"
+        ],
+        [
+         "Matériel",
+         "Synthétiseurs analogiques, amplis, hi-fi"
+        ]
+       ],
+       "tags": [
+        "Remise à neuf",
+        "Réparation",
+        "Recalibrage",
+        "Midification"
+       ]
+      }
+     ]
+    },
+    {
+     "t": "devis"
+    }
+   ]
+  },
+  {
+   "id": "futur",
+   "nom": "futurs projets",
+   "code": "F",
+   "signe": "E0EE",
+   "pourquoi": "futur = graine · loin · lumière",
+   "teinte": 11992970,
+   "css": "#b6ff8a",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "Ce qui pousse à l’atelier. Choisis un projet pour l’ouvrir."
+    },
+    {
+     "t": "explorer",
+     "items": [
+      {
        "id": "orca",
        "nom": "ORCA//GLYPH",
        "sous": "Un langage de code à nous, en trois dimensions",
-       "statut": "en cours",
+       "statut": "bientôt en téléchargement",
        "texte": [
         "ORCA//GLYPH part d’une volonté : un langage de code né de la créolisation informatique. L’idée vient de la résidence de Koo à la Villa Albertine, à La Nouvelle-Orléans, consacrée à la créolisation du langage informatique ; ORCA//GLYPH en est la continuité. Un code fondé sur notre propre vision du code et sur le sens de ce qu’on écrit, qui prolonge l’alphabet As-Simt, où chaque signe est une image concrète (graine, paume, vibration) et non une lettre neutre.",
         "Orca, l’original de Hundred Rabbits, est déjà un langage de code ésotérique : une grille où chaque lettre est une machine. ORCA//GLYPH s’inscrit dans cette lignée et pousse la réflexion plus loin. Orca devient la façon de coder de manière dynamique avec les glyphes : chaque opérateur dit quelque chose, C est « battement », D « pluie », T « tisser ». Écrire un patch, c’est composer une phrase autant qu’un programme. Derrière, l’idée d’un nouveau langage de code qui nous appartient, dont on reprend possession.",
@@ -544,82 +1011,150 @@
    "blocs": [
     {
      "t": "texte",
-     "p": "Matériel audio et artistique, objets et disques, conçus et fabriqués au studio. Le paiement en ligne arrive bientôt : en attendant, on écrit au studio."
+     "p": "Objets à porter et matériel électronique, conçus au studio. Le paiement en ligne arrive bientôt : en attendant, on pré-commande en écrivant au studio."
     },
     {
      "t": "rayon",
      "titre": "Accessoires",
      "signe": "E082",
      "code": "A",
-     "vide": "Objets à porter, à venir."
+     "items": [
+      {
+       "nom": "Bonnet pompon",
+       "sens": "Un bonnet couvert de pompons faits main, qui forme comme une petite montagne douce autour du visage. Crocheté à l’aiguille 3,5, pompons faits à la main, cordons réalisés au tricotin manuel.",
+       "image": "/boutique/bonnet-pompon-orange.jpg",
+       "alt": "Le bonnet pompon orange porté, visage recouvert de glyphes As-Simt",
+       "couleurs": [
+        [
+         "orange",
+         "#ff6a1f"
+        ],
+        [
+         "noir",
+         "#111111"
+        ]
+       ],
+       "glyphes": [
+        [
+         "E167",
+         "petit"
+        ],
+        [
+         "E16C",
+         "doux"
+        ],
+        [
+         "E0CA",
+         "montagne"
+        ]
+       ],
+       "glyphesSens": "« petite montagne douce » en glyphes As-Simt",
+       "collab": {
+        "texte": "Une collaboration : ce pompon a été imaginé avec",
+        "nom": "@maiky_bulles",
+        "lien": "https://www.instagram.com/maiky_bulles"
+       },
+       "details": [
+        [
+         "Coloris",
+         "Orange ou noir"
+        ],
+        [
+         "Fabrication",
+         "Crochet à l’aiguille 3,5 · pompons faits main · cordons au tricotin manuel"
+        ],
+        [
+         "Matière",
+         "100 % acrylique (parfois certifié OEKO-TEX Standard 100, sans substances nocives)"
+        ],
+        [
+         "Lavage",
+         "30 °C maximum, programme laine ou délicat, essorage doux ; à la main possible à 30-40 °C, sans frotter ni tordre"
+        ],
+        [
+         "Blanchiment",
+         "Interdit : ni javel, ni chlore"
+        ]
+       ],
+       "prix": "coming",
+       "tarif": "300 € · pré-commande",
+       "commande": "pré-commander"
+      }
+     ]
     },
     {
      "t": "rayon",
      "titre": "Electronic gear",
      "signe": "E119",
      "code": "G",
-     "items": [
+     "fiches": [
       {
+       "id": "gear-capteurs",
        "nom": "Capteurs AS-SIMT",
-       "sens": "Capteurs portables esthétiques transformant le mouvement en retours visuels, haptiques et sonores en temps réel.",
-       "prix": "coming",
-       "panier": 1
+       "sous": "Des capteurs de mouvement à porter, qui s’écoutent aussi par la peau",
+       "statut": "bientôt disponible",
+       "objet": "/models/tripode.bin",
+       "texte": [
+        "Les capteurs AS-SIMT sont de petits boîtiers imprimés en 3D qu’on porte sur le corps ou qu’on pose sur un instrument. Ils mesurent le mouvement en temps réel et l’envoient sans fil, pour jouer de la musique, piloter de la lumière ou écrire du code avec le geste.",
+        "Ils fonctionnent dans les deux sens : ils envoient le mouvement, et ils reçoivent le son ou les données, que leurs trois moteurs de vibration rendent sensibles. On écoute aussi par la peau : c’est l’écoute haptique. Ce sont les capteurs de TRIPODE AS-SIMT.",
+        "Pour les musiciens, les danseurs, les performeurs, et toutes celles et ceux qui veulent des capteurs de mouvement simples à brancher sur leurs outils."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Musiciens, danseurs, performeurs, créateurs d’installations"
+        ],
+        [
+         "Dedans",
+         "Carte ESP32, accéléromètre et magnétomètre, 3 moteurs de vibration"
+        ],
+        [
+         "Envoyer",
+         "Wi-Fi : OSC vers l’ordinateur, MIDI vers un synthé ou un logiciel"
+        ],
+        [
+         "Recevoir",
+         "Retour haptique : le son et les données se sentent sur la peau"
+        ],
+        [
+         "Réglages",
+         "Une page web, depuis un téléphone ou un ordinateur"
+        ]
+       ],
+       "tags": [
+        "Capteurs de mouvement",
+        "Haptique",
+        "OSC · MIDI · Wi-Fi"
+       ]
       },
       {
-       "nom": "Système Audio Multi-canal",
-       "sens": "Système audio embarqué avec 3 amplificateurs I2S pour un rendu sonore multi-canal riche.",
-       "prix": "coming",
-       "panier": 2
-      },
-      {
-       "nom": "PCB Sur-mesure",
-       "sens": "Conception et industrialisation de PCB sur-mesure pour vos projets électroniques.",
-       "prix": "quote",
-       "panier": 3
-      },
-      {
-       "nom": "Base XXL",
-       "sens": "Plateforme scénographique avec 3 enceintes, écran tactile, transducteurs et dock de recharge pour capteurs.",
-       "prix": "quote",
-       "panier": 4
-      }
-     ]
-    },
-    {
-     "t": "rayon",
-     "titre": "Musique",
-     "signe": "E11C",
-     "code": "M",
-     "items": [
-      {
-       "nom": "Activate Cities",
-       "sens": "2025, NSDOS × NORKHAT. Une carte sonore qui relie l’album à la ville.",
-       "prix": "coming",
-       "panier": 101
-      },
-      {
-       "nom": "Champignonner.Photomontage.Ultrasonique Vol. 1 & 2",
-       "sens": "2024.",
-       "prix": "coming",
-       "panier": 102
-      },
-      {
-       "nom": "Micro Club",
-       "sens": "2021.",
-       "prix": "coming",
-       "panier": 103
-      },
-      {
-       "nom": "Intuition Vol. 1 & 2",
-       "sens": "2017-2018, données de mouvement captées en Alaska.",
-       "prix": "coming",
-       "panier": 104
-      },
-      {
-       "nom": "Money Exchange",
-       "sens": "2016, Standalone Complex.",
-       "prix": "coming",
-       "panier": 105
+       "id": "gear-pcb",
+       "nom": "PCB sur mesure",
+       "sous": "Des cartes électroniques dessinées pour votre projet",
+       "statut": "sur devis",
+       "texte": [
+        "On conçoit et on fabrique des circuits imprimés sur mesure : du schéma au tracé des pistes, du choix des composants à la petite série, jusqu’à l’intégration dans votre objet.",
+        "C’est le même savoir-faire que pour nos capteurs AS-SIMT et nos objets sonores : des cartes pensées pour la scène, l’installation et les objets qui doivent fonctionner longtemps."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Artistes, studios, designers, entreprises"
+        ],
+        [
+         "On fait",
+         "Schéma, routage, choix des composants, fabrication, montage"
+        ],
+        [
+         "Formats",
+         "Prototype, petite série, intégration dans un objet"
+        ]
+       ],
+       "tags": [
+        "Électronique",
+        "Prototype",
+        "Petite série"
+       ]
       }
      ]
     }
@@ -649,7 +1184,7 @@
        "texte": [
         "systema8os.xt a été fait pour travailler avec les robots quadrupèdes Unitree Go2 : il transforme leurs déplacements en spatialisation sonore. Le robot devient à la fois une source et un curseur de son, qui marche dans l’espace réel. C’est le logiciel de la performance CAVE // FOUR ROBOTS : il fait jouer les quatre robots dans la grotte.",
         "Le logiciel relie la carte du lieu et la carte du son. Le LiDAR du robot scanne la salle et construit, au fil des passages, une carte de ses obstacles. Les sons, eux, sont découpés en grains, analysés et rangés selon leur timbre et leur hauteur. Ensuite, deux modes. Dans le premier, les grains sont dispersés dans l’espace : soit dans une zone bien définie, tracée avec des balises, soit dans tout l’espace scanné. Le robot qui les traverse les fait jouer. Dans le second, on attribue des sons précis à des endroits choisis : quand le robot y passe, ce son-là se déclenche. Dans les deux cas, le son suit sa position, en stéréo ou en binaural.",
-        "On pilote le robot à la manette ou au clavier, on enregistre et rejoue ses trajectoires, on le laisse errer seul dans une zone de sécurité tracée à la souris, ou on le guide à la voix : il rejoint le son le plus proche de ce qu’on chante. Sa caméra reconnaît les objets et les mouvements du corps. Sa position part en OSC vers TEAMMATE, qui la reçoit comme un capteur de plus. Autour, tout un instrument granulaire : capture du micro, de la caméra ou d’une fenêtre, analyse en temps réel, sorties MIDI."
+        "On pilote le robot à la manette ou au clavier, on enregistre et rejoue ses trajectoires, on le laisse errer seul dans une zone de sécurité tracée à la souris, ou on le guide à la voix : il rejoint le son le plus proche de ce qu’on chante. Sa caméra reconnaît les objets et les mouvements du corps. Sa position part en OSC vers TEAMMATE, qui la reçoit comme un capteur de plus. Autour, tout un instrument granulaire : capture du micro, de la caméra ou d’une fenêtre, analyse en temps réel, sorties MIDI. Pour le piloter sans ordinateur, il a sa version de poche sur Steam Deck : BILLY // STEAM DECK."
        ],
        "reperes": [
         [
@@ -694,6 +1229,62 @@
         "Unitree Go2",
         "LiDAR",
         "granulaire",
+        "OSC"
+       ]
+      },
+      {
+       "id": "billy",
+       "nom": "BILLY // STEAM DECK",
+       "sous": "Piloter le robot Billy et jouer le lieu, depuis le Steam Deck",
+       "statut": "en cours",
+       "texte": [
+        "BILLY // STEAM DECK transforme le Steam Deck en télécommande et en instrument pour Billy, un robot quadrupède Unitree Go2. C’est la version de poche de systema8os.xt : mêmes briques (le pilotage, le scan LiDAR, sa vue en 3D), sans ordinateur. Un Raspberry Pi monté sur le robot sert la page ; le Deck l’ouvre en plein écran, lancé depuis la bibliothèque Steam en mode Jeu, comme un jeu.",
+        "Les deux sticks conduisent : avancer, aller de côté, tourner. Les boutons font changer Billy de posture (debout, couché, équilibre, relever), RT l’arrête net, la croix règle sa lumière. Le Deck reçoit en retour la caméra du robot, qu’on peut redessiner en aplats « façon simulation », et le scan 3D de son LiDAR, écrit en glyphes As-Simt plutôt qu’en points. RB échange les deux vues ; LT lance une visite où les sticks déplacent le regard dans le scan.",
+        "Le Deck devient aussi une MPC en 3D. Les grains de son de TEAMMATE.POTO s’accrochent aux surfaces que Billy a vues : un pan de mur, le dessus d’une table, un objet reconnu, avec une couleur pour TEAMMATE.POTO unité 1, unité 2, unité 3. Un doigt dessus, et l’unité joue le grain pendant que la matière autour résonne. Sur un plan vu de dessus, on relie ces sons en quatre séquences de seize pas ; chaque unité TEAMMATE.POTO joue ses propres pas sur une horloge commune, et toutes les unités tombent ensemble."
+       ],
+       "reperes": [
+        [
+         "Rôle",
+         "Piloter le robot Billy et jouer avec le lieu qu’il scanne"
+        ],
+        [
+         "Robot",
+         "Billy, Unitree Go2 : LiDAR, caméra, postures, lumière"
+        ],
+        [
+         "Matériel",
+         "Steam Deck en mode Jeu ; Raspberry Pi embarqué sur le robot"
+        ],
+        [
+         "Pilotage",
+         "Deux sticks, postures aux boutons, arrêt d’urgence sur RT, conduite au doigt"
+        ],
+        [
+         "Vues",
+         "Caméra (ou texture « simulation ») et scan 3D en glyphes, visite libre"
+        ],
+        [
+         "Pads",
+         "Les grains de TEAMMATE.POTO accrochés aux surfaces du scan, une couleur par unité (unité 1, 2, 3)"
+        ],
+        [
+         "Séquences",
+         "Quatre séquences de 16 pas, jouées par les unités TEAMMATE.POTO sur une horloge commune"
+        ],
+        [
+         "Liens",
+         "Version de poche de systema8os.xt ; joue le corpus de TEAMMATE.POTO (OSC)"
+        ],
+        [
+         "Technique",
+         "Page web servie par le robot : JavaScript, Three.js, WebSocket, WebRTC, OSC"
+        ]
+       ],
+       "tags": [
+        "Steam Deck",
+        "Unitree Go2",
+        "LiDAR",
+        "pads 3D",
         "OSC"
        ]
       }
@@ -912,10 +1503,477 @@
        ]
       },
       {
+       "nom": "Interactive installations",
+       "sens": "Stage devices driven in real time, audio-light sync with sensor feedback. Dedicated electronics and firmware.",
+       "tags": [
+        "Audio I2S",
+        "9-axis IMU",
+        "DMX/Art‑Net"
+       ]
+      }
+     ]
+    },
+    {
+     "t": "liste",
+     "titre": "Koo’s journey",
+     "items": [
+      [
+       "Intuition · Alaska · 2017-2018",
+       "Weather stations and biofeedback: the movements of nature, turned into data, become sounds, textures and rhythms."
+      ],
+      [
+       "S.E.L.M. · Villa Albertine · 2023",
+       "A residency in New Orleans: an abstract dance of the body, by compiling captured gestures and “rehumanising” the data."
+      ],
+      [
+       "Activate Cities · NSDOS × NORKHAT · 2025",
+       "Urban walks and QR codes in public space: an interactive sound map linking the album to the city."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "services",
+   "nom": "services",
+   "code": "S",
+   "signe": "E140",
+   "pourquoi": "what we offer",
+   "teinte": 10475775,
+   "css": "#9fd8ff",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "From prototype to production. Brands, institutions, robotics and AI: let’s talk about your project."
+    },
+    {
+     "t": "explorer",
+     "items": [
+      {
+       "id": "sv-data",
+       "nom": "Data visualisation & data intelligence",
+       "sous": "Turning data into art: visuals or music",
+       "statut": "on request",
+       "texte": [
+        "With data, you can make art. We turn all kinds of data into an artistic form, visuals or music, for museums, concerts, interactive systems and installations. SONIC METABOLIC AVATAR is one example, where biological data becomes music."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Museums, concert halls, festivals, institutions, brands"
+        ],
+        [
+         "We deliver",
+         "Generative visuals, data music, interactive installations"
+        ],
+        [
+         "Tools",
+         "Sensors, Python, JavaScript, Three.js, sound synthesis"
+        ]
+       ],
+       "tags": [
+        "Data",
+        "Visualisation",
+        "Sonification"
+       ]
+      },
+      {
+       "id": "sv-conseil",
+       "nom": "Creative technology consulting",
+       "sous": "From a blurry idea to a roadmap",
+       "statut": "on request",
+       "texte": [
+        "Projects at the crossroads of art, design and engineering. We help frame an idea, choose the right technologies and plan how to make it, from the first prototype to the stage or the exhibition."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Brands, institutions, artists, studios"
+        ],
+        [
+         "We deliver",
+         "Framing, technical choices, roadmap"
+        ],
+        [
+         "Format",
+         "Workshops, guidance, production follow-up"
+        ]
+       ],
+       "tags": [
+        "Consulting",
+        "Art × engineering",
+        "Prototype"
+       ]
+      },
+      {
+       "id": "sv-da",
+       "nom": "Art direction",
+       "sous": "A world, visual and sonic languages",
+       "statut": "on request",
+       "texte": [
+        "Worlds, experiences, visual and sonic languages. We build an identity that holds from one medium to another: image, object, stage, sound, down to the glyphs we draw ourselves."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Artists, brands, festivals, institutions"
+        ],
+        [
+         "We deliver",
+         "Worlds, guidelines, visual and sonic directions"
+        ],
+        [
+         "Media",
+         "Stage, installation, web, objects"
+        ]
+       ],
+       "tags": [
+        "Art direction",
+        "Identity",
+        "Sound"
+       ]
+      },
+      {
+       "id": "sv-digital",
+       "nom": "Digital Art",
+       "sous": "Installations and immersive devices",
+       "statut": "on request",
+       "texte": [
+        "Installations and immersive devices. Projection, spatial sound, sensors: we turn a place into a work that reacts to those who cross it."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Museums, festivals, venues, brands"
+        ],
+        [
+         "We deliver",
+         "Turnkey installations, from design to set-up"
+        ],
+        [
+         "Tools",
+         "Projection, spatial sound, sensors, real time"
+        ]
+       ],
+       "tags": [
+        "Installation",
+        "Immersive",
+        "Interactive"
+       ]
+      },
+      {
+       "id": "sv-physique",
+       "nom": "Custom physical work",
+       "sous": "Custom objects for museums, installations and artists",
+       "statut": "on request",
+       "texte": [
+        "We imagine and make custom objects for museums, installations and artists: one-off pieces in wood, metal, resins, plastics or silicones, with or without electronics."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Museums, artists, set designers, venues, brands"
+        ],
+        [
+         "We deliver",
+         "Custom objects, one-offs, small runs"
+        ],
+        [
+         "Workshop",
+         "CNC, 3D printing, moulding, electronics"
+        ]
+       ],
+       "tags": [
+        "Fabrication",
+        "CNC",
+        "Materials"
+       ]
+      },
+      {
+       "id": "sv-cdm",
+       "nom": "Computer Dance Music",
+       "sous": "Music written with and for the body",
+       "statut": "on request",
+       "texte": [
+        "Music written with and for the moving body. Gesture becomes a score: sensors, sequences and synthesis answer each other in real time, on stage and in the studio."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Choreographers, companies, festivals"
+        ],
+        [
+         "We deliver",
+         "Music, motion-capture devices"
+        ],
+        [
+         "Tools",
+         "Wearable sensors, sequencers, synthesis"
+        ]
+       ],
+       "tags": [
+        "Music",
+        "Dance",
+        "Sensors"
+       ]
+      },
+      {
+       "id": "sv-robot",
+       "nom": "Robotic Sound Hardware",
+       "sous": "All kinds of robotics, for sound and for the stage",
+       "statut": "on request",
+       "texte": [
+        "We work with all kinds of robotics, for sound as well as stage design: robotic sound objects, autonomous devices, stage robots. Arms, rolling bases, quadrupeds, kinetic sculptures: we look wide."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Artists, companies, venues, festivals, museums"
+        ],
+        [
+         "We deliver",
+         "Robotic instruments, stage robots, autonomous installations"
+        ],
+        [
+         "Tools",
+         "Motors, solenoids, microcontrollers, sensors, ROS"
+        ]
+       ],
+       "tags": [
+        "Robotics",
+        "Sound",
+        "Autonomous"
+       ]
+      },
+      {
+       "id": "sv-audio",
+       "nom": "Audio objects",
+       "sous": "Small objects that make sound, in our own style",
+       "statut": "on request",
+       "texte": [
+        "We create small objects that make sound, in our own style: pocket synths, controllers, modules, one-off pieces, for the stage, installations or the home."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Musicians, performers, venues, collectors"
+        ],
+        [
+         "We deliver",
+         "Sound objects, synths, controllers, one-offs"
+        ],
+        [
+         "Tools",
+         "Analogue and digital electronics, custom cases"
+        ]
+       ],
+       "tags": [
+        "Synths/controllers",
+        "Sound modules",
+        "One-off pieces"
+       ]
+      },
+      {
+       "id": "sv-capteurs",
+       "nom": "Sensors & interaction",
+       "sous": "Sensors made for dancers, musicians and stage design",
+       "statut": "on request",
+       "texte": [
+        "We create sensors and interaction objects made for dancers, musicians and stage design. Our expertise: measuring gesture and translating it into light, sound and stage movement. TRIPODE AS-SIMT is one example."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Dancers, musicians, choreographers, set designers"
+        ],
+        [
+         "We deliver",
+         "Wearable sensors, interaction objects, mapping"
+        ],
+        [
+         "Tools",
+         "Inertial units, wireless, OSC, MIDI, DMX"
+        ]
+       ],
+       "tags": [
+        "Gesture & movement",
+        "Stage interaction"
+       ]
+      },
+      {
+       "id": "sv-objets",
+       "nom": "Objects & installation",
+       "sous": "From prototype to stage",
+       "statut": "on request",
+       "texte": [
+        "Integrating objects and devices for performance: from prototype to stage, custom systems built to tour."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Companies, artists, venues"
+        ],
+        [
+         "We deliver",
+         "Stage devices, integration, rigging"
+        ],
+        [
+         "Approach",
+         "Prototype → stage, custom systems"
+        ]
+       ],
+       "tags": [
+        "Prototype → stage",
+        "Custom systems"
+       ]
+      },
+      {
+       "id": "sv-3d",
+       "nom": "3D design",
+       "sous": "Form, material and use",
+       "statut": "on request",
+       "texte": [
+        "Form, material and use for expressive objects: object design and rapid prototyping."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Designers, artists, brands"
+        ],
+        [
+         "We deliver",
+         "3D models, printed prototypes, production files"
+        ],
+        [
+         "Tools",
+         "3D modelling, 3D printing, CNC"
+        ]
+       ],
+       "tags": [
+        "Object design",
+        "Rapid prototyping"
+       ]
+      },
+      {
+       "id": "sv-lumiere",
+       "nom": "Scenography & light",
+       "sous": "Smart light objects, controlled over Wi-Fi",
+       "statut": "on request",
+       "texte": [
+        "With our expertise, we create light objects smart enough to be controlled over Wi-Fi, working with different microcontrollers, for stage lighting design: reactive light, mapping and DMX."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Companies, festivals, venues, brands"
+        ],
+        [
+         "We deliver",
+         "Custom light objects, lighting designs, light cues"
+        ],
+        [
+         "Tools",
+         "ESP32 and other microcontrollers, Wi-Fi, DMX, real time"
+        ]
+       ],
+       "tags": [
+        "Reactive light",
+        "Mapping & DMX"
+       ]
+      },
+      {
+       "id": "sv-go2",
+       "nom": "Custom Go2 (Unitree)",
+       "sous": "The quadruped robot, custom-built and for hire for the stage",
+       "statut": "on request",
+       "texte": [
+        "Unitree’s Go2 quadruped robot for performances, installations and stage design. It can be hired and custom-equipped (choreographies, stage modules, control), so each client can imagine their own use."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Companies, festivals, brands, museums, events"
+        ],
+        [
+         "We offer",
+         "Hire for stage design, choreographies, custom modules"
+        ],
+        [
+         "Tools",
+         "Unitree Go2, LiDAR, Raspberry Pi, spatial sound"
+        ]
+       ],
+       "tags": [
+        "Choreographies",
+        "Stage modules"
+       ]
+      },
+      {
+       "id": "sv-repar",
+       "nom": "Hi-fi & synth repair",
+       "sous": "Overhaul, repair, recalibration and mods",
+       "statut": "on request",
+       "texte": [
+        "We repair analogue synthesizers, amplifiers and hi-fi gear. Every time, whatever the fault, we renew the parts that age over time, such as electrolytic capacitors.",
+        "Then we diagnose and repair the fault, before recalibrating everything. On synths we can also do mods and upgrades: adding MIDI, adding functions."
+       ],
+       "reperes": [
+        [
+         "Every time",
+         "Renewal of ageing parts (electrolytic capacitors, etc.), whatever the fault"
+        ],
+        [
+         "Repair",
+         "Fault diagnosis and repair"
+        ],
+        [
+         "Adjustment",
+         "Full recalibration"
+        ],
+        [
+         "Synths",
+         "Mods and upgrades: MIDI retrofit, added functions"
+        ],
+        [
+         "Gear",
+         "Analogue synths, amplifiers, hi-fi"
+        ]
+       ],
+       "tags": [
+        "Overhaul",
+        "Repair",
+        "Recalibration",
+        "MIDI retrofit"
+       ]
+      }
+     ]
+    },
+    {
+     "t": "devis"
+    }
+   ]
+  },
+  {
+   "id": "futur",
+   "nom": "future projects",
+   "code": "F",
+   "signe": "E0EE",
+   "pourquoi": "future = seed · far · light",
+   "teinte": 11992970,
+   "css": "#b6ff8a",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "What is growing in the studio. Pick a project to open it."
+    },
+    {
+     "t": "explorer",
+     "items": [
+      {
        "id": "orca",
        "nom": "ORCA//GLYPH",
        "sous": "A code language of our own, in three dimensions",
-       "statut": "in progress",
+       "statut": "download coming soon",
        "texte": [
         "ORCA//GLYPH starts from a wish: a code language born from computational creolisation. The idea comes from Koo’s residency at Villa Albertine in New Orleans, devoted to the creolisation of computer language; ORCA//GLYPH is its continuation. Code grounded in our own vision of code and in the meaning of what we write, extending the As-Simt alphabet, where each sign is a concrete image (seed, palm, vibration) rather than a neutral letter.",
         "Orca, the original by Hundred Rabbits, is already an esoteric programming language: a grid where every letter is a machine. ORCA//GLYPH belongs to that lineage and pushes the thinking further. Orca becomes the way to code dynamically with glyphs: each operator says something, C is “beat”, D “rain”, T “weave”. Writing a patch means composing a sentence as much as a program. Behind it lies the idea of a new code language that belongs to us, one we take back ownership of.",
@@ -1267,82 +2325,150 @@
    "blocs": [
     {
      "t": "texte",
-     "p": "Audio and art hardware, objects and records, designed and made in the studio. Online payment is coming soon: in the meantime, write to the studio."
+     "p": "Wearables and electronic gear, designed at the studio. Online payment is coming soon: until then, pre-order by writing to the studio."
     },
     {
      "t": "rayon",
      "titre": "Accessories",
      "signe": "E082",
      "code": "A",
-     "vide": "Things to wear, coming soon."
+     "items": [
+      {
+       "nom": "Pompom hood",
+       "sens": "A hood covered with handmade pompoms, like a small soft mountain around the face. Crocheted with a 3.5 hook, handmade pompoms, cords made on a hand knitting spool.",
+       "image": "/boutique/bonnet-pompon-orange.jpg",
+       "alt": "The orange pompom hood being worn, the face covered with As-Simt glyphs",
+       "couleurs": [
+        [
+         "orange",
+         "#ff6a1f"
+        ],
+        [
+         "black",
+         "#111111"
+        ]
+       ],
+       "glyphes": [
+        [
+         "E167",
+         "small"
+        ],
+        [
+         "E16C",
+         "soft"
+        ],
+        [
+         "E0CA",
+         "mountain"
+        ]
+       ],
+       "glyphesSens": "“small soft mountain” in As-Simt glyphs",
+       "collab": {
+        "texte": "A collaboration: this pompom was imagined with",
+        "nom": "@maiky_bulles",
+        "lien": "https://www.instagram.com/maiky_bulles"
+       },
+       "details": [
+        [
+         "Colours",
+         "Orange or black"
+        ],
+        [
+         "Making",
+         "Crocheted with a 3.5 hook · handmade pompoms · cords on a hand knitting spool"
+        ],
+        [
+         "Material",
+         "100% acrylic (sometimes OEKO-TEX Standard 100 certified, free of harmful substances)"
+        ],
+        [
+         "Washing",
+         "30 °C max, wool or delicate cycle, gentle spin; hand wash possible at 30-40 °C, without rubbing or wringing"
+        ],
+        [
+         "Bleach",
+         "Do not bleach: no chlorine"
+        ]
+       ],
+       "prix": "coming",
+       "tarif": "€300 · pre-order",
+       "commande": "pre-order"
+      }
+     ]
     },
     {
      "t": "rayon",
      "titre": "Electronic gear",
      "signe": "E119",
      "code": "G",
-     "items": [
+     "fiches": [
       {
-       "nom": "AS-SIMT Sensors",
-       "sens": "Aesthetic wearable sensors transforming movement into visual, haptic and sonic feedback in real time.",
-       "prix": "coming",
-       "panier": 1
+       "id": "gear-capteurs",
+       "nom": "AS-SIMT sensors",
+       "sous": "Wearable motion sensors you can also hear through the skin",
+       "statut": "coming soon",
+       "objet": "/models/tripode.bin",
+       "texte": [
+        "AS-SIMT sensors are small 3D-printed cases worn on the body or placed on an instrument. They measure movement in real time and send it wirelessly, to play music, drive light or write code with gesture.",
+        "They work both ways: they send movement, and they receive sound or data, which their three vibration motors make tangible. You also listen through the skin: that is haptic listening. They are the sensors of TRIPODE AS-SIMT.",
+        "For musicians, dancers, performers, and anyone who wants motion sensors that plug easily into their tools."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Musicians, dancers, performers, installation makers"
+        ],
+        [
+         "Inside",
+         "ESP32 board, accelerometer and magnetometer, 3 vibration motors"
+        ],
+        [
+         "Send",
+         "Wi-Fi: OSC to a computer, MIDI to a synth or software"
+        ],
+        [
+         "Receive",
+         "Haptic feedback: sound and data are felt on the skin"
+        ],
+        [
+         "Setup",
+         "A web page, from a phone or a computer"
+        ]
+       ],
+       "tags": [
+        "Motion sensors",
+        "Haptics",
+        "OSC · MIDI · Wi-Fi"
+       ]
       },
       {
-       "nom": "Multi-channel Audio System",
-       "sens": "Embedded audio system with 3 I2S amplifiers for rich multi-channel sound rendering.",
-       "prix": "coming",
-       "panier": 2
-      },
-      {
-       "nom": "Custom PCB",
-       "sens": "Design and industrialization of custom PCBs for your electronic projects.",
-       "prix": "quote",
-       "panier": 3
-      },
-      {
-       "nom": "XXL Base",
-       "sens": "Scenographic platform with 3 speakers, touch screen, transducers and charging dock for sensors.",
-       "prix": "quote",
-       "panier": 4
-      }
-     ]
-    },
-    {
-     "t": "rayon",
-     "titre": "Music",
-     "signe": "E11C",
-     "code": "M",
-     "items": [
-      {
-       "nom": "Activate Cities",
-       "sens": "2025, NSDOS × NORKHAT. A sound map linking the album to the city.",
-       "prix": "coming",
-       "panier": 101
-      },
-      {
-       "nom": "Champignonner.Photomontage.Ultrasonique Vol. 1 & 2",
-       "sens": "2024.",
-       "prix": "coming",
-       "panier": 102
-      },
-      {
-       "nom": "Micro Club",
-       "sens": "2021.",
-       "prix": "coming",
-       "panier": 103
-      },
-      {
-       "nom": "Intuition Vol. 1 & 2",
-       "sens": "2017-2018, movement data captured in Alaska.",
-       "prix": "coming",
-       "panier": 104
-      },
-      {
-       "nom": "Money Exchange",
-       "sens": "2016, Standalone Complex.",
-       "prix": "coming",
-       "panier": 105
+       "id": "gear-pcb",
+       "nom": "Custom PCBs",
+       "sous": "Circuit boards designed for your project",
+       "statut": "on quote",
+       "texte": [
+        "We design and make custom printed circuit boards: from schematic to trace layout, from component choice to small runs, all the way to integration in your object.",
+        "It is the same know-how as for our AS-SIMT sensors and sound objects: boards made for the stage, installations and objects that must last."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Artists, studios, designers, companies"
+        ],
+        [
+         "We do",
+         "Schematic, routing, component choice, manufacturing, assembly"
+        ],
+        [
+         "Formats",
+         "Prototype, small run, integration in an object"
+        ]
+       ],
+       "tags": [
+        "Electronics",
+        "Prototype",
+        "Small run"
+       ]
       }
      ]
     }
@@ -1372,7 +2498,7 @@
        "texte": [
         "systema8os.xt was made to work with Unitree Go2 quadruped robots: it turns their movements into sound spatialisation. The robot becomes both a source and a cursor of sound, walking through real space. It is the software behind the CAVE // FOUR ROBOTS performance: it makes the four robots play in the cave.",
         "The software links the map of the venue and the map of sound. The robot’s LiDAR scans the room and builds, pass after pass, a map of its obstacles. Sounds are cut into grains, analysed and sorted by timbre and pitch. Then come two modes. In the first, the grains are scattered through space: either inside a clearly defined zone drawn with beacons, or across the whole scanned space. The robot crossing them plays them. In the second, you assign specific sounds to chosen spots: when the robot passes, that sound is triggered. Either way, the sound follows its position, in stereo or binaural.",
-        "You steer the robot with a gamepad or the keyboard, record and replay its paths, let it wander alone inside a safety zone drawn with the mouse, or guide it with your voice: it heads for the sound closest to what you sing. Its camera recognises objects and body movement. Its position goes out as OSC to TEAMMATE, which receives it as one more sensor. Around it, a whole granular instrument: capture from the microphone, camera or a window, real-time analysis, MIDI outputs."
+        "You steer the robot with a gamepad or the keyboard, record and replay its paths, let it wander alone inside a safety zone drawn with the mouse, or guide it with your voice: it heads for the sound closest to what you sing. Its camera recognises objects and body movement. Its position goes out as OSC to TEAMMATE, which receives it as one more sensor. Around it, a whole granular instrument: capture from the microphone, camera or a window, real-time analysis, MIDI outputs. To steer it with no computer, it has a pocket version on the Steam Deck: BILLY // STEAM DECK."
        ],
        "reperes": [
         [
@@ -1417,6 +2543,62 @@
         "Unitree Go2",
         "LiDAR",
         "granular",
+        "OSC"
+       ]
+      },
+      {
+       "id": "billy",
+       "nom": "BILLY // STEAM DECK",
+       "sous": "Steering the robot Billy and playing the place, from the Steam Deck",
+       "statut": "in progress",
+       "texte": [
+        "BILLY // STEAM DECK turns the Steam Deck into a remote and an instrument for Billy, a Unitree Go2 quadruped robot. It is the pocket version of systema8os.xt: the same building blocks (steering, the LiDAR scan, its 3D view), with no computer. A Raspberry Pi mounted on the robot serves the page; the Deck opens it full screen, launched from the Steam library in Game mode, like a game.",
+        "The two sticks drive: forward, sideways, turning. The buttons change Billy’s posture (stand up, lie down, balance, recover), RT stops it dead, the d-pad sets its light. In return the Deck receives the robot’s camera, which can be redrawn in flat “simulation” colours, and the 3D scan from its LiDAR, written in As-Simt glyphs rather than dots. RB swaps the two views; LT starts a tour where the sticks move the view inside the scan.",
+        "The Deck also becomes a 3D MPC. TEAMMATE.POTO’s sound grains attach to the surfaces Billy has seen: a stretch of wall, a tabletop, a recognised object, with one colour for TEAMMATE.POTO unit 1, unit 2, unit 3. A finger on one, and the unit plays the grain while the matter around it resonates. On a top-down plan, you link these sounds into four sequences of sixteen steps; each TEAMMATE.POTO unit plays its own steps on a shared clock, and all units land together."
+       ],
+       "reperes": [
+        [
+         "Role",
+         "Steering the robot Billy and playing with the place it scans"
+        ],
+        [
+         "Robot",
+         "Billy, Unitree Go2: LiDAR, camera, postures, light"
+        ],
+        [
+         "Hardware",
+         "Steam Deck in Game mode; Raspberry Pi on board the robot"
+        ],
+        [
+         "Steering",
+         "Two sticks, postures on the buttons, emergency stop on RT, touch driving"
+        ],
+        [
+         "Views",
+         "Camera (or “simulation” texture) and 3D scan in glyphs, free tour"
+        ],
+        [
+         "Pads",
+         "TEAMMATE.POTO’s grains attached to surfaces in the scan, one colour per unit (unit 1, 2, 3)"
+        ],
+        [
+         "Sequences",
+         "Four 16-step sequences, played by the TEAMMATE.POTO units on a shared clock"
+        ],
+        [
+         "Links",
+         "Pocket version of systema8os.xt; plays TEAMMATE.POTO’s corpus (OSC)"
+        ],
+        [
+         "Tech",
+         "Web page served by the robot: JavaScript, Three.js, WebSocket, WebRTC, OSC"
+        ]
+       ],
+       "tags": [
+        "Steam Deck",
+        "Unitree Go2",
+        "LiDAR",
+        "3D pads",
         "OSC"
        ]
       }
