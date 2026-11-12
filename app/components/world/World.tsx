@@ -259,7 +259,7 @@ function BlocVue({ b, f, ui, locale, ouvrirContact, cible, allerProjet }: { b: B
   if (b.t === 'deux') return <div className="bio">{(b.items as string[][]).map(([n, r, p]) => <section key={n}><h3>{n}</h3><h2>{r}</h2><p>{p}</p></section>)}</div>;
   if (b.t === 'liste') return <section className="liste"><h2 className="etiquette">{b.titre}</h2><dl>{(b.items as string[][]).flatMap(([k, v]) => [<dt key={`t${k}`}>{k}</dt>, <dd key={`d${k}`}>{v}</dd>])}</dl></section>;
   if (b.t === 'devis') return <div className="pied"><button type="button" className="btn" onClick={() => ouvrirContact('')}>{ui.devis}</button></div>;
-  if (b.t === 'explorer') return <Explorer items={b.items as Projet[]} css={f.css} locale={locale} cible={cible} allerProjet={allerProjet} />;
+  if (b.t === 'explorer') return <Explorer items={b.items as Projet[]} css={f.css} code={f.code} locale={locale} cible={cible} allerProjet={allerProjet} />;
   if (b.t === 'films') {
     return (
       <div className="films">
@@ -288,7 +288,7 @@ function BlocVue({ b, f, ui, locale, ouvrirContact, cible, allerProjet }: { b: B
 }
 
 // ---------------------------------------------------------------- futurs projets : un menu que l'on parcourt, une fiche par projet
-function Explorer({ items, css, locale, cible, allerProjet }: { items: Projet[]; css: string; locale: Locale; cible: { id: string; n: number } | null; allerProjet: (id: string) => void }) {
+function Explorer({ items, css, code = 'F', locale, cible, allerProjet }: { items: Projet[]; css: string; code?: string; locale: Locale; cible: { id: string; n: number } | null; allerProjet: (id: string) => void }) {
   const [i, setI] = useState(() => Math.max(0, items.findIndex((x) => x.id === cible?.id)));
   const liste = useRef<HTMLDivElement>(null);
   const boite = useRef<HTMLDivElement>(null);
@@ -313,7 +313,7 @@ function Explorer({ items, css, locale, cible, allerProjet }: { items: Projet[];
       <div className="ex-liste" role="tablist" aria-orientation="vertical" ref={liste} onKeyDown={clavier} hidden={items.length < 2}>
         {items.map((x, n) => (
           <button key={x.id} type="button" role="tab" aria-selected={n === i} tabIndex={n === i ? 0 : -1} onClick={() => choisir(n)}>
-            <span className="ex-code">F.{String(n + 1).padStart(2, '0')}</span>
+            <span className="ex-code">{code}.{String(n + 1).padStart(2, '0')}</span>
             <span className="ex-nom">{x.nom}</span>
             <span className="ex-statut">{x.statut}</span>
           </button>
@@ -321,7 +321,7 @@ function Explorer({ items, css, locale, cible, allerProjet }: { items: Projet[];
       </div>
       <article className="ex-fiche" role="tabpanel" key={p.id}>
         <header>
-          <div className="ex-code">F.{String(i + 1).padStart(2, '0')} · {p.statut}</div>
+          <div className="ex-code">{code}.{String(i + 1).padStart(2, '0')} · {p.statut}</div>
           <h2>{p.nom}</h2>
           <p className="ex-sous">{p.sous}</p>
         </header>
@@ -405,7 +405,7 @@ const NOMS_PROJETS: [string, string][] = [
   ['TEAMMATE.POTO', 'teammate'], ['TEAMMATE', 'teammate'], ['ORCA//GLYPH', 'orca'], ['CAVE // FOUR ROBOTS', 'cave'],
   ['SYSTEMA8OS.XT', 'systema'], ['systema8os.xt', 'systema'], ['TRIPODE AS-SIMT', 'tripode'], ['tripode AS-SIMT', 'tripode'],
   ['Langue des images', 'langue'], ['Language of images', 'langue'],
-  ['AVATAR MÉTABOLIQUE SONORE', 'avatar'], ['Avatar métabolique sonore', 'avatar'], ['Sonic Metabolic Avatar', 'avatar'],
+  ['AVATAR MÉTABOLIQUE SONORE', 'avatar'], ['Avatar métabolique sonore', 'avatar'], ['Sonic Metabolic Avatar', 'avatar'], ['SONIC METABOLIC AVATAR', 'avatar'],
   ['BILLY // STEAM DECK', 'billy'],
 ];
 const MOTIF_PROJETS = new RegExp('(' + NOMS_PROJETS.map(([n]) => n.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')).join('|') + ')', 'g');

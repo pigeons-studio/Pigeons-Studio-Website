@@ -248,45 +248,226 @@
      "p": "Du prototype à l’industrialisation. Marques, institutions, robotique et IA : parlons de votre projet."
     },
     {
-     "t": "liste",
-     "titre": "Activités",
-     "items": [
-      [
-       "Data visualisation & data intelligence",
-       "Extraire et mettre en forme les données environnementales pour en faire des visualisations artistiques."
-      ],
-      [
-       "Consulting en creative technology",
-       "Projets à la croisée de l’art, du design et de l’ingénierie."
-      ],
-      [
-       "Direction artistique",
-       "Univers, expériences et langages visuels et sonores."
-      ],
-      [
-       "Digital Art",
-       "Installations et dispositifs immersifs."
-      ],
-      [
-       "Créations physiques sur mesure",
-       "Design et électronique, CNC, métal, résines, bois, plastiques, silicones."
-      ],
-      [
-       "Computer Dance Music",
-       "Musique écrite avec et pour le corps en mouvement."
-      ],
-      [
-       "Robotic Sound Hardware",
-       "Objets sonores robotiques et dispositifs autonomes."
-      ]
-     ]
-    },
-    {
-     "t": "cartes",
+     "t": "explorer",
      "items": [
       {
+       "id": "sv-data",
+       "nom": "Data visualisation & data intelligence",
+       "sous": "Faire parler les données environnementales",
+       "statut": "sur devis",
+       "texte": [
+        "Extraire et mettre en forme les données environnementales pour en faire des visualisations artistiques. On part des mesures, on les rend lisibles, puis sensibles : images, sons, objets. AVATAR MÉTABOLIQUE SONORE en est un exemple, où des données biologiques deviennent musique."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Institutions, laboratoires, marques"
+        ],
+        [
+         "On livre",
+         "Visualisations, sonifications, dispositifs"
+        ],
+        [
+         "Outils",
+         "Capteurs, Python, JavaScript, Three.js"
+        ]
+       ],
+       "tags": [
+        "Données",
+        "Visualisation",
+        "Sonification"
+       ]
+      },
+      {
+       "id": "sv-conseil",
+       "nom": "Consulting en creative technology",
+       "sous": "Du flou de l’idée au plan de route",
+       "statut": "sur devis",
+       "texte": [
+        "Projets à la croisée de l’art, du design et de l’ingénierie. On aide à cadrer une idée, à choisir les bonnes technologies et à planifier sa réalisation, du premier prototype jusqu’à la scène ou l’exposition."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Marques, institutions, artistes, studios"
+        ],
+        [
+         "On livre",
+         "Cadrage, choix techniques, feuille de route"
+        ],
+        [
+         "Format",
+         "Ateliers, accompagnement, suivi de production"
+        ]
+       ],
+       "tags": [
+        "Conseil",
+        "Art × ingénierie",
+        "Prototype"
+       ]
+      },
+      {
+       "id": "sv-da",
+       "nom": "Direction artistique",
+       "sous": "Un univers, des langages visuels et sonores",
+       "statut": "sur devis",
+       "texte": [
+        "Univers, expériences et langages visuels et sonores. On construit une identité qui tient d’un support à l’autre : image, objet, scène, son, et jusqu’aux glyphes qu’on dessine nous-mêmes."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Artistes, marques, festivals, institutions"
+        ],
+        [
+         "On livre",
+         "Univers, chartes, directions visuelles et sonores"
+        ],
+        [
+         "Supports",
+         "Scène, installation, web, objets"
+        ]
+       ],
+       "tags": [
+        "Direction artistique",
+        "Identité",
+        "Son"
+       ]
+      },
+      {
+       "id": "sv-digital",
+       "nom": "Digital Art",
+       "sous": "Installations et dispositifs immersifs",
+       "statut": "sur devis",
+       "texte": [
+        "Installations et dispositifs immersifs. Projection, son spatialisé, capteurs : on transforme un lieu en une œuvre qui réagit à ceux qui la traversent."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Musées, festivals, lieux, marques"
+        ],
+        [
+         "On livre",
+         "Installations clés en main, de la conception au montage"
+        ],
+        [
+         "Outils",
+         "Projection, son spatialisé, capteurs, temps réel"
+        ]
+       ],
+       "tags": [
+        "Installation",
+        "Immersif",
+        "Interactif"
+       ]
+      },
+      {
+       "id": "sv-physique",
+       "nom": "Créations physiques sur mesure",
+       "sous": "Design et électronique, de la cote à la matière",
+       "statut": "sur devis",
+       "texte": [
+        "Design et électronique, CNC, métal, résines, bois, plastiques, silicones. On conçoit et on fabrique des pièces uniques ou de petites séries, de l’objet scénique au boîtier d’instrument."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Artistes, scénographes, marques, studios"
+        ],
+        [
+         "On livre",
+         "Pièces uniques, petites séries, prototypes"
+        ],
+        [
+         "Atelier",
+         "CNC, impression 3D, moulage, électronique"
+        ]
+       ],
+       "tags": [
+        "Fabrication",
+        "CNC",
+        "Matières"
+       ]
+      },
+      {
+       "id": "sv-cdm",
+       "nom": "Computer Dance Music",
+       "sous": "Une musique écrite avec et pour le corps",
+       "statut": "sur devis",
+       "texte": [
+        "Musique écrite avec et pour le corps en mouvement. Le geste devient partition : capteurs, séquences et synthèse se répondent en temps réel, sur scène comme en studio."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Chorégraphes, compagnies, festivals"
+        ],
+        [
+         "On livre",
+         "Créations musicales, dispositifs de captation"
+        ],
+        [
+         "Outils",
+         "Capteurs portables, séquenceurs, synthèse"
+        ]
+       ],
+       "tags": [
+        "Musique",
+        "Danse",
+        "Capteurs"
+       ]
+      },
+      {
+       "id": "sv-robot",
+       "nom": "Robotic Sound Hardware",
+       "sous": "Objets sonores robotiques et dispositifs autonomes",
+       "statut": "sur devis",
+       "texte": [
+        "Objets sonores robotiques et dispositifs autonomes. Actionneurs, moteurs et capteurs font sonner la matière, seuls ou en orchestre."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Artistes, lieux, festivals, musées"
+        ],
+        [
+         "On livre",
+         "Instruments robotiques, installations autonomes"
+        ],
+        [
+         "Outils",
+         "Solénoïdes, moteurs, microcontrôleurs, capteurs"
+        ]
+       ],
+       "tags": [
+        "Robotique",
+        "Son",
+        "Autonome"
+       ]
+      },
+      {
+       "id": "sv-audio",
        "nom": "Création d’objets audio",
-       "sens": "Objets et modules sur mesure pour la scène et l’installation.",
+       "sous": "Synthés, contrôleurs et modules sur mesure",
+       "statut": "sur devis",
+       "texte": [
+        "Objets et modules sur mesure pour la scène et l’installation : synthés, contrôleurs, modules sonores, pièces uniques."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Musiciens, performeurs, studios"
+        ],
+        [
+         "On livre",
+         "Synthés, contrôleurs, modules, pièces uniques"
+        ],
+        [
+         "Outils",
+         "Électronique analogique et numérique, boîtiers sur mesure"
+        ]
+       ],
        "tags": [
         "Synthés/contrôleurs",
         "Modules sonores",
@@ -294,43 +475,166 @@
        ]
       },
       {
+       "id": "sv-capteurs",
        "nom": "Capteurs & interaction",
-       "sens": "Capteurs et interfaces pour gestes, mouvement, lumière.",
+       "sous": "Le geste, le mouvement, la lumière",
+       "statut": "sur devis",
+       "texte": [
+        "Capteurs et interfaces pour les gestes, le mouvement et la lumière. On mesure, on traduit, et le corps pilote la scène."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Performeurs, scénographes, installations"
+        ],
+        [
+         "On livre",
+         "Capteurs portables, interfaces, mapping"
+        ],
+        [
+         "Outils",
+         "Centrales inertielles, distance, lumière, OSC, MIDI"
+        ]
+       ],
        "tags": [
         "Gestes & mouvement",
         "Interaction scénique"
        ]
       },
       {
+       "id": "sv-objets",
        "nom": "Objets & installation",
-       "sens": "Intégration d’objets et dispositifs pour la performance.",
+       "sous": "Du prototype à la scène",
+       "statut": "sur devis",
+       "texte": [
+        "Intégration d’objets et de dispositifs pour la performance : du prototype à la scène, des systèmes sur mesure qui tiennent la tournée."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Compagnies, artistes, lieux"
+        ],
+        [
+         "On livre",
+         "Dispositifs scéniques, intégration, montage"
+        ],
+        [
+         "Approche",
+         "Prototype → scène, systèmes sur mesure"
+        ]
+       ],
        "tags": [
         "Prototype → scène",
         "Systèmes sur mesure"
        ]
       },
       {
+       "id": "sv-3d",
        "nom": "Conception 3D",
-       "sens": "Forme, matière et usage pour des objets expressifs.",
+       "sous": "Forme, matière et usage",
+       "statut": "sur devis",
+       "texte": [
+        "Forme, matière et usage pour des objets expressifs : design d’objets et prototypage rapide."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Designers, artistes, marques"
+        ],
+        [
+         "On livre",
+         "Modèles 3D, prototypes imprimés, fichiers de fabrication"
+        ],
+        [
+         "Outils",
+         "Modélisation 3D, impression 3D, CNC"
+        ]
+       ],
        "tags": [
         "Design d’objets",
         "Prototypage rapide"
        ]
       },
       {
+       "id": "sv-lumiere",
        "nom": "Scénographie & lumière",
-       "sens": "Dispositifs lumineux et interactions pour l’espace scénique.",
+       "sous": "Dispositifs lumineux et interactions pour l’espace scénique",
+       "statut": "sur devis",
+       "texte": [
+        "Dispositifs lumineux et interactions pour l’espace scénique : lumière réactive, mapping et DMX."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Compagnies, festivals, lieux, marques"
+        ],
+        [
+         "On livre",
+         "Scénographies, conduites lumière, dispositifs réactifs"
+        ],
+        [
+         "Outils",
+         "DMX, mapping, capteurs, temps réel"
+        ]
+       ],
        "tags": [
         "Lumière réactive",
         "Mapping & DMX"
        ]
       },
       {
+       "id": "sv-go2",
        "nom": "Go2 (Unitree) sur mesure",
-       "sens": "Robot quadrupède pour performances, installations et créations.",
+       "sous": "Le robot quadrupède, pour la scène et l’installation",
+       "statut": "sur devis",
+       "texte": [
+        "Robot quadrupède pour performances, installations et créations : chorégraphies, modules scéniques et pilotage sur mesure."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Compagnies, festivals, marques, musées"
+        ],
+        [
+         "On livre",
+         "Chorégraphies, modules, logiciels de pilotage"
+        ],
+        [
+         "Outils",
+         "Unitree Go2, LiDAR, Raspberry Pi, son spatialisé"
+        ]
+       ],
        "tags": [
         "Chorégraphies",
         "Modules scéniques"
+       ]
+      },
+      {
+       "id": "sv-repar",
+       "nom": "Réparation hi-fi & synthés",
+       "sous": "Synthétiseurs analogiques, amplis, matériel hi-fi",
+       "statut": "sur devis",
+       "texte": [
+        "Réparation et remise en état de synthétiseurs analogiques, d’amplis et de matériel hi-fi. Diagnostic, remplacement des composants fatigués, reprise des soudures, nettoyage, réglage et calibration : on rend au matériel le son qu’il avait."
+       ],
+       "reperes": [
+        [
+         "Matériel",
+         "Synthétiseurs analogiques, amplis, hi-fi"
+        ],
+        [
+         "On fait",
+         "Diagnostic, réparation, entretien, calibration"
+        ],
+        [
+         "Outils",
+         "Oscilloscope, station de soudure, mesures"
+        ]
+       ],
+       "tags": [
+        "Réparation",
+        "Synthés analogiques",
+        "Hi-fi & amplis"
        ]
       }
      ]
@@ -1029,45 +1333,226 @@
      "p": "From prototype to production. Brands, institutions, robotics and AI: let’s talk about your project."
     },
     {
-     "t": "liste",
-     "titre": "Activities",
-     "items": [
-      [
-       "Data visualisation & data intelligence",
-       "Extracting and shaping environmental data into artistic visualisations."
-      ],
-      [
-       "Creative technology consulting",
-       "Projects at the crossroads of art, design and engineering."
-      ],
-      [
-       "Art direction",
-       "Worlds, experiences, visual and sonic languages."
-      ],
-      [
-       "Digital Art",
-       "Installations and immersive devices."
-      ],
-      [
-       "Custom physical work",
-       "Design and electronics, CNC, metal, resins, wood, plastics, silicones."
-      ],
-      [
-       "Computer Dance Music",
-       "Music written with and for the moving body."
-      ],
-      [
-       "Robotic Sound Hardware",
-       "Robotic sound objects and autonomous devices."
-      ]
-     ]
-    },
-    {
-     "t": "cartes",
+     "t": "explorer",
      "items": [
       {
+       "id": "sv-data",
+       "nom": "Data visualisation & data intelligence",
+       "sous": "Making environmental data speak",
+       "statut": "on request",
+       "texte": [
+        "Extracting and shaping environmental data into artistic visualisations. We start from measurements, make them readable, then sensible: images, sounds, objects. SONIC METABOLIC AVATAR is one example, where biological data becomes music."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Institutions, labs, brands"
+        ],
+        [
+         "We deliver",
+         "Visualisations, sonifications, devices"
+        ],
+        [
+         "Tools",
+         "Sensors, Python, JavaScript, Three.js"
+        ]
+       ],
+       "tags": [
+        "Data",
+        "Visualisation",
+        "Sonification"
+       ]
+      },
+      {
+       "id": "sv-conseil",
+       "nom": "Creative technology consulting",
+       "sous": "From a blurry idea to a roadmap",
+       "statut": "on request",
+       "texte": [
+        "Projects at the crossroads of art, design and engineering. We help frame an idea, choose the right technologies and plan how to make it, from the first prototype to the stage or the exhibition."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Brands, institutions, artists, studios"
+        ],
+        [
+         "We deliver",
+         "Framing, technical choices, roadmap"
+        ],
+        [
+         "Format",
+         "Workshops, guidance, production follow-up"
+        ]
+       ],
+       "tags": [
+        "Consulting",
+        "Art × engineering",
+        "Prototype"
+       ]
+      },
+      {
+       "id": "sv-da",
+       "nom": "Art direction",
+       "sous": "A world, visual and sonic languages",
+       "statut": "on request",
+       "texte": [
+        "Worlds, experiences, visual and sonic languages. We build an identity that holds from one medium to another: image, object, stage, sound, down to the glyphs we draw ourselves."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Artists, brands, festivals, institutions"
+        ],
+        [
+         "We deliver",
+         "Worlds, guidelines, visual and sonic directions"
+        ],
+        [
+         "Media",
+         "Stage, installation, web, objects"
+        ]
+       ],
+       "tags": [
+        "Art direction",
+        "Identity",
+        "Sound"
+       ]
+      },
+      {
+       "id": "sv-digital",
+       "nom": "Digital Art",
+       "sous": "Installations and immersive devices",
+       "statut": "on request",
+       "texte": [
+        "Installations and immersive devices. Projection, spatial sound, sensors: we turn a place into a work that reacts to those who cross it."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Museums, festivals, venues, brands"
+        ],
+        [
+         "We deliver",
+         "Turnkey installations, from design to set-up"
+        ],
+        [
+         "Tools",
+         "Projection, spatial sound, sensors, real time"
+        ]
+       ],
+       "tags": [
+        "Installation",
+        "Immersive",
+        "Interactive"
+       ]
+      },
+      {
+       "id": "sv-physique",
+       "nom": "Custom physical work",
+       "sous": "Design and electronics, from drawing to material",
+       "statut": "on request",
+       "texte": [
+        "Design and electronics, CNC, metal, resins, wood, plastics, silicones. We design and make one-off pieces or small runs, from stage objects to instrument cases."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Artists, set designers, brands, studios"
+        ],
+        [
+         "We deliver",
+         "One-offs, small runs, prototypes"
+        ],
+        [
+         "Workshop",
+         "CNC, 3D printing, moulding, electronics"
+        ]
+       ],
+       "tags": [
+        "Fabrication",
+        "CNC",
+        "Materials"
+       ]
+      },
+      {
+       "id": "sv-cdm",
+       "nom": "Computer Dance Music",
+       "sous": "Music written with and for the body",
+       "statut": "on request",
+       "texte": [
+        "Music written with and for the moving body. Gesture becomes a score: sensors, sequences and synthesis answer each other in real time, on stage and in the studio."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Choreographers, companies, festivals"
+        ],
+        [
+         "We deliver",
+         "Music, motion-capture devices"
+        ],
+        [
+         "Tools",
+         "Wearable sensors, sequencers, synthesis"
+        ]
+       ],
+       "tags": [
+        "Music",
+        "Dance",
+        "Sensors"
+       ]
+      },
+      {
+       "id": "sv-robot",
+       "nom": "Robotic Sound Hardware",
+       "sous": "Robotic sound objects and autonomous devices",
+       "statut": "on request",
+       "texte": [
+        "Robotic sound objects and autonomous devices. Actuators, motors and sensors make matter sound, alone or as an orchestra."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Artists, venues, festivals, museums"
+        ],
+        [
+         "We deliver",
+         "Robotic instruments, autonomous installations"
+        ],
+        [
+         "Tools",
+         "Solenoids, motors, microcontrollers, sensors"
+        ]
+       ],
+       "tags": [
+        "Robotics",
+        "Sound",
+        "Autonomous"
+       ]
+      },
+      {
+       "id": "sv-audio",
        "nom": "Audio objects",
-       "sens": "Custom objects and modules for stage and installation.",
+       "sous": "Custom synths, controllers and modules",
+       "statut": "on request",
+       "texte": [
+        "Custom objects and modules for stage and installation: synths, controllers, sound modules, one-off pieces."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Musicians, performers, studios"
+        ],
+        [
+         "We deliver",
+         "Synths, controllers, modules, one-offs"
+        ],
+        [
+         "Tools",
+         "Analogue and digital electronics, custom cases"
+        ]
+       ],
        "tags": [
         "Synths/controllers",
         "Sound modules",
@@ -1075,43 +1560,166 @@
        ]
       },
       {
+       "id": "sv-capteurs",
        "nom": "Sensors & interaction",
-       "sens": "Sensors and interfaces for gesture, movement, light.",
+       "sous": "Gesture, movement, light",
+       "statut": "on request",
+       "texte": [
+        "Sensors and interfaces for gesture, movement and light. We measure, translate, and the body drives the stage."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Performers, set designers, installations"
+        ],
+        [
+         "We deliver",
+         "Wearable sensors, interfaces, mapping"
+        ],
+        [
+         "Tools",
+         "Inertial units, distance, light, OSC, MIDI"
+        ]
+       ],
        "tags": [
         "Gesture & movement",
         "Stage interaction"
        ]
       },
       {
+       "id": "sv-objets",
        "nom": "Objects & installation",
-       "sens": "Integrating objects and devices for performance.",
+       "sous": "From prototype to stage",
+       "statut": "on request",
+       "texte": [
+        "Integrating objects and devices for performance: from prototype to stage, custom systems built to tour."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Companies, artists, venues"
+        ],
+        [
+         "We deliver",
+         "Stage devices, integration, rigging"
+        ],
+        [
+         "Approach",
+         "Prototype → stage, custom systems"
+        ]
+       ],
        "tags": [
         "Prototype → stage",
         "Custom systems"
        ]
       },
       {
+       "id": "sv-3d",
        "nom": "3D design",
-       "sens": "Form, material and use for expressive objects.",
+       "sous": "Form, material and use",
+       "statut": "on request",
+       "texte": [
+        "Form, material and use for expressive objects: object design and rapid prototyping."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Designers, artists, brands"
+        ],
+        [
+         "We deliver",
+         "3D models, printed prototypes, production files"
+        ],
+        [
+         "Tools",
+         "3D modelling, 3D printing, CNC"
+        ]
+       ],
        "tags": [
         "Object design",
         "Rapid prototyping"
        ]
       },
       {
+       "id": "sv-lumiere",
        "nom": "Scenography & light",
-       "sens": "Light devices and interactions for the stage.",
+       "sous": "Light devices and interactions for the stage",
+       "statut": "on request",
+       "texte": [
+        "Light devices and interactions for the stage: reactive light, mapping and DMX."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Companies, festivals, venues, brands"
+        ],
+        [
+         "We deliver",
+         "Scenography, light cues, reactive devices"
+        ],
+        [
+         "Tools",
+         "DMX, mapping, sensors, real time"
+        ]
+       ],
        "tags": [
         "Reactive light",
         "Mapping & DMX"
        ]
       },
       {
+       "id": "sv-go2",
        "nom": "Custom Go2 (Unitree)",
-       "sens": "Quadruped robot for performances, installations and creations.",
+       "sous": "The quadruped robot, for stage and installation",
+       "statut": "on request",
+       "texte": [
+        "Quadruped robot for performances, installations and creations: choreographies, stage modules and custom control."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Companies, festivals, brands, museums"
+        ],
+        [
+         "We deliver",
+         "Choreographies, modules, control software"
+        ],
+        [
+         "Tools",
+         "Unitree Go2, LiDAR, Raspberry Pi, spatial sound"
+        ]
+       ],
        "tags": [
         "Choreographies",
         "Stage modules"
+       ]
+      },
+      {
+       "id": "sv-repar",
+       "nom": "Hi-fi & synth repair",
+       "sous": "Analogue synthesizers, amplifiers, hi-fi gear",
+       "statut": "on request",
+       "texte": [
+        "Repair and restoration of analogue synthesizers, amplifiers and hi-fi gear. Diagnosis, replacement of worn components, reflowed solder joints, cleaning, adjustment and calibration: we give the gear back the sound it had."
+       ],
+       "reperes": [
+        [
+         "Gear",
+         "Analogue synths, amplifiers, hi-fi"
+        ],
+        [
+         "We do",
+         "Diagnosis, repair, servicing, calibration"
+        ],
+        [
+         "Tools",
+         "Oscilloscope, soldering station, measurements"
+        ]
+       ],
+       "tags": [
+        "Repair",
+        "Analogue synths",
+        "Hi-fi & amps"
        ]
       }
      ]

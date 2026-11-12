@@ -9,6 +9,8 @@ const TOUS = { ...GLYPHES.symboles, ...GLYPHES.operateurs };
 
 const TEXTES = {
   fr: {
+    svLegende: [["css", "ce qu’on conçoit"], ["or", "ce qui agit, le signal"], ["encre", "l’objet, le corps"], ["gris", "le contexte"]],
+    sv: {"sv-data": {"titres": ["MESURER", "STRUCTURER", "DONNER FORME"], "etapes": ["Tout part de mesures : capteurs, stations météo, flux ouverts. Les chiffres arrivent bruts, en continu.", "On les nettoie et on les structure : chaque valeur trouve sa place dans une grille, une série, une carte.", "Puis on leur donne une forme qu’on peut voir et entendre : une image, un son, un objet. Ici, la série devient un paysage de glyphes."], "mots": ["capteurs", "mesures brutes", "nettoyer, structurer", "une forme : image, son, objet"]}, "sv-conseil": {"titres": ["L’IDÉE", "TROIS MONDES", "LA FEUILLE DE ROUTE"], "etapes": ["Un projet commence souvent flou : une envie, un lieu, un public, un délai. On écoute et on pose les contraintes.", "On le regarde avec trois paires d’yeux, l’art, le design et l’ingénierie, jusqu’à trouver ce qui tient des trois.", "Puis on trace la route : idée, prototype, test, scène. Chaque étape a son livrable, et on sait où l’on va."], "mots": ["une idée, des contraintes", "budget", "public", "délai", "lieu", "art", "design", "ingénierie", "le projet", "idée", "prototype", "test", "scène"]}, "sv-da": {"titres": ["LES RÉFÉRENCES", "LES CHOIX", "L’UNIVERS"], "etapes": ["On réunit des références : matières, motifs, signes, images. Elles se répondent, et une direction se dessine.", "On choisit : une palette, une typographie, une couleur de son. Peu d’éléments, mais tenus partout.", "Ensemble, ils forment un univers cohérent, qu’on retrouve dans l’image, l’objet, la scène et le son."], "mots": ["références", "couleurs", "typographie", "son", "un univers cohérent"]}, "sv-digital": {"titres": ["L’ESPACE", "LUMIÈRE ET SON", "LE PUBLIC AGIT"], "etapes": ["Tout part d’un lieu et de ceux qui le traversent : ses murs, ses volumes, ses visiteurs.", "On l’habite d’images projetées et de sons spatialisés : la pièce devient une œuvre.", "Et l’œuvre écoute : chaque présence, chaque mouvement du public la transforme en temps réel."], "mots": ["un espace, des visiteurs", "projection et son", "chaque présence modifie l’œuvre"]}, "sv-physique": {"titres": ["LE DESSIN", "LA FABRICATION", "LES MATIÈRES"], "etapes": ["On dessine l’objet en 3D, à la cote : volumes, assemblages, place de l’électronique.", "La machine l’usine : la fraiseuse CNC suit son parcours, passe après passe.", "On assemble les matières, bois, métal, résine, silicone, et l’électronique s’y intègre."], "mots": ["le dessin, à la cote", "usinage CNC", "bois", "métal", "résine", "silicone", "électronique intégrée"]}, "sv-cdm": {"titres": ["LE CORPS", "LES CAPTEURS", "LA MUSIQUE"], "etapes": ["Tout part du corps en mouvement : une danse, un geste, un appui.", "Des capteurs aux poignets et aux chevilles traduisent le mouvement en données.", "Ces données écrivent la musique : le mouvement déclenche les pas d’une séquence et module le son. TRIPODE AS-SIMT en est un outil."], "mots": ["le corps", "capteurs → données", "une séquence jouée par le mouvement"]}, "sv-robot": {"titres": ["UN GESTE", "UN ORCHESTRE", "L’AUTONOMIE"], "etapes": ["Un actionneur, un solénoïde, frappe un objet : un geste mécanique devient un son.", "Plusieurs actionneurs sur plusieurs objets, cloche, peau, bois, métal : ils jouent ensemble, selon un motif.", "Le dispositif devient autonome : il écoute, décide et joue, en boucle. CAVE // FOUR ROBOTS pousse cette idée jusqu’aux robots."], "mots": ["solénoïde", "un geste mécanique, un son", "cloche", "peau", "bois", "métal", "écouter", "décider", "jouer", "autonome"]}, "sv-audio": {"titres": ["LE CIRCUIT", "L’OBJET", "SUR SCÈNE"], "etapes": ["Tout commence par un circuit : un oscillateur, des résistances, des condensateurs, et un signal qui naît.", "Il prend corps dans un boîtier : des boutons, des entrées et sorties, des câbles de patch.", "Puis il monte sur scène et devient un instrument. TEAMMATE.POTO est né de cette façon."], "mots": ["oscillateur", "résistance", "condensateur", "boutons, patch, boîtier", "sur scène"]}, "sv-capteurs": {"titres": ["LE GESTE", "LA MESURE", "LA RÉPONSE"], "etapes": ["Une main dessine dans l’air. C’est elle qu’on veut entendre et voir.", "Un capteur la mesure : une centrale inertielle donne ses mouvements sur trois axes, en continu.", "Ces mesures pilotent la lumière et le son : plus la main monte, plus la lampe brille et plus le son monte. Voir TRIPODE AS-SIMT."], "mots": ["un geste", "centrale inertielle : x, y, z", "hauteur de la main", "lumière", "son"]}, "sv-objets": {"titres": ["LE PROTOTYPE", "L’INTÉGRATION", "EN SCÈNE"], "etapes": ["Sur l’établi, un premier prototype : un boîtier, une carte, une lumière qui clignote.", "On l’intègre dans un dispositif : plusieurs modules reliés à un contrôleur qui les fait dialoguer.", "Puis tout part en scène, monté, éclairé, prêt pour le public. TEAMMATE.POTO est passé par là."], "mots": ["le prototype, sur l’établi", "contrôleur", "en scène"]}, "sv-3d": {"titres": ["LA FORME", "L’USAGE", "LE PROTOTYPE"], "etapes": ["On cherche la forme : des volumes qu’on tourne, qu’on affine, qu’on compare.", "On la confronte à l’usage : la main, la prise, les points de contact.", "Puis on l’imprime en 3D, couche par couche, pour la tenir en main dès le lendemain."], "mots": ["la forme", "la main, l’usage", "impression 3D, couche par couche"]}, "sv-lumiere": {"titres": ["LE PLAN DE FEUX", "LE DMX", "LA LUMIÈRE RÉACTIVE"], "etapes": ["On dessine le plan de feux : où sont les projecteurs, et ce qu’ils éclairent.", "Chaque projecteur se pilote en DMX : un canal, une valeur de 0 à 255.", "Et la lumière devient réactive : elle suit le son, le geste ou les données, en temps réel."], "mots": ["scène", "DMX : un canal, une valeur", "la lumière suit le son"]}, "sv-go2": {"titres": ["LE ROBOT", "LA CHORÉGRAPHIE", "LES MODULES"], "etapes": ["Le Go2 de Unitree : un robot quadrupède, agile, qu’on programme pour la scène.", "On écrit sa chorégraphie : des points de passage, des postures, un rythme.", "On lui ajoute des modules scéniques, comme un mégaphone sur le dos. Voir CAVE // FOUR ROBOTS et BILLY // STEAM DECK."], "mots": ["Go2 · Unitree", "les points de passage", "module scénique : mégaphone"]}, "sv-repar": {"titres": ["LE DIAGNOSTIC", "LA RÉPARATION", "LE RÉGLAGE"], "etapes": ["On écoute et on mesure : à l’oscilloscope, le signal d’un synthé ou d’un ampli fatigué dit ce qui ne va pas : souffle, craquements, saturation.", "On répare : condensateurs fatigués remplacés, soudures reprises, potentiomètres nettoyés.", "Puis on règle : un signal propre, un synthé accordé note par note, un ampli qui sonne comme au premier jour."], "mots": ["synthétiseur, ampli, hi-fi", "souffle, craquements, saturation", "condensateurs fatigués", "soudures, potentiomètres", "un signal propre", "accordé"]}},
     panneau: 'comment ça marche', legende: 'légende', suivant: 'suite', precedent: 'précédent',
     sync: 'synchronisés', desync: 'désynchronisés', public: 'public', toi: 'toi', memoire: 'mémoire · 48 fragments', reponse: 'teammate',
     decisions: ['imiter', 'contraster', 'densifier', 's’éclaircir', 'se taire'],
@@ -99,6 +101,8 @@ const TEXTES = {
 
   },
   en: {
+    svLegende: [["css", "what we design"], ["or", "what acts, the signal"], ["encre", "the object, the body"], ["gris", "the context"]],
+    sv: {"sv-data": {"titres": ["MEASURE", "STRUCTURE", "GIVE FORM"], "etapes": ["It all starts with measurements: sensors, weather stations, open feeds. The numbers arrive raw and continuous.", "We clean and structure them: each value finds its place in a grid, a series, a map.", "Then we give them a form you can see and hear: an image, a sound, an object. Here the series becomes a landscape of glyphs."], "mots": ["sensors", "raw measurements", "clean, structure", "a form: image, sound, object"]}, "sv-conseil": {"titres": ["THE IDEA", "THREE WORLDS", "THE ROADMAP"], "etapes": ["A project often starts blurry: a wish, a place, an audience, a deadline. We listen and lay out the constraints.", "We look at it with three pairs of eyes, art, design and engineering, until we find what holds all three.", "Then we draw the road: idea, prototype, test, stage. Each step has its deliverable, and we know where we are going."], "mots": ["an idea, constraints", "budget", "audience", "deadline", "venue", "art", "design", "engineering", "the project", "idea", "prototype", "test", "stage"]}, "sv-da": {"titres": ["REFERENCES", "CHOICES", "THE WORLD"], "etapes": ["We gather references: materials, patterns, signs, images. They answer each other, and a direction appears.", "We choose: a palette, a typeface, a colour of sound. Few elements, but held everywhere.", "Together they form a coherent world, found in the image, the object, the stage and the sound."], "mots": ["references", "colours", "typeface", "sound", "a coherent world"]}, "sv-digital": {"titres": ["THE SPACE", "LIGHT AND SOUND", "THE AUDIENCE ACTS"], "etapes": ["It all starts with a place and those who cross it: its walls, its volumes, its visitors.", "We fill it with projected images and spatialised sound: the room becomes a work.", "And the work listens: every presence, every movement of the audience changes it in real time."], "mots": ["a space, visitors", "projection and sound", "every presence changes the work"]}, "sv-physique": {"titres": ["THE DRAWING", "MAKING", "MATERIALS"], "etapes": ["We draw the object in 3D, to size: volumes, joints, room for the electronics.", "The machine cuts it: the CNC router follows its path, pass after pass.", "We bring the materials together, wood, metal, resin, silicone, and the electronics fit inside."], "mots": ["the drawing, to size", "CNC machining", "wood", "metal", "resin", "silicone", "built-in electronics"]}, "sv-cdm": {"titres": ["THE BODY", "THE SENSORS", "THE MUSIC"], "etapes": ["It all starts with the moving body: a dance, a gesture, a step.", "Sensors on wrists and ankles translate movement into data.", "That data writes the music: movement triggers the steps of a sequence and shapes the sound. TRIPODE AS-SIMT is one such tool."], "mots": ["the body", "sensors → data", "a sequence played by movement"]}, "sv-robot": {"titres": ["ONE GESTURE", "AN ORCHESTRA", "AUTONOMY"], "etapes": ["An actuator, a solenoid, strikes an object: a mechanical gesture becomes a sound.", "Several actuators on several objects, bell, skin, wood, metal: they play together, following a pattern.", "The device becomes autonomous: it listens, decides and plays, in a loop. CAVE // FOUR ROBOTS takes this idea all the way to robots."], "mots": ["solenoid", "a mechanical gesture, a sound", "bell", "skin", "wood", "metal", "listen", "decide", "play", "autonomous"]}, "sv-audio": {"titres": ["THE CIRCUIT", "THE OBJECT", "ON STAGE"], "etapes": ["It all starts with a circuit: an oscillator, resistors, capacitors, and a signal being born.", "It takes shape in a case: knobs, inputs and outputs, patch cables.", "Then it goes on stage and becomes an instrument. TEAMMATE.POTO was born this way."], "mots": ["oscillator", "resistor", "capacitor", "knobs, patch, case", "on stage"]}, "sv-capteurs": {"titres": ["THE GESTURE", "THE MEASURE", "THE RESPONSE"], "etapes": ["A hand draws in the air. That is what we want to hear and see.", "A sensor measures it: an inertial unit gives its movements on three axes, continuously.", "Those measurements drive light and sound: the higher the hand, the brighter the lamp and the higher the sound. See TRIPODE AS-SIMT."], "mots": ["a gesture", "inertial unit: x, y, z", "hand height", "light", "sound"]}, "sv-objets": {"titres": ["THE PROTOTYPE", "INTEGRATION", "ON STAGE"], "etapes": ["On the workbench, a first prototype: a case, a board, a blinking light.", "We integrate it into a device: several modules linked to a controller that makes them talk.", "Then everything goes on stage, rigged, lit, ready for the audience. TEAMMATE.POTO went this way."], "mots": ["the prototype, on the bench", "controller", "on stage"]}, "sv-3d": {"titres": ["THE FORM", "THE USE", "THE PROTOTYPE"], "etapes": ["We look for the form: volumes we turn, refine, compare.", "We test it against use: the hand, the grip, the contact points.", "Then we 3D-print it, layer by layer, to hold it in hand the next day."], "mots": ["the form", "the hand, the use", "3D printing, layer by layer"]}, "sv-lumiere": {"titres": ["THE LIGHTING PLOT", "DMX", "REACTIVE LIGHT"], "etapes": ["We draw the lighting plot: where the fixtures are, and what they light.", "Each fixture is driven over DMX: one channel, one value from 0 to 255.", "And light becomes reactive: it follows sound, gesture or data, in real time."], "mots": ["stage", "DMX: one channel, one value", "light follows sound"]}, "sv-go2": {"titres": ["THE ROBOT", "THE CHOREOGRAPHY", "THE MODULES"], "etapes": ["Unitree’s Go2: an agile quadruped robot that we program for the stage.", "We write its choreography: waypoints, postures, a rhythm.", "We add stage modules, like a megaphone on its back. See CAVE // FOUR ROBOTS and BILLY // STEAM DECK."], "mots": ["Go2 · Unitree", "the waypoints", "stage module: megaphone"]}, "sv-repar": {"titres": ["DIAGNOSIS", "REPAIR", "CALIBRATION"], "etapes": ["We listen and measure: on the oscilloscope, the signal of a tired synth or amp tells what is wrong: hiss, crackle, clipping.", "We repair: worn capacitors replaced, solder joints redone, pots cleaned.", "Then we calibrate: a clean signal, a synth tuned note by note, an amp that sounds like the first day."], "mots": ["synth, amp, hi-fi", "hiss, crackle, clipping", "worn capacitors", "solder joints, pots", "a clean signal", "tuned"]}},
     panneau: 'how it works', legende: 'key', suivant: 'next', precedent: 'previous',
     sync: 'in sync', desync: 'out of sync', public: 'audience', toi: 'you', memoire: 'memory · 48 fragments', reponse: 'teammate',
     decisions: ['imitate', 'contrast', 'densify', 'thin out', 'stay silent'],
@@ -1047,6 +1051,382 @@ function billy (ctx, w, h, t, etat, css, L) {
   return { info: L.billy, actif };
 }
 
+// ---------------------------------------------------------------- SERVICES : une animation par service, en trois temps
+const SV_D = [16, 16, 16];
+const hsh = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+const lis = (x) => { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); };
+function oscillo (ctx, x, y, w, h, f, coul = OR) {
+  ctx.fillStyle = '#000'; ctx.fillRect(x, y, w, h); ctx.strokeStyle = SOMBRE; ctx.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1);
+  ctx.strokeStyle = coul; ctx.beginPath(); for (let i = 0; i <= w; i += 2) { const v = Math.max(-1, Math.min(1, f(i / w))); const yy = y + h / 2 - v * (h / 2 - 3); i ? ctx.lineTo(x + i, yy) : ctx.moveTo(x + i, yy); } ctx.stroke();
+}
+function boite (ctx, x, y, w, h, coul = ENCRE, fond = '#000') { ctx.fillStyle = fond; ctx.fillRect(x, y, w, h); ctx.strokeStyle = coul; ctx.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1); }
+function bouton (ctx, x, y, r, a, coul = ENCRE) { ctx.strokeStyle = coul; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r); ctx.stroke(); }
+function personnage (ctx, x, y, s, t, coul = ENCRE, ampl = 1) {
+  // un corps en mouvement : tête, buste, bras, jambes ; renvoie les poignets et chevilles
+  const a = Math.sin(t * 2.4) * ampl; const b = Math.sin(t * 2.4 + 1.6) * ampl;
+  const cou = [x, y - 46 * s]; const bassin = [x + a * 3 * s, y - 16 * s];
+  const main1 = [cou[0] - (16 + 10 * a) * s, cou[1] + (6 - 22 * Math.max(0, a)) * s]; const main2 = [cou[0] + (16 + 10 * b) * s, cou[1] + (6 - 22 * Math.max(0, b)) * s];
+  const pied1 = [bassin[0] - (8 + 6 * b) * s, y + 14 * s]; const pied2 = [bassin[0] + (8 + 6 * a) * s, y + 14 * s];
+  ctx.strokeStyle = coul; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(cou[0], cou[1]); ctx.lineTo(bassin[0], bassin[1]);
+  ctx.moveTo(cou[0], cou[1] + 4 * s); ctx.lineTo(main1[0], main1[1]); ctx.moveTo(cou[0], cou[1] + 4 * s); ctx.lineTo(main2[0], main2[1]);
+  ctx.moveTo(bassin[0], bassin[1]); ctx.lineTo(pied1[0], pied1[1]); ctx.moveTo(bassin[0], bassin[1]); ctx.lineTo(pied2[0], pied2[1]); ctx.stroke();
+  ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(cou[0], cou[1] - 9 * s, 7 * s, 0, Math.PI * 2); ctx.stroke();
+  return [main1, main2, pied1, pied2];
+}
+function rampe (ctx, x, y, w, h, coul) { const g = ctx.createLinearGradient(x, y, x, y + h); g.addColorStop(0, coul); g.addColorStop(1, 'rgba(0,0,0,0)'); return g; }
+
+const SV = {
+  // ---- data visualisation & data intelligence : mesurer, structurer, donner forme
+  'sv-data': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const mx = w * 0.16; const base = h * 0.78;
+      ctx.strokeStyle = ENCRE; ctx.beginPath(); ctx.moveTo(mx, base); ctx.lineTo(mx, base - 150); ctx.stroke();
+      for (let k = 0; k < 3; k++) { const a = t * 4 + k * 2.1; ctx.beginPath(); ctx.moveTo(mx, base - 150); ctx.lineTo(mx + Math.cos(a) * 16, base - 150 + Math.sin(a) * 5); ctx.stroke(); ctx.beginPath(); ctx.arc(mx + Math.cos(a) * 16, base - 150 + Math.sin(a) * 5, 3, 0, Math.PI * 2); ctx.stroke(); }
+      boite(ctx, mx - 10, base - 90, 20, 16, css); boite(ctx, mx - 10, base - 60, 20, 16, css);
+      texte(ctx, m[0], mx, base + 18, css, 10, 'center');
+      const cols = 5;
+      for (let c = 0; c < cols; c++) for (let k = 0; k < 14; k++) {
+        const u = ((ph * 0.18 + k / 14 + c * 0.13) % 1); const x = mx + 30 + u * (w * 0.8 - 30); const y = base - 150 + c * 28 + Math.sin(k + c) * 4;
+        const v = (18 + 9 * Math.sin(k * 0.7 + c + t * 0.6)).toFixed(1); ctx.globalAlpha = Math.min(1, u * 4) * (1 - u * 0.6); texte(ctx, v, x, y, c === 2 ? OR : GRIS, 9);
+      }
+      ctx.globalAlpha = 1; texte(ctx, m[1], w * 0.9, base + 18, GRIS, 10, 'right');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const x0 = w * 0.1; const y0 = h * 0.2; const nx = 14; const ny = 7; const c = Math.min((w * 0.8) / nx, (h * 0.42) / ny);
+      const n = Math.floor(lis(ph / 8) * nx * ny);
+      for (let i = 0; i < nx; i++) for (let j = 0; j < ny; j++) {
+        const k = i * ny + j; const v = 0.5 + 0.5 * Math.sin(i * 0.5 + j * 0.8 + t * 0.4);
+        if (k < n) { ctx.fillStyle = css; ctx.globalAlpha = 0.15 + v * 0.75; ctx.fillRect(x0 + i * c + 1, y0 + j * c + 1, c - 2, c - 2); } else { ctx.globalAlpha = 0.6; texte(ctx, '·', x0 + i * c + c / 2, y0 + j * c + c / 2 + 3, SOMBRE, 10, 'center'); }
+      }
+      ctx.globalAlpha = 1;
+      const yb = y0 + ny * c + 30; const k = lis((ph - 6) / 6);
+      ctx.strokeStyle = OR; ctx.beginPath(); for (let i = 0; i <= nx * k; i += 0.25) { const v = 0.5 + 0.5 * Math.sin(i * 0.5 + 3 * 0.8 + t * 0.4); const x = x0 + i * c; const y = yb + 50 - v * 50; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke();
+      texte(ctx, m[2], x0, y0 - 10, GRIS, 10);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const cles = Object.keys(SIG); const nx = 22; const c = (w * 0.86) / nx; const base = h * 0.84;
+      for (let i = 0; i < nx; i++) {
+        const v = 0.5 + 0.5 * Math.sin(i * 0.45 + t * 0.5) * Math.cos(i * 0.13 - t * 0.2); const n = 1 + Math.floor(v * 8 * lis(ph / 5));
+        for (let j = 0; j < n; j++) { const g = cles[(i * 7 + j * 3) % cles.length]; bits(ctx, SIG[g], w * 0.07 + i * c, base - (j + 1) * c, c / 9, j > 6 ? OR : css); }
+      }
+      texte(ctx, m[3], w / 2, h * 0.16, ENCRE, 11, 'center', 'italic ');
+    },
+  ],
+  // ---- consulting en creative technology : l'idée, trois mondes, la feuille de route
+  'sv-conseil': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const cx = w / 2; const cy = h * 0.5; const r = 30 + lis(ph / 4) * 40;
+      ctx.setLineDash([4, 5]); ctx.strokeStyle = css; ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+      texte(ctx, '?', cx, cy + 14, OR, 40, 'center', '600 ');
+      for (let k = 0; k < 9; k++) { const a = k * 0.7 + t * 0.15; const d = r + 30 + hsh(k) * 70; const u = lis((ph - 1 - k * 0.6) / 1.5); ctx.globalAlpha = u; texte(ctx, m[k % 4 + 1], cx + Math.cos(a) * d, cy + Math.sin(a) * d * 0.7, GRIS, 10, 'center'); }
+      ctx.globalAlpha = 1; texte(ctx, m[0], cx, h * 0.88, ENCRE, 10, 'center');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const cx = w / 2; const cy = h * 0.5; const k = lis(ph / 6); const d = 110 - k * 60; const r = Math.min(w, h) * 0.2;
+      const C = [[cx - d * 0.87, cy + d * 0.5, css, m[5]], [cx + d * 0.87, cy + d * 0.5, ENCRE, m[6]], [cx, cy - d, GRIS, m[7]]];
+      C.forEach(([x, y, c, n]) => { ctx.strokeStyle = c; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.stroke(); texte(ctx, n.toUpperCase(), x + (x - cx) * 0.6, y + (y - cy) * 0.6 + 4, c, 10, 'center', '600 '); });
+      if (k > 0.9) { ctx.fillStyle = OR; ctx.globalAlpha = 0.5 + 0.4 * Math.sin(t * 3); ctx.beginPath(); ctx.arc(cx, cy + 4, 10, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1; texte(ctx, m[8], cx, cy + 34, OR, 10, 'center'); }
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const x0 = w * 0.1; const x1 = w * 0.9; const y = h * 0.5; const etapes = m.slice(9, 13); const u = lis(ph / 12);
+      ctx.strokeStyle = SOMBRE; ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
+      ctx.strokeStyle = css; ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x0 + (x1 - x0) * u, y); ctx.stroke();
+      etapes.forEach((e, i) => { const x = x0 + (x1 - x0) * i / 3; const on = u >= i / 3 - 0.01; ctx.fillStyle = on ? css : '#000'; ctx.strokeStyle = on ? css : GRIS; ctx.beginPath(); ctx.arc(x, y, 7, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); texte(ctx, e, x, y + (i % 2 ? -18 : 28), on ? ENCRE : GRIS, 10, 'center'); });
+      ctx.fillStyle = OR; ctx.fillRect(x0 + (x1 - x0) * u - 3, y - 3, 6, 6);
+    },
+  ],
+  // ---- direction artistique : références, choix, univers
+  'sv-da': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const n = 3; const c = Math.min(w, h) * 0.22; const x0 = w / 2 - c * 1.6; const y0 = h / 2 - c * 1.6;
+      for (let i = 0; i < 9; i++) {
+        const x = x0 + (i % n) * c * 1.1; const y = y0 + Math.floor(i / n) * c * 1.1; const u = lis((ph - i * 0.5) / 0.8); if (u <= 0) continue;
+        ctx.globalAlpha = u; ctx.strokeStyle = SOMBRE; ctx.strokeRect(x, y, c, c);
+        const k = i % 4; ctx.strokeStyle = [GRIS, css, ENCRE, OCRE][k]; ctx.fillStyle = ctx.strokeStyle;
+        if (k === 0) for (let l = 0; l < c; l += 6) { ctx.beginPath(); ctx.moveTo(x + l, y); ctx.lineTo(x, y + l); ctx.stroke(); }
+        else if (k === 1) for (let a = 4; a < c; a += 9) for (let b = 4; b < c; b += 9) ctx.fillRect(x + a, y + b, 2, 2);
+        else if (k === 2) bits(ctx, SIG[Object.keys(SIG)[i]], x + c * 0.2, y + c * 0.2, c * 0.075, ENCRE);
+        else { ctx.beginPath(); ctx.arc(x + c / 2, y + c / 2, c * 0.3, 0, Math.PI * 2); ctx.stroke(); }
+      }
+      ctx.globalAlpha = 1; texte(ctx, m[0], w / 2, h * 0.92, GRIS, 10, 'center');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const cols = [css, OR, ENCRE, OCRE, '#72dec2']; const y = h * 0.28; const c = 34; const x0 = w / 2 - cols.length * (c + 8) / 2;
+      const choix = Math.floor(ph / 3) % cols.length;
+      cols.forEach((col, i) => { ctx.fillStyle = col; ctx.fillRect(x0 + i * (c + 8), y, c, c); if (i === choix) { ctx.strokeStyle = ENCRE; ctx.strokeRect(x0 + i * (c + 8) - 4, y - 4, c + 8, c + 8); } });
+      texte(ctx, m[1], x0, y - 12, GRIS, 10);
+      texte(ctx, 'Aa', w * 0.3, h * 0.62, cols[choix], 54, 'center', '600 '); texte(ctx, m[2], w * 0.3, h * 0.72, GRIS, 10, 'center');
+      oscillo(ctx, w * 0.52, h * 0.5, w * 0.36, 60, (u) => Math.sin(u * 30 + t * 4) * (0.4 + 0.4 * Math.sin(u * 4 + t)), cols[choix]); texte(ctx, m[3], w * 0.7, h * 0.72, GRIS, 10, 'center');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const hor = h * 0.62;
+      ctx.fillStyle = OR; ctx.globalAlpha = 0.85; ctx.beginPath(); ctx.arc(w * 0.68, hor - 40 - Math.sin(t * 0.3) * 10, 34, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
+      ctx.strokeStyle = css; ctx.beginPath(); ctx.moveTo(w * 0.08, hor); ctx.lineTo(w * 0.92, hor); ctx.stroke();
+      const cles = Object.keys(SIG); for (let i = 0; i < 6; i++) { const g = cles[(i * 5 + 2) % cles.length]; const sz = 2.4 + hsh(i) * 2.6; bits(ctx, SIG[g], w * 0.1 + i * w * 0.12, hor - sz * 8 - 2, sz, i % 2 ? css : ENCRE); }
+      for (let k = 0; k < 6; k++) { const y = hor + 12 + k * 12; ctx.strokeStyle = css; ctx.globalAlpha = 0.6 - k * 0.09; ctx.beginPath(); for (let x = w * 0.08; x <= w * 0.92; x += 4) { const yy = y + Math.sin(x * 0.04 + t * 2 + k) * (2 + k); x === w * 0.08 ? ctx.moveTo(x, yy) : ctx.lineTo(x, yy); } ctx.stroke(); }
+      ctx.globalAlpha = 1; texte(ctx, m[4], w / 2, h * 0.16, ENCRE, 11, 'center', 'italic ');
+    },
+  ],
+  // ---- digital art : l'espace, la lumière et le son, le public agit
+  'sv-digital': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const P = (x, y, z = 0) => [w / 2 + (x - y) * w * 0.32, h * 0.38 + (x + y) * h * 0.22 - z * h * 0.35];
+      const sol = [[0, 0], [1, 0], [1, 1], [0, 1]].map(([x, y]) => P(x, y));
+      ctx.strokeStyle = GRIS; ctx.beginPath(); sol.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.stroke();
+      [[0, 0], [1, 0], [0, 1]].forEach(([x, y]) => { const a = P(x, y); const b = P(x, y, 1); ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); });
+      const ht = [P(1, 0, 1), P(0, 0, 1), P(0, 1, 1)]; ctx.beginPath(); ht.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.stroke();
+      for (let i = 0; i < 9; i++) { const x = 0.2 + 0.6 * (0.5 + 0.5 * Math.sin(t * 0.3 + i * 2.1)); const y = 0.2 + 0.6 * (0.5 + 0.5 * Math.cos(t * 0.25 + i * 1.3)); const [px, py] = P(x, y); ctx.fillStyle = ENCRE; ctx.beginPath(); ctx.arc(px, py - 3, 3, 0, Math.PI * 2); ctx.fill(); }
+      texte(ctx, m[0], w / 2, h * 0.93, GRIS, 10, 'center');
+      s.P = P;
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      SV['sv-digital'][0](ctx, w, h, t, 0, s, css, ['']);
+      const P = s.P; const u = lis(ph / 3);
+      [[P(0.1, 0.9, 1), [P(0.2, 0, 0.9), P(0.9, 0, 0.9), P(0.9, 0, 0.1), P(0.2, 0, 0.1)]], [P(0.9, 0.1, 1), [P(0, 0.2, 0.9), P(0, 0.9, 0.9), P(0, 0.9, 0.1), P(0, 0.2, 0.1)]]].forEach(([src, q], i) => {
+        ctx.fillStyle = css; ctx.globalAlpha = 0.12 * u * (0.7 + 0.3 * Math.sin(t * 2 + i)); ctx.beginPath(); ctx.moveTo(src[0], src[1]); ctx.lineTo(q[0][0], q[0][1]); ctx.lineTo(q[3][0], q[3][1]); ctx.closePath(); ctx.fill();
+        ctx.beginPath(); ctx.moveTo(src[0], src[1]); ctx.lineTo(q[1][0], q[1][1]); ctx.lineTo(q[2][0], q[2][1]); ctx.closePath(); ctx.fill();
+        ctx.globalAlpha = 0.5 * u; ctx.beginPath(); q.forEach(([x, y], k) => (k ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.fill(); ctx.globalAlpha = 1;
+        ctx.fillStyle = ENCRE; ctx.fillRect(src[0] - 5, src[1] - 4, 10, 8);
+      });
+      for (let k = 0; k < 3; k++) { const r = ((ph * 30 + k * 18) % 54) + 6; const c = P(1, 1, 0.1); ctx.strokeStyle = OR; ctx.globalAlpha = 1 - r / 60; ctx.beginPath(); ctx.arc(c[0], c[1], r, Math.PI * 1.1, Math.PI * 1.6); ctx.stroke(); }
+      ctx.globalAlpha = 1; texte(ctx, m[1], w / 2, h * 0.08, css, 10, 'center');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      SV['sv-digital'][1](ctx, w, h, t, 6, s, css, ['', '']);
+      const P = s.P;
+      for (let i = 0; i < 9; i++) { const x = 0.2 + 0.6 * (0.5 + 0.5 * Math.sin(t * 0.3 + i * 2.1)); const y = 0.2 + 0.6 * (0.5 + 0.5 * Math.cos(t * 0.25 + i * 1.3)); const [px, py] = P(x, y); const r = ((t * 20 + i * 7) % 26); ctx.strokeStyle = OR; ctx.globalAlpha = 1 - r / 26; ctx.beginPath(); ctx.ellipse(px, py, r, r * 0.5, 0, 0, Math.PI * 2); ctx.stroke();
+        const mur = P(0.2 + x * 0.7, 0, 0.2 + 0.6 * (1 - y)); ctx.globalAlpha = 0.8; ctx.fillStyle = OR; ctx.fillRect(mur[0] - 3, mur[1] - 3, 6, 6); }
+      ctx.globalAlpha = 1; texte(ctx, m[2], w / 2, h * 0.93, OR, 10, 'center');
+    },
+  ],
+  // ---- créations physiques sur mesure : dessiner, fabriquer, assembler les matières
+  'sv-physique': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const a = t * 0.5; const cx = w / 2; const cy = h * 0.5; const L = Math.min(w, h) * 0.22;
+      const V = [[-1, -0.5, -0.7], [1, -0.5, -0.7], [1, 0.5, -0.7], [-1, 0.5, -0.7], [-1, -0.5, 0.7], [1, -0.5, 0.7], [1, 0.5, 0.7], [-1, 0.5, 0.7]].map(([x, y, z]) => { const X = x * Math.cos(a) - z * Math.sin(a); const Z = x * Math.sin(a) + z * Math.cos(a); return [cx + X * L, cy + y * L + Z * L * 0.35]; });
+      ctx.strokeStyle = css; [[0, 1], [1, 2], [2, 3], [3, 0], [4, 5], [5, 6], [6, 7], [7, 4], [0, 4], [1, 5], [2, 6], [3, 7]].forEach(([i, j]) => { ctx.beginPath(); ctx.moveTo(V[i][0], V[i][1]); ctx.lineTo(V[j][0], V[j][1]); ctx.stroke(); });
+      ctx.strokeStyle = GRIS; ctx.setLineDash([2, 3]); ctx.beginPath(); ctx.moveTo(cx - L, cy + L * 0.9); ctx.lineTo(cx + L, cy + L * 0.9); ctx.stroke(); ctx.setLineDash([]);
+      texte(ctx, '240 mm', cx, cy + L * 0.9 + 14, GRIS, 9, 'center'); texte(ctx, m[0], cx, h * 0.12, ENCRE, 10, 'center');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const x0 = w * 0.18; const y0 = h * 0.2; const W = w * 0.64; const H = h * 0.55;
+      ctx.fillStyle = '#141311'; ctx.fillRect(x0, y0, W, H); ctx.strokeStyle = OCRE; ctx.strokeRect(x0, y0, W, H);
+      const tour = (u) => { const k = Math.floor(u * 4); const v = u * 4 - k; const ins = 18 + k * 18; const L = [[ins, ins], [W - ins, ins], [W - ins, H - ins], [ins, H - ins], [ins, ins]]; const q = v * 4; const i = Math.floor(q); const f = q - i; return [x0 + L[i][0] + (L[i + 1][0] - L[i][0]) * f, y0 + L[i][1] + (L[i + 1][1] - L[i][1]) * f]; };
+      const u = Math.min(0.999, ph / 15); ctx.strokeStyle = OR; ctx.beginPath(); for (let k = 0; k <= u; k += 0.002) { const [x, y] = tour(k); k ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke();
+      const [fx, fy] = tour(u); ctx.strokeStyle = ENCRE; ctx.beginPath(); ctx.arc(fx, fy, 7, 0, Math.PI * 2); ctx.stroke(); ctx.beginPath(); ctx.arc(fx, fy, 2, 0, Math.PI * 2); ctx.stroke();
+      for (let k = 0; k < 8; k++) { const a = t * 9 + k; const d = 9 + ((t * 40 + k * 5) % 14); ctx.fillStyle = OCRE; ctx.fillRect(fx + Math.cos(a) * d, fy + Math.sin(a) * d, 2, 2); }
+      texte(ctx, m[1], w / 2, y0 + H + 22, GRIS, 10, 'center');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const couches = [[m[2], OCRE, 1], [m[3], GRIS, 0.9], [m[4], css, 0.45], [m[5], ENCRE, 0.35]]; const x0 = w * 0.2; const W = w * 0.42; let y = h * 0.22;
+      couches.forEach(([n, c, a], i) => { const u = lis((ph - i * 2) / 1.2); if (u <= 0) return; const hh = 34; ctx.fillStyle = c; ctx.globalAlpha = a * u; ctx.fillRect(x0 + (1 - u) * 40, y, W, hh); ctx.globalAlpha = 1; texte(ctx, n, x0 + W + 18, y + hh / 2 + 4, c, 10); y += hh + 6; });
+      const u = lis((ph - 9) / 1.2); if (u > 0) { ctx.globalAlpha = u; boite(ctx, x0 + W * 0.25, h * 0.22 + 2 * 40 + 6, W * 0.5, 20, '#3a7d44', '#0f2a14'); ctx.fillStyle = Math.sin(t * 6) > 0 ? OR : '#3a2a10'; ctx.beginPath(); ctx.arc(x0 + W * 0.68, h * 0.22 + 2 * 40 + 16, 3, 0, Math.PI * 2); ctx.fill(); texte(ctx, m[6], x0, h * 0.22 + 4 * 40 + 22, OR, 10); ctx.globalAlpha = 1; }
+    },
+  ],
+  // ---- computer dance music : le corps, les capteurs, la musique
+  'sv-cdm': [
+    (ctx, w, h, t, ph, s, css, m) => { personnage(ctx, w / 2, h * 0.68, 2, t, ENCRE, 1); ctx.strokeStyle = SOMBRE; ctx.beginPath(); ctx.moveTo(w * 0.2, h * 0.68 + 30); ctx.lineTo(w * 0.8, h * 0.68 + 30); ctx.stroke(); texte(ctx, m[0], w / 2, h * 0.9, GRIS, 10, 'center'); },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const pts = personnage(ctx, w * 0.32, h * 0.68, 1.7, t, ENCRE, 1);
+      pts.forEach(([x, y], i) => { ctx.fillStyle = css; ctx.fillRect(x - 3, y - 3, 6, 6); ctx.strokeStyle = css; ctx.globalAlpha = 0.25; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(w * 0.62, h * 0.25 + i * 36); ctx.stroke(); ctx.globalAlpha = 1; texte(ctx, (y | 0) + '', w * 0.64, h * 0.25 + i * 36 + 4, i % 2 ? GRIS : css, 10); });
+      texte(ctx, m[1], w * 0.62, h * 0.15, GRIS, 10);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      personnage(ctx, w * 0.14, h * 0.6, 1.1, t, ENCRE, 1);
+      const x0 = w * 0.28; const y0 = h * 0.25; const c = Math.min((w * 0.66) / 16, 26); const pas = Math.floor(t * 4) % 16;
+      for (let r = 0; r < 4; r++) for (let i = 0; i < 16; i++) { const on = hsh(r * 16 + i + Math.floor(t / 4) * 3) > 0.62; const ici = i === pas; ctx.fillStyle = on ? (ici ? OR : css) : (ici ? '#3c3b38' : '#151513'); ctx.fillRect(x0 + i * c, y0 + r * (c + 4), c - 3, c); }
+      texte(ctx, m[2], x0, y0 - 12, GRIS, 10); oscillo(ctx, x0, y0 + 4 * (c + 4) + 16, c * 16 - 3, 40, (u) => Math.sin(u * 50 + t * 9) * (0.5 + 0.5 * Math.sin(t * 8)));
+    },
+  ],
+  // ---- robotic sound hardware : un geste, plusieurs, l'autonomie
+  'sv-robot': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const cx = w * 0.5; const by = h * 0.6; const u = (t * 1.2) % 1; const desc = u < 0.1 ? u / 0.1 : Math.max(0, 1 - (u - 0.1) * 2);
+      ctx.strokeStyle = ENCRE; ctx.beginPath(); ctx.arc(cx, by, 60, 0, Math.PI); ctx.stroke(); ctx.beginPath(); ctx.moveTo(cx - 60, by); ctx.lineTo(cx + 60, by); ctx.stroke();
+      boite(ctx, cx - 14, by - 120, 28, 44, css); ctx.fillStyle = GRIS; ctx.fillRect(cx - 3, by - 76, 6, 30 + desc * 40);
+      if (u < 0.3) for (let k = 0; k < 3; k++) { const r = 20 + u * 200 + k * 16; ctx.strokeStyle = OR; ctx.globalAlpha = Math.max(0, 1 - u * 3.3); ctx.beginPath(); ctx.arc(cx, by, r + 60, Math.PI * 1.15, Math.PI * 1.85); ctx.stroke(); }
+      ctx.globalAlpha = 1; texte(ctx, m[0], cx + 30, by - 100, css, 10); texte(ctx, m[1], cx, by + 80, GRIS, 10, 'center');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const objets = [m[2], m[3], m[4], m[5]]; const pas = Math.floor(t * 4) % 8; const motif = [[1, 0, 0, 1, 0, 0, 1, 0], [0, 0, 1, 0, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0, 1, 1], [0, 1, 0, 0, 0, 1, 0, 0]];
+      objets.forEach((n, i) => { const x = w * (0.2 + i * 0.2); const y = h * 0.42; const on = motif[i][pas]; boite(ctx, x - 22, y, 44, 30, on ? OR : GRIS); ctx.fillStyle = css; ctx.fillRect(x - 3, y - 40 + (on ? 26 : 0), 6, 14); boite(ctx, x - 9, y - 58, 18, 18, css); texte(ctx, n, x, y + 48, on ? OR : GRIS, 10, 'center');
+        for (let p = 0; p < 8; p++) { ctx.fillStyle = motif[i][p] ? (p === pas ? OR : css) : '#151513'; ctx.fillRect(x - 22 + p * 6, h * 0.78, 5, 5); } });
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const cx = w / 2; const cy = h * 0.5; const R = Math.min(w, h) * 0.28; const noms = [m[6], m[7], m[8]];
+      ctx.strokeStyle = SOMBRE; ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
+      noms.forEach((n, i) => { const a = -Math.PI / 2 + i * Math.PI * 2 / 3; const x = cx + Math.cos(a) * R; const y = cy + Math.sin(a) * R; boite(ctx, x - 40, y - 12, 80, 24, i === 2 ? OR : css); texte(ctx, n, x, y + 4, i === 2 ? OR : css, 10, 'center'); });
+      const a = -Math.PI / 2 + (t * 0.8 % 1) * Math.PI * 2; ctx.fillStyle = OR; ctx.fillRect(cx + Math.cos(a) * R - 3, cy + Math.sin(a) * R - 3, 6, 6);
+      texte(ctx, m[9], cx, cy + 4, ENCRE, 10, 'center', 'italic ');
+    },
+  ],
+  // ---- création d'objets audio : le circuit, l'objet, la scène
+  'sv-audio': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const y = h * 0.45; const x0 = w * 0.1; const x1 = w * 0.9;
+      ctx.strokeStyle = GRIS; ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
+      const tri = w * 0.32; ctx.fillStyle = '#000'; ctx.strokeStyle = ENCRE; ctx.beginPath(); ctx.moveTo(tri - 20, y - 24); ctx.lineTo(tri + 20, y); ctx.lineTo(tri - 20, y + 24); ctx.closePath(); ctx.fill(); ctx.stroke();
+      const rx = w * 0.52; ctx.fillStyle = '#000'; ctx.fillRect(rx - 22, y - 6, 44, 12); ctx.strokeStyle = ENCRE; ctx.beginPath(); ctx.moveTo(rx - 22, y); for (let i = 0; i < 7; i++) ctx.lineTo(rx - 18 + i * 6, y + (i % 2 ? 6 : -6)); ctx.lineTo(rx + 22, y); ctx.stroke();
+      const cx = w * 0.68; ctx.fillStyle = '#000'; ctx.fillRect(cx - 6, y - 14, 12, 28); ctx.fillStyle = ENCRE; ctx.fillRect(cx - 5, y - 14, 2, 28); ctx.fillRect(cx + 3, y - 14, 2, 28);
+      texte(ctx, m[0], tri, y + 44, ENCRE, 10, 'center'); texte(ctx, m[1], rx, y + 28, GRIS, 10, 'center'); texte(ctx, m[2], cx, y + 30, GRIS, 10, 'center');
+      for (let k = 0; k < 6; k++) { const u = (t * 0.4 + k / 6) % 1; ctx.fillStyle = OR; ctx.fillRect(x0 + (x1 - x0) * u - 2, y - 2, 4, 4); }
+      oscillo(ctx, w * 0.62, h * 0.7, w * 0.28, 44, (u) => (((u * 6 + t * 2) % 1) * 2 - 1) * 0.8);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const x0 = w * 0.14; const y0 = h * 0.22; const W = w * 0.72; const H = h * 0.42;
+      boite(ctx, x0, y0, W, H, ENCRE, '#0b0b0a');
+      for (let i = 0; i < 5; i++) { bouton(ctx, x0 + 34 + i * (W - 68) / 4, y0 + 40, 13, Math.sin(t * 0.8 + i) * 2.4, i === 2 ? css : ENCRE); }
+      const jacks = []; for (let i = 0; i < 8; i++) { const x = x0 + 30 + i * (W - 60) / 7; const y = y0 + H - 30; ctx.strokeStyle = OCRE; ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2); ctx.stroke(); jacks.push([x, y]); }
+      [[0, 5, css], [2, 7, OR], [1, 3, ENCRE]].forEach(([a, b, c]) => { const [ax, ay] = jacks[a]; const [bx, by] = jacks[b]; ctx.strokeStyle = c; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.bezierCurveTo(ax, ay + 60, bx, by + 60, bx, by); ctx.stroke(); ctx.lineWidth = 1; });
+      texte(ctx, m[3], x0, y0 - 10, GRIS, 10);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const cx = w / 2; const by = h * 0.62; boite(ctx, cx - 50, by - 30, 100, 30, ENCRE, '#0b0b0a'); ctx.strokeStyle = GRIS; ctx.beginPath(); ctx.moveTo(cx, by); ctx.lineTo(cx, by + 60); ctx.moveTo(cx - 30, by + 60); ctx.lineTo(cx + 30, by + 60); ctx.stroke();
+      for (let k = 0; k < 5; k++) { const r = ((t * 40 + k * 26) % 130) + 20; ctx.strokeStyle = css; ctx.globalAlpha = 1 - r / 150; ctx.beginPath(); ctx.arc(cx, by - 30, r, Math.PI * 1.1, Math.PI * 1.9); ctx.stroke(); }
+      ctx.globalAlpha = 1; for (let i = 0; i < 24; i++) { const v = Math.abs(Math.sin(i * 0.6 + t * 3) * Math.cos(i * 0.21 + t)); ctx.fillStyle = i % 5 ? css : OR; ctx.fillRect(w * 0.1 + i * (w * 0.8 / 24), h * 0.95 - v * 50, w * 0.8 / 24 - 3, v * 50); }
+      texte(ctx, m[4], cx, h * 0.14, ENCRE, 10, 'center');
+    },
+  ],
+  // ---- capteurs & interaction : le geste, la mesure, la réponse
+  'sv-capteurs': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      if (!s.trace) s.trace = []; const a = t * 1.3; const x = w / 2 + Math.cos(a) * w * 0.25; const y = h * 0.5 + Math.sin(a * 2) * h * 0.18;
+      s.trace.push([x, y]); if (s.trace.length > 70) s.trace.shift();
+      ctx.strokeStyle = css; ctx.globalAlpha = 0.5; ctx.beginPath(); s.trace.forEach(([u, v], i) => (i ? ctx.lineTo(u, v) : ctx.moveTo(u, v))); ctx.stroke(); ctx.globalAlpha = 1;
+      ctx.strokeStyle = ENCRE; ctx.beginPath(); ctx.arc(x, y, 12, 0, Math.PI * 2); ctx.stroke(); for (let d = 0; d < 5; d++) { const b = -2.2 + d * 0.45; ctx.beginPath(); ctx.moveTo(x + Math.cos(b) * 12, y + Math.sin(b) * 12); ctx.lineTo(x + Math.cos(b) * 26, y + Math.sin(b) * 26); ctx.stroke(); }
+      ctx.fillStyle = css; ctx.fillRect(x - 4, y + 10, 8, 6); texte(ctx, m[0], w / 2, h * 0.92, GRIS, 10, 'center');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      [[css, 1.3, 'x'], [OR, 2.6, 'y'], [ENCRE, 0.7, 'z']].forEach(([c, f, n], i) => { oscillo(ctx, w * 0.1, h * 0.16 + i * h * 0.2, w * 0.8, h * 0.16, (u) => Math.sin((u * 6 - t) * f) * 0.8 + Math.sin(u * 40 + t * 7) * 0.08, c); texte(ctx, n, w * 0.1 - 10, h * 0.16 + i * h * 0.2 + h * 0.08 + 4, c, 10, 'right'); });
+      texte(ctx, m[1], w / 2, h * 0.84, GRIS, 10, 'center');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const v = 0.5 + 0.5 * Math.sin(t * 1.3); const hx = w * 0.18; const hy = h * 0.75 - v * h * 0.45;
+      ctx.strokeStyle = ENCRE; ctx.beginPath(); ctx.arc(hx, hy, 10, 0, Math.PI * 2); ctx.stroke(); ctx.strokeStyle = SOMBRE; ctx.beginPath(); ctx.moveTo(hx, h * 0.8); ctx.lineTo(hx, h * 0.25); ctx.stroke(); texte(ctx, m[2], hx, h * 0.88, GRIS, 10, 'center');
+      ctx.strokeStyle = GRIS; ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.moveTo(hx + 14, hy); ctx.lineTo(w * 0.42, hy); ctx.stroke(); ctx.setLineDash([]);
+      const lx = w * 0.55; const ly = h * 0.3; ctx.fillStyle = OR; ctx.globalAlpha = 0.2 + v * 0.8; ctx.beginPath(); ctx.arc(lx, ly, 10 + v * 6, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = v * 0.25; ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(lx - 60, h * 0.7); ctx.lineTo(lx + 60, h * 0.7); ctx.fill(); ctx.globalAlpha = 1; texte(ctx, m[3], lx, h * 0.78, OR, 10, 'center');
+      oscillo(ctx, w * 0.7, h * 0.42, w * 0.22, 60, (u) => Math.sin(u * (8 + v * 40) + t * 4) * 0.8, css); texte(ctx, m[4], w * 0.81, h * 0.78, css, 10, 'center');
+    },
+  ],
+  // ---- objets & installation : le prototype, l'intégration, la scène
+  'sv-objets': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const by = h * 0.68; ctx.strokeStyle = OCRE; ctx.beginPath(); ctx.moveTo(w * 0.08, by); ctx.lineTo(w * 0.92, by); ctx.stroke();
+      boite(ctx, w * 0.3, by - 60, 110, 60, ENCRE, '#0b0b0a'); boite(ctx, w * 0.3 + 14, by - 46, 50, 22, '#3a7d44', '#0f2a14'); ctx.fillStyle = Math.sin(t * 5) > 0 ? OR : '#3a2a10'; ctx.beginPath(); ctx.arc(w * 0.3 + 90, by - 34, 4, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = css; ctx.beginPath(); ctx.moveTo(w * 0.3 + 110, by - 30); ctx.bezierCurveTo(w * 0.7, by - 30, w * 0.65, by - 90, w * 0.78, by - 90); ctx.stroke(); boite(ctx, w * 0.78, by - 104, 34, 28, css);
+      texte(ctx, m[0], w / 2, by + 24, GRIS, 10, 'center');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const cx = w / 2; const cy = h * 0.5; boite(ctx, cx - 40, cy - 22, 80, 44, OR, '#0b0b0a'); texte(ctx, m[1], cx, cy + 4, OR, 10, 'center');
+      for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3 + 0.3; const x = cx + Math.cos(a) * w * 0.34; const y = cy + Math.sin(a) * h * 0.32; const u = lis((ph - i * 0.8) / 1); if (u <= 0) continue; ctx.globalAlpha = u; boite(ctx, x - 22, y - 14, 44, 28, css); ctx.strokeStyle = GRIS; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(cx, cy); ctx.stroke(); const k = (t * 0.7 + i / 6) % 1; ctx.fillStyle = OR; ctx.fillRect(x + (cx - x) * k - 2, y + (cy - y) * k - 2, 4, 4); ctx.globalAlpha = 1; }
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const hor = h * 0.4; ctx.strokeStyle = SOMBRE; ctx.beginPath(); ctx.moveTo(w * 0.05, h * 0.86); ctx.lineTo(w * 0.25, hor); ctx.lineTo(w * 0.75, hor); ctx.lineTo(w * 0.95, h * 0.86); ctx.stroke();
+      [0.32, 0.5, 0.68].forEach((x, i) => { const px = w * x; const py = h * 0.6; ctx.fillStyle = css; ctx.globalAlpha = 0.1 + 0.08 * Math.sin(t * 2 + i); ctx.beginPath(); ctx.moveTo(px, h * 0.06); ctx.lineTo(px - 40, py + 10); ctx.lineTo(px + 40, py + 10); ctx.fill(); ctx.globalAlpha = 1; boite(ctx, px - 16, py - 20, 32, 30, i === 1 ? OR : ENCRE, '#0b0b0a'); });
+      for (let i = 0; i < 12; i++) { ctx.fillStyle = GRIS; ctx.beginPath(); ctx.arc(w * 0.12 + i * w * 0.07, h * 0.92, 3, 0, Math.PI * 2); ctx.fill(); }
+      texte(ctx, m[2], w / 2, h * 0.14, ENCRE, 10, 'center');
+    },
+  ],
+  // ---- conception 3D : la forme, l'usage, le prototype
+  'sv-3d': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const cx = w / 2; const cy = h * 0.5; const R = Math.min(w, h) * 0.28; const a = t * 0.5;
+      for (let k = 0; k < 9; k++) { const lat = -1.2 + k * 0.3; ctx.strokeStyle = css; ctx.globalAlpha = 0.7; ctx.beginPath(); for (let i = 0; i <= 40; i++) { const lo = i / 40 * Math.PI * 2; const r = R * Math.cos(lat) * (1 + 0.18 * Math.cos(lo * 3)); const x = r * Math.cos(lo + a); const z = r * Math.sin(lo + a); const px = cx + x; const py = cy + R * Math.sin(lat) * 0.9 + z * 0.3; i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); } ctx.stroke(); }
+      ctx.globalAlpha = 1; texte(ctx, m[0], cx, h * 0.92, GRIS, 10, 'center');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const cx = w * 0.55; const cy = h * 0.5; ctx.strokeStyle = css; ctx.beginPath(); ctx.ellipse(cx, cy, 70, 44, 0, 0, Math.PI * 2); ctx.stroke();
+      const k = lis((ph % 8) / 3); const hx = w * 0.12 + k * (cx - 70 - w * 0.12 - 10);
+      ctx.strokeStyle = ENCRE; ctx.beginPath(); ctx.moveTo(hx - 40, cy + 30); ctx.lineTo(hx, cy + 20); for (let d = 0; d < 4; d++) { ctx.moveTo(hx, cy + 20 - d * 2); ctx.lineTo(hx + 26, cy - 22 + d * 14); } ctx.stroke();
+      if (k > 0.95) [[-62, -18], [-66, 0], [-62, 18], [-50, 32]].forEach(([dx, dy]) => { ctx.fillStyle = OR; ctx.fillRect(cx + dx - 3, cy + dy - 3, 6, 6); });
+      texte(ctx, m[1], cx, h * 0.88, GRIS, 10, 'center');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const cx = w / 2; const base = h * 0.78; const n = Math.floor(lis(ph / 14) * 30);
+      for (let i = 0; i < n; i++) { const y = base - i * 4; const r = 60 * Math.sqrt(1 - Math.pow((i - 15) / 16, 2)); ctx.fillStyle = i % 2 ? css : '#5a8a6a'; ctx.globalAlpha = 0.7; ctx.fillRect(cx - r, y - 3, r * 2, 3); }
+      ctx.globalAlpha = 1; const y = base - n * 4 - 6; const r = 60 * Math.sqrt(Math.max(0, 1 - Math.pow((n - 15) / 16, 2))); const nx = cx + Math.sin(t * 6) * r;
+      ctx.strokeStyle = GRIS; ctx.beginPath(); ctx.moveTo(w * 0.15, y - 20); ctx.lineTo(w * 0.85, y - 20); ctx.stroke(); boite(ctx, nx - 10, y - 30, 20, 16, ENCRE); ctx.fillStyle = OR; ctx.beginPath(); ctx.moveTo(nx - 4, y - 14); ctx.lineTo(nx + 4, y - 14); ctx.lineTo(nx, y - 6); ctx.fill();
+      ctx.strokeStyle = SOMBRE; ctx.beginPath(); ctx.moveTo(w * 0.2, base + 2); ctx.lineTo(w * 0.8, base + 2); ctx.stroke(); texte(ctx, m[2], cx, h * 0.92, GRIS, 10, 'center');
+    },
+  ],
+  // ---- scénographie & lumière : le plan de feux, le DMX, la lumière réactive
+  'sv-lumiere': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const x0 = w * 0.25; const y0 = h * 0.3; const W = w * 0.5; const H = h * 0.4; ctx.strokeStyle = GRIS; ctx.strokeRect(x0, y0, W, H); texte(ctx, m[0], x0 + W / 2, y0 + H / 2 + 4, GRIS, 10, 'center');
+      for (let i = 0; i < 6; i++) { const x = x0 + (i % 3) * W / 2; const y = i < 3 ? y0 - 30 : y0 + H + 30; const tx = x0 + W * (0.2 + 0.3 * (i % 3)) + Math.sin(t + i) * 10; const ty = y0 + H * 0.5; const on = lis((ph - i) / 0.6);
+        ctx.strokeStyle = css; ctx.globalAlpha = 0.3 + 0.5 * on; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(tx, ty); ctx.stroke(); ctx.globalAlpha = 1; ctx.fillStyle = on > 0.5 ? OR : '#000'; ctx.strokeStyle = ENCRE; ctx.beginPath(); ctx.arc(x, y, 8, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); texte(ctx, String(i + 1), x, y + (i < 3 ? -14 : 22), GRIS, 9, 'center'); }
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const n = 12; const x0 = w * 0.1; const c = (w * 0.8) / n; const y0 = h * 0.22; const H = h * 0.45;
+      for (let i = 0; i < n; i++) { const v = 0.5 + 0.5 * Math.sin(t * (0.6 + i * 0.07) + i); const x = x0 + i * c + c / 2; ctx.strokeStyle = SOMBRE; ctx.beginPath(); ctx.moveTo(x, y0); ctx.lineTo(x, y0 + H); ctx.stroke(); ctx.fillStyle = i % 4 === 0 ? OR : css; ctx.fillRect(x - 8, y0 + H - v * H - 5, 16, 10); texte(ctx, String(i + 1).padStart(3, '0'), x, y0 + H + 16, GRIS, 8, 'center'); texte(ctx, String(Math.round(v * 255)), x, y0 - 8, ENCRE, 8, 'center'); }
+      texte(ctx, m[1], w / 2, h * 0.9, GRIS, 10, 'center');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const amp = (x) => Math.abs(Math.sin(t * 5 + x * 3) * Math.sin(t * 1.3)); const sy = h * 0.72;
+      for (let i = 0; i < 5; i++) { const x = w * (0.15 + i * 0.175); const v = amp(i); ctx.fillStyle = i % 2 ? css : OR; ctx.globalAlpha = 0.05 + v * 0.3; ctx.beginPath(); ctx.moveTo(x, h * 0.08); ctx.lineTo(x - 20 - v * 30, sy); ctx.lineTo(x + 20 + v * 30, sy); ctx.fill(); ctx.globalAlpha = 1; ctx.fillStyle = ENCRE; ctx.fillRect(x - 7, h * 0.06, 14, 8); }
+      oscillo(ctx, w * 0.1, sy + 10, w * 0.8, h * 0.16, (u) => Math.sin(u * 60 + t * 10) * amp(u * 4) * 0.9); texte(ctx, m[2], w * 0.1, sy + h * 0.16 + 24, GRIS, 10);
+    },
+  ],
+  // ---- Go2 (Unitree) sur mesure : le robot, la chorégraphie, les modules
+  'sv-go2': [
+    (ctx, w, h, t, ph, s, css, m) => { go2Profil(ctx, w / 2, h * 0.7 + Math.sin(t * 4) * 2, Math.min(3, w / 150), css, 0.8 + 0.2 * Math.sin(t)); ctx.strokeStyle = SOMBRE; ctx.beginPath(); ctx.moveTo(w * 0.15, h * 0.7); ctx.lineTo(w * 0.85, h * 0.7); ctx.stroke(); texte(ctx, m[0], w / 2, h * 0.84, GRIS, 10, 'center'); },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const pts = [[0.2, 0.3], [0.7, 0.25], [0.8, 0.7], [0.4, 0.75], [0.3, 0.5]].map(([x, y]) => [w * x, h * y]);
+      ctx.strokeStyle = SOMBRE; ctx.strokeRect(w * 0.1, h * 0.15, w * 0.8, h * 0.7);
+      ctx.setLineDash([4, 5]); ctx.strokeStyle = css; ctx.beginPath(); pts.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.stroke(); ctx.setLineDash([]);
+      pts.forEach(([x, y], i) => { boite(ctx, x - 9, y - 9, 18, 18, css); texte(ctx, String(i + 1), x, y + 4, css, 9, 'center'); });
+      const u = (t * 0.12) % 1 * 5; const i = Math.floor(u); const f = lis(u - i); const a = pts[i]; const b = pts[(i + 1) % 5];
+      go2Dessus(ctx, a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, Math.atan2(b[1] - a[1], b[0] - a[0]), 1.6); texte(ctx, m[1], w / 2, h * 0.93, GRIS, 10, 'center');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const x = w * 0.42; const y = h * 0.72; const sc = Math.min(3, w / 150); go2Profil(ctx, x, y, sc, css, 1);
+      const mx = x - 2 * sc; const my = y - 16 * sc - 22 * sc; ctx.fillStyle = ENCRE; ctx.beginPath(); ctx.moveTo(mx, my); ctx.lineTo(mx + 24 * sc, my - 10 * sc); ctx.lineTo(mx + 24 * sc, my + 10 * sc); ctx.closePath(); ctx.fill();
+      for (let k = 0; k < 4; k++) { const r = ((t * 40 + k * 22) % 88) + 10; ctx.strokeStyle = OR; ctx.globalAlpha = 1 - r / 100; ctx.beginPath(); ctx.arc(mx + 24 * sc, my, r, -0.5, 0.5); ctx.stroke(); }
+      ctx.globalAlpha = 1; texte(ctx, m[2], w / 2, h * 0.88, GRIS, 10, 'center');
+    },
+  ],
+  // ---- réparation : synthés analogiques, hi-fi, amplis — diagnostiquer, réparer, régler
+  'sv-repar': [
+    (ctx, w, h, t, ph, s, css, m) => {
+      const x0 = w * 0.08; const y0 = h * 0.16; const W = w * 0.84;
+      boite(ctx, x0, y0, W, 70, ENCRE, '#0b0b0a'); for (let i = 0; i < 6; i++) bouton(ctx, x0 + 24 + i * 30, y0 + 22, 9, 1 + i, ENCRE);
+      for (let i = 0; i < 14; i++) { ctx.fillStyle = i % 7 === 2 || i % 7 === 5 ? '#000' : ENCRE; ctx.fillRect(x0 + W * 0.5 + i * (W * 0.48 / 14), y0 + 30, W * 0.48 / 14 - 2, 34); }
+      texte(ctx, m[0], x0, y0 - 8, GRIS, 10);
+      ctx.strokeStyle = css; ctx.beginPath(); ctx.moveTo(x0 + W * 0.3, y0 + 70); ctx.bezierCurveTo(x0 + W * 0.3, h * 0.5, w * 0.3, h * 0.45, w * 0.3, h * 0.55); ctx.stroke();
+      oscillo(ctx, w * 0.1, h * 0.56, w * 0.8, h * 0.22, (u) => { const v = Math.sin(u * 30 + t * 3) * 1.4; return Math.max(-0.6, Math.min(0.6, v)) + (hsh(Math.floor(u * 200) + Math.floor(t * 20)) - 0.5) * 0.5 + (Math.abs(u - ((t * 0.4) % 1)) < 0.01 ? 0.9 : 0); }, '#ff6b5a');
+      texte(ctx, m[1], w * 0.1, h * 0.56 + h * 0.22 + 16, '#ff6b5a', 10);
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      const x0 = w * 0.1; const y0 = h * 0.14; const W = w * 0.8; const H = h * 0.62; boite(ctx, x0, y0, W, H, '#3a7d44', '#0b1a0e');
+      ctx.strokeStyle = '#2c5a33'; for (let i = 0; i < 9; i++) { ctx.beginPath(); ctx.moveTo(x0 + 10, y0 + 20 + i * H / 9); ctx.lineTo(x0 + W - 10, y0 + 20 + i * H / 9 + (i % 2 ? 10 : -6)); ctx.stroke(); }
+      const caps = [[0.2, 0.3], [0.45, 0.6], [0.7, 0.35], [0.82, 0.7]]; const k = Math.min(3, Math.floor(ph / 4)); const u = (ph % 4) / 4;
+      caps.forEach(([cx, cy], i) => { const x = x0 + W * cx; const y = y0 + H * cy; const fait = i < k || (i === k && u > 0.75); ctx.fillStyle = fait ? '#1f3a8a' : '#3a2a10'; ctx.beginPath(); ctx.arc(x, y, 12, 0, Math.PI * 2); ctx.fill(); ctx.strokeStyle = fait ? css : (i === k ? '#ff6b5a' : OCRE); ctx.stroke(); if (!fait) { ctx.beginPath(); ctx.arc(x, y - 4, 6, Math.PI, 0); ctx.stroke(); } });
+      const [cx, cy] = caps[k]; const fx = x0 + W * cx + 14; const fy = y0 + H * cy - 10;
+      ctx.strokeStyle = ENCRE; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(fx, fy); ctx.lineTo(fx + 60, fy - 50); ctx.stroke(); ctx.lineWidth = 1; ctx.fillStyle = OR; ctx.fillRect(fx - 2, fy - 2, 4, 4);
+      for (let p = 0; p < 6; p++) { const a = ((t * 0.8 + p / 6) % 1); ctx.fillStyle = GRIS; ctx.globalAlpha = 1 - a; ctx.beginPath(); ctx.arc(fx + Math.sin(t * 2 + p) * 6, fy - a * 50, 2 + a * 4, 0, Math.PI * 2); ctx.fill(); }
+      ctx.globalAlpha = 1; bouton(ctx, x0 + W * 0.6, y0 + H * 0.15, 10, t * 3, css);
+      texte(ctx, m[2], x0, y0 + H + 18, OCRE, 10); texte(ctx, m[3], x0 + W, y0 + H + 18, css, 10, 'right');
+    },
+    (ctx, w, h, t, ph, s, css, m) => {
+      oscillo(ctx, w * 0.1, h * 0.16, w * 0.8, h * 0.26, (u) => Math.sin(u * 25 + t * 3) * 0.8, css); texte(ctx, m[4], w * 0.1, h * 0.16 + h * 0.26 + 16, css, 10);
+      const x0 = w * 0.1; const y0 = h * 0.58; const W = w * 0.8; const n = 14; const touche = Math.floor(t * 2) % n;
+      for (let i = 0; i < n; i++) { ctx.fillStyle = i === touche ? OR : ENCRE; ctx.fillRect(x0 + i * W / n, y0, W / n - 2, 60); }
+      texte(ctx, m[5] + ' · ' + Math.round(220 * Math.pow(2, touche / 12)) + ' Hz', w / 2, y0 + 80, OR, 10, 'center');
+    },
+  ],
+};
+function serviceScene (id) {
+  return (ctx, w, h, t, etat, css, L) => {
+    const total = SV_D.reduce((a, b) => a + b, 0); let ph = t % total; let actif = 0; while (ph >= SV_D[actif]) { ph -= SV_D[actif]; actif++; }
+    const T = L.sv[id]; const cle = actif + '/' + (etat.relance || 0); if (etat.cle !== cle) { etat.cle = cle; etat.s = {}; }
+    SV[id][actif](ctx, w, h, t, ph, etat.s, css, T.mots);
+    texte(ctx, T.titres[actif], 12, 20, css, 11, 'left', '600 ');
+    return { info: { etapes: T.etapes, legende: L.svLegende }, actif };
+  };
+}
+const SCENES_SERVICES = Object.fromEntries(Object.keys(SV).map((id) => [id, serviceScene(id)]));
+
 // ---------------------------------------------------------------- le panneau « comment ça marche »
 function panneau (ctx, x, y, w, h, R, css, L, compact) {
   const COUL = { encre: ENCRE, gris: GRIS, or: OR, css, sombre: '#55534e', ocre: OCRE };
@@ -1095,7 +1475,7 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
   });
 }
 
-const SCENES = { orca, cave, langue, teammate, tripode, systema, avatar, billy };
+const SCENES = { orca, cave, langue, teammate, tripode, systema, avatar, billy, ...SCENES_SERVICES };
 
 
 // ---------------------------------------------------------------- les étapes de chaque scène : on avance à son rythme
@@ -1110,6 +1490,7 @@ const ETAPES = {
   systema: cumul(SYS_DUREES),
   avatar: cumul(AV_DUREES),
   billy: cumul(BI_DUREES),
+  ...Object.fromEntries(Object.keys(SV).map((id) => [id, cumul(SV_D)])),
 };
 function bornes (coupures, t) {
   const total = coupures[coupures.length - 1]; const base = Math.floor(t / total) * total; const ph = t - base;
