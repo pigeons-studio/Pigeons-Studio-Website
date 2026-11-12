@@ -369,3 +369,70 @@
 .orca .ex-video button span { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 8px 14px; border: 1px solid var(--c, var(--or)); color: var(--encre); background: rgba(0,0,0,.75); letter-spacing: .12em; text-transform: uppercase; font-size: 11px; }
 .orca .ex-video figcaption { color: var(--gris); font-size: 10px; letter-spacing: .1em; }
 .orca .ex-video figcaption a { color: var(--gris); text-decoration: underline; text-underline-offset: 3px; }
+.orca .events .ex-liste {
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: none;
+  overflow: visible;
+  border: 1px solid var(--trait);
+  background: rgba(0,0,0,.82);
+}
+.orca .events .ex-liste button {
+  display: grid;
+  grid-template-columns: 12.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px 20px;
+  width: 100%;
+  min-width: 0;
+  flex: none;
+  text-align: left;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--trait);
+  border-right: 0;
+  color: var(--gris);
+}
+.orca .events .ex-liste button:last-child { border-bottom: 0; border-right: 0; }
+.orca .events .ex-liste .ex-code { grid-row: auto; white-space: nowrap; font-size: 11px; letter-spacing: .04em; color: var(--c); }
+.orca .events .ex-liste .ex-corps { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.orca .events .ex-liste .ex-corps > span { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.orca .events .ex-liste .ex-visuel { width: 56px; height: 56px; object-fit: cover; border: 1px solid var(--trait); flex: none; }
+.orca .events .ex-liste .ex-nom { color: var(--encre); letter-spacing: .04em; overflow-wrap: normal; word-break: normal; }
+.orca .events .ex-liste .ex-lieu { font-size: 11px; color: var(--gris); overflow-wrap: normal; }
+.orca .events .ex-liste .ex-places { white-space: nowrap; font-size: 11px; letter-spacing: .04em; font-style: normal; color: var(--encre); }
+@media (max-width: 720px) {
+  .orca .events .ex-liste button { grid-template-columns: minmax(0, 1fr) auto; }
+  .orca .events .ex-liste .ex-code { grid-column: 1 / -1; }
+}
+.orca .events.fiche { display: flex; flex-direction: column; gap: 16px; border: 1px solid var(--trait); background: rgba(0,0,0,.82); padding: 18px 20px 22px; }
+.orca .events.fiche > .btn { align-self: flex-start; }
+.orca .events.fiche header { display: flex; flex-direction: column; gap: 6px; }
+.orca .events.fiche h2 { font-size: 20px; letter-spacing: .14em; text-transform: uppercase; margin: 0; }
+.orca .events.fiche .ex-code { color: var(--c); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.orca .events.fiche .ex-sous { color: var(--gris); margin: 0; }
+.orca .events.fiche .ex-image { width: 100%; height: auto; object-fit: contain; border: 1px solid var(--trait); display: block; }
+.orca .events .chargeur { position: relative; width: 64px; height: 64px; margin: 36px auto; }
+.orca .events .chargeur .cadre { position: absolute; inset: 22px; border: 1px solid var(--trait, #2c2b29); }
+.orca .events .chargeur .point {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--or, #ffb545);
+  offset-path: path('M 6 6 H 58 V 58 H 6 Z');
+  offset-distance: calc(var(--i) * 12.5%);
+  offset-rotate: 0deg;
+  offset-anchor: center;
+  animation: carre 1.6s linear infinite;
+}
+@keyframes carre { to { offset-distance: calc(var(--i) * 12.5% + 100%); } }
+@media (prefers-reduced-motion: reduce) { .orca .events .chargeur .point { animation: none; } }
+.orca .events form { display: flex; flex-direction: column; gap: 18px; max-width: 420px; position: relative; margin-top: 6px; }
+.orca .events form .btn { align-self: flex-start; margin-top: 6px; }
+.orca .events label { display: flex; flex-direction: column; gap: 6px; color: var(--gris); font-size: 11px; letter-spacing: .06em; }
+.orca .events input { font: inherit; color: var(--encre); background: #0b0b0a; border: 1px solid var(--trait); padding: 7px 8px; }
+.orca .events input.manque { border-color: var(--rose); }
+.orca .events .piege { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.orca .events .robot { gap: 6px; }
+.orca .events input[type="range"] { padding: 0; border: 0; background: none; accent-color: var(--or, #ffb545); width: 100%; }
+.orca .events form button:disabled { opacity: .4; }
+.orca .events .ok { color: var(--cyan); font-size: 11px; }
+.orca .events .erreur { color: var(--rose); font-size: 11px; }

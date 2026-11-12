@@ -5,6 +5,7 @@
       "shop": "Boutique",
       "services": "Services",
       "projects": "Projets",
+      "events": "Events",
       "softwares": "Logiciels",
       "contact": "Contact"
     },
@@ -805,12 +806,13 @@
     "signingUp": "Inscription en cours...",
     "error": "Erreur de connexion",
     "invalidCredentials": "Email ou mot de passe incorrect",
+    "emailNotVerified": "Confirme d’abord l’adresse reçue par email.",
     "profile": "Mon profil",
     "alreadyHaveAccount": "Déjà un compte ?",
     "noAccount": "Pas encore de compte ?",
     "register": {
       "title": "Créer un compte",
-      "success": "Compte créé avec succès ! Vous pouvez maintenant vous connecter.",
+      "success": "Compte créé. Regarde tes mails pour confirmer l’adresse.",
       "emailExists": "Cet email est déjà utilisé",
       "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
       "invalidEmail": "Email invalide",

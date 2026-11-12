@@ -4,7 +4,6 @@ import { useState, FormEvent, useEffect, useRef, ChangeEvent } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import Header from '@/app/components/Header';
-import Footer from '@/app/components/Footer';
 import styles from './page.module.css';
 import OrcaFond from '@/app/components/world/OrcaFond';
 
@@ -261,7 +260,6 @@ export default function ContactPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

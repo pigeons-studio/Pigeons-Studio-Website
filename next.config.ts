@@ -7,14 +7,14 @@ const nextConfig: NextConfig = {
   async redirects() {
     const localePrefixes = ['/fr', '/en'];
     const pathMap: [string, string][] = [
-      ['logiciels', 'softwares'],
-      ['boutique', 'shop'],
-      ['projets', 'projects'],
       ['a-propos', 'about'],
       ['mentions-legales', 'legal'],
       ['profil', 'profile'],
       ['cgv', 'terms'],
       ['shutdown', 'bios'],
+      ['projects', 'projets'],
+      ['shop', 'boutique'],
+      ['softwares', 'logiciels'],
     ];
     const redirects: { source: string; destination: string; permanent: true }[] = [];
     for (const prefix of localePrefixes) {

@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
-import { useRouter } from '@/i18n/routing';
+import { useTranslations, useLocale } from 'next-intl';
+import { useRouter, Link } from '@/i18n/routing';
 import Header from '@/app/components/Header';
-import Footer from '@/app/components/Footer';
 import DeleteAccountModal from '@/app/components/DeleteAccountModal';
 import { useOrdersStore } from '@/app/store/ordersStore';
 import styles from './page.module.css';
@@ -15,10 +14,12 @@ export default function ProfilePage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const t = useTranslations('profile');
+  const locale = useLocale();
   const tInfo = useTranslations('profile.sections.info');
   const tOrders = useTranslations('profile.sections.orders');
   const getOrdersByUser = useOrdersStore((state) => state.getOrdersByUser);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [admin, setAdmin] = useState(false);
   
   // Rediriger si non connecté
   useEffect(() => {
@@ -26,6 +27,11 @@ export default function ProfilePage() {
       router.push('/');
     }
   }, [status, router]);
+
+  useEffect(() => {
+    if (status !== 'authenticated') return;
+    fetch('/api/admin/me').then((r) => setAdmin(r.ok)).catch(() => setAdmin(false));
+  }, [status]);
 
   if (status === 'loading') {
     return (
@@ -37,8 +43,7 @@ export default function ProfilePage() {
             <div className={styles.loading}>Chargement...</div>
           </div>
         </main>
-        <Footer />
-      </div>
+        </div>
     );
   }
 
@@ -96,6 +101,16 @@ export default function ProfilePage() {
                   <span className={styles.infoLabel}>{tInfo('name')}</span>
                   <span className={styles.infoValue}>{session.user?.name || '-'}</span>
                 </div>
+                {admin && (
+                  <div className={styles.infoRow}>
+                    <span className={styles.infoLabel}>admin</span>
+                    <span className={styles.infoValue}>
+                      <Link href="/admin/users" className={styles.adminLink}>{locale === 'fr' ? 'comptes' : 'accounts'}</Link>
+                      {' · '}
+                      <Link href="/admin/events" className={styles.adminLink}>events</Link>
+                    </span>
+                  </div>
+                )}
                 <div className={styles.dangerZone}>
                   <div className={styles.dangerZoneHeader}>
                     <h3 className={styles.dangerZoneTitle}>{tInfo('dangerZone')}</h3>
@@ -182,7 +197,6 @@ export default function ProfilePage() {
           </div>
         </div>
       </main>
-      <Footer />
       <DeleteAccountModal
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}

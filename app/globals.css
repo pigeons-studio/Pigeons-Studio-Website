@@ -109,20 +109,29 @@ main header:not([class*="Header"]) {
   background: transparent;
 }
 
-/* S'assurer que le contenu principal prend au moins 100vh pour cacher le footer par défaut */
-.page {
-  min-height: 100vh;
+/* Le texte défile dans le carré, comme #page du monde. Rien ne passe sous le cadre ni sous les mentions. */
+body .page {
+  position: fixed;
+  z-index: 2;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  top: calc(var(--marge) + env(safe-area-inset-top, 0px) + 44px);
+  bottom: calc(var(--marge) + env(safe-area-inset-bottom, 0px) + 44px);
+  left: max(var(--marge), env(safe-area-inset-left, 0px));
+  right: max(var(--marge), env(safe-area-inset-right, 0px));
+  padding: 8px 16px 24px;
 }
 
-/* Contenu principal (main) = au moins 100vh pour que le footer soit sous le pli (header en fixed donc hors flux) */
 .page > main {
   flex: 1;
-  min-height: 100vh;
   position: relative;
   z-index: 10;
   background: var(--background);
+  padding: 8px 0;
 }
 
 /* Base typography */

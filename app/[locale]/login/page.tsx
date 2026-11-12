@@ -5,7 +5,6 @@ import { useSearchParams } from 'next/navigation';
 import { useRouter } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import Header from '@/app/components/Header';
-import Footer from '@/app/components/Footer';
 import LoginModal from '@/app/components/LoginModal';
 import { useTranslations } from 'next-intl';
 import OrcaFond from '@/app/components/world/OrcaFond';
@@ -58,8 +57,7 @@ function LoginContent() {
         <OrcaFond patch="contact" />
           <p>Chargement...</p>
         </main>
-        <Footer />
-      </div>
+        </div>
     );
   }
 
@@ -91,7 +89,6 @@ function LoginContent() {
           </p>
         </div>
       </main>
-      <Footer />
       <LoginModal isOpen={isModalOpen} onClose={handleClose} />
     </div>
   );
@@ -106,8 +103,7 @@ export default function LoginPage() {
         <OrcaFond patch="contact" />
           <p>Chargement...</p>
         </main>
-        <Footer />
-      </div>
+        </div>
     }>
       <LoginContent />
     </Suspense>

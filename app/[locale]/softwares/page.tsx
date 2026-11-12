@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Header from '@/app/components/Header';
-import Footer from '@/app/components/Footer';
 import { buildPageMetadata } from '@/lib/seo';
 import SoftwaresClient from './SoftwaresClient';
 import styles from './page.module.css';
@@ -39,7 +38,6 @@ export default function LogicielsPage() {
           <SoftwaresClient />
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

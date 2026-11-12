@@ -74,7 +74,7 @@
    "blocs": [
     {
      "t": "texte",
-     "p": "Parcours, réalisations du studio et collaborations."
+     "p": "Parcours, réalisations du studio, collaborations et ce qui pousse à l’atelier."
     },
     {
      "t": "explorer",
@@ -187,175 +187,7 @@
         "arts et sciences",
         "IA et biologie"
        ]
-      }
-     ]
-    },
-    {
-     "t": "cartes",
-     "items": [
-      {
-       "nom": "Performance robotique Go2 (Unitree)",
-       "sens": "Mouvements scénographiés, synchronisation avec lumière et audio, intégrations sur mesure. Modules scéniques et installations interactives.",
-       "tags": [
-        "Unitree Go2",
-        "SDK",
-        "ROS2",
-        "Chorégraphie"
-       ]
       },
-      {
-       "nom": "Installations interactives",
-       "sens": "Dispositifs scéniques pilotés en temps réel, synchronisation audio‑lumière avec retours capteurs. Électronique et firmware dédiés.",
-       "tags": [
-        "Audio I2S",
-        "IMU 9 axes",
-        "DMX/Art‑Net"
-       ]
-      }
-     ]
-    },
-    {
-     "t": "liste",
-     "titre": "Parcours de Koo",
-     "items": [
-      [
-       "Intuition · Alaska · 2017-2018",
-       "Stations météorologiques et biofeedback : les mouvements de la nature, convertis en données, deviennent sons, textures et rythmes."
-      ],
-      [
-       "S.E.L.M. · Villa Albertine · 2023",
-       "Résidence à La Nouvelle-Orléans : une danse abstraite du corps, par compilation de gestes captés et « réhumanisation » de la donnée."
-      ],
-      [
-       "Activate Cities · NSDOS × NORKHAT · 2025",
-       "Parcours urbains et QR codes dans l’espace public : une carte sonore interactive qui relie l’album à la ville."
-      ]
-     ]
-    }
-   ]
-  },
-  {
-   "id": "services",
-   "nom": "services",
-   "code": "S",
-   "signe": "E140",
-   "pourquoi": "ce que l’on offre",
-   "teinte": 10475775,
-   "css": "#9fd8ff",
-   "blocs": [
-    {
-     "t": "texte",
-     "p": "Du prototype à l’industrialisation. Marques, institutions, robotique et IA : parlons de votre projet."
-    },
-    {
-     "t": "liste",
-     "titre": "Activités",
-     "items": [
-      [
-       "Data visualisation & data intelligence",
-       "Extraire et mettre en forme les données environnementales pour en faire des visualisations artistiques."
-      ],
-      [
-       "Consulting en creative technology",
-       "Projets à la croisée de l’art, du design et de l’ingénierie."
-      ],
-      [
-       "Direction artistique",
-       "Univers, expériences et langages visuels et sonores."
-      ],
-      [
-       "Digital Art",
-       "Installations et dispositifs immersifs."
-      ],
-      [
-       "Créations physiques sur mesure",
-       "Design et électronique, CNC, métal, résines, bois, plastiques, silicones."
-      ],
-      [
-       "Computer Dance Music",
-       "Musique écrite avec et pour le corps en mouvement."
-      ],
-      [
-       "Robotic Sound Hardware",
-       "Objets sonores robotiques et dispositifs autonomes."
-      ]
-     ]
-    },
-    {
-     "t": "cartes",
-     "items": [
-      {
-       "nom": "Création d’objets audio",
-       "sens": "Objets et modules sur mesure pour la scène et l’installation.",
-       "tags": [
-        "Synthés/contrôleurs",
-        "Modules sonores",
-        "Pièces uniques"
-       ]
-      },
-      {
-       "nom": "Capteurs & interaction",
-       "sens": "Capteurs et interfaces pour gestes, mouvement, lumière.",
-       "tags": [
-        "Gestes & mouvement",
-        "Interaction scénique"
-       ]
-      },
-      {
-       "nom": "Objets & installation",
-       "sens": "Intégration d’objets et dispositifs pour la performance.",
-       "tags": [
-        "Prototype → scène",
-        "Systèmes sur mesure"
-       ]
-      },
-      {
-       "nom": "Conception 3D",
-       "sens": "Forme, matière et usage pour des objets expressifs.",
-       "tags": [
-        "Design d’objets",
-        "Prototypage rapide"
-       ]
-      },
-      {
-       "nom": "Scénographie & lumière",
-       "sens": "Dispositifs lumineux et interactions pour l’espace scénique.",
-       "tags": [
-        "Lumière réactive",
-        "Mapping & DMX"
-       ]
-      },
-      {
-       "nom": "Go2 (Unitree) sur mesure",
-       "sens": "Robot quadrupède pour performances, installations et créations.",
-       "tags": [
-        "Chorégraphies",
-        "Modules scéniques"
-       ]
-      }
-     ]
-    },
-    {
-     "t": "devis"
-    }
-   ]
-  },
-  {
-   "id": "futur",
-   "nom": "futurs projets",
-   "code": "F",
-   "signe": "E0EE",
-   "pourquoi": "futur = graine · loin · lumière",
-   "teinte": 11992970,
-   "css": "#b6ff8a",
-   "blocs": [
-    {
-     "t": "texte",
-     "p": "Ce qui pousse à l’atelier. Choisis un projet pour l’ouvrir."
-    },
-    {
-     "t": "explorer",
-     "items": [
       {
        "id": "orca",
        "nom": "ORCA//GLYPH",
@@ -532,6 +364,172 @@
        ]
       }
      ]
+    },
+    {
+     "t": "cartes",
+     "items": [
+      {
+       "nom": "Performance robotique Go2 (Unitree)",
+       "sens": "Mouvements scénographiés, synchronisation avec lumière et audio, intégrations sur mesure. Modules scéniques et installations interactives.",
+       "tags": [
+        "Unitree Go2",
+        "SDK",
+        "ROS2",
+        "Chorégraphie"
+       ]
+      },
+      {
+       "nom": "Installations interactives",
+       "sens": "Dispositifs scéniques pilotés en temps réel, synchronisation audio‑lumière avec retours capteurs. Électronique et firmware dédiés.",
+       "tags": [
+        "Audio I2S",
+        "IMU 9 axes",
+        "DMX/Art‑Net"
+       ]
+      }
+     ]
+    },
+    {
+     "t": "liste",
+     "titre": "Parcours de Koo",
+     "items": [
+      [
+       "Intuition · Alaska · 2017-2018",
+       "Stations météorologiques et biofeedback : les mouvements de la nature, convertis en données, deviennent sons, textures et rythmes."
+      ],
+      [
+       "S.E.L.M. · Villa Albertine · 2023",
+       "Résidence à La Nouvelle-Orléans : une danse abstraite du corps, par compilation de gestes captés et « réhumanisation » de la donnée."
+      ],
+      [
+       "Activate Cities · NSDOS × NORKHAT · 2025",
+       "Parcours urbains et QR codes dans l’espace public : une carte sonore interactive qui relie l’album à la ville."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "services",
+   "nom": "services",
+   "code": "S",
+   "signe": "E140",
+   "pourquoi": "ce que l’on offre",
+   "teinte": 10475775,
+   "css": "#9fd8ff",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "Du prototype à l’industrialisation. Marques, institutions, robotique et IA : parlons de votre projet."
+    },
+    {
+     "t": "liste",
+     "titre": "Activités",
+     "items": [
+      [
+       "Data visualisation & data intelligence",
+       "Extraire et mettre en forme les données environnementales pour en faire des visualisations artistiques."
+      ],
+      [
+       "Consulting en creative technology",
+       "Projets à la croisée de l’art, du design et de l’ingénierie."
+      ],
+      [
+       "Direction artistique",
+       "Univers, expériences et langages visuels et sonores."
+      ],
+      [
+       "Digital Art",
+       "Installations et dispositifs immersifs."
+      ],
+      [
+       "Créations physiques sur mesure",
+       "Design et électronique, CNC, métal, résines, bois, plastiques, silicones."
+      ],
+      [
+       "Computer Dance Music",
+       "Musique écrite avec et pour le corps en mouvement."
+      ],
+      [
+       "Robotic Sound Hardware",
+       "Objets sonores robotiques et dispositifs autonomes."
+      ]
+     ]
+    },
+    {
+     "t": "cartes",
+     "items": [
+      {
+       "nom": "Création d’objets audio",
+       "sens": "Objets et modules sur mesure pour la scène et l’installation.",
+       "tags": [
+        "Synthés/contrôleurs",
+        "Modules sonores",
+        "Pièces uniques"
+       ]
+      },
+      {
+       "nom": "Capteurs & interaction",
+       "sens": "Capteurs et interfaces pour gestes, mouvement, lumière.",
+       "tags": [
+        "Gestes & mouvement",
+        "Interaction scénique"
+       ]
+      },
+      {
+       "nom": "Objets & installation",
+       "sens": "Intégration d’objets et dispositifs pour la performance.",
+       "tags": [
+        "Prototype → scène",
+        "Systèmes sur mesure"
+       ]
+      },
+      {
+       "nom": "Conception 3D",
+       "sens": "Forme, matière et usage pour des objets expressifs.",
+       "tags": [
+        "Design d’objets",
+        "Prototypage rapide"
+       ]
+      },
+      {
+       "nom": "Scénographie & lumière",
+       "sens": "Dispositifs lumineux et interactions pour l’espace scénique.",
+       "tags": [
+        "Lumière réactive",
+        "Mapping & DMX"
+       ]
+      },
+      {
+       "nom": "Go2 (Unitree) sur mesure",
+       "sens": "Robot quadrupède pour performances, installations et créations.",
+       "tags": [
+        "Chorégraphies",
+        "Modules scéniques"
+       ]
+      }
+     ]
+    },
+    {
+     "t": "devis"
+    }
+   ]
+  },
+  {
+   "id": "events",
+   "nom": "events",
+   "code": "E",
+   "signe": "E11C",
+   "pourquoi": "vibration · rendez-vous",
+   "teinte": 16744539,
+   "css": "#ff8a5b",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "Workshops, performances et rendez-vous. Les places sont comptées."
+    },
+    {
+     "t": "events"
     }
    ]
   },
@@ -799,7 +797,7 @@
    "blocs": [
     {
      "t": "texte",
-     "p": "Journey, studio work and collaborations."
+     "p": "Journey, studio work, collaborations, and what is growing in the workshop."
     },
     {
      "t": "explorer",
@@ -912,175 +910,7 @@
         "art and science",
         "AI and biology"
        ]
-      }
-     ]
-    },
-    {
-     "t": "cartes",
-     "items": [
-      {
-       "nom": "Go2 (Unitree) robotic performance",
-       "sens": "Staged movement, light and audio sync, custom integrations. Stage modules and interactive installations.",
-       "tags": [
-        "Unitree Go2",
-        "SDK",
-        "ROS2",
-        "Choreography"
-       ]
       },
-      {
-       "nom": "Interactive installations",
-       "sens": "Stage devices driven in real time, audio-light sync with sensor feedback. Dedicated electronics and firmware.",
-       "tags": [
-        "Audio I2S",
-        "9-axis IMU",
-        "DMX/Art‑Net"
-       ]
-      }
-     ]
-    },
-    {
-     "t": "liste",
-     "titre": "Koo’s journey",
-     "items": [
-      [
-       "Intuition · Alaska · 2017-2018",
-       "Weather stations and biofeedback: the movements of nature, turned into data, become sounds, textures and rhythms."
-      ],
-      [
-       "S.E.L.M. · Villa Albertine · 2023",
-       "A residency in New Orleans: an abstract dance of the body, by compiling captured gestures and “rehumanising” the data."
-      ],
-      [
-       "Activate Cities · NSDOS × NORKHAT · 2025",
-       "Urban walks and QR codes in public space: an interactive sound map linking the album to the city."
-      ]
-     ]
-    }
-   ]
-  },
-  {
-   "id": "services",
-   "nom": "services",
-   "code": "S",
-   "signe": "E140",
-   "pourquoi": "what we offer",
-   "teinte": 10475775,
-   "css": "#9fd8ff",
-   "blocs": [
-    {
-     "t": "texte",
-     "p": "From prototype to production. Brands, institutions, robotics and AI: let’s talk about your project."
-    },
-    {
-     "t": "liste",
-     "titre": "Activities",
-     "items": [
-      [
-       "Data visualisation & data intelligence",
-       "Extracting and shaping environmental data into artistic visualisations."
-      ],
-      [
-       "Creative technology consulting",
-       "Projects at the crossroads of art, design and engineering."
-      ],
-      [
-       "Art direction",
-       "Worlds, experiences, visual and sonic languages."
-      ],
-      [
-       "Digital Art",
-       "Installations and immersive devices."
-      ],
-      [
-       "Custom physical work",
-       "Design and electronics, CNC, metal, resins, wood, plastics, silicones."
-      ],
-      [
-       "Computer Dance Music",
-       "Music written with and for the moving body."
-      ],
-      [
-       "Robotic Sound Hardware",
-       "Robotic sound objects and autonomous devices."
-      ]
-     ]
-    },
-    {
-     "t": "cartes",
-     "items": [
-      {
-       "nom": "Audio objects",
-       "sens": "Custom objects and modules for stage and installation.",
-       "tags": [
-        "Synths/controllers",
-        "Sound modules",
-        "One-off pieces"
-       ]
-      },
-      {
-       "nom": "Sensors & interaction",
-       "sens": "Sensors and interfaces for gesture, movement, light.",
-       "tags": [
-        "Gesture & movement",
-        "Stage interaction"
-       ]
-      },
-      {
-       "nom": "Objects & installation",
-       "sens": "Integrating objects and devices for performance.",
-       "tags": [
-        "Prototype → stage",
-        "Custom systems"
-       ]
-      },
-      {
-       "nom": "3D design",
-       "sens": "Form, material and use for expressive objects.",
-       "tags": [
-        "Object design",
-        "Rapid prototyping"
-       ]
-      },
-      {
-       "nom": "Scenography & light",
-       "sens": "Light devices and interactions for the stage.",
-       "tags": [
-        "Reactive light",
-        "Mapping & DMX"
-       ]
-      },
-      {
-       "nom": "Custom Go2 (Unitree)",
-       "sens": "Quadruped robot for performances, installations and creations.",
-       "tags": [
-        "Choreographies",
-        "Stage modules"
-       ]
-      }
-     ]
-    },
-    {
-     "t": "devis"
-    }
-   ]
-  },
-  {
-   "id": "futur",
-   "nom": "future projects",
-   "code": "F",
-   "signe": "E0EE",
-   "pourquoi": "future = seed · far · light",
-   "teinte": 11992970,
-   "css": "#b6ff8a",
-   "blocs": [
-    {
-     "t": "texte",
-     "p": "What is growing in the studio. Pick a project to open it."
-    },
-    {
-     "t": "explorer",
-     "items": [
       {
        "id": "orca",
        "nom": "ORCA//GLYPH",
@@ -1257,6 +1087,172 @@
        ]
       }
      ]
+    },
+    {
+     "t": "cartes",
+     "items": [
+      {
+       "nom": "Go2 (Unitree) robotic performance",
+       "sens": "Staged movement, light and audio sync, custom integrations. Stage modules and interactive installations.",
+       "tags": [
+        "Unitree Go2",
+        "SDK",
+        "ROS2",
+        "Choreography"
+       ]
+      },
+      {
+       "nom": "Interactive installations",
+       "sens": "Stage devices driven in real time, audio-light sync with sensor feedback. Dedicated electronics and firmware.",
+       "tags": [
+        "Audio I2S",
+        "9-axis IMU",
+        "DMX/Art‑Net"
+       ]
+      }
+     ]
+    },
+    {
+     "t": "liste",
+     "titre": "Koo’s journey",
+     "items": [
+      [
+       "Intuition · Alaska · 2017-2018",
+       "Weather stations and biofeedback: the movements of nature, turned into data, become sounds, textures and rhythms."
+      ],
+      [
+       "S.E.L.M. · Villa Albertine · 2023",
+       "A residency in New Orleans: an abstract dance of the body, by compiling captured gestures and “rehumanising” the data."
+      ],
+      [
+       "Activate Cities · NSDOS × NORKHAT · 2025",
+       "Urban walks and QR codes in public space: an interactive sound map linking the album to the city."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "services",
+   "nom": "services",
+   "code": "S",
+   "signe": "E140",
+   "pourquoi": "what we offer",
+   "teinte": 10475775,
+   "css": "#9fd8ff",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "From prototype to production. Brands, institutions, robotics and AI: let’s talk about your project."
+    },
+    {
+     "t": "liste",
+     "titre": "Activities",
+     "items": [
+      [
+       "Data visualisation & data intelligence",
+       "Extracting and shaping environmental data into artistic visualisations."
+      ],
+      [
+       "Creative technology consulting",
+       "Projects at the crossroads of art, design and engineering."
+      ],
+      [
+       "Art direction",
+       "Worlds, experiences, visual and sonic languages."
+      ],
+      [
+       "Digital Art",
+       "Installations and immersive devices."
+      ],
+      [
+       "Custom physical work",
+       "Design and electronics, CNC, metal, resins, wood, plastics, silicones."
+      ],
+      [
+       "Computer Dance Music",
+       "Music written with and for the moving body."
+      ],
+      [
+       "Robotic Sound Hardware",
+       "Robotic sound objects and autonomous devices."
+      ]
+     ]
+    },
+    {
+     "t": "cartes",
+     "items": [
+      {
+       "nom": "Audio objects",
+       "sens": "Custom objects and modules for stage and installation.",
+       "tags": [
+        "Synths/controllers",
+        "Sound modules",
+        "One-off pieces"
+       ]
+      },
+      {
+       "nom": "Sensors & interaction",
+       "sens": "Sensors and interfaces for gesture, movement, light.",
+       "tags": [
+        "Gesture & movement",
+        "Stage interaction"
+       ]
+      },
+      {
+       "nom": "Objects & installation",
+       "sens": "Integrating objects and devices for performance.",
+       "tags": [
+        "Prototype → stage",
+        "Custom systems"
+       ]
+      },
+      {
+       "nom": "3D design",
+       "sens": "Form, material and use for expressive objects.",
+       "tags": [
+        "Object design",
+        "Rapid prototyping"
+       ]
+      },
+      {
+       "nom": "Scenography & light",
+       "sens": "Light devices and interactions for the stage.",
+       "tags": [
+        "Reactive light",
+        "Mapping & DMX"
+       ]
+      },
+      {
+       "nom": "Custom Go2 (Unitree)",
+       "sens": "Quadruped robot for performances, installations and creations.",
+       "tags": [
+        "Choreographies",
+        "Stage modules"
+       ]
+      }
+     ]
+    },
+    {
+     "t": "devis"
+    }
+   ]
+  },
+  {
+   "id": "events",
+   "nom": "events",
+   "code": "E",
+   "signe": "E11C",
+   "pourquoi": "vibration · a date",
+   "teinte": 16744539,
+   "css": "#ff8a5b",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "Workshops, performances and dates. Seats are counted."
+    },
+    {
+     "t": "events"
     }
    ]
   },
