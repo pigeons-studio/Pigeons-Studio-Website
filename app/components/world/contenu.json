@@ -520,13 +520,13 @@
    "nom": "events",
    "code": "E",
    "signe": "E11C",
-   "pourquoi": "vibration · rendez-vous",
+   "pourquoi": "où l’on se retrouve",
    "teinte": 16744539,
    "css": "#ff8a5b",
    "blocs": [
     {
      "t": "texte",
-     "p": "Workshops, performances et rendez-vous. Les places sont comptées."
+     "p": "Workshops, performances et rendez-vous."
     },
     {
      "t": "events"
@@ -1243,13 +1243,13 @@
    "nom": "events",
    "code": "E",
    "signe": "E11C",
-   "pourquoi": "vibration · a date",
+   "pourquoi": "where we meet",
    "teinte": 16744539,
    "css": "#ff8a5b",
    "blocs": [
     {
      "t": "texte",
-     "p": "Workshops, performances and dates. Seats are counted."
+     "p": "Workshops, performances and dates."
     },
     {
      "t": "events"

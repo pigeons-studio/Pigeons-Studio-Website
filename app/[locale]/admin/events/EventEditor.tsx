@@ -207,7 +207,7 @@ export default function EventEditor({ id }: { id?: string }) {
                   </tbody>
                 </table>
               </div>
-              <button type="button" className={styles.btn} onClick={inviter}>{fr ? 'lien d’invitation' : 'invitation link'}</button>
+              <button type="button" className={styles.btn} onClick={inviter}>{fr ? 'créer un lien d’invitation' : 'create invitation link'}</button>
               <div className={styles.tableWrap}>
                 <table className={styles.table}>
                   <thead>

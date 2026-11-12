@@ -210,6 +210,40 @@ export async function registerForEvent(slug: string, name: string, email: string
   });
 }
 
+export async function isRegistered(slug: string, email: string) {
+  const db = getDb();
+  if (!db) return null;
+  const cleanEmail = email.trim().toLowerCase();
+  const [event] = await db.select({ id: events.id }).from(events).where(eq(events.slug, slug)).limit(1);
+  if (!event) return false;
+  const [row] = await db
+    .select({ id: registrations.id })
+    .from(registrations)
+    .where(and(eq(registrations.eventId, event.id), eq(registrations.email, cleanEmail)))
+    .limit(1);
+  return Boolean(row);
+}
+
+export async function unregisterForEvent(slug: string, email: string) {
+  const db = getDb();
+  if (!db) return { status: 'unavailable' as const };
+  const cleanEmail = email.trim().toLowerCase();
+  return db.transaction(async (tx) => {
+    const [event] = await tx.select().from(events).where(eq(events.slug, slug)).for('update').limit(1);
+    if (!event) return { status: 'missing' as const };
+    const [row] = await tx
+      .delete(registrations)
+      .where(and(eq(registrations.eventId, event.id), eq(registrations.email, cleanEmail)))
+      .returning({ id: registrations.id });
+    if (!row) return { status: 'missing' as const };
+    const [{ n }] = await tx
+      .select({ n: count() })
+      .from(registrations)
+      .where(and(eq(registrations.eventId, event.id), isNull(registrations.inviteId)));
+    return { status: 'ok' as const, remaining: Math.max(0, event.capacity - Number(n)) };
+  });
+}
+
 export type EventInput = {
   slug?: string;
   titleFr: string;

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import type { EventPublic } from '@/lib/events';
 
 type Locale = 'fr' | 'en';
@@ -13,12 +14,15 @@ const COPY = {
     places: (rest: number, total: number) => `${rest} ${rest === 1 ? 'restante' : 'restantes'} / ${total}`,
     retour: '◂ events',
     retourEvent: '◂ event',
+    invitation: 'lien d’invitation',
     nom: 'nom',
     email: 'email',
     nomManque: 'Indique ton nom.',
     emailManque: 'Indique un email valide.',
     envoyer: 's’inscrire',
     envoi: 'envoi…',
+    inscrit: 'inscrit',
+    desinscrire: 'se désinscrire',
     ok: 'Inscription enregistrée.',
     full: 'C’est complet.',
     already: 'Cet email est déjà inscrit.',
@@ -40,12 +44,15 @@ const COPY = {
     places: (rest: number, total: number) => `${rest} left / ${total}`,
     retour: '◂ events',
     retourEvent: '◂ event',
+    invitation: 'invitation link',
     nom: 'name',
     email: 'email',
     nomManque: 'Enter your name.',
     emailManque: 'Enter a valid email.',
     envoyer: 'register',
     envoi: 'sending…',
+    inscrit: 'registered',
+    desinscrire: 'unregister',
     ok: 'You’re registered.',
     full: 'This one is full.',
     already: 'This email is already registered.',
@@ -70,6 +77,16 @@ function Chargeur({ label }: { label: string }) {
       {Array.from({ length: 8 }, (_, i) => (
         <span key={i} className="point" style={{ ['--i' as string]: i }} />
       ))}
+    </div>
+  );
+}
+
+function Periode({ debut, fin, locale }: { debut: string; fin: string; locale: Locale }) {
+  return (
+    <div className="ex-code">
+      <span>{quand(debut, locale)}</span>
+      <span aria-hidden="true">—</span>
+      <span>{quand(fin, locale)}</span>
     </div>
   );
 }
@@ -99,6 +116,8 @@ export default function EventsPanel({
 }) {
   const t = COPY[locale];
   const invite = useSearchParams().get('invite') ?? '';
+  const { data: session, status: sessionEtat } = useSession();
+  const emailCompte = session?.user?.email ?? '';
   const [events, setEvents] = useState<EventPublic[] | null>(null);
   const [ready, setReady] = useState(true);
   const [event, setEvent] = useState<EventPublic | null>(null);
@@ -111,6 +130,9 @@ export default function EventsPanel({
   const [piege, setPiege] = useState('');
   const [etape, setEtape] = useState<'fiche' | 'form'>('fiche');
   const [manqueChamp, setManqueChamp] = useState<'nom' | 'email' | ''>('');
+  const [inscrit, setInscrit] = useState(false);
+  const [vu, setVu] = useState(false);
+  const [moiPret, setMoiPret] = useState(false);
   const debut = useRef(Date.now());
   const ficheVue = useRef<string | undefined>(undefined);
   if (ficheVue.current !== fiche) {
@@ -118,8 +140,9 @@ export default function EventsPanel({
     setFicheEtat(fiche ? 'charge' : 'vide');
     setEvent(null);
     setMsg('');
-    setEtape('fiche');
+    setEtape(invite ? 'form' : 'fiche');
     setManqueChamp('');
+    setVu(false);
   }
   const humain = curseur >= 100;
 
@@ -160,12 +183,35 @@ export default function EventsPanel({
     return () => { stop = true; };
   }, [fiche, locale]);
 
+  useEffect(() => {
+    if (!fiche || sessionEtat === 'loading') { setMoiPret(!fiche); return; }
+    if (!emailCompte) { setInscrit(false); setMoiPret(true); return; }
+    let stop = false;
+    setMoiPret(false);
+    fetch(`/api/events/${fiche}/me`)
+      .then(async (r) => {
+        if (stop) return;
+        const d = await r.json().catch(() => ({}));
+        setInscrit(Boolean(d.registered));
+        setMoiPret(true);
+      })
+      .catch(() => { if (!stop) { setInscrit(false); setMoiPret(true); } });
+    return () => { stop = true; };
+  }, [fiche, sessionEtat, emailCompte]);
+
+  const rafraichir = async () => {
+    if (!fiche) return;
+    const again = await fetch(`/api/events/${fiche}?locale=${locale}`);
+    if (again.ok) setEvent((await again.json()).event ?? null);
+    chargerListe().catch(() => {});
+  };
+
   const inscrire = async (e: FormEvent) => {
     e.preventDefault();
     if (!fiche || !event) return;
     if (!nom.trim()) { setManqueChamp('nom'); setMsg(t.nomManque); return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) { setManqueChamp('email'); setMsg(t.emailManque); return; }
-    if (invite && (!humain || piege.trim())) { setManqueChamp(''); setMsg(t.bot); return; }
+    if (!humain || piege.trim()) { setManqueChamp(''); setMsg(t.bot); return; }
     setManqueChamp('');
     setCharge(true);
     setMsg('');
@@ -178,21 +224,64 @@ export default function EventsPanel({
           email,
           locale,
           invite: invite || undefined,
-          antiBot: invite ? { sliderValue: curseur, honeypot: piege, elapsedMs: Date.now() - debut.current } : undefined,
+          antiBot: { sliderValue: curseur, honeypot: piege, elapsedMs: Date.now() - debut.current },
         }),
       });
       const d = await r.json();
-      if (r.ok) {
-        setMsg(t.ok);
+      if (r.ok || d.error === 'already') {
+        setVu(true);
+        setMsg('');
         setNom('');
         setEmail('');
-        const again = await fetch(`/api/events/${fiche}?locale=${locale}`);
-        if (again.ok) setEvent((await again.json()).event ?? null);
-        chargerListe().catch(() => {});
+        setEtape('fiche');
+        rafraichir().catch(() => {});
       } else {
         const code = d.error as keyof typeof t;
         setMsg(typeof t[code] === 'string' ? (t[code] as string) : t.erreur);
       }
+    } catch {
+      setMsg(t.erreur);
+    } finally {
+      setCharge(false);
+    }
+  };
+
+  const inscrireCompte = async () => {
+    if (!fiche) return;
+    setCharge(true);
+    setMsg('');
+    try {
+      const r = await fetch(`/api/events/${fiche}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ compte: true, locale, invite: invite || undefined }),
+      });
+      const d = await r.json();
+      if (r.ok || d.error === 'already') {
+        setInscrit(true);
+        setMsg('');
+        rafraichir().catch(() => {});
+      } else {
+        const code = d.error as keyof typeof t;
+        setMsg(typeof t[code] === 'string' ? (t[code] as string) : t.erreur);
+      }
+    } catch {
+      setMsg(t.erreur);
+    } finally {
+      setCharge(false);
+    }
+  };
+
+  const desinscrire = async () => {
+    if (!fiche) return;
+    setCharge(true);
+    setMsg('');
+    try {
+      const r = await fetch(`/api/events/${fiche}/register`, { method: 'DELETE' });
+      if (r.ok) {
+        setInscrit(false);
+        rafraichir().catch(() => {});
+      } else setMsg(t.erreur);
     } catch {
       setMsg(t.erreur);
     } finally {
@@ -209,45 +298,77 @@ export default function EventsPanel({
         ) : ficheEtat !== 'ok' || !event ? (
           <Chargeur label={t.charge} />
         ) : etape === 'form' ? (
+          invite && emailCompte ? (
+            <div className="fenetre-invitation">
+              <p className="invitation">{t.invitation}</p>
+              <header>
+                <Periode debut={event.startsAt} fin={event.endsAt} locale={locale} />
+                <h2>{event.title}</h2>
+                <p className="ex-sous">{event.place}</p>
+              </header>
+              {!moiPret ? null : inscrit ? (
+                <div className="ligne-inscrit">
+                  <span className="marque"><i />{t.inscrit}</span>
+                  <button type="button" className="btn doux" onClick={desinscrire} disabled={charge}>{t.desinscrire}</button>
+                </div>
+              ) : (
+                <button type="button" className="btn plein" onClick={inscrireCompte} disabled={charge}>{charge ? t.envoi : t.envoyer}</button>
+              )}
+              {msg && <p className={msg === t.ok ? 'ok' : 'erreur'}>{msg}</p>}
+            </div>
+          ) : (
           <form noValidate onSubmit={inscrire}>
+            {invite && <p className="invitation">{t.invitation}</p>}
             <header>
-              <div className="ex-code">{quand(event.startsAt, locale)} — {quand(event.endsAt, locale)}</div>
+              <Periode debut={event.startsAt} fin={event.endsAt} locale={locale} />
               <h2>{event.title}</h2>
               <p className="ex-sous">{event.place}</p>
             </header>
             <label>{t.nom}<input className={manqueChamp === 'nom' ? 'manque' : undefined} value={nom} onChange={(e) => { setNom(e.target.value); setManqueChamp(''); }} maxLength={120} autoComplete="name" /></label>
             <label>{t.email}<input className={manqueChamp === 'email' ? 'manque' : undefined} type="email" inputMode="email" value={email} onChange={(e) => { setEmail(e.target.value); setManqueChamp(''); }} autoComplete="email" /></label>
-            {invite && (
-              <>
-                <div className="piege" aria-hidden="true">
-                  <label htmlFor="invite-site">Website</label>
-                  <input id="invite-site" name="website" type="text" tabIndex={-1} autoComplete="off" value={piege} onChange={(e) => setPiege(e.target.value)} />
-                </div>
-                <label htmlFor="invite-robot" className="robot">{t.robot} *
-                  <span>{t.glisser}</span>
-                  <input id="invite-robot" type="range" min={0} max={100} value={curseur} onChange={(e) => setCurseur(Number(e.target.value))} />
-                  <span className={humain ? 'ok' : undefined}>{humain ? t.pret : t.progres(curseur)}</span>
-                </label>
-              </>
-            )}
-            <button type="submit" className="btn plein" disabled={charge || (Boolean(invite) && !humain)}>{charge ? t.envoi : t.envoyer}</button>
+            <div className="piege" aria-hidden="true">
+              <label htmlFor="invite-site">Website</label>
+              <input id="invite-site" name="website" type="text" tabIndex={-1} autoComplete="off" value={piege} onChange={(e) => setPiege(e.target.value)} />
+            </div>
+            <label htmlFor="invite-robot" className="robot">{t.robot} *
+              <span>{t.glisser}</span>
+              <input id="invite-robot" type="range" min={0} max={100} value={curseur} onChange={(e) => setCurseur(Number(e.target.value))} />
+              <span className={humain ? 'ok' : undefined}>{humain ? t.pret : t.progres(curseur)}</span>
+            </label>
+            <button type="submit" className="btn plein" disabled={charge || !humain}>{charge ? t.envoi : t.envoyer}</button>
             {msg && <p className={msg === t.ok ? 'ok' : 'erreur'}>{msg}</p>}
           </form>
+          )
         ) : (
           <>
             <header>
-              <div className="ex-code">{quand(event.startsAt, locale)} — {quand(event.endsAt, locale)}</div>
+              <Periode debut={event.startsAt} fin={event.endsAt} locale={locale} />
               <h2>{event.title}</h2>
               <p className="ex-sous">{event.place}</p>
               <p className="ex-places">{t.places(event.remaining, event.capacity)}</p>
             </header>
             {event.imageUrl && <img className="ex-image" src={event.imageUrl} alt={event.title} />}
             <p>{event.description}</p>
-            {event.remaining > 0 || invite ? (
-              <button type="button" className="btn plein" onClick={() => { setMsg(''); setEtape('form'); }}>{t.envoyer}</button>
+            {!moiPret ? null : emailCompte && inscrit ? (
+              <div className="ligne-inscrit">
+                <span className="marque"><i />{t.inscrit}</span>
+                <button type="button" className="btn doux" onClick={desinscrire} disabled={charge}>{t.desinscrire}</button>
+              </div>
+            ) : vu ? (
+              <div className="ligne-inscrit">
+                <span className="marque"><i />{t.inscrit}</span>
+                <button type="button" className="btn doux" onClick={() => { setMsg(''); setEtape('form'); }}>{t.envoyer}</button>
+              </div>
+            ) : event.remaining > 0 || invite ? (
+              emailCompte ? (
+                <button type="button" className="btn plein" onClick={inscrireCompte} disabled={charge}>{charge ? t.envoi : t.envoyer}</button>
+              ) : (
+                <button type="button" className="btn plein" onClick={() => { setMsg(''); setEtape('form'); }}>{t.envoyer}</button>
+              )
             ) : (
               <p className="vide">{t.full}</p>
             )}
+            {etape === 'fiche' && msg && <p className={msg === t.ok ? 'ok' : 'erreur'}>{msg}</p>}
           </>
         )}
       </article>
