@@ -3,7 +3,7 @@
 // Le site Pigeons Studio : le viseur ORCA//GLYPH, repris fidèlement de la page Claude.
 // En 3D, six étages et leurs glyphes-menus ; la molette traverse les étages ; un clic descend en page 2D.
 // En plus de la page Claude : le français et l'anglais, un vrai panier et la vraie connexion du site.
-import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { Suspense, useEffect, useRef, useState, type FormEvent } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { usePathname, useRouter, Link } from '@/i18n/routing';
@@ -12,6 +12,7 @@ import GLYPHES from './glyphes.json';
 import CONTENU from './contenu.json';
 import OPS from './operateurs.json';
 import type { World as Monde, Etage } from './engine';
+import EventsPanel from './Events';
 import './orca.css';
 
 type Locale = 'fr' | 'en';
@@ -30,7 +31,7 @@ const PATCHS: Record<Locale, Record<string, string[]>> = {
     bio: ['', '..#PIGEONS.STUDIO#', '', '..#KOO.DES#..........#JULIEN.THOMAS#', '', '..2C4................4C8', '...0..................0', '..1D4................1D8', '', '...:03C...............:05G'],
     projets: ['', '..#PROJETS#', '', '..#AS.SIMT#...#GO2#...#INSTALLATIONS#', '', '..4C8....1D4', '...0', '..........:03C'],
     services: ['', '..#SERVICES#', '', '..#OBJETS.AUDIO#..#CAPTEURS#..#3D#', '', '..2C4....1D2', '...0', '..........:13E'],
-    futur: ['', '..#FUTURS.PROJETS#', '', '..#ORCA.GLYPH#..#CAVE#..#TEAMMATE#', '', '..1D8...........8-1', '', '.........:15c'],
+    events: ['', '..#EVENTS#', '', '..#WORKSHOP#..#PERFORMANCE#', '', '..1D8...........8-1', '', '.........:15c'],
     boutique: ['', '..#BOUTIQUE#', '', '..#ACCESSOIRES#..#GEAR#..#MUSIQUE#', '', '..1D2.8TCDEGAcdg', '', '......:14'],
     logiciels: ['', '..#LOGICIELS#', '', '..#WEB#...#FIRMWARE#...#PC#', '', '..4C8....1D4', '...0', '..........:02E'],
   },
@@ -38,7 +39,7 @@ const PATCHS: Record<Locale, Record<string, string[]>> = {
     bio: ['', '..#PIGEONS.STUDIO#', '', '..#KOO.DES#..........#JULIEN.THOMAS#', '', '..2C4................4C8', '...0..................0', '..1D4................1D8', '', '...:03C...............:05G'],
     projets: ['', '..#PROJECTS#', '', '..#AS.SIMT#...#GO2#...#INSTALLATIONS#', '', '..4C8....1D4', '...0', '..........:03C'],
     services: ['', '..#SERVICES#', '', '..#AUDIO.OBJECTS#..#SENSORS#..#3D#', '', '..2C4....1D2', '...0', '..........:13E'],
-    futur: ['', '..#FUTURE.PROJECTS#', '', '..#ORCA.GLYPH#..#CAVE#..#TEAMMATE#', '', '..1D8...........8-1', '', '.........:15c'],
+    events: ['', '..#EVENTS#', '', '..#WORKSHOP#..#PERFORMANCE#', '', '..1D8...........8-1', '', '.........:15c'],
     boutique: ['', '..#SHOP#', '', '..#ACCESSORIES#..#GEAR#..#MUSIC#', '', '..1D2.8TCDEGAcdg', '', '......:14'],
     logiciels: ['', '..#SOFTWARE#', '', '..#WEB#...#FIRMWARE#...#PC#', '', '..4C8....1D4', '...0', '..........:02E'],
   },
@@ -52,7 +53,7 @@ const MOTS: Record<Locale, Record<string, string>> = {
 
 const UI = {
   fr: {
-    connexion: 'connexion', contact: 'contact', panier: 'panier', retour: '◂ 3D', etage: 'étage', etages: (n: number) => `${n} étages`,
+    connexion: 'connexion', compte: 'compte', contact: 'contact', panier: 'panier', retour: '◂ 3D', etage: 'étage', etages: (n: number) => `${n} étages`,
     aide: 'molette : traverser les étages · clic : entrer', entrer: (n: number) => `étage ${n} · cliquer pour entrer`, aideTactile: 'glisser ↕ · toucher', toucher: (n: number) => `étage ${n} · toucher encore pour entrer`,
     ici: 'tu es ici', aller: (n: number) => `aller à l'étage ${n}`, rubriques: 'rubriques',
     prix: { coming: 'À venir', quote: 'Sur devis', soon: 'Bientôt disponible' } as Record<Prix, string>,
@@ -65,7 +66,7 @@ const UI = {
     droits: '© 2026 Pigeons Studio - Tous droits réservés.', cgvLong: 'conditions générales de vente', ouEcrire: 'ou écrire directement :',
   },
   en: {
-    connexion: 'login', contact: 'contact', panier: 'cart', retour: '◂ 3D', etage: 'floor', etages: (n: number) => `${n} floors`,
+    connexion: 'login', compte: 'account', contact: 'contact', panier: 'cart', retour: '◂ 3D', etage: 'floor', etages: (n: number) => `${n} floors`,
     aide: 'scroll: move through the floors · click: enter', entrer: (n: number) => `floor ${n} · click to enter`, aideTactile: 'swipe ↕ · tap', toucher: (n: number) => `floor ${n} · tap again to enter`,
     ici: 'you are here', aller: (n: number) => `go to floor ${n}`, rubriques: 'sections',
     prix: { coming: 'Coming soon', quote: 'On quote', soon: 'Coming soon' } as Record<Prix, string>,
@@ -93,6 +94,9 @@ type Tiroir = { quoi: 'contact'; sujet: string } | { quoi: 'panier' } | { quoi: 
 
 export default function World() {
   const locale: Locale = useLocale() === 'en' ? 'en' : 'fr';
+  const pathname = usePathname();
+  const router = useRouter();
+  const menu = pathname.split('/').filter(Boolean);
   const ui = UI[locale];
   const FAMILLES = CONTENU[locale] as Famille[];
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -105,7 +109,24 @@ export default function World() {
   const [tiroir, setTiroir] = useState<Tiroir>(null);
   const [survolHtml, setSurvolHtml] = useState<{ i: number; box: DOMRect } | null>(null);
   const [monte, setMonte] = useState(false);
+  const [pret, setPret] = useState(false);
   const totalPanier = useCartStore((s) => s.getTotalItems());
+  const { data: session } = useSession();
+  const menuKey = menu.join('/');
+  const menuRef = useRef(menuKey);
+  const modeRef = useRef<Mode>('3d');
+  const skipRef = useRef<string | null>(null);
+  const premierRef = useRef(true);
+  menuRef.current = menuKey;
+
+  const pousser = (floor: string | null, fiche?: string) => {
+    const key = !floor ? '' : fiche ? `${floor}/${fiche}` : floor;
+    if (key === menuRef.current) return;
+    skipRef.current = key;
+    router.push(!floor ? '/' : fiche ? `/${floor}/${fiche}` : `/${floor}`, { scroll: false });
+  };
+  const pousserRef = useRef(pousser);
+  pousserRef.current = pousser;
 
   useEffect(() => { setMonte(true); }, []);
 
@@ -124,27 +145,69 @@ export default function World() {
         patchs: PATCHS[locale],
         textes: { entrer: ui.entrer, toucher: ui.toucher },
         onMode: (m, e) => {
+          modeRef.current = m;
           setMode(m); setEtage(e);
-          if (m === '2d') { setVisible(true); pageRef.current?.scrollTo(0, 0); } else setVisible(false);
+          const id = FAMILLES[e]?.id;
+          const actuel = menuRef.current.split('/')[0];
+          const pending = skipRef.current;
+          const gardeFiche = Boolean(id && pending && (pending === id || pending.startsWith(`${id}/`)));
+          if (m === '2d' || m === 'vers2d') {
+            if (m === '2d') {
+              setVisible(true);
+              pageRef.current?.scrollTo(0, 0);
+            } else setVisible(false);
+            if (id && actuel !== id && !gardeFiche) pousserRef.current(id);
+          } else {
+            setVisible(false);
+            if (menuRef.current) pousserRef.current(null);
+          }
         },
       });
       mondeRef.current = monde;
-      // un lien direct vers un étage (?etage=services) : on y descend tout de suite, en 2D
-      const voulu = new URLSearchParams(window.location.search).get('etage');
-      const n = voulu ? FAMILLES.findIndex((g) => g.id === voulu) : -1;
-      if (n >= 0) window.setTimeout(() => { if (!annule) monde?.descendre(n); }, 400);
+      if (!annule) {
+        premierRef.current = true;
+        setPret(true);
+        // un ancien lien ?etage=services : on l'ouvre dans le routeur, puis on descend
+        const voulu = new URLSearchParams(window.location.search).get('etage');
+        const n = voulu ? FAMILLES.findIndex((g) => g.id === voulu) : -1;
+        if (n >= 0 && voulu) {
+          pousserRef.current(voulu);
+          window.setTimeout(() => { if (!annule) monde?.descendre(n, true); }, 400);
+        }
+      }
     });
-    return () => { annule = true; monde?.detruire(); mondeRef.current = null; };
+    return () => { annule = true; setPret(false); monde?.detruire(); mondeRef.current = null; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locale]);
 
+  // l'URL est la source de vérité au chargement, au retour navigateur et au changement de langue
+  useEffect(() => {
+    const m = mondeRef.current;
+    if (!m || !pret) return;
+    if (skipRef.current !== null && skipRef.current === menuKey) {
+      skipRef.current = null;
+      return;
+    }
+    const [floor] = menu;
+    const direct = premierRef.current;
+    premierRef.current = false;
+    if (!floor) {
+      if (modeRef.current === '2d' || modeRef.current === 'vers2d') m.remonter();
+      return;
+    }
+    const idx = FAMILLES.findIndex((g) => g.id === floor);
+    if (idx < 0) return;
+    if (modeRef.current === '3d' || modeRef.current === 'vers3d') m.descendre(idx, direct);
+    else if (idx !== etage) m.changer(idx);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [menuKey, pret, locale]);
+
   // d'une page à l'autre en 2D : la page glisse, la nouvelle apparaît sur la dalle
   // aller à la fiche d'un autre projet : on change d'étage si besoin, puis l'explorateur ouvre la bonne fiche
-  const [cible, setCible] = useState<{ id: string; n: number } | null>(null);
   const allerProjet = (id: string) => {
     const fam = FAMILLES.findIndex((g) => g.blocs.some((b) => b.t === 'explorer' && (b.items as Projet[]).some((x) => x.id === id)));
     if (fam < 0) return;
-    setCible((c) => ({ id, n: (c?.n || 0) + 1 }));
+    pousser(FAMILLES[fam].id, id);
     if (fam !== etage) changer(fam);
   };
   const changer = (n: number) => {
@@ -181,12 +244,12 @@ export default function World() {
           {monte && totalPanier > 0 && (
             <button id="panier-btn" type="button" onClick={() => setTiroir(tiroir?.quoi === 'panier' ? null : { quoi: 'panier' })}>{ui.panier} · {totalPanier}</button>
           )}
-          <button id="connexion" type="button" onClick={() => setTiroir(tiroir?.quoi === 'connexion' ? null : { quoi: 'connexion', inscription: false })}>{ui.connexion}</button>
+          <button id="connexion" type="button" onClick={() => setTiroir(tiroir?.quoi === 'connexion' ? null : { quoi: 'connexion', inscription: false })}>{session ? (session.user?.name?.split(' ')[0] || ui.compte) : ui.connexion}</button>
           <button id="panier" type="button" onClick={() => setTiroir(tiroir?.quoi === 'contact' ? null : { quoi: 'contact', sujet: '' })}>{ui.contact}</button>
           <Langue />
         </div>
         <div className="c bg"><span id="etat"><b>{etatLabel}</b>{etatTexte}</span>{mode === '3d' && <span className="aide">{ui.aide}</span>}{mode === '3d' && <span className="aide-tactile">{ui.aideTactile}</span>}</div>
-        <div className="c bd">{mode === '3d' && <span className="legal3d"><span>{ui.droits}</span><Link href="/legal">{ui.legal}</Link><Link href="/terms">{ui.cgv}</Link></span>}<button id="retour" type="button" hidden={mode !== '2d'} onClick={() => mondeRef.current?.remonter()}>{ui.retour}</button></div>
+        <div className="c bd"><button id="retour" type="button" hidden={mode !== '2d'} onClick={() => mondeRef.current?.remonter()}>{ui.retour}</button><span className="legal3d"><span>{ui.droits}</span><Link href="/legal">{ui.legal}</Link><Link href="/terms">{ui.cgv}</Link></span></div>
       </div>
       <div id="trk" ref={trkRef} aria-hidden="true"><i /><i /><i /><i /><span /></div>
       {survolHtml && mode === '2d' && <TrackerHtml g={FAMILLES[survolHtml.i]} box={survolHtml.box} />}
@@ -214,8 +277,7 @@ export default function World() {
             <Glyphe signe={f.signe} couleur={f.css} />
             <div><h1>{f.nom}</h1><p>{MOTS[locale][f.signe]}{f.pourquoi !== MOTS[locale][f.signe] ? ` · ${f.pourquoi}` : ''}</p></div>
           </div>
-          {f.blocs.map((b, i) => <BlocVue key={`${f.id}-${i}`} b={b} f={f} ui={ui} locale={locale} ouvrirContact={(sujet) => setTiroir({ quoi: 'contact', sujet })} cible={cible} allerProjet={allerProjet} />)}
-          <PiedPage ui={ui} />
+          {f.blocs.map((b, i) => <BlocVue key={`${f.id}-${i}`} b={b} f={f} ui={ui} locale={locale} ouvrirContact={(sujet) => setTiroir({ quoi: 'contact', sujet })} fiche={menu[0] === f.id ? menu[1] : undefined} onFiche={(id) => pousser(f.id, id)} allerProjet={allerProjet} />)}
         </div>
       </main>
 
@@ -256,14 +318,15 @@ function Traduction({ g, n, ici, ui, locale }: { g: Famille; n: number; ici: boo
 }
 
 // ---------------------------------------------------------------- les blocs d'une page 2D (comme remplir() de la page Claude)
-function BlocVue({ b, f, ui, locale, ouvrirContact, cible, allerProjet }: { b: Bloc; f: Famille; ui: Ui; locale: Locale; ouvrirContact: (s: string) => void; cible: { id: string; n: number } | null; allerProjet: (id: string) => void }) {
+function BlocVue({ b, f, ui, locale, ouvrirContact, fiche, onFiche, allerProjet }: { b: Bloc; f: Famille; ui: Ui; locale: Locale; ouvrirContact: (s: string) => void; fiche?: string; onFiche: (id: string) => void; allerProjet: (id: string) => void }) {
   if (b.t === 'lead') return <div className="lead"><p className="sur">{b.sur}</p><p className="duo">{b.duo}</p><p className="legende">{b.legende}</p></div>;
   if (b.t === 'texte') return <section className="texte">{b.titre && <h2 className="etiquette">{b.titre}</h2>}<p>{b.p}</p></section>;
   if (b.t === 'vide') return <p className="vide">{b.p}</p>;
   if (b.t === 'deux') return <div className="bio">{(b.items as string[][]).map(([n, r, p]) => <section key={n}><h3>{n}</h3><h2>{r}</h2><p>{p}</p></section>)}</div>;
   if (b.t === 'liste') return <section className="liste"><h2 className="etiquette">{b.titre}</h2><dl>{(b.items as string[][]).flatMap(([k, v]) => [<dt key={`t${k}`}>{k}</dt>, <dd key={`d${k}`}>{v}</dd>])}</dl></section>;
   if (b.t === 'devis') return <div className="pied"><button type="button" className="btn" onClick={() => ouvrirContact('')}>{ui.devis}</button></div>;
-  if (b.t === 'explorer') return <Explorer items={b.items as Projet[]} css={f.css} code={f.code} locale={locale} cible={cible} allerProjet={allerProjet} />;
+  if (b.t === 'explorer') return <Explorer items={b.items as Projet[]} css={f.css} code={f.code} locale={locale} fiche={fiche} onFiche={onFiche} allerProjet={allerProjet} />;
+  if (b.t === 'events') return <Suspense fallback={null}><EventsPanel locale={locale} css={f.css} fiche={fiche} onFiche={onFiche} /></Suspense>;
   if (b.t === 'films') {
     return (
       <div className="films">
@@ -282,7 +345,7 @@ function BlocVue({ b, f, ui, locale, ouvrirContact, cible, allerProjet }: { b: B
         <div className="rayon"><Glyphe signe={b.signe} couleur={f.css} /><h2>{b.titre}</h2><span>{MOTS[locale][b.signe]}</span></div>
       )}
       {b.vide && <p className="vide">{b.vide}</p>}
-      {b.fiches && <Explorer items={b.fiches as Projet[]} css={f.css} code={b.code || f.code} locale={locale} cible={cible} allerProjet={allerProjet} />}
+      {b.fiches && <Explorer items={b.fiches as Projet[]} css={f.css} code={b.code || f.code} locale={locale} fiche={fiche} onFiche={onFiche} allerProjet={allerProjet} />}
       {b.items && (
         <div className="grille">
           {(b.items as Item[]).map((it, i) => <Carte key={it.nom} it={it} code={b.code || f.code} i={i} ui={ui} locale={locale} ouvrirContact={ouvrirContact} />)}
@@ -293,19 +356,28 @@ function BlocVue({ b, f, ui, locale, ouvrirContact, cible, allerProjet }: { b: B
 }
 
 // ---------------------------------------------------------------- futurs projets : un menu que l'on parcourt, une fiche par projet
-function Explorer({ items, css, code = 'F', locale, cible, allerProjet }: { items: Projet[]; css: string; code?: string; locale: Locale; cible: { id: string; n: number } | null; allerProjet: (id: string) => void }) {
-  const [i, setI] = useState(() => Math.max(0, items.findIndex((x) => x.id === cible?.id)));
+function Explorer({ items, css, code = 'F', locale, fiche, onFiche, allerProjet }: { items: Projet[]; css: string; code?: string; locale: Locale; fiche?: string; onFiche: (id: string) => void; allerProjet: (id: string) => void }) {
+  const [i, setI] = useState(() => {
+    const n = items.findIndex((x) => x.id === fiche);
+    return n >= 0 ? n : 0;
+  });
   const liste = useRef<HTMLDivElement>(null);
   const boite = useRef<HTMLDivElement>(null);
-  // une fiche demandée depuis un lien d'un autre projet : on l'ouvre et on la montre
+  const depuisListe = useRef(false);
   useEffect(() => {
-    if (!cible) return;
-    const n = items.findIndex((x) => x.id === cible.id); if (n < 0) return;
+    const n = fiche ? items.findIndex((x) => x.id === fiche) : 0;
+    if (n >= 0) setI(n);
+    if (fiche && n >= 0 && !depuisListe.current) window.setTimeout(() => boite.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 350);
+    depuisListe.current = false;
+  }, [fiche, items]);
+  const p = items[i] ?? items[0];
+  if (!p) return null;
+  const choisir = (n: number) => {
     setI(n);
-    window.setTimeout(() => boite.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 350);
-  }, [cible?.n]); // eslint-disable-line react-hooks/exhaustive-deps
-  const p = items[i];
-  const choisir = (n: number) => { setI(n); };
+    if (items[n].id === fiche) return;
+    depuisListe.current = true;
+    onFiche(items[n].id);
+  };
   const clavier = (e: React.KeyboardEvent) => {
     if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
     e.preventDefault(); e.stopPropagation();
@@ -579,16 +651,6 @@ function TiroirContact({ sujet, ui, fermer }: { sujet: string; ui: Ui; fermer: (
   );
 }
 
-function PiedPage({ ui }: { ui: Ui }) {
-  return (
-    <footer className="pied-page">
-      <span>{ui.droits}</span>
-      <Link href="/legal">{ui.legal}</Link>
-      <Link href="/terms">{ui.cgvLong}</Link>
-    </footer>
-  );
-}
-
 function TiroirPanier({ ui, locale, fermer }: { ui: Ui; locale: Locale; fermer: () => void }) {
   const items = useCartStore((s) => s.items);
   const update = useCartStore((s) => s.updateQuantity);
@@ -625,12 +687,18 @@ function TiroirPanier({ ui, locale, fermer }: { ui: Ui; locale: Locale; fermer: 
 function TiroirConnexion({ inscription, ui, basculer, fermer }: { inscription: boolean; ui: Ui; basculer: (v: boolean) => void; fermer: () => void }) {
   const t = useTranslations('auth');
   const tr = useTranslations('auth.register');
+  const locale = useLocale();
+  const tc = useTranslations('contact');
   const { data: session } = useSession();
   const [email, setEmail] = useState('');
   const [mdp, setMdp] = useState('');
   const [nom, setNom] = useState('');
   const [msg, setMsg] = useState('');
   const [charge, setCharge] = useState(false);
+  const [curseur, setCurseur] = useState(0);
+  const [piege, setPiege] = useState('');
+  const debut = useRef(Date.now());
+  const humain = curseur >= 100;
 
   if (session) {
     return (
@@ -650,13 +718,23 @@ function TiroirConnexion({ inscription, ui, basculer, fermer }: { inscription: b
     e.preventDefault(); setMsg(''); setCharge(true);
     try {
       if (inscription) {
-        const r = await fetch('/api/auth/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password: mdp, name: nom }) });
+        if (!humain || piege.trim()) { setMsg(tc('form.humanCheckError')); return; }
+        const r = await fetch('/api/auth/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password: mdp, name: nom, locale, antiBot: { sliderValue: curseur, honeypot: piege, elapsedMs: Date.now() - debut.current } }) });
         const d = await r.json();
-        if (!r.ok) setMsg(d.error || tr('allFieldsRequired'));
-        else { setMsg(tr('success')); window.setTimeout(() => basculer(false), 1500); }
+        const erreurs: Record<string, string> = {
+          emailExists: tr('emailExists'),
+          invalidEmail: tr('invalidEmail'),
+          passwordTooShort: tr('passwordTooShort'),
+          allFieldsRequired: tr('allFieldsRequired'),
+          antiBot: tc('form.humanCheckError'),
+        };
+        if (!r.ok) setMsg(erreurs[d.error] || t('error'));
+        else { setMsg(tr('success')); setCurseur(0); debut.current = Date.now(); }
       } else {
         const r = await signIn('credentials', { email, password: mdp, redirect: false });
-        if (r?.error) setMsg(t('invalidCredentials')); else fermer();
+        if (r?.error === 'EMAIL_NOT_VERIFIED') setMsg(t('emailNotVerified'));
+        else if (r?.error) setMsg(t('invalidCredentials'));
+        else fermer();
       }
     } catch { setMsg(t('error')); } finally { setCharge(false); setMdp(''); }
   };
@@ -668,7 +746,17 @@ function TiroirConnexion({ inscription, ui, basculer, fermer }: { inscription: b
         {inscription && <label htmlFor="compte-nom">{t('name')}<input id="compte-nom" type="text" autoComplete="name" value={nom} onChange={(e) => setNom(e.target.value)} required /></label>}
         <label htmlFor="compte-email">{t('email')}<input id="compte-email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required /></label>
         <label htmlFor="compte-mdp">{t('password')}<input id="compte-mdp" type="password" autoComplete={inscription ? 'new-password' : 'current-password'} minLength={inscription ? 8 : undefined} value={mdp} onChange={(e) => setMdp(e.target.value)} required /></label>
-        <button type="submit" className="btn plein" disabled={charge}>{charge ? (inscription ? t('signingUp') : t('signingIn')) : (inscription ? t('signUp') : t('signIn'))}</button>
+        {inscription && (
+          <>
+            <div className="piege" aria-hidden="true"><label htmlFor="compte-site">Website</label><input id="compte-site" name="website" type="text" tabIndex={-1} autoComplete="off" value={piege} onChange={(e) => setPiege(e.target.value)} /></div>
+            <label htmlFor="compte-robot" className="robot">{tc('form.humanCheckLabel')} *
+              <span className="note">{tc('form.humanCheckHint')}</span>
+              <input id="compte-robot" type="range" min={0} max={100} value={curseur} onChange={(e) => setCurseur(Number(e.target.value))} />
+              <span className={humain ? 'ok' : 'note'}>{humain ? tc('form.humanCheckReady') : tc('form.humanCheckProgress', { value: curseur })}</span>
+            </label>
+          </>
+        )}
+        <button type="submit" className="btn plein" disabled={charge || (inscription && !humain)}>{charge ? (inscription ? t('signingUp') : t('signingIn')) : (inscription ? t('signUp') : t('signIn'))}</button>
         {msg && <p className="note">{msg}</p>}
       </form>
       {!inscription && <button type="button" className="btn doux" onClick={() => signIn('google', { callbackUrl: window.location.href })}>{t('signInWithGoogle')}</button>}

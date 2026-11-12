@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import Header from '@/app/components/Header';
-import Footer from '@/app/components/Footer';
 import ProductCard, { Product } from '@/app/components/ProductCard';
 import productsData from '@/data/products.json';
 import { buildPageMetadata } from '@/lib/seo';
@@ -52,7 +51,6 @@ export default function BoutiquePage() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

@@ -5,6 +5,7 @@
       "shop": "Shop",
       "services": "Services",
       "projects": "Projects",
+      "events": "Events",
       "softwares": "Softwares",
       "contact": "Contact"
     },
@@ -805,12 +806,13 @@
     "signingUp": "Signing up...",
     "error": "Login error",
     "invalidCredentials": "Invalid email or password",
+    "emailNotVerified": "Confirm the address we emailed you first.",
     "profile": "My profile",
     "alreadyHaveAccount": "Already have an account?",
     "noAccount": "Don't have an account?",
     "register": {
       "title": "Create an account",
-      "success": "Account created successfully! You can now sign in.",
+      "success": "Account created. Check your email to confirm the address.",
       "emailExists": "This email is already in use",
       "passwordTooShort": "Password must be at least 8 characters",
       "invalidEmail": "Invalid email",

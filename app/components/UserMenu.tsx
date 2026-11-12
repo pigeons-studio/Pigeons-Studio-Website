@@ -3,28 +3,22 @@
 import { useSession, signOut } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
-import styles from './UserMenu.module.css';
+import styles from './Header.module.css';
 
 export default function UserMenu() {
   const { data: session, status } = useSession();
   const t = useTranslations('auth');
 
-  if (status === 'loading') {
-    return null;
-  }
-
-  if (!session) {
-    return null;
-  }
+  if (status === 'loading' || !session) return null;
 
   return (
-    <div className={styles.userMenu}>
-      <Link href="/profile" className={styles.profileLink}>
+    <>
+      <Link href="/profile" className={styles.cadreLien}>
         {t('profile')}
       </Link>
-      <button onClick={() => signOut()} className={styles.logoutButton}>
+      <button type="button" onClick={() => signOut()} className={styles.cadreLien}>
         {t('logout')}
       </button>
-    </div>
+    </>
   );
 }
