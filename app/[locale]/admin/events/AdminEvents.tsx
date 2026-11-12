@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import AdminShell from './AdminShell';
@@ -32,17 +33,52 @@ export default function AdminEvents() {
   const locale = useLocale();
   const fr = locale === 'fr';
   const [rows, setRows] = useState<Row[] | null>(null);
+  const [cible, setCible] = useState<Row | null>(null);
+  const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState('');
 
-  useEffect(() => {
-    fetch('/api/admin/events')
-      .then(async (r) => {
-        if (!r.ok) { setMsg(fr ? 'Base indisponible.' : 'Database unavailable.'); return; }
-        const data = await r.json();
-        setRows(data.events ?? []);
-      })
-      .catch(() => setMsg('error'));
+  const charger = useCallback(async () => {
+    const r = await fetch('/api/admin/events');
+    if (!r.ok) { setMsg(fr ? 'Base indisponible.' : 'Database unavailable.'); return; }
+    const data = await r.json();
+    setRows(data.events ?? []);
   }, [fr]);
+
+  useEffect(() => {
+    charger().catch(() => setMsg('error'));
+  }, [charger]);
+
+  const confirmer = async () => {
+    if (!cible || busy) return;
+    setBusy(true);
+    setMsg('');
+    const r = await fetch(`/api/admin/events/${cible.id}`, { method: 'DELETE' });
+    setBusy(false);
+    setCible(null);
+    if (!r.ok) {
+      setMsg(fr ? 'L’event n’a pas été supprimé.' : 'Could not delete the event.');
+      return;
+    }
+    charger().catch(() => setMsg('error'));
+  };
+
+  const titre = cible ? (fr ? cible.titleFr : cible.titleEn) : '';
+  const fenetre = cible && typeof document !== 'undefined' ? createPortal(
+    <div className={styles.voile} role="dialog" aria-modal="true" aria-labelledby="confirm-titre">
+      <div className={styles.fenetre}>
+        <p id="confirm-titre">{fr ? 'Supprimer cet event' : 'Delete this event'}</p>
+        <p>{titre}</p>
+        <p>{fr
+          ? 'Les inscriptions et les liens d’invitation de cet event seront aussi supprimés.'
+          : 'Registrations and invitation links for this event will be deleted too.'}</p>
+        <div className={styles.choix}>
+          <button type="button" className={styles.btn} disabled={busy} onClick={confirmer}>{fr ? 'supprimer' : 'delete'}</button>
+          <button type="button" className={styles.btn} disabled={busy} onClick={() => setCible(null)}>{fr ? 'annuler' : 'cancel'}</button>
+        </div>
+      </div>
+    </div>,
+    document.body,
+  ) : null;
 
   return (
     <AdminShell
@@ -51,6 +87,7 @@ export default function AdminEvents() {
       retour={{ href: '/profile', label: fr ? '◂ profil' : '◂ profile' }}
       extra={<p><Link className={styles.lien} href="/admin/users">{fr ? 'comptes' : 'accounts'}</Link></p>}
     >
+      {fenetre}
       <Link className={styles.btn} href="/admin/events/new">{fr ? 'créer un event' : 'create event'}</Link>
       {msg && <p>{msg}</p>}
       {rows && (
@@ -77,7 +114,10 @@ export default function AdminEvents() {
                   <td>{quand(row.startsAt, locale)}</td>
                   <td>{row.taken}/{row.capacity}</td>
                   <td className={styles.action}>
-                    <Link className={styles.btn} href={`/admin/events/${row.id}`}>{fr ? 'éditer' : 'edit'}</Link>
+                    <div className={styles.choix}>
+                      <Link className={styles.btn} href={`/admin/events/${row.id}`}>{fr ? 'éditer' : 'edit'}</Link>
+                      <button type="button" className={styles.btn} onClick={() => setCible(row)}>{fr ? 'supprimer' : 'delete'}</button>
+                    </div>
                   </td>
                 </tr>
               ))}

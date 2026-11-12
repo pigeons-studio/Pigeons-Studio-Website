@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
+import { createPortal } from 'react-dom';
 import { useLocale } from 'next-intl';
 import { useRouter } from '@/i18n/routing';
 import AdminShell from './AdminShell';
@@ -51,6 +52,8 @@ export default function EventEditor({ id }: { id?: string }) {
   const [msg, setMsg] = useState('');
   const [manque, setManque] = useState(false);
   const [origin, setOrigin] = useState('');
+  const [confirme, setConfirme] = useState(false);
+  const [busy, setBusy] = useState(false);
 
   const lire = useCallback(async (remplir: boolean) => {
     if (!id) return;
@@ -141,6 +144,20 @@ export default function EventEditor({ id }: { id?: string }) {
     if (!r.ok) lire(false).catch(() => {});
   };
 
+  const effacer = async () => {
+    if (!id || busy) return;
+    setBusy(true);
+    setMsg('');
+    const r = await fetch(`/api/admin/events/${id}`, { method: 'DELETE' });
+    setBusy(false);
+    if (!r.ok) {
+      setConfirme(false);
+      setMsg(fr ? 'L’event n’a pas été supprimé.' : 'Could not delete the event.');
+      return;
+    }
+    router.push('/admin/events');
+  };
+
   const supprimer = async (token: string) => {
     if (!id) return;
     const r = await fetch(`/api/admin/events/${id}/invites/${token}`, { method: 'DELETE' });
@@ -155,6 +172,22 @@ export default function EventEditor({ id }: { id?: string }) {
   };
 
   const titre = id ? (detail ? (fr ? detail.titleFr : detail.titleEn) : (fr ? 'Éditer' : 'Edit')) : (fr ? 'Créer un event' : 'Create event');
+  const fenetre = confirme && detail && typeof document !== 'undefined' ? createPortal(
+    <div className={styles.voile} role="dialog" aria-modal="true" aria-labelledby="confirm-titre">
+      <div className={styles.fenetre}>
+        <p id="confirm-titre">{fr ? 'Supprimer cet event' : 'Delete this event'}</p>
+        <p>{fr ? detail.titleFr : detail.titleEn}</p>
+        <p>{fr
+          ? 'Les inscriptions et les liens d’invitation de cet event seront aussi supprimés.'
+          : 'Registrations and invitation links for this event will be deleted too.'}</p>
+        <div className={styles.choix}>
+          <button type="button" className={styles.btn} disabled={busy} onClick={effacer}>{fr ? 'supprimer' : 'delete'}</button>
+          <button type="button" className={styles.btn} disabled={busy} onClick={() => setConfirme(false)}>{fr ? 'annuler' : 'cancel'}</button>
+        </div>
+      </div>
+    </div>,
+    document.body,
+  ) : null;
   const pris = detail?.registrations.filter((person) => !person.invite).length ?? 0;
   const dispo = detail ? Math.max(0, detail.capacity - pris) : 0;
 
@@ -178,9 +211,15 @@ export default function EventEditor({ id }: { id?: string }) {
             <label>{fr ? 'lieu' : 'place'}<input required value={form.place} onChange={(e) => setForm({ ...form, place: e.target.value })} /></label>
             <label>{fr ? 'image (url)' : 'image (url)'}<input type="url" inputMode="url" value={form.imageUrl} onChange={(e) => setForm({ ...form, imageUrl: e.target.value })} placeholder="https://" /></label>
             <label>{fr ? 'places' : 'seats'}<input required type="number" min={1} value={form.capacity} onChange={(e) => setForm({ ...form, capacity: e.target.value })} /></label>
-            <button className={styles.btn} type="submit">{id ? (fr ? 'enregistrer' : 'save') : (fr ? 'créer' : 'create')}</button>
+            <div className={styles.choix}>
+              <button className={styles.btn} type="submit">{id ? (fr ? 'enregistrer' : 'save') : (fr ? 'créer' : 'create')}</button>
+              {id && detail && (
+                <button type="button" className={styles.btn} onClick={() => setConfirme(true)}>{fr ? 'supprimer' : 'delete'}</button>
+              )}
+            </div>
             {msg && <p>{msg}</p>}
           </form>
+          {fenetre}
           {detail && (
             <>
               <h2>{fr ? 'Inscrits' : 'Guests'}</h2>

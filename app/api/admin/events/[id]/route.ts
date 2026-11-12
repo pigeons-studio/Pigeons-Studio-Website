@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/admin';
-import { eventAdminDetail, updateEvent, type EventInput } from '@/lib/events';
+import { deleteEvent, eventAdminDetail, updateEvent, type EventInput } from '@/lib/events';
 
 function isUniqueViolation(error: unknown) {
   return typeof error === 'object' && error !== null && 'code' in error && (error as { code?: string }).code === '23505';
@@ -36,4 +36,16 @@ export async function PATCH(request: Request, context: { params: Promise<{ id: s
     if (isUniqueViolation(error)) return NextResponse.json({ error: 'slug' }, { status: 409 });
     throw error;
   }
+}
+
+export async function DELETE(_request: Request, context: { params: Promise<{ id: string }> }) {
+  const admin = await requireAdmin();
+  if (!admin) return NextResponse.json({ error: 'forbidden' }, { status: 403 });
+  const { id } = await context.params;
+  const result = await deleteEvent(id);
+  if ('error' in result) {
+    const status = result.error === 'unavailable' ? 503 : 404;
+    return NextResponse.json({ error: result.error }, { status });
+  }
+  return NextResponse.json({ ok: true });
 }
