@@ -369,3 +369,12 @@
 .orca .ex-video button span { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 8px 14px; border: 1px solid var(--c, var(--or)); color: var(--encre); background: rgba(0,0,0,.75); letter-spacing: .12em; text-transform: uppercase; font-size: 11px; }
 .orca .ex-video figcaption { color: var(--gris); font-size: 10px; letter-spacing: .1em; }
 .orca .ex-video figcaption a { color: var(--gris); text-decoration: underline; text-underline-offset: 3px; }
+
+/* à son rythme : les boutons pour passer d'une étape à l'autre, posés sur le panneau « comment ça marche » */
+.orca .ex-scene { position: relative; }
+.orca .pas-nav { position: absolute; right: 10px; display: flex; gap: 6px; z-index: 2; }
+.orca .pas-nav button { font: 500 10px/1 'IBM Plex Mono', monospace; letter-spacing: .04em; text-transform: uppercase; color: var(--c); background: #000; border: 1px solid var(--c); padding: 6px 9px; cursor: pointer; }
+.orca .pas-nav button:hover, .orca .pas-nav button:focus-visible { background: var(--c); color: #000; outline: none; }
+.orca .pas-nav .suite.pret { animation: invite 1.4s ease-in-out infinite; }
+@keyframes invite { 50% { background: var(--c); color: #000; } }
+@media (prefers-reduced-motion: reduce) { .orca .pas-nav .suite.pret { animation: none; background: var(--c); color: #000; } }

@@ -9,7 +9,7 @@ const TOUS = { ...GLYPHES.symboles, ...GLYPHES.operateurs };
 
 const TEXTES = {
   fr: {
-    panneau: 'comment ça marche', legende: 'légende',
+    panneau: 'comment ça marche', legende: 'légende', suivant: 'suite', precedent: 'précédent',
     sync: 'synchronisés', desync: 'désynchronisés', public: 'public', toi: 'toi', memoire: 'mémoire · 48 fragments', reponse: 'teammate',
     decisions: ['imiter', 'contraster', 'densifier', 's’éclaircir', 'se taire'],
     traits: ['hauteur', 'énergie', 'timbre', 'texture'],
@@ -99,7 +99,7 @@ const TEXTES = {
 
   },
   en: {
-    panneau: 'how it works', legende: 'key',
+    panneau: 'how it works', legende: 'key', suivant: 'next', precedent: 'previous',
     sync: 'in sync', desync: 'out of sync', public: 'audience', toi: 'you', memoire: 'memory · 48 fragments', reponse: 'teammate',
     decisions: ['imitate', 'contrast', 'densify', 'thin out', 'stay silent'],
     traits: ['pitch', 'energy', 'timbre', 'texture'],
@@ -906,7 +906,8 @@ function billy (ctx, w, h, t, etat, css, L) {
     etat.pads = [[1.8, 0.8, 2.2, 1, 7], [4, 1.4, 3, 2, 12], [6, 1.6, 5, 3, 3], [10.3, 0.95, 8, 1, 31], [12, 1.2, 2.5, 2, 18], [0, 1.0, 7.5, 3, 40]].map(([x, y, z, u, g]) => ({ x, y, z, u, g, v: 0 }));
     etat.paquets = []; etat.ondes = []; etat.chemin = [];
   }
-  if (etat.dernier !== actif) { etat.dernier = actif; etat.rob = { x: 0.5, y: 0.6, a: -Math.PI / 2, debout: 0 }; etat.trace = []; etat.ondes = []; etat.cible = 0; etat.vise = -1; if (actif === 2) etat.chemin = []; }
+  const cleEtape = actif + '/' + (etat.relance || 0);
+  if (etat.dernier !== cleEtape) { etat.dernier = cleEtape; etat.rob = { x: 0.5, y: 0.6, a: -Math.PI / 2, debout: 0 }; etat.trace = []; etat.ondes = []; etat.cible = 0; etat.vise = -1; if (actif === 2) etat.chemin = []; }
   const e = { l: null, r: null, btn: null, trig: null };
 
   if (actif === 0) {
@@ -962,7 +963,7 @@ function billy (ctx, w, h, t, etat, css, L) {
     texte(ctx, ordre, w / 2, h - 12, e.btn || e.trig ? OR : css, 10, 'center', 'italic ');
   } else if (actif === 2) {
     // 3 · voir : à la première personne, le monde s'écrit en glyphes à mesure que Billy avance ; puis on prend de la hauteur
-    if (etat.vuCycle !== Math.floor(t / total)) { etat.vuCycle = Math.floor(t / total); etat.monde.forEach((p) => { p.vu = -1; }); etat.chemin = []; etat.sDernier = null; }
+    if (etat.vuCycle !== cleEtape) { etat.vuCycle = cleEtape; etat.monde.forEach((p) => { p.vu = -1; }); etat.chemin = []; etat.sDernier = null; }
     const sb = ph * 1.05; const [bx, bz] = surChemin(sb); const [ax, az] = surChemin(sb + 1.6);
     etat.chemin.push([bx, bz]); if (etat.chemin.length > 900) etat.chemin.shift();
     // le LiDAR : ce qui est à portée et devant (ou autour, vu d'en haut) devient glyphe
@@ -1057,14 +1058,13 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
   if (compact) {
     // étroit : seulement l'étape en cours, en grand, et des repères pour les autres
     texte(ctx, L.panneau.toUpperCase(), x + p, yy, GRIS, 10);
-    for (let i = 0; i < n; i++) { ctx.fillStyle = i === R.actif ? css : SOMBRE; ctx.fillRect(x + w - p - (n - i) * 16, yy - 7, 12, 3); }
-    yy += 22;
+    yy += 26;
     texte(ctx, String(R.actif + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0'), x + p, yy, css, 11);
     yy += 20;
     ctx.font = "13px 'IBM Plex Mono', monospace";
     couper(ctx, etapes[R.actif], w - p * 2).forEach((l) => { texte(ctx, l, x + p, yy, ENCRE, 13); yy += 19; });
   } else {
-    texte(ctx, L.panneau.toUpperCase(), x + p, yy, GRIS, 10); yy += 18;
+    texte(ctx, L.panneau.toUpperCase(), x + p, yy, GRIS, 10); yy += 28;
     const taille = 12; const ligne = 18;
     ctx.font = `${taille}px 'IBM Plex Mono', monospace`;
     // beaucoup d'étapes : seule l'étape en cours s'écrit en entier, les autres tiennent sur une ligne
@@ -1074,6 +1074,7 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
       const on = i === R.actif;
       let lignes = couper(ctx, s, w - p * 2 - 28);
       if (serre && !on) { let l0 = lignes[0]; if (lignes.length > 1) { while (ctx.measureText(l0 + ' …').width > w - p * 2 - 28 && l0.includes(' ')) l0 = l0.slice(0, l0.lastIndexOf(' ')); l0 += ' …'; } lignes = [l0]; }
+      (R.zones || (R.zones = []))[i] = [yy - taille - 4, yy + (lignes.length - 1) * ligne + 8];
       if (on) { ctx.fillStyle = css; ctx.fillRect(x + p - 6, yy - taille, 2, lignes.length * ligne); }
       texte(ctx, String(i + 1).padStart(2, '0'), x + p, yy, on ? css : '#55534e', taille);
       lignes.forEach((l, j) => texte(ctx, l, x + p + 28, yy + j * ligne, on ? ENCRE : '#6f6c66', taille));
@@ -1096,27 +1097,84 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
 
 const SCENES = { orca, cave, langue, teammate, tripode, systema, avatar, billy };
 
+
+// ---------------------------------------------------------------- les étapes de chaque scène : on avance à son rythme
+// pour chaque scène, les débuts d'étapes dans un cycle (en secondes), la dernière valeur étant la durée du cycle
+const cumul = (durees) => durees.reduce((acc, d) => [...acc, acc[acc.length - 1] + d], [0]);
+const ETAPES = {
+  orca: [0, 20, 40, 60, 80, 80 + 26 * 6], // la dernière étape est l'alphabet, qui défile seul
+  cave: [0, 16, 32, 52, 72],
+  langue: [0, 0.18, 0.45, 0.62, 1].map((u) => u * 32),
+  teammate: [0, 0.14, 0.42, 0.66, 1].map((u) => u * 64),
+  tripode: [0, 20, 40, 60, 80],
+  systema: cumul(SYS_DUREES),
+  avatar: cumul(AV_DUREES),
+  billy: cumul(BI_DUREES),
+};
+function bornes (coupures, t) {
+  const total = coupures[coupures.length - 1]; const base = Math.floor(t / total) * total; const ph = t - base;
+  let i = 0; while (i < coupures.length - 2 && ph >= coupures[i + 1]) i++;
+  return [base + coupures[i], base + coupures[i + 1]];
+}
+
 export function lancerScene (canvas, id, css, locale) {
   const ctx = canvas.getContext('2d'); if (!ctx) return () => {};
   const L = TEXTES[locale] || TEXTES.fr;
   const f = SCENES[id]; if (!f) return () => {};
   const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const etat = { dt: 0 };
-  let w = 0; let h = 0; let raf = 0; let avant = performance.now(); let t = reduit ? 2.6 : 0;
+  const etat = { dt: 0, relance: 0 };
+  let w = 0; let h = 0; let sw = 0; let sh = 0; let large = true; let raf = 0; let avant = performance.now(); let t = reduit ? 2.6 : 0;
+  let dernierR = null;
+  // à son rythme : l'étape tourne en boucle tant qu'on la lit ; « suite » passe à la suivante
+  const coupures = ETAPES[id]; let borne = coupures ? bornes(coupures, t) : null;
+  const nav = document.createElement('div'); nav.className = 'pas-nav';
+  const bouton = (txt, titre, cls) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = txt; b.title = titre; b.setAttribute('aria-label', titre); if (cls) b.className = cls; nav.append(b); return b; };
+  const bPrec = bouton('◀', L.precedent); const bSuite = bouton(L.suivant + ' ▶', L.suivant, 'suite');
+  if (coupures && canvas.parentElement) canvas.parentElement.append(nav);
+  const aller = (d) => {
+    if (!coupures || !d) return;
+    const total = coupures[coupures.length - 1]; let b = borne;
+    for (let k = 0; k < Math.abs(d); k++) {
+      if (d > 0) b = bornes(coupures, b[1] + 1e-4);
+      else { let x = b[0] - 1e-4; if (x < 0) x += total; b = bornes(coupures, x); }
+    }
+    borne = b; t = b[0] + (reduit ? Math.min(2.6, (b[1] - b[0]) / 2) : 1e-4); etat.relance++; nav.classList.remove('pret');
+    if (reduit) { etat.dt = 0.016; dessiner(); }
+  };
+  bPrec.addEventListener('click', () => aller(-1));
+  bSuite.addEventListener('click', () => aller(1));
+  // un clic sur une étape du panneau y va directement
+  const clic = (ev) => {
+    if (!dernierR || !dernierR.zones || !large) return;
+    const r = canvas.getBoundingClientRect(); const x = ev.clientX - r.left; const y = ev.clientY - r.top;
+    if (x < sw) return;
+    const i = dernierR.zones.findIndex((z) => z && y >= z[0] && y <= z[1]);
+    if (i >= 0) aller(i - dernierR.actif);
+  };
+  canvas.addEventListener('click', clic);
+  const survol = (ev) => { if (!dernierR || !dernierR.zones || !large) return; const r = canvas.getBoundingClientRect(); const x = ev.clientX - r.left; const y = ev.clientY - r.top; const sur = x >= sw && dernierR.zones.some((z, i) => z && i !== dernierR.actif && y >= z[0] && y <= z[1]); canvas.style.cursor = sur ? 'pointer' : ''; };
+  canvas.addEventListener('mousemove', survol);
   const taille = () => { const d = Math.min(devicePixelRatio, 2); w = canvas.clientWidth; h = canvas.clientHeight; canvas.width = Math.round(w * d); canvas.height = Math.round(h * d); ctx.setTransform(d, 0, 0, d, 0, 0); };
   const ro = new ResizeObserver(taille); ro.observe(canvas); taille();
   const dessiner = () => {
     ctx.clearRect(0, 0, w, h); points(ctx, w, h, 14);
     // large : la scène à gauche, le panneau à droite ; étroit : la scène en haut, le panneau dessous
-    const large = w >= 560;
-    const sw = large ? Math.round(w * 0.6) : w; const sh = large ? h : Math.round(Math.max(h * 0.6, h - 190));
+    large = w >= 560;
+    sw = large ? Math.round(w * 0.6) : w; sh = large ? h : Math.round(Math.max(h * 0.6, h - 190));
     ctx.save(); ctx.beginPath(); ctx.rect(0, 0, sw, sh); ctx.clip();
     const R = f(ctx, sw, sh, t, etat, css, L);
     ctx.restore();
     if (large) panneau(ctx, sw, 0, w - sw, h, R, css, L, false);
     else panneau(ctx, 0, sh, w, h - sh, R, css, L, true);
+    dernierR = R;
+    const top = (large ? 7 : sh + 6) + 'px'; if (nav.style.top !== top) nav.style.top = top;
   };
-  const boucle = (now) => { const dt = Math.max(0, Math.min((now - avant) / 1000, 0.1)); avant = now; t += dt; etat.dt = dt; dessiner(); raf = requestAnimationFrame(boucle); };
+  const boucle = (now) => {
+    const dt = Math.max(0, Math.min((now - avant) / 1000, 0.1)); avant = now; t += dt; etat.dt = dt;
+    // fin de l'étape : on la rejoue, et le bouton « suite » invite à continuer
+    if (borne && t >= borne[1]) { t = borne[0] + 1e-4; etat.relance++; nav.classList.add('pret'); }
+    dessiner(); raf = requestAnimationFrame(boucle);
+  };
   if (reduit) { etat.dt = 0.016; dessiner(); } else raf = requestAnimationFrame(boucle);
-  return () => { cancelAnimationFrame(raf); ro.disconnect(); };
+  return () => { cancelAnimationFrame(raf); ro.disconnect(); canvas.removeEventListener('click', clic); canvas.removeEventListener('mousemove', survol); nav.remove(); };
 }
