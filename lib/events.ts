@@ -306,6 +306,19 @@ export async function updateEvent(id: string, input: EventInput) {
   return { event: updated };
 }
 
+export async function deleteEvent(id: string) {
+  const db = getDb();
+  if (!db) return { error: 'unavailable' as const };
+  const removed = await db.transaction(async (tx) => {
+    await tx.delete(registrations).where(eq(registrations.eventId, id));
+    await tx.delete(invites).where(eq(invites.eventId, id));
+    const [row] = await tx.delete(events).where(eq(events.id, id)).returning({ id: events.id });
+    return row;
+  });
+  if (!removed) return { error: 'missing' as const };
+  return { ok: true as const };
+}
+
 export async function listEventsAdmin() {
   const db = getDb();
   if (!db) return null;
