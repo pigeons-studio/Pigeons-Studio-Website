@@ -1128,8 +1128,21 @@ export function lancerScene (canvas, id, css, locale) {
   // à son rythme : l'étape tourne en boucle tant qu'on la lit ; « suite » passe à la suivante
   const coupures = ETAPES[id]; let borne = coupures ? bornes(coupures, t) : null;
   const nav = document.createElement('div'); nav.className = 'pas-nav';
-  const bouton = (txt, titre, cls) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = txt; b.title = titre; b.setAttribute('aria-label', titre); if (cls) b.className = cls; nav.append(b); return b; };
-  const bPrec = bouton('◀', L.precedent); const bSuite = bouton(L.suivant + ' ▶', L.suivant, 'suite');
+  // les boutons sont des glyphes d'opérateurs Orca : E (aube, va vers l'est) avance, W (nuit, va vers l'ouest) recule ; la traduction s'écrit au survol
+  const O = OPS[locale] || OPS.fr;
+  const trad = document.createElement('span'); trad.className = 'trad'; nav.append(trad);
+  const dire = (k, nom) => { trad.innerHTML = ''; const i = document.createElement('i'); i.textContent = O[k].mot; const b = document.createElement('b'); b.textContent = nom; trad.append(i, ' → ', b); trad.classList.add('vu'); };
+  const taire = () => { if (nav.classList.contains('pret')) dire('E', L.suivant); else trad.classList.remove('vu'); };
+  const bouton = (k, titre, coul, cls) => {
+    const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', titre); if (cls) b.className = cls;
+    const ns = 'http://www.w3.org/2000/svg'; const svg = document.createElementNS(ns, 'svg'); svg.setAttribute('viewBox', '0 0 8 8'); svg.setAttribute('shape-rendering', 'crispEdges'); svg.setAttribute('aria-hidden', 'true');
+    (TOUS[k] || []).forEach((row, y) => [...row].forEach((c, x) => { if (c !== '#') return; const r = document.createElementNS(ns, 'rect'); r.setAttribute('x', x); r.setAttribute('y', y); r.setAttribute('width', 1); r.setAttribute('height', 1); r.setAttribute('fill', coul); svg.append(r); }));
+    b.append(svg); nav.append(b);
+    b.addEventListener('mouseenter', () => dire(k, titre)); b.addEventListener('focus', () => dire(k, titre));
+    b.addEventListener('mouseleave', taire); b.addEventListener('blur', taire);
+    return b;
+  };
+  const bPrec = bouton('W', L.precedent, GRIS); const bSuite = bouton('E', L.suivant, css, 'suite');
   if (coupures && canvas.parentElement) canvas.parentElement.append(nav);
   const aller = (d) => {
     if (!coupures || !d) return;
@@ -1138,7 +1151,7 @@ export function lancerScene (canvas, id, css, locale) {
       if (d > 0) b = bornes(coupures, b[1] + 1e-4);
       else { let x = b[0] - 1e-4; if (x < 0) x += total; b = bornes(coupures, x); }
     }
-    borne = b; t = b[0] + (reduit ? Math.min(2.6, (b[1] - b[0]) / 2) : 1e-4); etat.relance++; nav.classList.remove('pret');
+    borne = b; t = b[0] + (reduit ? Math.min(2.6, (b[1] - b[0]) / 2) : 1e-4); etat.relance++; nav.classList.remove('pret'); if (!nav.matches(':hover')) trad.classList.remove('vu');
     if (reduit) { etat.dt = 0.016; dessiner(); }
   };
   bPrec.addEventListener('click', () => aller(-1));
@@ -1172,7 +1185,7 @@ export function lancerScene (canvas, id, css, locale) {
   const boucle = (now) => {
     const dt = Math.max(0, Math.min((now - avant) / 1000, 0.1)); avant = now; t += dt; etat.dt = dt;
     // fin de l'étape : on la rejoue, et le bouton « suite » invite à continuer
-    if (borne && t >= borne[1]) { t = borne[0] + 1e-4; etat.relance++; nav.classList.add('pret'); }
+    if (borne && t >= borne[1]) { t = borne[0] + 1e-4; etat.relance++; if (!nav.classList.contains('pret')) { nav.classList.add('pret'); if (!nav.matches(':hover')) dire('E', L.suivant); } }
     dessiner(); raf = requestAnimationFrame(boucle);
   };
   if (reduit) { etat.dt = 0.016; dessiner(); } else raf = requestAnimationFrame(boucle);
