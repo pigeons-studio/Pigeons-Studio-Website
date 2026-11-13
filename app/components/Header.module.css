@@ -429,12 +429,21 @@
   right: max(var(--marge), env(safe-area-inset-right, 0px));
   border: 1px solid var(--border, #2c2b29);
 }
-@media (max-width: 520px) {
+@media (max-width: 720px) {
+  .coinHautGauche > a.cadreLien { display: none; }
+  .coinHautGauche, .cadreActions { padding: 10px 10px 0; line-height: 16px; align-items: baseline; }
+  .logo { font-size: 12px; line-height: 16px; letter-spacing: .1em; margin-right: 0; }
+  .cadreActions { gap: 8px; }
+  .cadreActions .cadreLien { line-height: 16px; }
+  .coinBas { padding: 6px 10px; bottom: calc(var(--marge, 12px) + env(safe-area-inset-bottom, 0px) + 6px); }
   .coinDroite {
     left: max(var(--marge, 12px), env(safe-area-inset-left, 0px));
     flex-wrap: wrap;
     justify-content: flex-end;
     white-space: normal;
-    row-gap: 4px;
+    text-align: right;
+    row-gap: 2px;
   }
+  .coinDroite > span { order: 1; flex: 1 0 100%; text-align: right; }
+  .coinGauche { max-width: 46%; overflow: hidden; text-overflow: ellipsis; }
 }

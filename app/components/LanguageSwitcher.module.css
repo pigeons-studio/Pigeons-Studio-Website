@@ -52,6 +52,7 @@
 .button {
   font-family: var(--font-mono);
   font-size: 12px;
+  line-height: 16px;
   font-weight: 400;
   letter-spacing: .1em;
   padding: 0;

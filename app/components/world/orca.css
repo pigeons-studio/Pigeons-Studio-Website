@@ -151,7 +151,8 @@
 .orca #tiroir .qte button { color: var(--gris); padding: 0 4px; }
 .orca #tiroir .qte button:hover { color: var(--encre); }
 .orca #tiroir .qte b { font-weight: 400; min-width: 1.5ch; text-align: center; }
-.orca #tiroir a.btn { text-align: center; }
+.orca #tiroir .ligne > .btn { display: inline-flex; flex: 1 1 0; align-items: center; justify-content: center; text-align: center; min-height: 32px; }
+.orca #tiroir > .btn { display: flex; align-items: center; justify-content: center; text-align: center; }
 .orca #tiroir .lien:hover { color: var(--encre); }
 @media (max-width: 560px) {
   .orca #cadre .hd { gap: 10px; padding-inline: 10px; }
@@ -322,8 +323,10 @@
   /* connexion et contact : une fenêtre au centre de l'écran, sur un voile noir */
   .orca #voile { display: block; position: fixed; inset: 0; z-index: 5; background: rgba(0,0,0,.78); }
   .orca #tiroir.tiroir-connexion, .orca #tiroir.tiroir-contact { z-index: 6; left: 50%; right: auto; top: 50%; transform: translate(-50%, -50%); width: min(380px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); overflow-y: auto; overscroll-behavior: contain; }
-  .orca #cadre .bd { flex-wrap: wrap; justify-content: flex-end; max-width: calc(100% - 12px); row-gap: 4px; }
-  .orca #cadre .legal3d { display: flex; flex-wrap: wrap; justify-content: flex-end; max-width: 100%; }
+  .orca #cadre .bd { left: 0; right: 0; max-width: none; bottom: 0; flex-direction: column; align-items: flex-end; row-gap: 2px; padding: 4px 10px 6px; }
+  .orca #cadre .legal3d { display: flex; flex-wrap: wrap; justify-content: flex-end; width: 100%; max-width: 100%; column-gap: 10px; row-gap: 2px; }
+  .orca #cadre .legal3d > span { flex: 1 0 100%; text-align: right; }
+  .orca #cadre .bg { bottom: 6px; height: 12px; max-width: calc(100% - 168px); padding: 0 8px; line-height: 12px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 }
 @media (pointer: coarse), (max-width: 560px) {
   /* au doigt, pas de survol : chaque glyphe du menu porte sa traduction en permanence */
