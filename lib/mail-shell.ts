@@ -9,7 +9,7 @@ const TETE = `<head>
   u + .body .gmail-blend-difference { background:#000; mix-blend-mode:difference; }
   @media (prefers-color-scheme: dark) {
     .fond, .fond td { background:#000 !important; background-color:#000 !important; }
-    .encre { color:#f2f0ea !important; }
+    .encre { color:#ffe4a3 !important; }
     .or { color:#ffb545 !important; border-color:#ffb545 !important; }
   }
 </style>

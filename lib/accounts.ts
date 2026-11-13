@@ -66,13 +66,13 @@ export async function sendConfirmationEmail(email: string, token: string, locale
     html: mailNoir(`<table class="fond" role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000;background-image:linear-gradient(#000,#000);">
 <tr><td class="fond" align="center" bgcolor="#000000" style="background:#000;background-image:linear-gradient(#000,#000);">
 <table class="fond" role="presentation" width="480" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000;background-image:linear-gradient(#000,#000);max-width:480px;">
-<tr><td class="fond encre" bgcolor="#000000" style="background:#000;background-image:linear-gradient(#000,#000);padding:32px 24px;font-family:ui-monospace,'IBM Plex Mono',Menlo,Consolas,monospace;color:#f2f0ea;">
+<tr><td class="fond encre" bgcolor="#000000" style="background:#000;background-image:linear-gradient(#000,#000);padding:32px 24px;font-family:ui-monospace,'IBM Plex Mono',Menlo,Consolas,monospace;color:#ffe4a3;">
 <p class="or" style="margin:0 0 24px;letter-spacing:.18em;font-size:12px;color:#ffb545;">PIGEONS//STUDIO</p>
-<p class="encre" style="margin:0 0 8px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:#f2f0ea;">${titre}</p>
-<p class="encre" style="margin:0 0 24px;font-size:13px;line-height:1.5;color:#f2f0ea;">${phrase}</p>
+<p class="encre" style="margin:0 0 8px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:#ffe4a3;">${titre}</p>
+<p class="encre" style="margin:0 0 24px;font-size:13px;line-height:1.5;color:#ffe4a3;">${phrase}</p>
 <a class="or" href="${link}" style="display:inline-block;padding:10px 16px;border:1px solid #ffb545;color:#ffb545;text-decoration:none;letter-spacing:.12em;text-transform:uppercase;font-size:11px;">${bouton}</a>
-<p class="encre" style="margin:24px 0 8px;font-size:11px;color:#f2f0ea;">${expire}</p>
-<p class="encre" style="margin:0;font-size:11px;line-height:1.4;color:#f2f0ea;word-break:break-all;">${link}</p>
+<p class="encre" style="margin:24px 0 8px;font-size:11px;color:#ffe4a3;">${expire}</p>
+<a class="or" href="${link}" style="display:block;margin:0;font-size:11px;line-height:1.4;color:#ffb545;text-decoration:none;word-break:break-all;">${link}</a>
 </td></tr></table>
 </td></tr></table>`),
     text: `${phrase}\n${link}\n\n${expire}`,
