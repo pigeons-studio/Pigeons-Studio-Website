@@ -213,24 +213,6 @@
        ]
       }
      ]
-    },
-    {
-     "t": "liste",
-     "titre": "Parcours de Koo",
-     "items": [
-      [
-       "Intuition · Alaska · 2017-2018",
-       "Stations météorologiques et biofeedback : les mouvements de la nature, convertis en données, deviennent sons, textures et rythmes."
-      ],
-      [
-       "S.E.L.M. · Villa Albertine · 2023",
-       "Résidence à La Nouvelle-Orléans : une danse abstraite du corps, par compilation de gestes captés et « réhumanisation » de la donnée."
-      ],
-      [
-       "Activate Cities · NSDOS × NORKHAT · 2025",
-       "Parcours urbains et QR codes dans l’espace public : une carte sonore interactive qui relie l’album à la ville."
-      ]
-     ]
     }
    ]
   },
@@ -850,6 +832,70 @@
    ]
   },
   {
+   "id": "evenements",
+   "nom": "événements",
+   "code": "E",
+   "signe": "E0E8",
+   "pourquoi": "cercle : on se réunit",
+   "teinte": 16752327,
+   "css": "#ff9ec7",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "Ateliers, rencontres, concerts : les moments où l’on ouvre le studio. On y fabrique, on y écoute, on y apprend ensemble."
+    },
+    {
+     "t": "explorer",
+     "items": [
+      {
+       "id": "ev-micros",
+       "nom": "WORKSHOP // MICROS",
+       "sous": "Apprendre à souder et bricoler des micros XLR, simplement et pas cher",
+       "statut": "dimanche 22 novembre · 14h → 20h",
+       "film": "/evenements/workshop-micros.mp4",
+       "texte": [
+        "Un atelier pour apprendre à souder et bricoler des micros XLR, simplement et pas cher. On va explorer et fabriquer plusieurs micros, avec différents principes et designs : des micros à électret (des capsules très variées et très communes), des micros à ruban faits maison (avec une membrane DIY), des micros sensibles aux ondes électromagnétiques et des micros capables d’entendre les ultrasons. Et découvrir d’autres designs, plus ou moins simples, pour différents types de capsules.",
+        "L’atelier est animé par Hugo Thomas, étudiant en cinéma d’animation qui passe son temps libre à bricoler : il adore démonter, détourner et fabriquer ses propres outils de création, que ce soit en créant ou modifiant des appareils photo, ou en soudant des micros maison.",
+        "Pour s’inscrire, écrivez au studio avec le bouton contact."
+       ],
+       "reperes": [
+        [
+         "Quand",
+         "Dimanche 22 novembre, 14h → 20h"
+        ],
+        [
+         "Où",
+         "111 rue Marceau, Montreuil"
+        ],
+        [
+         "Places",
+         "12"
+        ],
+        [
+         "On fabrique",
+         "Électret, ruban fait maison, ondes électromagnétiques, ultrasons"
+        ],
+        [
+         "Animé par",
+         "Hugo Thomas"
+        ],
+        [
+         "Organisé par",
+         "Pigeons Studio"
+        ]
+       ],
+       "tags": [
+        "Atelier",
+        "Soudure",
+        "Micros XLR",
+        "DIY"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
    "id": "boutique",
    "nom": "boutique",
    "code": "B",
@@ -1375,24 +1421,6 @@
         "DMX/Art‑Net"
        ]
       }
-     ]
-    },
-    {
-     "t": "liste",
-     "titre": "Koo’s journey",
-     "items": [
-      [
-       "Intuition · Alaska · 2017-2018",
-       "Weather stations and biofeedback: the movements of nature, turned into data, become sounds, textures and rhythms."
-      ],
-      [
-       "S.E.L.M. · Villa Albertine · 2023",
-       "A residency in New Orleans: an abstract dance of the body, by compiling captured gestures and “rehumanising” the data."
-      ],
-      [
-       "Activate Cities · NSDOS × NORKHAT · 2025",
-       "Urban walks and QR codes in public space: an interactive sound map linking the album to the city."
-      ]
      ]
     }
    ]
@@ -2006,6 +2034,70 @@
         "metabolism",
         "Norns",
         "MIDI"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "evenements",
+   "nom": "events",
+   "code": "E",
+   "signe": "E0E8",
+   "pourquoi": "circle: we gather",
+   "teinte": 16752327,
+   "css": "#ff9ec7",
+   "blocs": [
+    {
+     "t": "texte",
+     "p": "Workshops, meetings, concerts: the moments when we open the studio. We make, listen and learn together."
+    },
+    {
+     "t": "explorer",
+     "items": [
+      {
+       "id": "ev-micros",
+       "nom": "WORKSHOP // MICS",
+       "sous": "Learn to solder and hack XLR microphones, simply and cheaply",
+       "statut": "Sunday 22 November · 2pm → 8pm",
+       "film": "/evenements/workshop-micros.mp4",
+       "texte": [
+        "A workshop to learn how to solder and hack XLR microphones, simply and cheaply. We will explore and build several mics with different principles and designs: electret mics (very varied, very common capsules), homemade ribbon mics (with a DIY membrane), mics sensitive to electromagnetic waves, and mics that can hear ultrasound. And discover other designs, more or less simple, for different kinds of capsules.",
+        "The workshop is led by Hugo Thomas, an animation film student who spends his free time tinkering: he loves taking apart, hacking and making his own creative tools, whether building or modifying cameras or soldering homemade mics.",
+        "To sign up, write to the studio with the contact button."
+       ],
+       "reperes": [
+        [
+         "When",
+         "Sunday 22 November, 2pm → 8pm"
+        ],
+        [
+         "Where",
+         "111 rue Marceau, Montreuil"
+        ],
+        [
+         "Places",
+         "12"
+        ],
+        [
+         "We build",
+         "Electret, homemade ribbon, electromagnetic, ultrasound"
+        ],
+        [
+         "Led by",
+         "Hugo Thomas"
+        ],
+        [
+         "Organised by",
+         "Pigeons Studio"
+        ]
+       ],
+       "tags": [
+        "Workshop",
+        "Soldering",
+        "XLR mics",
+        "DIY"
        ]
       }
      ]
