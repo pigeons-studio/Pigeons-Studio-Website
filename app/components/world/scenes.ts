@@ -2039,7 +2039,7 @@ export function lancerScene (canvas, id, css, locale) {
   const etat = { dt: 0, relance: 0 };
   let w = 0; let h = 0; let sw = 0; let sh = 0; let large = true; let raf = 0; let avant = performance.now(); let t = reduit ? 2.6 : 0;
   let dernierR = null;
-  // à son rythme : l'étape tourne en boucle tant qu'on la lit ; « suite » passe à la suivante
+  // l'étape avance toute seule ; « suite » et « précédent » servent à sauter
   const coupures = ETAPES[id]; let borne = coupures ? bornes(coupures, t) : null;
   const nav = document.createElement('div'); nav.className = 'pas-nav';
   // les boutons sont des glyphes d'opérateurs Orca : E (aube, va vers l'est) avance, W (nuit, va vers l'ouest) recule ; la traduction s'écrit au survol
@@ -2101,8 +2101,8 @@ export function lancerScene (canvas, id, css, locale) {
   };
   const boucle = (now) => {
     const dt = Math.max(0, Math.min((now - avant) / 1000, 0.1)); avant = now; t += dt; etat.dt = dt;
-    // fin de l'étape : on la rejoue, et le bouton « suite » invite à continuer
-    if (borne && t >= borne[1]) { t = borne[0] + 1e-4; etat.relance++; nav.classList.add('pret'); }
+    // fin de l'étape : on passe à la suivante, et on boucle après la dernière
+    if (borne && t >= borne[1]) { borne = bornes(coupures, t); etat.relance++; nav.classList.remove('pret'); }
     dessiner(); raf = requestAnimationFrame(boucle);
   };
   if (reduit) { etat.dt = 0.016; dessiner(); } else raf = requestAnimationFrame(boucle);
