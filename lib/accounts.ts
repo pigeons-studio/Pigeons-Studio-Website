@@ -62,7 +62,7 @@ export async function sendConfirmationEmail(email: string, token: string, locale
     from: process.env.RESEND_FROM_EMAIL || 'contact@punkhazard.org',
     to: email,
     subject: fr ? 'Confirme ton compte Pigeons Studio' : 'Confirm your Pigeons Studio account',
-    html: `<!DOCTYPE html><html><body style="margin:0;background:#000;">
+    html: `<!DOCTYPE html><html><head><meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"></head><body style="margin:0;background:#000;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000000;">
 <tr><td align="center">
 <table role="presentation" width="480" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000000;max-width:480px;">

@@ -150,7 +150,7 @@ export async function sendEventConfirmation(mail: EventMail, locale: 'fr' | 'en'
     from: process.env.RESEND_FROM_EMAIL || 'contact@punkhazard.org',
     to: mail.email,
     subject: fr ? `Inscription confirmée · ${mail.titleFr}` : `You’re registered · ${mail.titleEn}`,
-    html: `<!DOCTYPE html><html><body style="margin:0;background:#000;">
+    html: `<!DOCTYPE html><html><head><meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"></head><body style="margin:0;background:#000;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000000;">
 <tr><td align="center">
 <table role="presentation" width="480" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000000;max-width:480px;">

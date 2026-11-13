@@ -44,7 +44,7 @@ function ligne(item: OrderLine, locale: 'fr' | 'en') {
 
 function mailHtml(locale: 'fr' | 'en', titre: string, lignes: string[], phrase: string, bouton: string, lien: string) {
   const corps = lignes.map((l) => `<p style="margin:0 0 8px;font-size:13px;line-height:1.5;color:#f2f0ea;">${echap(l)}</p>`).join('');
-  return `<!DOCTYPE html><html><body style="margin:0;background:#000;">
+  return `<!DOCTYPE html><html><head><meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"></head><body style="margin:0;background:#000;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000000;">
 <tr><td align="center">
 <table role="presentation" width="480" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000000;max-width:480px;">
