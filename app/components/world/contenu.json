@@ -809,6 +809,36 @@
         "Recalibrage",
         "Midification"
        ]
+      },
+      {
+       "id": "sv-pcb",
+       "nom": "PCB sur mesure",
+       "sous": "Des cartes électroniques dessinées pour votre projet",
+       "statut": "sur devis",
+       "devisSujet": "PCB sur mesure",
+       "texte": [
+        "On conçoit et on fabrique des circuits imprimés sur mesure : du schéma au tracé des pistes, du choix des composants à la petite série, jusqu’à l’intégration dans votre objet.",
+        "C’est le même savoir-faire que pour nos capteurs AS-SIMT et nos objets sonores : des cartes pensées pour la scène, l’installation et les objets qui doivent fonctionner longtemps."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Artistes, studios, designers, entreprises"
+        ],
+        [
+         "On fait",
+         "Schéma, routage, choix des composants, fabrication, montage"
+        ],
+        [
+         "Formats",
+         "Prototype, petite série, intégration dans un objet"
+        ]
+       ],
+       "tags": [
+        "Électronique",
+        "Prototype",
+        "Petite série"
+       ]
       }
      ]
     },
@@ -855,6 +885,7 @@
      "code": "A",
      "items": [
       {
+       "id": "bonnet-pompon",
        "nom": "Bonnet pompon",
        "sens": "Un bonnet couvert de pompons faits main, qui forme comme une petite montagne douce autour du visage. Crocheté à l’aiguille 3,5, pompons faits à la main, cordons réalisés au tricotin manuel.",
        "image": "/boutique/bonnet-pompon-orange.jpg",
@@ -927,8 +958,12 @@
        "id": "gear-capteurs",
        "nom": "Capteurs AS-SIMT",
        "sous": "Des capteurs de mouvement à porter, qui s’écoutent aussi par la peau",
-       "statut": "bientôt disponible",
+       "statut": "pré-commande",
        "objet": "/models/tripode.bin",
+       "tarif": "500 € · pré-commande",
+       "commande": "pré-commander",
+       "prixLabel": "500 €",
+       "detail": "Petits boîtiers imprimés en 3D, portés sur le corps ou posés sur un instrument. Ils mesurent le mouvement en temps réel et l’envoient sans fil. Trois moteurs de vibration rendent le son sensible sur la peau.",
        "texte": [
         "Les capteurs AS-SIMT sont de petits boîtiers imprimés en 3D qu’on porte sur le corps ou qu’on pose sur un instrument. Ils mesurent le mouvement en temps réel et l’envoient sans fil, pour jouer de la musique, piloter de la lumière ou écrire du code avec le geste.",
         "Ils fonctionnent dans les deux sens : ils envoient le mouvement, et ils reçoivent le son ou les données, que leurs trois moteurs de vibration rendent sensibles. On écoute aussi par la peau : c’est l’écoute haptique. Ce sont les capteurs de TRIPODE AS-SIMT.",
@@ -960,35 +995,6 @@
         "Capteurs de mouvement",
         "Haptique",
         "OSC · MIDI · Wi-Fi"
-       ]
-      },
-      {
-       "id": "gear-pcb",
-       "nom": "PCB sur mesure",
-       "sous": "Des cartes électroniques dessinées pour votre projet",
-       "statut": "sur devis",
-       "texte": [
-        "On conçoit et on fabrique des circuits imprimés sur mesure : du schéma au tracé des pistes, du choix des composants à la petite série, jusqu’à l’intégration dans votre objet.",
-        "C’est le même savoir-faire que pour nos capteurs AS-SIMT et nos objets sonores : des cartes pensées pour la scène, l’installation et les objets qui doivent fonctionner longtemps."
-       ],
-       "reperes": [
-        [
-         "Pour qui",
-         "Artistes, studios, designers, entreprises"
-        ],
-        [
-         "On fait",
-         "Schéma, routage, choix des composants, fabrication, montage"
-        ],
-        [
-         "Formats",
-         "Prototype, petite série, intégration dans un objet"
-        ]
-       ],
-       "tags": [
-        "Électronique",
-        "Prototype",
-        "Petite série"
        ]
       }
      ]
@@ -2015,6 +2021,36 @@
         "Recalibration",
         "MIDI retrofit"
        ]
+      },
+      {
+       "id": "sv-pcb",
+       "nom": "Custom PCBs",
+       "sous": "Circuit boards designed for your project",
+       "statut": "on quote",
+       "devisSujet": "Custom PCBs",
+       "texte": [
+        "We design and make custom printed circuit boards: from schematic to trace layout, from component choice to small runs, all the way to integration in your object.",
+        "It is the same know-how as for our AS-SIMT sensors and sound objects: boards made for the stage, installations and objects that must last."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Artists, studios, designers, companies"
+        ],
+        [
+         "We do",
+         "Schematic, routing, component choice, manufacturing, assembly"
+        ],
+        [
+         "Formats",
+         "Prototype, small run, integration in an object"
+        ]
+       ],
+       "tags": [
+        "Electronics",
+        "Prototype",
+        "Small run"
+       ]
       }
      ]
     },
@@ -2061,6 +2097,7 @@
      "code": "A",
      "items": [
       {
+       "id": "bonnet-pompon",
        "nom": "Pompom hood",
        "sens": "A hood covered with handmade pompoms, like a small soft mountain around the face. Crocheted with a 3.5 hook, handmade pompoms, cords made on a hand knitting spool.",
        "image": "/boutique/bonnet-pompon-orange.jpg",
@@ -2133,8 +2170,12 @@
        "id": "gear-capteurs",
        "nom": "AS-SIMT sensors",
        "sous": "Wearable motion sensors you can also hear through the skin",
-       "statut": "coming soon",
+       "statut": "pre-order",
        "objet": "/models/tripode.bin",
+       "tarif": "€500 · pre-order",
+       "commande": "pre-order",
+       "prixLabel": "€500",
+       "detail": "Small 3D-printed cases worn on the body or placed on an instrument. They measure movement in real time and send it wirelessly. Three vibration motors make sound tangible on the skin.",
        "texte": [
         "AS-SIMT sensors are small 3D-printed cases worn on the body or placed on an instrument. They measure movement in real time and send it wirelessly, to play music, drive light or write code with gesture.",
         "They work both ways: they send movement, and they receive sound or data, which their three vibration motors make tangible. You also listen through the skin: that is haptic listening. They are the sensors of TRIPODE AS-SIMT.",
@@ -2166,35 +2207,6 @@
         "Motion sensors",
         "Haptics",
         "OSC · MIDI · Wi-Fi"
-       ]
-      },
-      {
-       "id": "gear-pcb",
-       "nom": "Custom PCBs",
-       "sous": "Circuit boards designed for your project",
-       "statut": "on quote",
-       "texte": [
-        "We design and make custom printed circuit boards: from schematic to trace layout, from component choice to small runs, all the way to integration in your object.",
-        "It is the same know-how as for our AS-SIMT sensors and sound objects: boards made for the stage, installations and objects that must last."
-       ],
-       "reperes": [
-        [
-         "For",
-         "Artists, studios, designers, companies"
-        ],
-        [
-         "We do",
-         "Schematic, routing, component choice, manufacturing, assembly"
-        ],
-        [
-         "Formats",
-         "Prototype, small run, integration in an object"
-        ]
-       ],
-       "tags": [
-        "Electronics",
-        "Prototype",
-        "Small run"
        ]
       }
      ]

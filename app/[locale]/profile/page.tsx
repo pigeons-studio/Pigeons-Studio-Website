@@ -6,9 +6,22 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useRouter, Link } from '@/i18n/routing';
 import Header from '@/app/components/Header';
 import DeleteAccountModal from '@/app/components/DeleteAccountModal';
-import { useOrdersStore } from '@/app/store/ordersStore';
+import type { OrderView } from '@/lib/order-types';
 import styles from './page.module.css';
 import OrcaFond from '@/app/components/world/OrcaFond';
+
+const ETATS: Record<string, { fr: string; en: string }> = {
+  received: { fr: 'reçue', en: 'received' },
+  confirmed: { fr: 'confirmée', en: 'confirmed' },
+  making: { fr: 'en fabrication', en: 'in production' },
+  ready: { fr: 'prête', en: 'ready' },
+  cancelled: { fr: 'annulée', en: 'cancelled' },
+};
+
+function etatCommande(status: string, locale: string) {
+  const lib = ETATS[status];
+  return lib ? lib[locale === 'en' ? 'en' : 'fr'] : status;
+}
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
@@ -17,9 +30,9 @@ export default function ProfilePage() {
   const locale = useLocale();
   const tInfo = useTranslations('profile.sections.info');
   const tOrders = useTranslations('profile.sections.orders');
-  const getOrdersByUser = useOrdersStore((state) => state.getOrdersByUser);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [admin, setAdmin] = useState(false);
+  const [commandes, setCommandes] = useState<OrderView[]>([]);
   
   // Rediriger si non connecté
   useEffect(() => {
@@ -31,6 +44,7 @@ export default function ProfilePage() {
   useEffect(() => {
     if (status !== 'authenticated') return;
     fetch('/api/admin/me').then((r) => setAdmin(r.ok)).catch(() => setAdmin(false));
+    fetch('/api/orders').then((r) => r.ok ? r.json() : { orders: [] }).then((d) => setCommandes(d.orders || [])).catch(() => setCommandes([]));
   }, [status]);
 
   if (status === 'loading') {
@@ -51,8 +65,6 @@ export default function ProfilePage() {
     return null;
   }
 
-  const orders = getOrdersByUser(session.user?.id || '');
-
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat('fr-FR', {
@@ -60,21 +72,6 @@ export default function ProfilePage() {
       month: 'long',
       day: 'numeric',
     }).format(date);
-  };
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('fr-FR', {
-      style: 'currency',
-      currency: 'EUR',
-    }).format(price);
-  };
-
-  const getStatusLabel = (status: string) => {
-    return tOrders(`statuses.${status as any}`);
-  };
-
-  const getStatusClass = (status: string) => {
-    return styles[`status${status.charAt(0).toUpperCase() + status.slice(1)}`];
   };
 
   return (
@@ -123,6 +120,12 @@ export default function ProfilePage() {
                           ? 'Regarder les animations du site et copier leur identifiant pour l’attacher à un event.'
                           : 'Watch the site animations and copy an id to attach one to an event.'}</small>
                       </Link>
+                      <Link href="/admin/orders" className={styles.adminLink}>
+                        <span>{locale === 'fr' ? 'commandes' : 'orders'}</span>
+                        <small>{locale === 'fr'
+                          ? 'Voir toutes les commandes et précommandes, et changer leur état.'
+                          : 'See every order and pre-order, and change its status.'}</small>
+                      </Link>
                     </div>
                   </div>
                 )}
@@ -145,62 +148,41 @@ export default function ProfilePage() {
             <section className={styles.section}>
               <h2 className={styles.sectionTitle}>{tOrders('title')}</h2>
               
-              {orders.length === 0 ? (
+              {commandes.length === 0 ? (
                 <div className={styles.emptyState}>
                   <p>{tOrders('empty')}</p>
                 </div>
               ) : (
                 <div className={styles.ordersList}>
-                  {orders.map((order) => (
+                  {commandes.map((order) => (
                     <div key={order.id} className={styles.orderCard}>
                       <div className={styles.orderHeader}>
                         <div className={styles.orderInfo}>
                           <span className={styles.orderNumber}>
-                            {tOrders('orderNumber')} {order.orderNumber}
+                            {order.kind === 'preorder' ? (locale === 'fr' ? 'Précommande' : 'Pre-order') : (locale === 'fr' ? 'Commande' : 'Order')}
                           </span>
                           <span className={styles.orderDate}>
-                            {formatDate(order.date)}
+                            {formatDate(order.createdAt)}
                           </span>
                         </div>
                         <div className={styles.orderMeta}>
-                          <span className={`${styles.orderStatus} ${getStatusClass(order.status)}`}>
-                            {getStatusLabel(order.status)}
-                          </span>
-                          <span className={styles.orderTotal}>
-                            {formatPrice(order.total)}
+                          <span className={styles.orderStatus}>
+                            {etatCommande(order.status, locale)}
                           </span>
                         </div>
                       </div>
-                      
                       <div className={styles.orderItems}>
-                        {order.items.map((item, index) => (
-                          <div key={index} className={styles.orderItem}>
-                            <div className={styles.orderItemImage}>
-                              {item.image ? (
-                                <img src={item.image} alt={item.name.fr} />
-                              ) : (
-                                <div className={styles.orderItemPlaceholder}>
-                                  {item.name.fr.charAt(0)}
-                                </div>
-                              )}
-                            </div>
+                        {order.items.map((item) => (
+                          <div key={`${item.productId}-${item.color || ''}`} className={styles.orderItem}>
                             <div className={styles.orderItemInfo}>
                               <span className={styles.orderItemName}>
-                                {item.name.fr}
+                                {(locale === 'en' ? item.nameEn : item.nameFr)}{item.color ? ` · ${item.color}` : ''}
                               </span>
                               <span className={styles.orderItemQuantity}>
                                 x{item.quantity}
                               </span>
                             </div>
-                            <div className={styles.orderItemPrice}>
-                              {item.price === 'coming' || item.price === 'quote' ? (
-                                <span className={styles.orderItemPriceSpecial}>
-                                  {item.price === 'coming' ? 'À venir' : 'Sur devis'}
-                                </span>
-                              ) : (
-                                formatPrice(parseFloat(item.price.replace(/[^\d.,]/g, '').replace(',', '.')) * item.quantity)
-                              )}
-                            </div>
+                            <div className={styles.orderItemPrice}>{item.priceLabel}</div>
                           </div>
                         ))}
                       </div>

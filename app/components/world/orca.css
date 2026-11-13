@@ -322,7 +322,7 @@
 @media (max-width: 760px) {
   /* connexion et contact : une fenêtre au centre de l'écran, sur un voile noir */
   .orca #voile { display: block; position: fixed; inset: 0; z-index: 5; background: rgba(0,0,0,.78); }
-  .orca #tiroir.tiroir-connexion, .orca #tiroir.tiroir-contact { z-index: 6; left: 50%; right: auto; top: 50%; transform: translate(-50%, -50%); width: min(380px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); overflow-y: auto; overscroll-behavior: contain; }
+  .orca #tiroir.tiroir-connexion, .orca #tiroir.tiroir-contact, .orca #tiroir.tiroir-commande { z-index: 6; left: 50%; right: auto; top: 50%; transform: translate(-50%, -50%); width: min(380px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); overflow-y: auto; overscroll-behavior: contain; }
   .orca #cadre .bd { left: 0; right: 0; max-width: none; bottom: 0; flex-direction: column; align-items: flex-end; row-gap: 2px; padding: 4px 10px 6px; }
   .orca #cadre .legal3d { display: flex; flex-wrap: wrap; justify-content: flex-end; width: 100%; max-width: 100%; column-gap: 10px; row-gap: 2px; }
   .orca #cadre .legal3d > span { flex: 1 0 100%; text-align: right; }
@@ -398,8 +398,11 @@
 .orca .prod-photo { margin: 0; position: relative; background: #000; }
 .orca .prod-photo img { display: block; width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3 / 4; }
 .orca .coloris { position: absolute; left: 10px; bottom: 10px; display: flex; gap: 8px; }
-.orca .coloris span { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,.75); border: 1px solid var(--trait); padding: 4px 8px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+.orca .coloris button { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,.75); border: 1px solid var(--trait); padding: 4px 8px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--gris); cursor: pointer; }
+.orca .coloris button[aria-pressed="true"] { border-color: var(--or); color: var(--encre); }
 .orca .coloris i { width: 10px; height: 10px; display: inline-block; border: 1px solid #555; }
+.orca .ex-fiche .pied { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 16px; }
+.orca .ex-fiche .prix { color: var(--or); }
 .orca .nom-glyphes { display: flex; flex-direction: column; gap: 4px; }
 .orca .nom-glyphes .mots { display: flex; gap: 14px; }
 .orca .nom-glyphes .mot-glyphe { display: flex; flex-direction: column; align-items: center; gap: 3px; }

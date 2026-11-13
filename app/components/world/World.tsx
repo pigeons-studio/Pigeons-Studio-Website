@@ -19,8 +19,9 @@ import './orca.css';
 type Locale = 'fr' | 'en';
 type Mode = '3d' | 'vers2d' | '2d' | 'vers3d';
 type Prix = 'coming' | 'quote' | 'soon';
-type Item = { nom: string; sens: string; tags?: string[]; prix?: Prix; panier?: number; src?: string; duree?: string; image?: string; alt?: string; couleurs?: [string, string][]; glyphes?: [string, string][]; glyphesSens?: string; collab?: { texte: string; nom: string; lien: string }; details?: [string, string][]; tarif?: string; commande?: string };
-type Projet = { id: string; nom: string; sous: string; statut: string; texte: string[]; reperes: string[][]; tags: string[]; objet?: string; video?: string; film?: string; liens?: [string, string][] };
+type Item = { id?: string; nom: string; sens: string; tags?: string[]; prix?: Prix; panier?: number; src?: string; duree?: string; image?: string; alt?: string; couleurs?: [string, string][]; glyphes?: [string, string][]; glyphesSens?: string; collab?: { texte: string; nom: string; lien: string }; details?: [string, string][]; tarif?: string; commande?: string };
+type Projet = { id: string; nom: string; sous: string; statut: string; texte: string[]; reperes: string[][]; tags: string[]; objet?: string; video?: string; film?: string; liens?: [string, string][]; tarif?: string; commande?: string; prixLabel?: string; detail?: string; devisSujet?: string };
+type LigneCommande = { productId: string; nameFr: string; nameEn: string; color?: string; quantity: number; priceLabel: string; detail?: string };
 type Bloc = { t: string; p?: string; titre?: string; sur?: string; duo?: string; legende?: string; signe?: string; code?: string; vide?: string; items?: unknown[]; fiches?: unknown[] };
 type Famille = { id: string; nom: string; code: string; signe: string; pourquoi: string; teinte: number; css: string; blocs: Bloc[] };
 
@@ -59,6 +60,7 @@ const UI = {
     ici: 'tu es ici', aller: (n: number) => `aller à l'étage ${n}`, rubriques: 'rubriques',
     prix: { coming: 'À venir', quote: 'Sur devis', soon: 'Bientôt disponible' } as Record<Prix, string>,
     prevenir: 'être prévenu', devis: 'demander un devis', ajouter: 'ajouter au panier', ajoute: 'ajouté',
+    confirmer: 'confirmer', envoye: 'demande envoyée',
     contactTitre: 'CONTACT', contactTexte: 'Marques, institutions, robotique et IA : parlons de votre projet.', aPropos: 'à propos de : ',
     copier: 'copier', copie: 'copié', reponse: 'Réponse généralement sous 24-48h.', fermer: 'fermer', legal: 'mentions légales', cgv: 'CGV',
     panierTitre: 'PANIER', vide: 'Vide pour l’instant.', vider: 'vider', commander: 'passer la commande',
@@ -72,6 +74,7 @@ const UI = {
     ici: 'you are here', aller: (n: number) => `go to floor ${n}`, rubriques: 'sections',
     prix: { coming: 'Coming soon', quote: 'On quote', soon: 'Coming soon' } as Record<Prix, string>,
     prevenir: 'get notified', devis: 'request a quote', ajouter: 'add to cart', ajoute: 'added',
+    confirmer: 'confirm', envoye: 'request sent',
     contactTitre: 'CONTACT', contactTexte: 'Brands, institutions, robotics and AI: let’s talk about your project.', aPropos: 'about: ',
     copier: 'copy', copie: 'copied', reponse: 'We usually reply within 24-48h.', fermer: 'close', legal: 'legal notice', cgv: 'terms',
     panierTitre: 'CART', vide: 'Empty for now.', vider: 'empty', commander: 'checkout',
@@ -91,7 +94,7 @@ function Glyphe({ signe, couleur }: { signe: string; couleur: string }) {
   );
 }
 
-type Tiroir = { quoi: 'contact'; sujet: string } | { quoi: 'panier' } | { quoi: 'connexion'; inscription: boolean } | null;
+type Tiroir = { quoi: 'contact'; sujet: string; devis?: boolean } | { quoi: 'panier' } | { quoi: 'connexion'; inscription: boolean } | { quoi: 'commande'; kind: 'preorder' | 'order'; items: LigneCommande[] } | null;
 
 export default function World() {
   const locale: Locale = useLocale() === 'en' ? 'en' : 'fr';
@@ -279,15 +282,16 @@ export default function World() {
             <Glyphe signe={f.signe} couleur={f.css} />
             <div><h1>{f.nom}</h1><p>{MOTS[locale][f.signe]}{f.pourquoi !== MOTS[locale][f.signe] ? ` · ${f.pourquoi}` : ''}</p></div>
           </div>
-          {f.blocs.map((b, i) => <BlocVue key={`${f.id}-${i}`} b={b} f={f} ui={ui} locale={locale} ouvrirContact={(sujet) => setTiroir({ quoi: 'contact', sujet })} fiche={menu[0] === f.id ? menu[1] : undefined} onFiche={(id) => pousser(f.id, id)} allerProjet={allerProjet} />)}
+          {f.blocs.map((b, i) => <BlocVue key={`${f.id}-${i}`} b={b} f={f} ui={ui} locale={locale} ouvrirContact={(sujet, devis) => setTiroir({ quoi: 'contact', sujet, devis })} ouvrirCommande={(items, kind) => setTiroir({ quoi: 'commande', kind, items })} fiche={menu[0] === f.id ? menu[1] : undefined} onFiche={(id) => pousser(f.id, id)} allerProjet={allerProjet} />)}
         </div>
       </main>
 
       {tiroir && <div id="voile" onClick={() => setTiroir(null)} aria-hidden="true" />}
       {tiroir && (
         <aside id="tiroir" className={`tiroir-${tiroir.quoi}`} aria-label={tiroir.quoi} role={tiroir.quoi === 'panier' ? undefined : 'dialog'}>
-          {tiroir.quoi === 'contact' && <TiroirContact sujet={tiroir.sujet} ui={ui} fermer={() => setTiroir(null)} />}
-          {tiroir.quoi === 'panier' && <TiroirPanier ui={ui} locale={locale} fermer={() => setTiroir(null)} />}
+          {tiroir.quoi === 'contact' && <TiroirContact sujet={tiroir.sujet} devis={tiroir.devis} ui={ui} fermer={() => setTiroir(null)} />}
+          {tiroir.quoi === 'panier' && <TiroirPanier ui={ui} locale={locale} fermer={() => setTiroir(null)} commander={(items) => setTiroir({ quoi: 'commande', kind: 'order', items })} />}
+          {tiroir.quoi === 'commande' && <TiroirCommande demande={tiroir} ui={ui} locale={locale} fermer={() => setTiroir(null)} />}
           {tiroir.quoi === 'connexion' && <TiroirConnexion inscription={tiroir.inscription} ui={ui} basculer={(v) => setTiroir({ quoi: 'connexion', inscription: v })} fermer={() => setTiroir(null)} />}
         </aside>
       )}
@@ -320,19 +324,19 @@ function Traduction({ g, n, ici, ui, locale }: { g: Famille; n: number; ici: boo
 }
 
 // ---------------------------------------------------------------- les blocs d'une page 2D (comme remplir() de la page Claude)
-function BlocVue({ b, f, ui, locale, ouvrirContact, fiche, onFiche, allerProjet }: { b: Bloc; f: Famille; ui: Ui; locale: Locale; ouvrirContact: (s: string) => void; fiche?: string; onFiche: (id: string) => void; allerProjet: (id: string) => void }) {
+function BlocVue({ b, f, ui, locale, ouvrirContact, ouvrirCommande, fiche, onFiche, allerProjet }: { b: Bloc; f: Famille; ui: Ui; locale: Locale; ouvrirContact: (s: string, devis?: boolean) => void; ouvrirCommande: (items: LigneCommande[], kind: 'preorder' | 'order') => void; fiche?: string; onFiche: (id: string) => void; allerProjet: (id: string) => void }) {
   if (b.t === 'lead') return <div className="lead"><p className="sur">{b.sur}</p><p className="duo">{b.duo}</p><p className="legende">{b.legende}</p></div>;
   if (b.t === 'texte') return <section className="texte">{b.titre && <h2 className="etiquette">{b.titre}</h2>}<p>{b.p}</p></section>;
   if (b.t === 'vide') return <p className="vide">{b.p}</p>;
   if (b.t === 'deux') return <div className="bio">{(b.items as string[][]).map(([n, r, p]) => <section key={n}><h3>{n}</h3><h2>{r}</h2><p>{p}</p></section>)}</div>;
   if (b.t === 'liste') return <section className="liste"><h2 className="etiquette">{b.titre}</h2><dl>{(b.items as string[][]).flatMap(([k, v]) => [<dt key={`t${k}`}>{k}</dt>, <dd key={`d${k}`}>{v}</dd>])}</dl></section>;
-  if (b.t === 'devis') return <div className="pied"><button type="button" className="btn" onClick={() => ouvrirContact('')}>{ui.devis}</button></div>;
+  if (b.t === 'devis') return <div className="pied"><button type="button" className="btn" onClick={() => ouvrirContact('', true)}>{ui.devis}</button></div>;
   // un étage peut mêler les rendez-vous de la base (events) et des fiches écrites ici (explorer) : chaque fiche ouverte ne s'affiche que dans son bloc
   const locales = f.blocs.filter((x) => x.t === 'explorer').flatMap((x) => (x.items as Projet[]).map((i) => i.id));
   const aEvents = f.blocs.some((x) => x.t === 'events');
   if (b.t === 'explorer' && aEvents && fiche && !locales.includes(fiche)) return null;
   if (b.t === 'events' && fiche && locales.includes(fiche)) return null;
-  if (b.t === 'explorer') return <Explorer items={b.items as Projet[]} css={f.css} code={f.code} locale={locale} fiche={fiche} onFiche={onFiche} allerProjet={allerProjet} />;
+  if (b.t === 'explorer') return <Explorer items={b.items as Projet[]} css={f.css} code={f.code} locale={locale} ui={ui} fiche={fiche} onFiche={onFiche} allerProjet={allerProjet} ouvrirContact={ouvrirContact} ouvrirCommande={ouvrirCommande} />;
   if (b.t === 'events') return <Suspense fallback={null}><EventsPanel locale={locale} css={f.css} fiche={fiche} onFiche={onFiche} /></Suspense>;
   if (b.t === 'films') {
     return (
@@ -352,10 +356,10 @@ function BlocVue({ b, f, ui, locale, ouvrirContact, fiche, onFiche, allerProjet 
         <div className="rayon"><Glyphe signe={b.signe} couleur={f.css} /><h2>{b.titre}</h2><span>{MOTS[locale][b.signe]}</span></div>
       )}
       {b.vide && <p className="vide">{b.vide}</p>}
-      {b.fiches && <Explorer items={b.fiches as Projet[]} css={f.css} code={b.code || f.code} locale={locale} fiche={fiche} onFiche={onFiche} allerProjet={allerProjet} />}
+      {b.fiches && <Explorer items={b.fiches as Projet[]} css={f.css} code={b.code || f.code} locale={locale} ui={ui} fiche={fiche} onFiche={onFiche} allerProjet={allerProjet} ouvrirContact={ouvrirContact} ouvrirCommande={ouvrirCommande} />}
       {b.items && (
         <div className="grille">
-          {(b.items as Item[]).map((it, i) => <Carte key={it.nom} it={it} code={b.code || f.code} i={i} ui={ui} locale={locale} ouvrirContact={ouvrirContact} />)}
+          {(b.items as Item[]).map((it, i) => <Carte key={it.nom} it={it} code={b.code || f.code} i={i} ui={ui} locale={locale} ouvrirContact={ouvrirContact} ouvrirCommande={ouvrirCommande} />)}
         </div>
       )}
     </>
@@ -363,7 +367,7 @@ function BlocVue({ b, f, ui, locale, ouvrirContact, fiche, onFiche, allerProjet 
 }
 
 // ---------------------------------------------------------------- futurs projets : un menu que l'on parcourt, une fiche par projet
-function Explorer({ items, css, code = 'F', locale, fiche, onFiche, allerProjet }: { items: Projet[]; css: string; code?: string; locale: Locale; fiche?: string; onFiche: (id: string) => void; allerProjet: (id: string) => void }) {
+function Explorer({ items, css, code = 'F', locale, ui, fiche, onFiche, allerProjet, ouvrirContact, ouvrirCommande }: { items: Projet[]; css: string; code?: string; locale: Locale; ui: Ui; fiche?: string; onFiche: (id: string) => void; allerProjet: (id: string) => void; ouvrirContact: (s: string, devis?: boolean) => void; ouvrirCommande: (items: LigneCommande[], kind: 'preorder' | 'order') => void }) {
   const [i, setI] = useState(() => {
     const n = items.findIndex((x) => x.id === fiche);
     return n >= 0 ? n : 0;
@@ -426,6 +430,13 @@ function Explorer({ items, css, code = 'F', locale, fiche, onFiche, allerProjet 
             {p.liens && <p className="ex-liens">{p.liens.map(([t, u]) => <a key={u} href={u} target="_blank" rel="noopener noreferrer">{t} ↗</a>)}</p>}
             <dl>{p.reperes.flatMap(([k, v]) => [<dt key={`t${k}`}>{k}</dt>, <dd key={`d${k}`}><Lie texte={v} ici={p.id} aller={allerProjet} locale={locale} /></dd>])}</dl>
             <div className="tags">{p.tags.map((x) => <span key={x}>{x}</span>)}</div>
+            {(p.tarif || p.commande || p.devisSujet) && (
+              <div className="pied">
+                {p.tarif && <span className="prix">{p.tarif}</span>}
+                {p.commande && <button type="button" className="btn" onClick={() => ouvrirCommande([ligneProjet(p, locale)], 'preorder')}>{p.commande}</button>}
+                {p.devisSujet && <button type="button" className="btn" onClick={() => ouvrirContact(p.devisSujet || p.nom, true)}>{ui.devis}</button>}
+              </div>
+            )}
           </div>
         </div>
         {p.id === 'orca' && <Alphabet css={css} locale={locale} />}
@@ -535,14 +546,51 @@ function nomAutreLangue (id: number, locale: Locale) {
   return '';
 }
 
-function Carte({ it, code, i, ui, locale, ouvrirContact }: { it: Item; code: string; i: number; ui: Ui; locale: Locale; ouvrirContact: (s: string) => void }) {
+function projetAutre(id: string, locale: Locale) {
+  const autre = CONTENU[locale === 'fr' ? 'en' : 'fr'] as Famille[];
+  for (const g of autre) for (const b of g.blocs) {
+    for (const x of (b.items || []) as Projet[]) if (x?.id === id) return x;
+    for (const x of (b.fiches || []) as Projet[]) if (x?.id === id) return x;
+  }
+  return undefined;
+}
+
+function ligneProjet(p: Projet, locale: Locale): LigneCommande {
+  const autre = projetAutre(p.id, locale);
+  const fr = locale === 'fr' ? p : autre;
+  const en = locale === 'en' ? p : autre;
+  return {
+    productId: p.id,
+    nameFr: fr?.nom || p.nom,
+    nameEn: en?.nom || p.nom,
+    quantity: 1,
+    priceLabel: p.prixLabel || p.tarif || '',
+    detail: (locale === 'en' ? en?.detail : fr?.detail) || p.detail || p.texte[0],
+  };
+}
+
+function Carte({ it, code, i, ui, locale, ouvrirContact, ouvrirCommande }: { it: Item; code: string; i: number; ui: Ui; locale: Locale; ouvrirContact: (s: string, devis?: boolean) => void; ouvrirCommande: (items: LigneCommande[], kind: 'preorder' | 'order') => void }) {
   const addItem = useCartStore((s) => s.addItem);
   const [ajoute, setAjoute] = useState(false);
+  const [couleur, setCouleur] = useState(0);
+  const choisie = it.couleurs?.[couleur];
   const ajouter = () => {
     if (!it.panier) return;
     const autre = nomAutreLangue(it.panier, locale) || it.nom;
     addItem({ productId: it.panier, name: locale === 'fr' ? { fr: it.nom, en: autre } : { fr: autre, en: it.nom }, price: it.prix === 'quote' ? 'quote' : 'coming', image: '' });
     setAjoute(true); window.setTimeout(() => setAjoute(false), 1200);
+  };
+  const precommander = () => {
+    const autre = it.id ? projetAutre(it.id, locale) : undefined;
+    ouvrirCommande([{
+      productId: it.id || it.nom,
+      nameFr: locale === 'fr' ? it.nom : (autre?.nom || it.nom),
+      nameEn: locale === 'en' ? it.nom : (autre?.nom || it.nom),
+      color: choisie?.[0],
+      quantity: 1,
+      priceLabel: it.tarif || '',
+      detail: it.sens,
+    }], 'preorder');
   };
   return (
     <article className={'prod' + (it.image ? ' large' : '')}>
@@ -550,7 +598,13 @@ function Carte({ it, code, i, ui, locale, ouvrirContact }: { it: Item; code: str
         <figure className="prod-photo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={it.image} alt={it.alt || it.nom} loading="lazy" />
-          {it.couleurs && <figcaption className="coloris">{it.couleurs.map(([n, c]) => <span key={n}><i style={{ background: c }} />{n}</span>)}</figcaption>}
+          {it.couleurs && (
+            <figcaption className="coloris">
+              {it.couleurs.map(([n, c], nIdx) => (
+                <button key={n} type="button" aria-pressed={nIdx === couleur} onClick={() => setCouleur(nIdx)}><i style={{ background: c }} />{n}</button>
+              ))}
+            </figcaption>
+          )}
         </figure>
       )}
       <div className="prod-corps">
@@ -569,10 +623,12 @@ function Carte({ it, code, i, ui, locale, ouvrirContact }: { it: Item; code: str
       {it.prix && (
         <div className="pied">
           <span className="prix">{it.tarif || ui.prix[it.prix]}</span>
-          {it.panier ? (
+          {it.commande ? (
+            <button type="button" className="btn" onClick={precommander}>{it.commande}</button>
+          ) : it.panier ? (
             <button type="button" className="btn" onClick={ajouter}>{ajoute ? ui.ajoute : ui.ajouter}</button>
           ) : (
-            <button type="button" className="btn" onClick={() => ouvrirContact(it.nom)}>{it.commande || (it.prix === 'quote' ? ui.devis : ui.prevenir)}</button>
+            <button type="button" className="btn" onClick={() => ouvrirContact(it.nom, it.prix === 'quote')}>{it.prix === 'quote' ? ui.devis : ui.prevenir}</button>
           )}
         </div>
       )}
@@ -593,17 +649,19 @@ function Mail({ ui }: { ui: Ui }) {
   return <div className="mail"><span ref={mail}>{EMAIL}</span><button type="button" className="btn doux" onClick={copier}>{copie ? ui.copie : ui.copier}</button></div>;
 }
 
-function TiroirContact({ sujet, ui, fermer }: { sujet: string; ui: Ui; fermer: () => void }) {
+function TiroirContact({ sujet, devis, ui, fermer }: { sujet: string; devis?: boolean; ui: Ui; fermer: () => void }) {
   // le formulaire de l'ancien site, repris tel quel : même API, même vérification anti-robot
   const t = useTranslations('contact');
   const locale = useLocale();
+  const { data: session } = useSession();
+  const connu = Boolean(devis && session?.user?.email);
   const [champs, setChamps] = useState({ name: '', email: '', subject: sujet, message: '' });
   const [curseur, setCurseur] = useState(0);
   const [piege, setPiege] = useState('');
   const [etat, setEtat] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [erreur, setErreur] = useState('');
   const debut = useRef(Date.now());
-  const humain = curseur >= 100;
+  const humain = connu || curseur >= 100;
   useEffect(() => { setChamps((c) => ({ ...c, subject: sujet })); }, [sujet]);
   const changer = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setChamps({ ...champs, [e.target.name]: e.target.value });
   const envoyer = async (e: FormEvent) => {
@@ -612,7 +670,7 @@ function TiroirContact({ sujet, ui, fermer }: { sujet: string; ui: Ui; fermer: (
     if (piege.trim()) { setEtat('error'); setErreur(t('form.error')); return; }
     setEtat('loading'); setErreur('');
     try {
-      const r = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...champs, locale, antiBot: { sliderValue: curseur, honeypot: piege, elapsedMs: Date.now() - debut.current } }) });
+      const r = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...champs, name: connu ? session?.user?.name : champs.name, email: connu ? session?.user?.email : champs.email, locale, quote: Boolean(devis && connu), antiBot: { sliderValue: connu ? 100 : curseur, honeypot: piege, elapsedMs: Date.now() - debut.current } }) });
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || t('form.error'));
       setEtat('success'); setChamps({ name: '', email: '', subject: '', message: '' }); setCurseur(0); debut.current = Date.now();
@@ -620,19 +678,19 @@ function TiroirContact({ sujet, ui, fermer }: { sujet: string; ui: Ui; fermer: (
   };
   return (
     <>
-      <div className="etiquette">{ui.contactTitre}</div>
+      <div className="etiquette">{devis ? ui.devis : ui.contactTitre}</div>
       <p>{ui.contactTexte}</p>
       <form onSubmit={envoyer} className="formulaire">
-        <label htmlFor="ct-nom">{t('form.name')} *<input id="ct-nom" name="name" type="text" autoComplete="name" value={champs.name} onChange={changer} required placeholder={t('form.namePlaceholder')} /></label>
-        <label htmlFor="ct-email">{t('form.email')} *<input id="ct-email" name="email" type="email" autoComplete="email" value={champs.email} onChange={changer} required placeholder={t('form.emailPlaceholder')} /></label>
+        {!connu && <label htmlFor="ct-nom">{t('form.name')} *<input id="ct-nom" name="name" type="text" autoComplete="name" value={champs.name} onChange={changer} required placeholder={t('form.namePlaceholder')} /></label>}
+        {!connu && <label htmlFor="ct-email">{t('form.email')} *<input id="ct-email" name="email" type="email" autoComplete="email" value={champs.email} onChange={changer} required placeholder={t('form.emailPlaceholder')} /></label>}
         <label htmlFor="ct-sujet">{t('form.subject')}<input id="ct-sujet" name="subject" type="text" value={champs.subject} onChange={changer} placeholder={t('form.subjectPlaceholder')} /></label>
         <label htmlFor="ct-msg">{t('form.message')} *<textarea id="ct-msg" name="message" rows={5} value={champs.message} onChange={changer} required placeholder={t('form.messagePlaceholder')} /></label>
-        <div className="piege" aria-hidden="true"><label htmlFor="ct-site">Website</label><input id="ct-site" name="website" type="text" tabIndex={-1} autoComplete="off" value={piege} onChange={(e) => setPiege(e.target.value)} /></div>
-        <label htmlFor="ct-robot" className="robot">{t('form.humanCheckLabel')} *
+        {!connu && <div className="piege" aria-hidden="true"><label htmlFor="ct-site">Website</label><input id="ct-site" name="website" type="text" tabIndex={-1} autoComplete="off" value={piege} onChange={(e) => setPiege(e.target.value)} /></div>}
+        {!connu && <label htmlFor="ct-robot" className="robot">{t('form.humanCheckLabel')} *
           <span className="note">{t('form.humanCheckHint')}</span>
           <input id="ct-robot" type="range" min={0} max={100} value={curseur} onChange={(e) => setCurseur(Number(e.target.value))} aria-describedby="ct-robot-etat" />
           <span id="ct-robot-etat" className={humain ? 'ok' : 'note'}>{humain ? t('form.humanCheckReady') : t('form.humanCheckProgress', { value: curseur })}</span>
-        </label>
+        </label>}
         {etat === 'error' && <p className="erreur" role="alert">{erreur || t('form.error')}</p>}
         {etat === 'success' && <p className="ok" role="status">{t('form.success')}</p>}
         <button type="submit" className="btn plein" disabled={etat === 'loading' || !humain}>{etat === 'loading' ? t('form.sending') : humain ? t('form.submit') : t('form.submitLocked')}</button>
@@ -640,17 +698,15 @@ function TiroirContact({ sujet, ui, fermer }: { sujet: string; ui: Ui; fermer: (
       <p className="note">{ui.ouEcrire}</p>
       <Mail ui={ui} />
       <p className="note">{ui.reponse}</p>
-      <div className="ligne"><Link href="/legal" className="lien">{ui.legal}</Link><Link href="/terms" className="lien">{ui.cgvLong}</Link></div>
       <button type="button" className="btn doux" onClick={fermer}>{ui.fermer}</button>
     </>
   );
 }
 
-function TiroirPanier({ ui, locale, fermer }: { ui: Ui; locale: Locale; fermer: () => void }) {
+function TiroirPanier({ ui, locale, fermer, commander }: { ui: Ui; locale: Locale; fermer: () => void; commander: (items: LigneCommande[]) => void }) {
   const items = useCartStore((s) => s.items);
   const update = useCartStore((s) => s.updateQuantity);
   const vider = useCartStore((s) => s.clearCart);
-  const [commande, setCommande] = useState(false);
   return (
     <>
       <div className="etiquette">{ui.panierTitre}</div>
@@ -669,11 +725,57 @@ function TiroirPanier({ ui, locale, fermer }: { ui: Ui; locale: Locale; fermer: 
       </ul>
       {!!items.length && (
         <div className="ligne">
-          <button type="button" className="btn plein" onClick={() => setCommande(true)}>{ui.commander}</button>
+          <button type="button" className="btn plein" onClick={() => commander(items.map((it) => ({ productId: String(it.productId), nameFr: it.name.fr, nameEn: it.name.en, quantity: it.quantity, priceLabel: typeof it.price === 'number' ? `${it.price} €` : String(it.price) })))}>{ui.commander}</button>
           <button type="button" className="btn doux" onClick={vider}>{ui.vider}</button>
         </div>
       )}
-      {commande && <><p className="note">{ui.commandeBientot}</p><Mail ui={ui} /></>}
+      <button type="button" className="btn doux" onClick={fermer}>{ui.fermer}</button>
+    </>
+  );
+}
+
+function TiroirCommande({ demande, ui, locale, fermer }: { demande: { kind: 'preorder' | 'order'; items: LigneCommande[] }; ui: Ui; locale: Locale; fermer: () => void }) {
+  const { data: session } = useSession();
+  const clearCart = useCartStore((s) => s.clearCart);
+  const [nom, setNom] = useState('');
+  const [email, setEmail] = useState('');
+  const [etat, setEtat] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const connu = Boolean(session?.user?.email);
+  const envoyer = async (e: FormEvent) => {
+    e.preventDefault();
+    setEtat('loading');
+    try {
+      const r = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ kind: demande.kind, locale, name: nom, email, items: demande.items }),
+      });
+      if (!r.ok) throw new Error();
+      if (demande.kind === 'order') clearCart();
+      setEtat('success');
+    } catch {
+      setEtat('error');
+    }
+  };
+  return (
+    <>
+      <div className="etiquette">{demande.kind === 'preorder' ? (locale === 'fr' ? 'PRÉCOMMANDE' : 'PRE-ORDER') : ui.panierTitre}</div>
+      <ul>
+        {demande.items.map((it) => (
+          <li key={`${it.productId}-${it.color || ''}`}>
+            <span>{locale === 'en' ? it.nameEn : it.nameFr}{it.color ? ` · ${it.color}` : ''} × {it.quantity}</span>
+            <span>{it.priceLabel}</span>
+          </li>
+        ))}
+      </ul>
+      {etat === 'success' ? <p className="ok">{ui.envoye}</p> : (
+        <form onSubmit={envoyer}>
+          {!connu && <label htmlFor="cmd-nom">{locale === 'fr' ? 'Nom' : 'Name'} *<input id="cmd-nom" type="text" value={nom} onChange={(e) => setNom(e.target.value)} required autoComplete="name" /></label>}
+          {!connu && <label htmlFor="cmd-email">Email *<input id="cmd-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" /></label>}
+          {etat === 'error' && <p className="erreur">{locale === 'fr' ? 'Envoi impossible.' : 'Could not send.'}</p>}
+          <button type="submit" className="btn plein" disabled={etat === 'loading'}>{etat === 'loading' ? '…' : ui.confirmer}</button>
+        </form>
+      )}
       <button type="button" className="btn doux" onClick={fermer}>{ui.fermer}</button>
     </>
   );

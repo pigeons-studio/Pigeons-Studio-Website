@@ -1,5 +1,7 @@
 import { Resend } from 'resend';
 import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const MIN_FORM_COMPLETION_MS = 1500;
@@ -126,12 +128,13 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { name, email, subject, message, locale, antiBot } = body as {
+    const { name, email, subject, message, locale, quote, antiBot } = body as {
       name?: string;
       email?: string;
       subject?: string;
       message?: string;
       locale?: string;
+      quote?: boolean;
       antiBot?: {
         sliderValue?: number;
         honeypot?: string;
@@ -141,9 +144,12 @@ export async function POST(request: NextRequest) {
 
     localeKey = normalizeLocale(locale);
     const copy = COPY[localeKey];
+    const session = quote ? await getServerSession(authOptions) : null;
+    const sessionEmail = session?.user?.email?.trim() || '';
+    const sessionName = session?.user?.name?.trim() || '';
 
-    const normalizedName = typeof name === 'string' ? name.trim() : '';
-    const normalizedEmail = typeof email === 'string' ? email.trim() : '';
+    const normalizedName = sessionEmail ? sessionName || sessionEmail : typeof name === 'string' ? name.trim() : '';
+    const normalizedEmail = sessionEmail || (typeof email === 'string' ? email.trim() : '');
     const normalizedSubject = typeof subject === 'string' ? subject.trim() : '';
     const normalizedMessage = typeof message === 'string' ? message.trim() : '';
     const antiBotSliderValue = Number(antiBot?.sliderValue ?? 0);
@@ -158,22 +164,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Vérifications anti-robot
-    if (antiBotHoneypot.length > 0) {
+    // Vérifications anti-robot. Un devis d'un compte connecté reprend la session.
+    if (!sessionEmail && antiBotHoneypot.length > 0) {
       return NextResponse.json(
         { error: copy.errors.antiBot },
         { status: 400 }
       );
     }
 
-    if (!Number.isFinite(antiBotSliderValue) || antiBotSliderValue < MIN_SLIDER_VALUE) {
+    if (!sessionEmail && (!Number.isFinite(antiBotSliderValue) || antiBotSliderValue < MIN_SLIDER_VALUE)) {
       return NextResponse.json(
         { error: copy.errors.antiBot },
         { status: 400 }
       );
     }
 
-    if (!Number.isFinite(antiBotElapsedMs) || antiBotElapsedMs < MIN_FORM_COMPLETION_MS) {
+    if (!sessionEmail && (!Number.isFinite(antiBotElapsedMs) || antiBotElapsedMs < MIN_FORM_COMPLETION_MS)) {
       return NextResponse.json(
         { error: copy.errors.antiBot },
         { status: 400 }
