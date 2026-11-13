@@ -411,3 +411,8 @@
 /* une vidéo verticale jointe à une fiche (événements) */
 .orca .ex-film-local { margin: 0 0 14px; }
 .orca .ex-film-local video { display: block; width: 100%; max-width: 320px; aspect-ratio: 9 / 16; background: #000; border: 1px solid var(--trait); }
+
+/* les liens vers l'extérieur d'une fiche (par exemple la lignée d'un projet) */
+.orca .ex-liens { display: flex; flex-wrap: wrap; gap: 8px; }
+.orca .ex-liens a { color: var(--c); border: 1px solid var(--c); padding: 6px 10px; font-size: 11px; letter-spacing: .04em; text-decoration: none; }
+.orca .ex-liens a:hover { background: color-mix(in srgb, var(--c) 25%, #000); }

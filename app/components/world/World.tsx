@@ -18,7 +18,7 @@ type Locale = 'fr' | 'en';
 type Mode = '3d' | 'vers2d' | '2d' | 'vers3d';
 type Prix = 'coming' | 'quote' | 'soon';
 type Item = { nom: string; sens: string; tags?: string[]; prix?: Prix; panier?: number; src?: string; duree?: string; image?: string; alt?: string; couleurs?: [string, string][]; glyphes?: [string, string][]; glyphesSens?: string; collab?: { texte: string; nom: string; lien: string }; details?: [string, string][]; tarif?: string; commande?: string };
-type Projet = { id: string; nom: string; sous: string; statut: string; texte: string[]; reperes: string[][]; tags: string[]; objet?: string; video?: string; film?: string };
+type Projet = { id: string; nom: string; sous: string; statut: string; texte: string[]; reperes: string[][]; tags: string[]; objet?: string; video?: string; film?: string; liens?: [string, string][] };
 type Bloc = { t: string; p?: string; titre?: string; sur?: string; duo?: string; legende?: string; signe?: string; code?: string; vide?: string; items?: unknown[]; fiches?: unknown[] };
 type Famille = { id: string; nom: string; code: string; signe: string; pourquoi: string; teinte: number; css: string; blocs: Bloc[] };
 
@@ -347,6 +347,7 @@ function Explorer({ items, css, code = 'F', locale, cible, allerProjet }: { item
           {p.film && (<figure className="ex-film-local"><video src={p.film} controls playsInline preload="metadata" /></figure>)}
           <div className="ex-texte">
             {p.texte.map((t) => <p key={t}><Lie texte={t} ici={p.id} aller={allerProjet} locale={locale} /></p>)}
+            {p.liens && <p className="ex-liens">{p.liens.map(([t, u]) => <a key={u} href={u} target="_blank" rel="noopener noreferrer">{t} ↗</a>)}</p>}
             <dl>{p.reperes.flatMap(([k, v]) => [<dt key={`t${k}`}>{k}</dt>, <dd key={`d${k}`}><Lie texte={v} ici={p.id} aller={allerProjet} locale={locale} /></dd>])}</dl>
             <div className="tags">{p.tags.map((x) => <span key={x}>{x}</span>)}</div>
           </div>
