@@ -16,7 +16,10 @@ const nextConfig: NextConfig = {
       ['shop', 'boutique'],
       ['softwares', 'logiciels'],
     ];
-    const redirects: { source: string; destination: string; permanent: true }[] = [];
+    const redirects: { source: string; destination: string; permanent: boolean }[] = [
+      { source: '/fr/admin/events/scenes', destination: '/fr/admin/animations', permanent: false },
+      { source: '/en/admin/events/scenes', destination: '/en/admin/animations', permanent: false },
+    ];
     for (const prefix of localePrefixes) {
       for (const [oldPath, newPath] of pathMap) {
         redirects.push({

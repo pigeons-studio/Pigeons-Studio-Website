@@ -3,7 +3,11 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import ReactMarkdown from 'react-markdown';
+import rehypeSanitize from 'rehype-sanitize';
 import type { EventPublic } from '@/lib/events';
+import { isEventScene } from '@/lib/event-scenes';
+import Scene from './Scene';
 
 type Locale = 'fr' | 'en';
 
@@ -344,11 +348,18 @@ export default function EventsPanel({
             <header>
               <Periode debut={event.startsAt} fin={event.endsAt} locale={locale} />
               <h2>{event.title}</h2>
+              {event.subtitle && <p className="ex-sous">{event.subtitle}</p>}
               <p className="ex-sous">{event.place}</p>
               <p className="ex-places">{t.places(event.remaining, event.capacity)}</p>
             </header>
+            {event.scene && isEventScene(event.scene) && (
+              <figure className="ex-scene">
+                <Scene id={event.scene} css={css} locale={locale} />
+              </figure>
+            )}
             {event.imageUrl && <img className="ex-image" src={event.imageUrl} alt={event.title} />}
-            <p>{event.description}</p>
+            {event.tags.length > 0 && <div className="tags">{event.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>}
+            <div className="md"><ReactMarkdown rehypePlugins={[rehypeSanitize]}>{event.description}</ReactMarkdown></div>
             {!moiPret ? null : emailCompte && inscrit ? (
               <div className="ligne-inscrit">
                 <span className="marque"><i />{t.inscrit}</span>

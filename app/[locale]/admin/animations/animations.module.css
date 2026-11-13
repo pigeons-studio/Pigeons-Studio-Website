@@ -1,0 +1,29 @@
+.liste { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
+.liste button { padding: 6px 10px; border: 1px solid currentColor; background: transparent; color: inherit; font: inherit; letter-spacing: .06em; font-size: 12px; cursor: pointer; }
+.liste button[aria-current="true"] { border-color: #ffb545; color: #ffb545; }
+.cadre {
+  position: relative;
+  width: min(960px, 100%);
+  height: 600px;
+  background: #000;
+  --trait: #2c2b29;
+  --c: #ff8a5b;
+  --gris: #8a8780;
+}
+.cadre canvas { display: block; width: 100%; height: 100%; background: #000; }
+.cadre :global(.pas-nav) { position: absolute; right: 8px; top: 8px; display: flex; align-items: center; gap: 6px; z-index: 2; }
+.cadre :global(.pas-nav) button { width: 38px; height: 38px; padding: 0; display: grid; place-items: center; background: #000; border: 1px solid var(--trait); cursor: pointer; }
+.cadre :global(.pas-nav) button:global(.suite) { width: 46px; border-color: var(--c); background: color-mix(in srgb, var(--c) 16%, #000); }
+.cadre :global(.pas-nav) button svg { width: 20px; height: 20px; display: block; }
+.cadre :global(.pas-nav) button:hover, .cadre :global(.pas-nav) button:focus-visible { border-color: var(--c); background: color-mix(in srgb, var(--c) 30%, #000); outline: none; }
+.cadre :global(.pas-nav) :global(.trad) { order: -1; margin-right: 6px; font-size: 11px; letter-spacing: .06em; color: var(--gris); white-space: nowrap; opacity: 0; transition: opacity .15s; pointer-events: none; }
+.cadre :global(.pas-nav) :global(.trad.vu) { opacity: 1; }
+.cadre :global(.pas-nav) :global(.trad) i { color: var(--c); }
+.cadre :global(.pas-nav) :global(.trad) b { color: var(--c); font-weight: 600; text-transform: uppercase; letter-spacing: .16em; }
+.cadre :global(.pas-nav.pret) button:global(.suite) { animation: invite 1.2s ease-in-out infinite; }
+@keyframes invite { 50% { background: color-mix(in srgb, var(--c) 55%, #000); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 25%, transparent); } }
+@media (prefers-reduced-motion: reduce) {
+  .cadre :global(.pas-nav.pret) button:global(.suite) { animation: none; background: color-mix(in srgb, var(--c) 45%, #000); }
+  .cadre :global(.pas-nav) :global(.trad) { transition: none; }
+}
+@media (max-width: 720px) { .cadre { height: 420px; } }

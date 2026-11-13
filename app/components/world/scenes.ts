@@ -2030,6 +2030,7 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
 }
 
 const SCENES = { orca, cave, langue, teammate, tripode, systema, avatar, billy, ...SCENES_SERVICES };
+export const SCENE_IDS = Object.keys(SCENES);
 
 
 // ---------------------------------------------------------------- les étapes de chaque scène : on avance à son rythme

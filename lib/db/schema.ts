@@ -11,6 +11,12 @@ export const events = pgTable('events', {
   endsAt: timestamp('ends_at', { withTimezone: true }).notNull(),
   place: text('place').notNull(),
   imageUrl: text('image_url'),
+  scene: text('scene'),
+  subtitleFr: text('subtitle_fr'),
+  subtitleEn: text('subtitle_en'),
+  tagsFr: text('tags_fr'),
+  tagsEn: text('tags_en'),
+  hidden: boolean('hidden').notNull().default(false),
   capacity: integer('capacity').notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
 });

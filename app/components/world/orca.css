@@ -458,6 +458,10 @@
 .orca .events.fiche .ex-code span { white-space: nowrap; }
 .orca .events.fiche .ex-sous { color: var(--gris); margin: 0; }
 .orca .events.fiche .ex-image { width: 100%; height: auto; object-fit: contain; border: 1px solid var(--trait); display: block; }
+.orca .events .md { display: flex; flex-direction: column; gap: 12px; }
+.orca .events .md p, .orca .events .md ul { margin: 0; }
+.orca .events .md ul { padding-left: 18px; }
+.orca .events .md a { color: var(--c, var(--or)); }
 .orca .events .chargeur { position: relative; width: 64px; height: 64px; margin: 36px auto; }
 .orca .events .chargeur .cadre { position: absolute; inset: 22px; border: 1px solid var(--trait, #2c2b29); }
 .orca .events .chargeur .point {

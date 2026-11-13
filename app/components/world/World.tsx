@@ -13,6 +13,7 @@ import CONTENU from './contenu.json';
 import OPS from './operateurs.json';
 import type { World as Monde, Etage } from './engine';
 import EventsPanel from './Events';
+import Scene from './Scene';
 import './orca.css';
 
 type Locale = 'fr' | 'en';
@@ -525,19 +526,6 @@ function Objet({ url, css }: { url: string; css: string }) {
     return () => { annule = true; stop?.(); };
   }, [url, css]);
   return <canvas ref={ref} role="img" aria-label="3D" />;
-}
-
-// une scène qui tourne en direct, à la place d'une vidéo
-function Scene({ id, css, locale }: { id: string; css: string; locale: Locale }) {
-  const ref = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    if (!ref.current) return;
-    let stop = () => {};
-    let annule = false;
-    import('./scenes').then(({ lancerScene }) => { if (!annule && ref.current) stop = lancerScene(ref.current, id, css, locale); });
-    return () => { annule = true; stop(); };
-  }, [id, css, locale]);
-  return <canvas ref={ref} aria-hidden="true" />;
 }
 
 // le même article dans l'autre langue, pour que le panier garde les deux noms
