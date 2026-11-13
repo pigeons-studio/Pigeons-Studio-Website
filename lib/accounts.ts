@@ -4,6 +4,7 @@ import { and, asc, eq, gt } from 'drizzle-orm';
 import { Resend } from 'resend';
 import { getDb } from '@/lib/db';
 import { emailTokens, users } from '@/lib/db/schema';
+import { mailNoir } from '@/lib/mail-shell';
 import { baseUrl } from '@/lib/seo';
 import { isAdminEmail } from '@/lib/admin-emails';
 
@@ -62,20 +63,18 @@ export async function sendConfirmationEmail(email: string, token: string, locale
     from: process.env.RESEND_FROM_EMAIL || 'contact@punkhazard.org',
     to: email,
     subject: fr ? 'Confirme ton compte Pigeons Studio' : 'Confirm your Pigeons Studio account',
-    html: `<!DOCTYPE html><html><head><meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"></head><body style="margin:0;background:#000;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000000;">
-<tr><td align="center">
-<table role="presentation" width="480" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000000;max-width:480px;">
-<tr><td bgcolor="#000000" style="background:#000000;padding:32px 24px;font-family:ui-monospace,'IBM Plex Mono',Menlo,Consolas,monospace;color:#f2f0ea;">
-<p style="margin:0 0 24px;letter-spacing:.18em;font-size:12px;color:#ffb545;">PIGEONS//STUDIO</p>
-<p style="margin:0 0 8px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:#f2f0ea;">${titre}</p>
-<p style="margin:0 0 24px;font-size:13px;line-height:1.5;color:#f2f0ea;">${phrase}</p>
-<a href="${link}" style="display:inline-block;padding:10px 16px;border:1px solid #ffb545;color:#ffb545;text-decoration:none;letter-spacing:.12em;text-transform:uppercase;font-size:11px;">${bouton}</a>
-<p style="margin:24px 0 8px;font-size:11px;color:#f2f0ea;">${expire}</p>
-<p style="margin:0;font-size:11px;line-height:1.4;color:#f2f0ea;word-break:break-all;">${link}</p>
+    html: mailNoir(`<table class="fond" role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000;background-image:linear-gradient(#000,#000);">
+<tr><td class="fond" align="center" bgcolor="#000000" style="background:#000;background-image:linear-gradient(#000,#000);">
+<table class="fond" role="presentation" width="480" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000;background-image:linear-gradient(#000,#000);max-width:480px;">
+<tr><td class="fond encre" bgcolor="#000000" style="background:#000;background-image:linear-gradient(#000,#000);padding:32px 24px;font-family:ui-monospace,'IBM Plex Mono',Menlo,Consolas,monospace;color:#f2f0ea;">
+<p class="or" style="margin:0 0 24px;letter-spacing:.18em;font-size:12px;color:#ffb545;">PIGEONS//STUDIO</p>
+<p class="encre" style="margin:0 0 8px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:#f2f0ea;">${titre}</p>
+<p class="encre" style="margin:0 0 24px;font-size:13px;line-height:1.5;color:#f2f0ea;">${phrase}</p>
+<a class="or" href="${link}" style="display:inline-block;padding:10px 16px;border:1px solid #ffb545;color:#ffb545;text-decoration:none;letter-spacing:.12em;text-transform:uppercase;font-size:11px;">${bouton}</a>
+<p class="encre" style="margin:24px 0 8px;font-size:11px;color:#f2f0ea;">${expire}</p>
+<p class="encre" style="margin:0;font-size:11px;line-height:1.4;color:#f2f0ea;word-break:break-all;">${link}</p>
 </td></tr></table>
-</td></tr></table>
-</body></html>`,
+</td></tr></table>`),
     text: `${phrase}\n${link}\n\n${expire}`,
   });
 }
