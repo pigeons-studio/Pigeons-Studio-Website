@@ -143,7 +143,7 @@ export default function EventApercu({
             ? `${apercu.remaining} ${apercu.remaining === 1 ? 'restante' : 'restantes'} / ${apercu.capacity}`
             : `${apercu.remaining} left / ${apercu.capacity}`}</p>
           {apercu.scene && (
-            <div className={cadre.cadre} style={{ height: 360 }}>
+            <div className={cadre.cadre} style={{ width: '100%', maxWidth: '100%', height: 'auto', aspectRatio: '16 / 10' }}>
               <Scene id={apercu.scene} css="#ff8a5b" locale={langue} />
             </div>
           )}

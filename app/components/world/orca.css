@@ -228,9 +228,11 @@
   .orca #cadre .bg .aide-tactile { display: inline; }
   .orca, .orca canvas, .orca button { cursor: auto; }
 }
+.orca .retour-page { display: none; }
 @media (max-width: 760px) {
   /* la rangée de glyphes reste en haut pendant qu'on fait défiler la page */
   .orca .familles-bloc { position: sticky; top: 0; z-index: 2; margin: -8px -16px 0; padding: 8px 16px 0; background: #000; border-bottom: 1px solid var(--trait); padding-bottom: 6px; }
+  .orca .retour-page { display: inline-flex; align-self: flex-start; margin: 0 0 8px; padding: 8px 0; color: var(--encre); background: none; border: 0; font: inherit; letter-spacing: .08em; cursor: pointer; }
   .orca #page .dedans { gap: 24px; }
 }
 @media (max-width: 560px) {
@@ -320,7 +322,8 @@
   /* connexion et contact : une fenêtre au centre de l'écran, sur un voile noir */
   .orca #voile { display: block; position: fixed; inset: 0; z-index: 5; background: rgba(0,0,0,.78); }
   .orca #tiroir.tiroir-connexion, .orca #tiroir.tiroir-contact { z-index: 6; left: 50%; right: auto; top: 50%; transform: translate(-50%, -50%); width: min(380px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); overflow-y: auto; overscroll-behavior: contain; }
-  .orca #cadre .legal3d { display: none; }
+  .orca #cadre .bd { flex-wrap: wrap; justify-content: flex-end; max-width: calc(100% - 12px); row-gap: 4px; }
+  .orca #cadre .legal3d { display: flex; flex-wrap: wrap; justify-content: flex-end; max-width: 100%; }
 }
 @media (pointer: coarse), (max-width: 560px) {
   /* au doigt, pas de survol : chaque glyphe du menu porte sa traduction en permanence */
@@ -375,7 +378,7 @@
 .orca .ex-scene { position: relative; }
 .orca .pas-nav { position: absolute; right: 8px; display: flex; align-items: center; gap: 6px; z-index: 1; }
 .orca .pas-nav button { width: 38px; height: 38px; padding: 0; display: grid; place-items: center; background: #000; border: 1px solid var(--trait); cursor: pointer; }
-.orca .pas-nav button.suite { width: 46px; border-color: var(--c); background: color-mix(in srgb, var(--c) 16%, #000); }
+.orca .pas-nav button.suite { border-color: var(--c); background: color-mix(in srgb, var(--c) 16%, #000); }
 .orca .pas-nav button svg { width: 20px; height: 20px; display: block; }
 .orca .pas-nav button:hover, .orca .pas-nav button:focus-visible { border-color: var(--c); background: color-mix(in srgb, var(--c) 30%, #000); outline: none; }
 .orca .pas-nav .trad { order: -1; margin-right: 6px; font-size: 11px; letter-spacing: .06em; color: var(--gris); white-space: nowrap; opacity: 0; transition: opacity .15s; pointer-events: none; }

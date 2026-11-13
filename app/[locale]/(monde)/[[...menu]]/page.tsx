@@ -6,14 +6,16 @@ import { isFloor } from '@/lib/menus';
 import { isSlug } from '@/lib/events';
 import CONTENU from '@/app/components/world/contenu.json';
 
-type Famille = { id: string; nom: string; blocs: { t: string; items?: { id?: string }[] }[] };
+type Famille = { id: string; nom: string; blocs: { t: string; items?: { id?: string }[]; fiches?: { id?: string }[] }[] };
 
 function ficheConnue(locale: 'fr' | 'en', floor: string, fiche?: string) {
   if (!fiche) return true;
   if (floor === 'events') return isSlug(fiche);
   const familles = (CONTENU as Record<string, Famille[]>)[locale] ?? [];
   const famille = familles.find((item) => item.id === floor);
-  return Boolean(famille?.blocs.some((bloc) => bloc.t === 'explorer' && bloc.items?.some((item) => item.id === fiche)));
+  return Boolean(famille?.blocs.some((bloc) =>
+    (bloc.t === 'explorer' ? bloc.items : bloc.fiches)?.some((item) => item.id === fiche)
+  ));
 }
 
 export async function generateMetadata({

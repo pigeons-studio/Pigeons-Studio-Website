@@ -180,11 +180,11 @@ export default function AdminEvents() {
                 <tr><td colSpan={6} className={styles.muet}>{fr ? 'Aucun event.' : 'No events yet.'}</td></tr>
               ) : rows.map((row) => (
                 <tr key={row.id} className={row.hidden ? styles.masque : undefined}>
-                  <td>{fr ? row.titleFr : row.titleEn}{row.hidden ? (fr ? ' · masqué' : ' · hidden') : ''}</td>
-                  <td>{row.slug}</td>
-                  <td>{row.place}</td>
-                  <td>{quand(row.startsAt, locale)}</td>
-                  <td>{row.taken}/{row.capacity}</td>
+                  <td data-label={fr ? 'Titre' : 'Title'}>{fr ? row.titleFr : row.titleEn}{row.hidden ? (fr ? ' · masqué' : ' · hidden') : ''}</td>
+                  <td data-label="Slug">{row.slug}</td>
+                  <td data-label={fr ? 'Lieu' : 'Place'}>{row.place}</td>
+                  <td data-label={fr ? 'Début' : 'Start'}>{quand(row.startsAt, locale)}</td>
+                  <td data-label={fr ? 'Places' : 'Seats'}>{row.taken}/{row.capacity}</td>
                   <td className={styles.action}>
                     <Actions fr={fr} row={row} onVoir={voir} onBasculer={basculer} onSupprimer={setCible} />
                   </td>

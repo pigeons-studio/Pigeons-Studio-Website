@@ -28,9 +28,9 @@ a.btn { display: inline-block; text-decoration: none; }
 .liste button { text-align: left; text-decoration: underline; text-underline-offset: 3px; }
 .liste span { font-size: 12px; opacity: .7; }
 .lien, .retour { color: inherit; text-decoration: underline; text-underline-offset: 3px; letter-spacing: .08em; align-self: flex-start; }
-.voile { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.82); display: grid; place-items: center; padding: 24px; }
-.fenetre { width: min(420px, 100%); background: #111; border: 1px solid #f2f0ea; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
-.fenetreLarge { width: min(880px, 100%); max-height: min(860px, calc(100vh - 48px)); overflow: auto; background: #0b0b0a; }
+.voile { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.82); display: grid; place-items: center; padding: 24px; box-sizing: border-box; }
+.fenetre { width: min(420px, 100%); max-width: 100%; box-sizing: border-box; background: #111; border: 1px solid #f2f0ea; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+.fenetreLarge { width: min(880px, 100%); max-width: 100%; max-height: min(860px, calc(100vh - 48px)); overflow: auto; background: #0b0b0a; }
 .fenetre p { margin: 0; }
 .apercu { display: flex; flex-direction: column; gap: 12px; color: #f2f0ea; }
 .apercu h2 { font-size: 20px; letter-spacing: .14em; text-transform: uppercase; margin: 0; }
@@ -43,3 +43,15 @@ a.btn { display: inline-block; text-decoration: none; }
 .md ul { padding-left: 18px; }
 .md a { color: #ffb545; }
 .masque { opacity: .55; }
+@media (max-width: 720px) {
+  .choix { flex-direction: column; align-items: stretch; }
+  .choix .btn { width: 100%; text-align: center; }
+  .tableWrap { overflow: visible; }
+  .table thead { display: none; }
+  .table, .table tbody, .table tr, .table td { display: block; width: auto; }
+  .table tr { border: 1px solid color-mix(in srgb, currentColor 22%, transparent); margin: 0 0 12px; padding: 12px; }
+  .table td { border: 0; padding: 6px 0; white-space: normal; overflow-wrap: break-word; word-break: normal; }
+  .table td[data-label]::before { content: attr(data-label); display: block; margin-bottom: 2px; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #8a8882; }
+  .table td.action { width: auto; padding-top: 10px; }
+  .ligneActions { justify-content: flex-start; }
+}

@@ -54,7 +54,7 @@ const MOTS: Record<Locale, Record<string, string>> = {
 
 const UI = {
   fr: {
-    connexion: 'connexion', compte: 'compte', contact: 'contact', panier: 'panier', retour: '◂ 3D', etage: 'étage', etages: (n: number) => `${n} étages`,
+    connexion: 'connexion', compte: 'compte', contact: 'Contact', panier: 'panier', retour: '◂ 3D', etage: 'étage', etages: (n: number) => `${n} étages`,
     aide: 'molette : traverser les étages · clic : entrer', entrer: (n: number) => `étage ${n} · cliquer pour entrer`, aideTactile: 'glisser ↕ · toucher', toucher: (n: number) => `étage ${n} · toucher encore pour entrer`,
     ici: 'tu es ici', aller: (n: number) => `aller à l'étage ${n}`, rubriques: 'rubriques',
     prix: { coming: 'À venir', quote: 'Sur devis', soon: 'Bientôt disponible' } as Record<Prix, string>,
@@ -67,7 +67,7 @@ const UI = {
     droits: '© 2026 Pigeons Studio - Tous droits réservés.', cgvLong: 'conditions générales de vente', ouEcrire: 'ou écrire directement :',
   },
   en: {
-    connexion: 'login', compte: 'account', contact: 'contact', panier: 'cart', retour: '◂ 3D', etage: 'floor', etages: (n: number) => `${n} floors`,
+    connexion: 'login', compte: 'account', contact: 'Contact', panier: 'cart', retour: '◂ 3D', etage: 'floor', etages: (n: number) => `${n} floors`,
     aide: 'scroll: move through the floors · click: enter', entrer: (n: number) => `floor ${n} · click to enter`, aideTactile: 'swipe ↕ · tap', toucher: (n: number) => `floor ${n} · tap again to enter`,
     ici: 'you are here', aller: (n: number) => `go to floor ${n}`, rubriques: 'sections',
     prix: { coming: 'Coming soon', quote: 'On quote', soon: 'Coming soon' } as Record<Prix, string>,
@@ -258,6 +258,7 @@ export default function World() {
       <main id="page" ref={pageRef} className={visible && mode === '2d' ? 'on' : ''} aria-hidden={mode !== '2d'}>
         <div className="dedans" id="contenu">
           <div className="familles-bloc">
+            <button type="button" className="retour-page" onClick={() => mondeRef.current?.remonter()}>{ui.retour}</button>
             <nav className="familles" aria-label={ui.rubriques}>
               {FAMILLES.map((g, i) => (
                 <button key={g.id} type="button" aria-label={g.nom} aria-current={i === etage}
@@ -417,7 +418,6 @@ function Explorer({ items, css, code = 'F', locale, fiche, onFiche, allerProjet 
           )}
           <figure className="ex-film ex-scene">
             <Scene id={p.id} css={css} locale={locale} />
-            <figcaption><i className="rec" />{locale === 'fr' ? 'en temps réel' : 'real time'}</figcaption>
           </figure>
           {p.video && <Video id={p.video} locale={locale} />}
           {p.film && (<figure className="ex-film-local"><video src={p.film} controls playsInline preload="metadata" /></figure>)}

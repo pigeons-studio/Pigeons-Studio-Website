@@ -124,7 +124,7 @@
         ],
         [
          "Technique",
-         "ESP32, écran TFT, PlatformIO"
+         "écran, firmware embarqué"
         ],
         [
          "Conception",
@@ -941,7 +941,7 @@
         ],
         [
          "Dedans",
-         "Carte ESP32, accéléromètre et magnétomètre, 3 moteurs de vibration"
+         "Accéléromètre, magnétomètre, 3 moteurs de vibration"
         ],
         [
          "Envoyer",
@@ -1330,7 +1330,7 @@
         ],
         [
          "Tech",
-         "ESP32, TFT screen, PlatformIO"
+         "screen, onboard firmware"
         ],
         [
          "Design",
@@ -2147,7 +2147,7 @@
         ],
         [
          "Inside",
-         "ESP32 board, accelerometer and magnetometer, 3 vibration motors"
+         "Accelerometer, magnetometer, 3 vibration motors"
         ],
         [
          "Send",

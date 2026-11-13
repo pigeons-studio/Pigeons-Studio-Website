@@ -113,10 +113,10 @@ export default function AdminUsers() {
                   const soi = compte.email.toLowerCase() === moi;
                   return (
                     <tr key={compte.id}>
-                      <td>{compte.name}</td>
-                      <td>{compte.email}</td>
-                      <td>{admin ? 'admin' : (fr ? 'compte' : 'account')}</td>
-                      <td>{compte.confirmed ? (fr ? 'confirmé' : 'confirmed') : (fr ? 'en attente' : 'pending')}</td>
+                      <td data-label={fr ? 'Nom' : 'Name'}>{compte.name}</td>
+                      <td data-label="Email">{compte.email}</td>
+                      <td data-label={fr ? 'Rôle' : 'Role'}>{admin ? 'admin' : (fr ? 'compte' : 'account')}</td>
+                      <td data-label={fr ? 'Statut' : 'Status'}>{compte.confirmed ? (fr ? 'confirmé' : 'confirmed') : (fr ? 'en attente' : 'pending')}</td>
                       <td className={styles.action}>
                         {compte.locked || (admin && soi) ? (
                           <span className={styles.muet}>—</span>

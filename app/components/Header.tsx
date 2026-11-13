@@ -115,12 +115,19 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      <div className={styles.cadre} aria-hidden="true" />
+      <div className={styles.cadre} aria-hidden="true">
+        <i className={`${styles.coin} ${styles.coinA}`} />
+        <i className={`${styles.coin} ${styles.coinB}`} />
+        <i className={`${styles.coin} ${styles.coinC}`} />
+        <i className={`${styles.coin} ${styles.coinD}`} />
+      </div>
       <div className={styles.container}>
-        <Link href="/" className={styles.logo} aria-label={t('home')}>
-          PIGEONS//STUDIO
-        </Link>
-        <Link href="/" className={styles.cadreLien}>◂ {t('home')}</Link>
+        <div className={styles.coinHautGauche}>
+          <Link href="/" className={styles.logo} aria-label={t('home')}>
+            PIGEONS//STUDIO
+          </Link>
+          <Link href="/" className={styles.cadreLien}>◂ {t('home')}</Link>
+        </div>
         <div className={styles.cadreActions}>
           {mounted && totalItems > 0 && (
             <button type="button" className={styles.cadreLien} onClick={() => setIsCartOpen(true)}>

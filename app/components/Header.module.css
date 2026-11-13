@@ -328,47 +328,75 @@
   }
 }
 
-/* ---- ORCA//GLYPH : l'en-tête se loge dans le cadre du viseur ---- */
+/* ---- ORCA//GLYPH : l'en-tête se loge dans les coins du cadre ---- */
 .header {
   top: calc(var(--marge) + env(safe-area-inset-top, 0px));
   left: max(var(--marge), env(safe-area-inset-left, 0px));
   right: max(var(--marge), env(safe-area-inset-right, 0px));
   width: auto;
-  border-bottom: 1px solid var(--border);
-  background: rgba(0, 0, 0, 0.78);
-  backdrop-filter: none;
+  border-bottom: 0;
+  background: none;
+  pointer-events: none;
 }
-.container { max-width: none; height: 48px; padding: 0 14px; }
-.logo { font-family: var(--font-mono); font-size: 12px; font-weight: 400; letter-spacing: 0.32em; }
-.navLink { font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: lowercase; color: var(--muted); opacity: 1; padding-bottom: 2px; }
-.navLink::after { height: 1px; background: var(--accent-or); }
-.navLink:hover, .navLink.active, .navLink.active:visited, .navLink.active:link { color: var(--foreground) !important; opacity: 1 !important; }
-.navLink.active::after, .navLink.active:hover::after { width: 100%; height: 1px; background: var(--accent-or); }
-.nav { gap: 22px; }
-.loginButton { font-size: 12px; letter-spacing: 0.08em; text-transform: lowercase; color: var(--accent-or); border-color: var(--border); opacity: 1; }
-.loginButton:hover { border-color: var(--accent-or); }
-@media (max-width: 820px) {
-  .nav { top: calc(var(--marge) + env(safe-area-inset-top, 0px) + 48px); background: rgba(0, 0, 0, 0.96); }
-  .navLink { font-size: 14px; }
+.container { max-width: none; height: auto; padding: 0; background: none; }
+.coinHautGauche, .cadreActions { pointer-events: auto; }
+.logo { font-family: var(--font-mono); font-size: 12px; font-weight: 400; letter-spacing: .32em; margin: 0; }
+.coinHautGauche {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 10px 14px;
 }
-
-/* l'en-tête du viseur : le nom à gauche, panier · connexion · contact · langue à droite (la navigation, ce sont les étages) */
-.cadreActions { margin-left: auto; display: flex; align-items: center; gap: 18px; min-width: 0; }
+.cadreActions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 10px 14px;
+  letter-spacing: .08em;
+}
+.compte { position: relative; }
+.compteMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 120;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #000;
+  border: 1px solid #2c2b29;
+}
 .cadreLien {
   font: inherit;
   font-family: var(--font-mono);
   font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: lowercase;
-  color: var(--muted);
+  letter-spacing: .08em;
+  text-transform: none;
+  color: #8a8780;
   background: none;
   border: 0;
   padding: 0;
   white-space: nowrap;
 }
-.cadreLien:hover, .cadreLien.active { color: var(--foreground); }
-.cadreOr { color: var(--accent-or); }
+.cadreActions .cadreLien { font-size: 12px; }
+.cadreLien:hover, .cadreLien.active { color: #f2f0ea; }
+.cadreOr { color: #ffb545; }
+.cadreOr:hover { color: #f2f0ea; }
 .cadreLien:focus-visible { outline: 1px solid var(--accent-cyan); outline-offset: 3px; }
+.coin { position: absolute; z-index: 2; width: 10px; height: 10px; border: 0 solid #8a8780; pointer-events: none; }
+.coinA { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+.coinB { top: -1px; right: -1px; border-width: 1px 1px 0 0; }
+.coinC { bottom: -1px; left: -1px; border-width: 0 0 1px 1px; }
+.coinD { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
 
 .coinBas {
   position: fixed;
@@ -393,7 +421,7 @@
 
 .cadre {
   position: fixed;
-  z-index: 90;
+  z-index: 110;
   pointer-events: none;
   top: calc(var(--marge) + env(safe-area-inset-top, 0px));
   bottom: calc(var(--marge) + env(safe-area-inset-bottom, 0px));
@@ -402,8 +430,11 @@
   border: 1px solid var(--border, #2c2b29);
 }
 @media (max-width: 520px) {
-  .container { padding: 0 10px; }
-  .logo { letter-spacing: 0.18em; font-size: 11px; margin-right: 8px; }
-  .cadreActions { gap: 10px; }
-  .cadreLien { font-size: 11px; letter-spacing: 0.02em; }
+  .coinDroite {
+    left: max(var(--marge, 12px), env(safe-area-inset-left, 0px));
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    white-space: normal;
+    row-gap: 4px;
+  }
 }
