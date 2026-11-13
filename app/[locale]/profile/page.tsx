@@ -102,13 +102,28 @@ export default function ProfilePage() {
                   <span className={styles.infoValue}>{session.user?.name || '-'}</span>
                 </div>
                 {admin && (
-                  <div className={styles.infoRow}>
+                  <div className={styles.adminBlock}>
                     <span className={styles.infoLabel}>admin</span>
-                    <span className={styles.infoValue}>
-                      <Link href="/admin/users" className={styles.adminLink}>{locale === 'fr' ? 'comptes' : 'accounts'}</Link>
-                      {' · '}
-                      <Link href="/admin/events" className={styles.adminLink}>events</Link>
-                    </span>
+                    <div className={styles.adminLinks}>
+                      <Link href="/admin/users" className={styles.adminLink}>
+                        <span>{locale === 'fr' ? 'comptes' : 'accounts'}</span>
+                        <small>{locale === 'fr'
+                          ? 'Voir les comptes, et donner ou retirer l’accès admin.'
+                          : 'See the accounts, and grant or revoke admin access.'}</small>
+                      </Link>
+                      <Link href="/admin/events" className={styles.adminLink}>
+                        <span>events</span>
+                        <small>{locale === 'fr'
+                          ? 'Créer les rendez-vous, les places, les inscriptions et les liens d’invitation.'
+                          : 'Create the dates, the seats, the registrations and the invitation links.'}</small>
+                      </Link>
+                      <Link href="/admin/animations" className={styles.adminLink}>
+                        <span>animations</span>
+                        <small>{locale === 'fr'
+                          ? 'Regarder les animations du site et copier leur identifiant pour l’attacher à un event.'
+                          : 'Watch the site animations and copy an id to attach one to an event.'}</small>
+                      </Link>
+                    </div>
                   </div>
                 )}
                 <div className={styles.dangerZone}>

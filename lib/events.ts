@@ -3,16 +3,20 @@ import { randomBytes } from 'crypto';
 import { Resend } from 'resend';
 import { getDb } from '@/lib/db';
 import { events, invites, registrations } from '@/lib/db/schema';
+import { isEventScene } from '@/lib/event-scenes';
 import { baseUrl } from '@/lib/seo';
 
 export type EventPublic = {
   slug: string;
   title: string;
+  subtitle: string | null;
   description: string;
+  tags: string[];
   startsAt: string;
   endsAt: string;
   place: string;
   imageUrl: string | null;
+  scene: string | null;
   capacity: number;
   remaining: number;
 };
@@ -37,6 +41,11 @@ export function isSlug(value: string) {
   return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
 }
 
+export function splitTags(value: string | null | undefined) {
+  if (!value) return [];
+  return value.split(/[,\n]/).map((part) => part.trim()).filter(Boolean);
+}
+
 function toPublic(
   row: typeof events.$inferSelect,
   taken: number,
@@ -45,11 +54,14 @@ function toPublic(
   return {
     slug: row.slug,
     title: locale === 'en' ? row.titleEn : row.titleFr,
+    subtitle: locale === 'en' ? row.subtitleEn : row.subtitleFr,
     description: locale === 'en' ? row.descriptionEn : row.descriptionFr,
+    tags: splitTags(locale === 'en' ? row.tagsEn : row.tagsFr),
     startsAt: row.startsAt.toISOString(),
     endsAt: row.endsAt.toISOString(),
     place: row.place,
     imageUrl: row.imageUrl,
+    scene: row.scene && isEventScene(row.scene) ? row.scene : null,
     capacity: row.capacity,
     remaining: Math.max(0, row.capacity - taken),
   };
@@ -70,7 +82,7 @@ export async function listEvents(localeInput?: string | null) {
   const db = getDb();
   if (!db) return [];
   const locale = asLocale(localeInput);
-  const rows = await db.select().from(events).orderBy(asc(events.startsAt));
+  const rows = await db.select().from(events).where(eq(events.hidden, false)).orderBy(asc(events.startsAt));
   const taken = await takenByEvent();
   return rows.map((row) => toPublic(row, taken.get(row.id) ?? 0, locale));
 }
@@ -80,7 +92,7 @@ export async function getEvent(slug: string, localeInput?: string | null) {
   if (!db) return null;
   const locale = asLocale(localeInput);
   const [row] = await db.select().from(events).where(eq(events.slug, slug)).limit(1);
-  if (!row) return null;
+  if (!row || row.hidden) return null;
   const taken = await takenByEvent();
   return toPublic(row, taken.get(row.id) ?? 0, locale);
 }
@@ -178,7 +190,7 @@ export async function registerForEvent(slug: string, name: string, email: string
 
   return db.transaction(async (tx) => {
     const [event] = await tx.select().from(events).where(eq(events.slug, slug)).for('update').limit(1);
-    if (!event) return { status: 'missing' };
+    if (!event || event.hidden) return { status: 'missing' };
     const [existing] = await tx
       .select({ id: registrations.id })
       .from(registrations)
@@ -248,12 +260,18 @@ export type EventInput = {
   slug?: string;
   titleFr: string;
   titleEn: string;
+  subtitleFr?: string;
+  subtitleEn?: string;
   descriptionFr: string;
   descriptionEn: string;
+  tagsFr?: string;
+  tagsEn?: string;
   startsAt: string;
   endsAt: string;
   place: string;
   imageUrl?: string;
+  scene?: string;
+  hidden?: boolean;
   capacity: number;
 };
 
@@ -269,6 +287,23 @@ function parseImage(value: string | undefined) {
   }
 }
 
+function parseOptional(value: string | undefined) {
+  const raw = value?.trim() ?? '';
+  return raw || null;
+}
+
+function parseTags(value: string | undefined) {
+  const tags = splitTags(value);
+  return tags.length ? tags.join(', ') : null;
+}
+
+function parseScene(value: string | undefined) {
+  const raw = value?.trim() ?? '';
+  if (!raw) return null;
+  if (!isEventScene(raw)) return undefined;
+  return raw;
+}
+
 function parseInput(input: EventInput) {
   const titleFr = input.titleFr.trim();
   const titleEn = input.titleEn.trim();
@@ -276,6 +311,11 @@ function parseInput(input: EventInput) {
   const descriptionEn = input.descriptionEn.trim();
   const place = input.place.trim();
   const imageUrl = parseImage(input.imageUrl);
+  const scene = parseScene(input.scene);
+  const subtitleFr = parseOptional(input.subtitleFr);
+  const subtitleEn = parseOptional(input.subtitleEn);
+  const tagsFr = parseTags(input.tagsFr);
+  const tagsEn = parseTags(input.tagsEn);
   const capacity = Number(input.capacity);
   const startsAt = new Date(input.startsAt);
   const endsAt = new Date(input.endsAt);
@@ -283,8 +323,8 @@ function parseInput(input: EventInput) {
   if (!titleFr || !titleEn || !descriptionFr || !descriptionEn || !place || !slug) return null;
   if (!Number.isInteger(capacity) || capacity < 1 || capacity > 5000) return null;
   if (Number.isNaN(startsAt.getTime()) || Number.isNaN(endsAt.getTime()) || endsAt < startsAt) return null;
-  if (imageUrl === undefined) return null;
-  return { slug, titleFr, titleEn, descriptionFr, descriptionEn, place, imageUrl, capacity, startsAt, endsAt };
+  if (imageUrl === undefined || scene === undefined) return null;
+  return { slug, titleFr, titleEn, subtitleFr, subtitleEn, descriptionFr, descriptionEn, tagsFr, tagsEn, place, imageUrl, scene, hidden: Boolean(input.hidden), capacity, startsAt, endsAt };
 }
 
 export async function createEvent(input: EventInput) {
@@ -294,6 +334,44 @@ export async function createEvent(input: EventInput) {
   if (!parsed) return { error: 'invalid' as const };
   const [created] = await db.insert(events).values(parsed).returning();
   return { event: created };
+}
+
+const WORKSHOP = {
+  slug: 'ev-micros',
+  titleFr: 'WORKSHOP // MICROS',
+  titleEn: 'WORKSHOP // MICS',
+  subtitleFr: 'Apprendre à souder et bricoler des micros XLR, simplement et pas cher',
+  subtitleEn: 'Learn to solder and hack XLR microphones, simply and cheaply',
+  descriptionFr: `Un atelier pour apprendre à souder et bricoler des micros XLR, simplement et pas cher. On va explorer et fabriquer plusieurs micros, avec différents principes et designs : des micros à électret (des capsules très variées et très communes), des micros à ruban faits maison (avec une membrane DIY), des micros sensibles aux ondes électromagnétiques et des micros capables d’entendre les ultrasons. Et découvrir d’autres designs, plus ou moins simples, pour différents types de capsules.
+
+L’atelier est animé par Hugo Thomas, étudiant en cinéma d’animation qui passe son temps libre à bricoler : il adore démonter, détourner et fabriquer ses propres outils de création, que ce soit en créant ou modifiant des appareils photo, ou en soudant des micros maison.
+
+- **On fabrique** — électret, ruban fait maison, ondes électromagnétiques, ultrasons
+- **Animé par** — Hugo Thomas
+- **Organisé par** — Pigeons Studio`,
+  descriptionEn: `A workshop to learn how to solder and hack XLR microphones, simply and cheaply. We will explore and build several mics with different principles and designs: electret mics (very varied, very common capsules), homemade ribbon mics (with a DIY membrane), mics sensitive to electromagnetic waves, and mics that can hear ultrasound. And discover other designs, more or less simple, for different kinds of capsules.
+
+The workshop is led by Hugo Thomas, an animation film student who spends his free time tinkering: he loves taking apart, hacking and making his own creative tools, whether building or modifying cameras or soldering homemade mics.
+
+- **We build** — electret, homemade ribbon, electromagnetic, ultrasound
+- **Led by** — Hugo Thomas
+- **Organised by** — Pigeons Studio`,
+  tagsFr: 'Atelier, Soudure, Micros XLR, DIY',
+  tagsEn: 'Workshop, Soldering, XLR mics, DIY',
+  place: '111 rue Marceau, Montreuil',
+  scene: 'ev-micros',
+  capacity: 12,
+  startsAt: new Date('2026-11-22T14:00:00+01:00'),
+  endsAt: new Date('2026-11-22T20:00:00+01:00'),
+};
+
+export async function seedWorkshopMicros() {
+  const db = getDb();
+  if (!db) return { status: 'unavailable' as const };
+  const [existing] = await db.select({ id: events.id }).from(events).where(eq(events.slug, WORKSHOP.slug)).limit(1);
+  if (existing) return { status: 'exists' as const };
+  await db.insert(events).values(WORKSHOP);
+  return { status: 'created' as const };
 }
 
 export async function updateEvent(id: string, input: EventInput) {
@@ -349,12 +427,18 @@ export async function eventAdminDetail(id: string) {
     slug: event.slug,
     titleFr: event.titleFr,
     titleEn: event.titleEn,
+    subtitleFr: event.subtitleFr,
+    subtitleEn: event.subtitleEn,
     descriptionFr: event.descriptionFr,
     descriptionEn: event.descriptionEn,
+    tagsFr: event.tagsFr,
+    tagsEn: event.tagsEn,
     startsAt: event.startsAt.toISOString(),
     endsAt: event.endsAt.toISOString(),
     place: event.place,
     imageUrl: event.imageUrl,
+    scene: event.scene,
+    hidden: event.hidden,
     capacity: event.capacity,
     registrations: people.map((person) => ({
       name: person.name,
@@ -369,6 +453,14 @@ export async function eventAdminDetail(id: string) {
       email: link.email,
     })),
   };
+}
+
+export async function setEventHidden(id: string, hidden: boolean) {
+  const db = getDb();
+  if (!db) return { error: 'unavailable' as const };
+  const [updated] = await db.update(events).set({ hidden }).where(eq(events.id, id)).returning({ id: events.id, hidden: events.hidden });
+  if (!updated) return { error: 'missing' as const };
+  return { event: updated };
 }
 
 export async function createInvite(eventId: string) {

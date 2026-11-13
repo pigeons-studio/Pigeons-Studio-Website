@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function NewEventPage() {
-  return <EventEditor />;
+export default async function NewEventPage({ searchParams }: { searchParams: Promise<{ scene?: string }> }) {
+  const { scene } = await searchParams;
+  return <EventEditor initialScene={scene} />;
 }

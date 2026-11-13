@@ -93,13 +93,51 @@
   color: var(--foreground);
 }
 
+.adminBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.adminLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .adminLink {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  text-decoration: none;
+  color: inherit;
+}
+
+.adminLink:hover {
+  border-color: var(--accent-or, #ffb545);
+}
+
+.adminLink span {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: lowercase;
   color: var(--accent-or, #ffb545);
-  text-decoration: none;
+}
+
+.adminLink small {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--foreground);
+  opacity: 0.75;
 }
 
 .emptyState {
