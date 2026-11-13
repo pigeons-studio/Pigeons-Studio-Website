@@ -4,7 +4,6 @@ import { Resend } from 'resend';
 import { getDb } from '@/lib/db';
 import { events, invites, registrations } from '@/lib/db/schema';
 import { isEventScene } from '@/lib/event-scenes';
-import { mailNoir } from '@/lib/mail-shell';
 import { baseUrl } from '@/lib/seo';
 
 export type EventPublic = {
@@ -151,19 +150,21 @@ export async function sendEventConfirmation(mail: EventMail, locale: 'fr' | 'en'
     from: process.env.RESEND_FROM_EMAIL || 'contact@punkhazard.org',
     to: mail.email,
     subject: fr ? `Inscription confirmée · ${mail.titleFr}` : `You’re registered · ${mail.titleEn}`,
-    html: mailNoir(`<table class="fond" role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000;">
-<tr><td class="fond" align="center" bgcolor="#000000" style="background:#000;">
-<table class="fond" role="presentation" width="480" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000;max-width:480px;">
-<tr><td class="fond encre" bgcolor="#000000" style="background:#000;padding:32px 24px;font-family:ui-monospace,'IBM Plex Mono',Menlo,Consolas,monospace;color:#f2f0ea;">
-<p class="or" style="margin:0 0 24px;letter-spacing:.18em;font-size:12px;color:#ffb545;">PIGEONS//STUDIO</p>
-<p class="encre" style="margin:0 0 8px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:#f2f0ea;">${titre}</p>
-<p class="encre" style="margin:0 0 8px;font-size:12px;letter-spacing:.06em;color:#f2f0ea;">${quand}</p>
-<p class="encre" style="margin:0 0 24px;font-size:12px;letter-spacing:.06em;color:#f2f0ea;">${lieu}</p>
-<p class="encre" style="margin:0 0 24px;font-size:13px;line-height:1.5;color:#f2f0ea;">${phrase}</p>
-<a class="or" href="${link}" style="display:inline-block;padding:10px 16px;border:1px solid #ffb545;color:#ffb545;text-decoration:none;letter-spacing:.12em;text-transform:uppercase;font-size:11px;">${bouton}</a>
-<a class="encre" href="${link}" style="display:block;margin:24px 0 0;font-size:11px;line-height:1.4;color:#f2f0ea;text-decoration:none;word-break:break-all;">${link}</a>
+    html: `<!DOCTYPE html><html><body style="margin:0;background:#000;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000000;">
+<tr><td align="center">
+<table role="presentation" width="480" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000000;max-width:480px;">
+<tr><td bgcolor="#000000" style="background:#000000;padding:32px 24px;font-family:ui-monospace,'IBM Plex Mono',Menlo,Consolas,monospace;color:#f2f0ea;">
+<p style="margin:0 0 24px;letter-spacing:.18em;font-size:12px;color:#ffb545;">PIGEONS//STUDIO</p>
+<p style="margin:0 0 8px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:#f2f0ea;">${titre}</p>
+<p style="margin:0 0 8px;font-size:12px;letter-spacing:.06em;color:#f2f0ea;">${quand}</p>
+<p style="margin:0 0 24px;font-size:12px;letter-spacing:.06em;color:#f2f0ea;">${lieu}</p>
+<p style="margin:0 0 24px;font-size:13px;line-height:1.5;color:#f2f0ea;">${phrase}</p>
+<a href="${link}" style="display:inline-block;padding:10px 16px;border:1px solid #ffb545;color:#ffb545;text-decoration:none;letter-spacing:.12em;text-transform:uppercase;font-size:11px;">${bouton}</a>
+<p style="margin:24px 0 0;font-size:11px;line-height:1.4;color:#f2f0ea;word-break:break-all;">${link}</p>
 </td></tr></table>
-</td></tr></table>`),
+</td></tr></table>
+</body></html>`,
     text: `${fr ? mail.titleFr : mail.titleEn}\n${quandMail(mail.startsAt, locale)} — ${quandMail(mail.endsAt, locale)}\n${mail.place}\n\n${phrase}\n${link}`,
   });
 }

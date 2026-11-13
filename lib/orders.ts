@@ -4,7 +4,6 @@ import { orderEmails } from '@/lib/admin-emails';
 import { findUserByEmail } from '@/lib/accounts';
 import { getDb } from '@/lib/db';
 import { orderItems, orders } from '@/lib/db/schema';
-import { mailNoir } from '@/lib/mail-shell';
 import { baseUrl } from '@/lib/seo';
 import { ORDER_KINDS, ORDER_STATUSES, type OrderKind, type OrderLine, type OrderStatus, type OrderView } from '@/lib/order-types';
 
@@ -44,18 +43,20 @@ function ligne(item: OrderLine, locale: 'fr' | 'en') {
 }
 
 function mailHtml(locale: 'fr' | 'en', titre: string, lignes: string[], phrase: string, bouton: string, lien: string) {
-  const corps = lignes.map((l) => `<p class="encre" style="margin:0 0 8px;font-size:13px;line-height:1.5;color:#f2f0ea;">${echap(l)}</p>`).join('');
-  return mailNoir(`<table class="fond" role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000;">
-<tr><td class="fond" align="center" bgcolor="#000000" style="background:#000;">
-<table class="fond" role="presentation" width="480" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000;max-width:480px;">
-<tr><td class="fond encre" bgcolor="#000000" style="background:#000;padding:32px 24px;font-family:ui-monospace,'IBM Plex Mono',Menlo,Consolas,monospace;color:#f2f0ea;">
-<p class="or" style="margin:0 0 24px;letter-spacing:.18em;font-size:12px;color:#ffb545;">PIGEONS//STUDIO</p>
-<p class="encre" style="margin:0 0 16px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:#f2f0ea;">${echap(titre)}</p>
+  const corps = lignes.map((l) => `<p style="margin:0 0 8px;font-size:13px;line-height:1.5;color:#f2f0ea;">${echap(l)}</p>`).join('');
+  return `<!DOCTYPE html><html><body style="margin:0;background:#000;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000000;">
+<tr><td align="center">
+<table role="presentation" width="480" cellpadding="0" cellspacing="0" bgcolor="#000000" style="background:#000000;max-width:480px;">
+<tr><td bgcolor="#000000" style="background:#000000;padding:32px 24px;font-family:ui-monospace,'IBM Plex Mono',Menlo,Consolas,monospace;color:#f2f0ea;">
+<p style="margin:0 0 24px;letter-spacing:.18em;font-size:12px;color:#ffb545;">PIGEONS//STUDIO</p>
+<p style="margin:0 0 16px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:#f2f0ea;">${echap(titre)}</p>
 ${corps}
-<p class="encre" style="margin:16px 0 24px;font-size:13px;line-height:1.5;color:#f2f0ea;">${echap(phrase)}</p>
-<a class="or" href="${lien}" style="display:inline-block;padding:10px 16px;border:1px solid #ffb545;color:#ffb545;text-decoration:none;letter-spacing:.12em;text-transform:uppercase;font-size:11px;">${echap(bouton)}</a>
+<p style="margin:16px 0 24px;font-size:13px;line-height:1.5;color:#f2f0ea;">${echap(phrase)}</p>
+<a href="${lien}" style="display:inline-block;padding:10px 16px;border:1px solid #ffb545;color:#ffb545;text-decoration:none;letter-spacing:.12em;text-transform:uppercase;font-size:11px;">${echap(bouton)}</a>
 </td></tr></table>
-</td></tr></table>`);
+</td></tr></table>
+</body></html>`;
 }
 
 async function envoyerMails(order: OrderView) {
