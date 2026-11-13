@@ -17,8 +17,13 @@ const TEXTES = {
     decisions: ['imiter', 'contraster', 'densifier', 's’éclaircir', 'se taire'],
     traits: ['hauteur', 'énergie', 'timbre', 'texture'],
     timbre: 'timbre', hauteur: 'hauteur', zone: 'zone de sécurité', zoneGrains: 'zone de répartition', toutEspace: 'les grains dans tout l’espace', panoramique: 'le son suit le robot', titresSys: ['LIDAR', 'CARTE DU SON', 'MODE 1 · UNE ZONE', 'MODE 1 · TOUT L’ESPACE', 'MODE 2 · SONS PLACÉS', 'SPATIALISATION', 'PILOTAGE'],
+    titresSeul: ['CAPTURER', 'MODE TRANS', 'PERU'],
+    sources: ['micro', 'caméra', 'écran'], grainMot: 'un grain = un bout de son + son image', voixMot: 'on chante', repond: 'le grain le plus proche répond', imageGrain: 'son image', gravite: 'gravité', choc: 'chaque choc joue le grain',
     systema: {
-      etapes: ['Le LiDAR du robot Unitree Go2 scanne le lieu : systema8os.xt dessine la carte de la salle et de ses obstacles.',
+      etapes: ['Sans robot, systema8os.xt est déjà un instrument : il capture le micro, la caméra ou une fenêtre de l’écran, et découpe tout en grains. Chaque grain garde son bout de son et son image.',
+        'Mode TRANS : on chante ou on joue dans le micro, le logiciel cherche le grain qui lui ressemble le plus (hauteur, timbre) et le fait jouer, avec son image. Les grains partent aussi en notes MIDI.',
+        'PERU : les grains choisis deviennent des balles dans une cage en 3D. Un séquenceur règle la gravité, de l’apesanteur au très lourd ; chaque choc joue le grain, plus ou moins fort, placé dans l’espace.',
+        'Avec les robots Unitree Go2, il va plus loin : le LiDAR du robot scanne le lieu, systema8os.xt dessine la carte de la salle et de ses obstacles.',
         'Les sons sont découpés en grains, analysés et rangés par timbre et par hauteur : c’est la carte du son.',
         'Premier mode : on trace une zone avec des balises, et les grains s’y dispersent. Le robot qui la traverse fait jouer ceux qu’il frôle.',
         'Ou bien les grains se répartissent dans tout l’espace scanné, accrochés au relief que voit le LiDAR : toute la salle devient instrument.',
@@ -107,8 +112,13 @@ const TEXTES = {
     decisions: ['imitate', 'contrast', 'densify', 'thin out', 'stay silent'],
     traits: ['pitch', 'energy', 'timbre', 'texture'],
     timbre: 'timbre', hauteur: 'pitch', zone: 'safety zone', zoneGrains: 'scatter zone', toutEspace: 'grains across the whole space', panoramique: 'the sound follows the robot', titresSys: ['LIDAR', 'SOUND MAP', 'MODE 1 · A ZONE', 'MODE 1 · WHOLE SPACE', 'MODE 2 · PLACED SOUNDS', 'SPATIALISATION', 'STEERING'],
+    titresSeul: ['CAPTURE', 'TRANS MODE', 'PERU'],
+    sources: ['mic', 'camera', 'screen'], grainMot: 'a grain = a bit of sound + its image', voixMot: 'you sing', repond: 'the closest grain answers', imageGrain: 'its image', gravite: 'gravity', choc: 'each hit plays the grain',
     systema: {
-      etapes: ['The Unitree Go2 robot’s LiDAR scans the venue: systema8os.xt draws the map of the room and its obstacles.',
+      etapes: ['Without a robot, systema8os.xt is already an instrument: it captures the mic, the camera or a screen window, and cuts everything into grains. Each grain keeps its bit of sound and its image.',
+        'TRANS mode: sing or play into the mic, and the software finds the grain that sounds most alike (pitch, timbre) and plays it, with its image. Grains also go out as MIDI notes.',
+        'PERU: chosen grains become balls in a 3D cage. A sequencer sets the gravity, from weightless to very heavy; each hit plays the grain, louder or softer, placed in space.',
+        'With Unitree Go2 robots it goes further: the robot’s LiDAR scans the venue, and systema8os.xt draws the map of the room and its obstacles.',
         'Sounds are cut into grains, analysed and sorted by timbre and pitch: this is the sound map.',
         'First mode: you draw a zone with beacons, and the grains scatter inside it. The robot crossing it plays the ones it brushes past.',
         'Or the grains spread across the whole scanned space, attached to the relief the LiDAR sees: the whole room becomes an instrument.',
@@ -572,7 +582,85 @@ function tripode (ctx, w, h, t, etat, css, L) {
 // ---------------------------------------------------------------- SYSTEMA8OS.XT : la carte du lieu et la carte du son se superposent, le robot y joue en marchant
 // sept temps, lents : le scan, les grains, deux façons de les répartir, les sons placés, le robot qui marche, le pilotage
 const SYS_DUREES = [16, 16, 20, 20, 20, 20, 20];
+const SEUL_DUREES = [18, 18, 20];
+// SYSTEMA8OS.XT sans robot : capturer, le mode TRANS, PERU ; puis les sept temps avec le robot
 function systema (ctx, w, h, t, etat, css, L) {
+  const tSeul = SEUL_DUREES.reduce((a, b) => a + b, 0); const total = tSeul + SYS_DUREES.reduce((a, b) => a + b, 0); const tt = t % total;
+  if (tt >= tSeul) { if (!etat.robot) etat.robot = { dt: etat.dt, relance: 0 }; etat.robot.dt = etat.dt; const r = systemaRobot(ctx, w, h, tt - tSeul, etat.robot, css, L); return { info: L.systema, actif: r.actif + 3 }; }
+  let ph = tt; let actif = 0; while (ph >= SEUL_DUREES[actif]) { ph -= SEUL_DUREES[actif]; actif++; }
+  systemaSeul(ctx, w, h, t, ph, actif, etat, css, L);
+  return { info: L.systema, actif };
+}
+function systemaSeul (ctx, w, h, t, ph, actif, etat, css, L) {
+  const pad = 12; const lisse = (x) => { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); };
+  if (!etat.seul) {
+    let s = 11; const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+    etat.seul = { grains: Array.from({ length: 70 }, () => ({ tim: rnd(), v: rnd(), lum: 0, img: Math.floor(rnd() * 4) })), balles: [], vols: [] };
+  }
+  const S = etat.seul; const dt = etat.dt || 1 / 60;
+  // le nuage des grains : timbre en largeur, hauteur en hauteur
+  const NX = w * 0.56; const NY = h * 0.2; const NW = w * 0.38; const NH = h * 0.58;
+  const pos = (g) => [NX + g.tim * NW, NY + (1 - g.v) * NH];
+  // une petite image de grain : quatre motifs, comme des plans filmés
+  const vignette = (x, y, ww, hh, k, coul) => { ctx.strokeStyle = coul; ctx.strokeRect(x + 0.5, y + 0.5, ww, hh); ctx.fillStyle = coul;
+    if (k === 0) { ctx.beginPath(); ctx.arc(x + ww / 2, y + hh / 2, hh * 0.3, 0, 6.283); ctx.fill(); }
+    else if (k === 1) { for (let i = 0; i < 3; i++) ctx.fillRect(x + ww * (0.2 + i * 0.25), y + hh * 0.3, ww * 0.12, hh * 0.5); }
+    else if (k === 2) { ctx.beginPath(); ctx.moveTo(x + 3, y + hh - 3); ctx.lineTo(x + ww / 2, y + 4); ctx.lineTo(x + ww - 3, y + hh - 3); ctx.closePath(); ctx.fill(); }
+    else { ctx.fillRect(x + 3, y + hh * 0.55, ww - 6, hh * 0.3); ctx.fillRect(x + ww * 0.6, y + 4, ww * 0.25, hh * 0.25); } };
+  const nuage = (alpha) => { ctx.globalAlpha = alpha; ctx.strokeStyle = SOMBRE; ctx.strokeRect(NX - 6, NY - 6, NW + 12, NH + 12);
+    texte(ctx, L.timbre + ' →', NX, NY + NH + 20, GRIS, 10); ctx.save(); ctx.translate(NX - 12, NY + NH); ctx.rotate(-Math.PI / 2); texte(ctx, L.hauteur + ' →', 0, 0, GRIS, 10); ctx.restore(); ctx.globalAlpha = 1; };
+  if (actif === 0) {
+    // trois sources : le micro, la caméra, une fenêtre de l'écran
+    const sx = pad + 6; L.sources.forEach((nom, i) => { const y = h * 0.22 + i * h * 0.2; const on = Math.floor(t / 2.5) % 3 === i;
+      ctx.strokeStyle = on ? css : SOMBRE; ctx.strokeRect(sx + 0.5, y + 0.5, 46, 34);
+      ctx.fillStyle = on ? css : GRIS; if (i === 0) { ctx.fillRect(sx + 19, y + 7, 8, 14); ctx.fillRect(sx + 22, y + 21, 2, 7); } else if (i === 1) { ctx.fillRect(sx + 11, y + 11, 18, 13); ctx.fillRect(sx + 29, y + 14, 6, 7); } else { ctx.fillRect(sx + 9, y + 8, 28, 16); ctx.fillStyle = '#000'; ctx.fillRect(sx + 11, y + 10, 24, 12); }
+      texte(ctx, nom, sx + 23, y + 48, on ? css : GRIS, 10, 'center'); });
+    // la bande : en haut les images, en bas l'onde ; des coupes la découpent en grains
+    const bx = sx + 64; const bw = NX - bx - 24; const by = h * 0.36; const defile = (t * 30) % 40;
+    ctx.save(); ctx.beginPath(); ctx.rect(bx, by - 30, bw, 80); ctx.clip();
+    for (let i = -1; i < bw / 40 + 1; i++) vignette(bx + i * 40 - defile, by - 26, 34, 24, (i + Math.floor(t * 30 / 40)) & 3, '#6f6c66');
+    ctx.strokeStyle = css; ctx.beginPath(); for (let x = 0; x <= bw; x += 2) { const y = by + 26 + Math.sin((x + t * 30) * 0.15) * 10 * Math.sin((x + t * 30) * 0.013); x ? ctx.lineTo(bx + x, y) : ctx.moveTo(bx + x, y); } ctx.stroke();
+    ctx.restore();
+    ctx.strokeStyle = OR; ctx.setLineDash([3, 3]); for (let x = bw - defile; x > 0; x -= 40) { ctx.beginPath(); ctx.moveTo(bx + x, by - 32); ctx.lineTo(bx + x, by + 46); ctx.stroke(); } ctx.setLineDash([]);
+    texte(ctx, L.grainMot, pad, h - 12, OR, 10, 'left', 'italic ');
+    // les grains s'envolent vers le nuage et s'y rangent
+    const n = Math.min(S.grains.length, Math.floor(ph * 5)); nuage(lisse(ph / 2));
+    S.grains.forEach((g, i) => { if (i >= n) return; const u = lisse((ph - i / 5) / 1.2); const [gx, gy] = pos(g); const x = bx + bw + (gx - bx - bw) * u; const y = by + 10 + (gy - by - 10) * u; ctx.fillStyle = u < 1 ? OR : g.v > 0.5 ? ENCRE : GRIS; ctx.fillRect(x - 2, y - 2, 4, 4); });
+  }
+  if (actif === 1) {
+    // le micro : une voix dont la hauteur change ; le grain le plus proche s'allume et montre son image
+    nuage(1); const mx = pad + 10; const my = h * 0.5; const hz = 0.5 + 0.4 * Math.sin(t * 0.7) + 0.08 * Math.sin(t * 2.3); const tb = 0.5 + 0.4 * Math.sin(t * 0.45 + 1);
+    ctx.fillStyle = css; ctx.fillRect(mx + 4, my - 14, 10, 20); ctx.fillRect(mx + 8, my + 6, 2, 10); texte(ctx, L.voixMot, mx, my + 32, css, 10, 'left', 'italic ');
+    ctx.strokeStyle = css; ctx.beginPath(); for (let x = 0; x < NX - mx - 50; x += 2) { const y = my + Math.sin(x * (0.1 + hz * 0.3) - t * 8) * 9; x ? ctx.lineTo(mx + 26 + x, y) : ctx.moveTo(mx + 26 + x, y); } ctx.stroke();
+    let best = null; let bd = 9; S.grains.forEach((g) => { const d = Math.hypot(g.tim - tb, g.v - hz); if (d < bd) { bd = d; best = g; } });
+    S.grains.forEach((g) => { g.lum = Math.max(0, g.lum - dt * 1.2); const [x, y] = pos(g); ctx.fillStyle = g.lum > 0.05 ? OR : g.v > 0.5 ? ENCRE : GRIS; const r = 2 + g.lum * 2.5; ctx.fillRect(x - r, y - r, r * 2, r * 2); });
+    if (best) { best.lum = 1; const [x, y] = pos(best); ctx.strokeStyle = OR; ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.moveTo(NX - 40, my); ctx.lineTo(x, y); ctx.stroke(); ctx.setLineDash([]);
+      ctx.beginPath(); ctx.arc(x, y, 9 + (t * 20) % 10, 0, 6.283); ctx.stroke();
+      vignette(pad + 14, h * 0.2, 70, 50, best.img, OR); texte(ctx, L.imageGrain, pad + 14, h * 0.2 - 6, OR, 10, 'left', 'italic ');
+      texte(ctx, L.repond, pad, h - 12, OR, 10, 'left', 'italic '); }
+  }
+  if (actif === 2) {
+    // PERU : une cage en perspective, des balles-grains, la gravité qui change à chaque pas
+    const cx0 = w * 0.14; const cy0 = h * 0.14; const cw = w * 0.72; const ch = h * 0.56; const d = Math.min(w, h) * 0.08;
+    ctx.strokeStyle = css; ctx.globalAlpha = 0.7; ctx.strokeRect(cx0 + d, cy0 - d, cw, ch); ctx.strokeRect(cx0, cy0, cw, ch);
+    [[0, 0], [cw, 0], [0, ch], [cw, ch]].forEach(([a, b]) => { ctx.beginPath(); ctx.moveTo(cx0 + a, cy0 + b); ctx.lineTo(cx0 + a + d, cy0 + b - d); ctx.stroke(); }); ctx.globalAlpha = 1;
+    const pas = 16; const k = Math.floor(t * 2) % pas; const grav = [0.8, 0.8, 0.1, -0.1, 0.5, 0.8, 0.3, 0, 0.8, 0.6, -0.1, 0.2, 0.8, 0.4, 0.1, 0.7];
+    if (!S.balles.length) for (let i = 0; i < 9; i++) S.balles.push({ x: 0.1 + i * 0.1, y: 0.2 + (i % 3) * 0.2, vx: (i % 2 ? 0.12 : -0.1), vy: 0, img: i & 3, l: 0 });
+    const g = grav[k] * 4.5;
+    S.balles.forEach((b) => { b.vy += g * dt; b.x += b.vx * dt; b.y += b.vy * dt; b.l = Math.max(0, b.l - dt * 2);
+      if (b.y > 0.95) { b.y = 0.95; if (b.vy > 0.25) { b.l = Math.min(1, b.vy / 1.2); S.vols.push({ x: b.x, y: 0.95, r: 0, f: b.l }); } b.vy = -b.vy * 0.82; }
+      if (b.y < 0.05) { b.y = 0.05; b.vy = Math.abs(b.vy) * 0.5; } if (b.x < 0.04 || b.x > 0.96) b.vx = -b.vx; });
+    S.vols = S.vols.filter((v) => (v.r += dt * 60) < 40);
+    S.vols.forEach((v) => { ctx.strokeStyle = OR; ctx.globalAlpha = (1 - v.r / 40) * (0.4 + v.f * 0.6); ctx.beginPath(); ctx.ellipse(cx0 + v.x * cw, cy0 + v.y * ch, v.r, v.r * 0.35, 0, 0, 6.283); ctx.stroke(); }); ctx.globalAlpha = 1;
+    S.balles.forEach((b) => { const x = cx0 + b.x * cw; const y = cy0 + b.y * ch; const r = 9 + b.l * 4; ctx.strokeStyle = b.l > 0.05 ? OR : ENCRE; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283); ctx.stroke(); vignette(x - 5, y - 4, 10, 8, b.img, b.l > 0.05 ? OR : GRIS); });
+    texte(ctx, L.choc, cx0, cy0 + ch + 18, OR, 10, 'left', 'italic ');
+    // le séquenceur de gravité : seize pas, de l'apesanteur au très lourd
+    const sy = h - 46; const sw = (w - pad * 2 - 70) / pas; texte(ctx, L.gravite, pad, sy + 18, GRIS, 10);
+    for (let i = 0; i < pas; i++) { const v = (grav[i] + 0.1) / 0.9; const bh = 4 + v * 26; ctx.fillStyle = i === k ? css : '#55534e'; ctx.fillRect(pad + 70 + i * sw, sy + 30 - bh, sw - 3, bh); }
+  }
+  texte(ctx, L.titresSeul[actif], pad, 20, css, 11, 'left', '600 ');
+}
+function systemaRobot (ctx, w, h, t, etat, css, L) {
   const total = SYS_DUREES.reduce((a, b) => a + b, 0); let ph = t % total; let actif = 0;
   while (ph >= SYS_DUREES[actif]) { ph -= SYS_DUREES[actif]; actif++; }
   const pad = 12; const cx = w / 2; const cy = h / 2 + 6; const R = Math.min(w, h) * 0.42;
@@ -1953,7 +2041,7 @@ const ETAPES = {
   langue: [0, 0.18, 0.45, 0.62, 1].map((u) => u * 32),
   teammate: [0, 0.14, 0.42, 0.66, 1].map((u) => u * 64),
   tripode: [0, 20, 40, 60, 80],
-  systema: cumul(SYS_DUREES),
+  systema: cumul([...SEUL_DUREES, ...SYS_DUREES]),
   avatar: cumul(AV_DUREES),
   billy: cumul(BI_DUREES),
   ...Object.fromEntries(Object.keys(SV).map((id) => [id, cumul(SV[id].map(() => 16))])),
