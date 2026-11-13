@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import Header from '@/app/components/Header';
-import Footer from '@/app/components/Footer';
 import { buildPageMetadata } from '@/lib/seo';
 import styles from './page.module.css';
 import OrcaFond from '@/app/components/world/OrcaFond';
@@ -68,7 +67,6 @@ export default function MentionsLegalesPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

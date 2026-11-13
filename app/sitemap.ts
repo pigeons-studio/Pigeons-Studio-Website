@@ -5,13 +5,15 @@ import { baseUrl, buildAlternates } from '@/lib/seo';
 // Pages publiques à inclure (paths en anglais)
 const publicPaths = [
   '',
+  'bio',
+  'projets',
+  'services',
+  'events',
+  'boutique',
+  'logiciels',
   'about',
   'contact',
   'legal',
-  'projects',
-  'services',
-  'shop',
-  'softwares',
   'terms',
 ] as const;
 

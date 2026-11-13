@@ -1,14 +1,11 @@
 .header {
-  border-bottom: 1px solid var(--border);
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: calc(var(--marge) + env(safe-area-inset-top, 0px));
+  left: max(var(--marge), env(safe-area-inset-left, 0px));
+  right: max(var(--marge), env(safe-area-inset-right, 0px));
   z-index: 100;
-  backdrop-filter: blur(8px);
-  background: rgba(10, 11, 15, 0.8);
-  isolation: isolate;
-  width: 100%;
+  width: auto;
+  background: transparent;
 }
 
 .container {
@@ -18,7 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  height: 44px;
   position: relative;
   gap: 0;
   min-width: 0;
@@ -372,6 +369,38 @@
 .cadreLien:hover, .cadreLien.active { color: var(--foreground); }
 .cadreOr { color: var(--accent-or); }
 .cadreLien:focus-visible { outline: 1px solid var(--accent-cyan); outline-offset: 3px; }
+
+.coinBas {
+  position: fixed;
+  z-index: 100;
+  bottom: calc(var(--marge, 12px) + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px;
+  align-items: baseline;
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: #5f5d58;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+.coinGauche { left: max(var(--marge, 12px), env(safe-area-inset-left, 0px)); color: var(--foreground); }
+.coinDroite { right: max(var(--marge, 12px), env(safe-area-inset-right, 0px)); }
+.coinDroite a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.coinDroite a:hover { color: var(--foreground); }
+
+.cadre {
+  position: fixed;
+  z-index: 90;
+  pointer-events: none;
+  top: calc(var(--marge) + env(safe-area-inset-top, 0px));
+  bottom: calc(var(--marge) + env(safe-area-inset-bottom, 0px));
+  left: max(var(--marge), env(safe-area-inset-left, 0px));
+  right: max(var(--marge), env(safe-area-inset-right, 0px));
+  border: 1px solid var(--border, #2c2b29);
+}
 @media (max-width: 520px) {
   .container { padding: 0 10px; }
   .logo { letter-spacing: 0.18em; font-size: 11px; margin-right: 8px; }

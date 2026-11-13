@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { Link, usePathname } from '@/i18n/routing';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -12,12 +12,40 @@ import LoginModal from './LoginModal';
 import UserMenu from './UserMenu';
 import styles from "./Header.module.css";
 
+const PIED = {
+  fr: { droits: '© 2026 Pigeons Studio - Tous droits réservés.', legal: 'mentions légales', cgv: 'CGV' },
+  en: { droits: '© 2026 Pigeons Studio - All rights reserved.', legal: 'legal notice', cgv: 'terms' },
+};
+
+const NOMS: Record<'fr' | 'en', Record<string, string>> = {
+  fr: {
+    legal: 'mentions légales', terms: 'CGV', profile: 'mon profil', contact: 'contact',
+    about: 'à propos', login: 'connexion', projects: 'projets', shop: 'boutique', softwares: 'logiciels',
+    admin: 'events',
+  },
+  en: {
+    legal: 'legal notice', terms: 'terms', profile: 'my profile', contact: 'contact',
+    about: 'about', login: 'login', projects: 'projects', shop: 'shop', softwares: 'softwares',
+    admin: 'events',
+  },
+};
+
+function nomDePage(pathname: string, locale: 'fr' | 'en') {
+  if (pathname.startsWith('/admin/users')) return locale === 'fr' ? 'comptes' : 'accounts';
+  if (pathname.startsWith('/admin')) return 'events';
+  const cle = pathname.split('/').filter(Boolean)[0] ?? '';
+  return NOMS[locale][cle] ?? '';
+}
+
 export default function Header() {
   const t = useTranslations('common.nav');
   const tAuth = useTranslations('auth');
   const tCart = useTranslations('cart');
   const totalItems = useCartStore((state) => state.getTotalItems());
   const pathname = usePathname();
+  const locale = useLocale() === 'en' ? 'en' : 'fr';
+  const nom = nomDePage(pathname, locale);
+  const pied = PIED[locale];
   const { data: session } = useSession();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -87,10 +115,12 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
+      <div className={styles.cadre} aria-hidden="true" />
       <div className={styles.container}>
         <Link href="/" className={styles.logo} aria-label={t('home')}>
           PIGEONS//STUDIO
         </Link>
+        <Link href="/" className={styles.cadreLien}>◂ {t('home')}</Link>
         <div className={styles.cadreActions}>
           {mounted && totalItems > 0 && (
             <button type="button" className={styles.cadreLien} onClick={() => setIsCartOpen(true)}>
@@ -122,6 +152,12 @@ export default function Header() {
         document.body
       )}
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+      {nom && <div className={`${styles.coinBas} ${styles.coinGauche}`}>{nom}</div>}
+      <div className={`${styles.coinBas} ${styles.coinDroite}`}>
+        <span>{pied.droits}</span>
+        <Link href="/legal">{pied.legal}</Link>
+        <Link href="/terms">{pied.cgv}</Link>
+      </div>
     </header>
   );
 }

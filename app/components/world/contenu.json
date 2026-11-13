@@ -74,7 +74,7 @@
    "blocs": [
     {
      "t": "texte",
-     "p": "Parcours, réalisations du studio et collaborations."
+     "p": "Parcours, réalisations du studio, collaborations et ce qui pousse à l’atelier."
     },
     {
      "t": "explorer",
@@ -186,6 +186,187 @@
         "métabolisme",
         "arts et sciences",
         "IA et biologie"
+       ]
+      },
+      {
+       "id": "orca",
+       "nom": "ORCA//GLYPH",
+       "sous": "Un langage de code à nous, en trois dimensions",
+       "statut": "bientôt en téléchargement",
+       "texte": [
+        "ORCA//GLYPH part d’une volonté : un langage de code né de la créolisation informatique. L’idée vient de la résidence de Koo à la Villa Albertine, à La Nouvelle-Orléans, consacrée à la créolisation du langage informatique ; ORCA//GLYPH en est la continuité. Un code fondé sur notre propre vision du code et sur le sens de ce qu’on écrit, qui prolonge l’alphabet As-Simt, où chaque signe est une image concrète (graine, paume, vibration) et non une lettre neutre.",
+        "ORCA//GLYPH descend directement d’Orca, le langage de live coding créé par Hundred Rabbits (100 Rabbits). L’original est déjà un langage de code ésotérique : une grille où chaque lettre est une machine. ORCA//GLYPH s’inscrit dans cette lignée et pousse la réflexion plus loin. Orca devient la façon de coder de manière dynamique avec les glyphes : chaque opérateur dit quelque chose, C est « battement », D « pluie », T « tisser ». Écrire un patch, c’est composer une phrase autant qu’un programme. Derrière, l’idée d’un nouveau langage de code qui nous appartient, dont on reprend possession.",
+        "Ce langage prend aussi du volume. Les grilles s’empilent en étages, une couche du morceau par étage ; les données et les bangs prennent corps dans l’espace. Chaque glyphe est extrudé selon sa valeur, et un bang se voit monter d’un étage à l’autre : on lit la musique comme une architecture.",
+        "On code au clavier comme dans Orca ; six opérateurs relient les étages (monter, descendre, écouter, envoyer, relayer, glitcher) et un mode 2D aplatit le volume. Le curseur est un pigeon voyageur en or ; les notes partent en MIDI et en OSC. Ce site en est tiré."
+       ],
+       "reperes": [
+        [
+         "Idée",
+         "La créolisation informatique : un code à nous, porteur de sens"
+        ],
+        [
+         "Origine",
+         "Résidence Villa Albertine, La Nouvelle-Orléans : la créolisation du langage informatique"
+        ],
+        [
+         "Lignée",
+         "Descend d’Orca, le live coding de Hundred Rabbits (100 Rabbits), poussé plus loin"
+        ],
+        [
+         "Forme",
+         "Logiciel de live coding en 3D, application de bureau"
+        ],
+        [
+         "Ce qui change",
+         "Des glyphes qui signifient, des étages au lieu d’une grille plate, des données et des bangs visibles dans l’espace"
+        ],
+        [
+         "Langage",
+         "Orca, glyphes As-Simt"
+        ],
+        [
+         "Sorties",
+         "MIDI, OSC, UDP"
+        ],
+        [
+         "Technique",
+         "Electron, three.js"
+        ]
+       ],
+       "tags": [
+        "créolisation",
+        "langage",
+        "glyphes",
+        "live coding",
+        "3D"
+       ],
+       "liens": [
+        [
+         "Orca, le live coding de Hundred Rabbits (100r.co)",
+         "https://100r.co/site/orca.html"
+        ]
+       ]
+      },
+      {
+       "id": "cave",
+       "nom": "CAVE // FOUR ROBOTS",
+       "sous": "Archéologie, technologie et son dans une grotte",
+       "statut": "en préparation",
+       "texte": [
+        "CAVE // FOUR ROBOTS part d’une relation qui nous passionne : celle entre l’archéologique, le primitif et les nouvelles technologies. Entre les espaces, les machines et le sonique : comment un lieu, par sa forme et sa matière, façonne le son, et comment le son révèle le lieu.",
+        "Selon certaines découvertes archéologiques, des grottes ont été habitées et utilisées par des civilisations, pour leurs voix, leurs rites, leurs rassemblements. Ces lieux ne servent plus comme tels. Nous voulons nous les réapproprier : des endroits sacrés, historiques, rejoués avec les outils d’aujourd’hui. C’est un terrain de recherche qui nous tient vraiment à cœur.",
+        "Quatre robots-chiens Unitree portent chacun un mégaphone sur le dos. Le public se tient au centre ; les robots se déplacent autour de lui et jouent avec l’acoustique de la grotte, la roche devient une partie de l’instrument. Tantôt synchronisés, tantôt désynchronisés : le son se rassemble, puis se disperse dans l’espace."
+       ],
+       "reperes": [
+        [
+         "Recherche",
+         "Archéologie, primitif et nouvelles technologies : le rapport entre espace, machine et son"
+        ],
+        [
+         "Démarche",
+         "Se réapproprier des lieux sacrés et historiques, autrefois habités"
+        ],
+        [
+         "Forme",
+         "Performance musicale spatialisée"
+        ],
+        [
+         "Lieu",
+         "Une grotte, le public au centre"
+        ],
+        [
+         "Interprètes",
+         "Quatre robots Unitree Go2 à mégaphones"
+        ],
+        [
+         "Logiciel",
+         "systema8os.xt : spatialisation par les robots"
+        ],
+        [
+         "Étape",
+         "Prototype 3D, puis répétitions"
+        ]
+       ],
+       "tags": [
+        "archéologie",
+        "lieux sacrés",
+        "robotique",
+        "son spatialisé",
+        "performance"
+       ]
+      },
+      {
+       "id": "langue",
+       "nom": "Langue des images",
+       "sous": "Une langue poétique du futur",
+       "statut": "en cours",
+       "texte": [
+        "Une langue où tout se dit par des images concrètes, jamais par des concepts abstraits ni par des chiffres. Un concept est une composition de trois images au plus : musique = caverne · vibration · torse.",
+        "Sa logique vient d’ailleurs : le verbe à la fin et des marques pour dire d’où l’on sait ce qu’on dit, comme en hopi ; l’intensité par l’allongement et la répétition, comme chez les animaux ; vivant, machine et fantôme au même rang, comme chez Haraway.",
+        "Chaque image a son signe dans l’alphabet As-Simt. Les glyphes de ce site en viennent : double pour la bio, graine pour les futurs projets, paume pour la boutique."
+       ],
+       "reperes": [
+        [
+         "Forme",
+         "Langue construite et alphabet de signes"
+        ],
+        [
+         "Lexique",
+         "100 racines concrètes"
+        ],
+        [
+         "Nombres",
+         "Cinq images, de soleil à main, puis troupeau et essaim"
+        ],
+        [
+         "Écriture",
+         "Alphabet As-Simt, police Glyphs As Simt"
+        ]
+       ],
+       "tags": [
+        "langue",
+        "signes",
+        "As-Simt"
+       ]
+      },
+      {
+       "id": "teammate",
+       "nom": "TEAMMATE.POTO",
+       "sous": "Un tamagotchi pour improvisateurs",
+       "statut": "joué sur scène",
+       "texte": [
+        "TEAMMATE est une créature qui vit dans un Monome Norns : un tamagotchi pour improvisateurs. Elle a un visage, une humeur et des opinions sur ton jeu (« too repetitive », « breathe agent! », « my turn! »). Elle gagne de l’expérience à mesure que vous jouez ensemble, reconnaît les lieux à leur empreinte WiFi et, quand tu te tais, rêve tes motifs.",
+        "Entre la machine et le compositeur se noue une relation : de la composition électronique en temps réel, née de l’improvisation. Tout ce que tu joues est découpé en 48 fragments (hauteur, énergie, timbre, texture). Quand tu t’arrêtes, elle décide : imiter, contraster, densifier, s’éclaircir, se taire. Elle ne joue que ce qu’elle a entendu de toi et apprend ta manière (phrasé, articulation, dynamique) : pas d’IA générative, pas de presets.",
+        "En son cœur, METABO, un avatar métabolique : le son nourrit une cellule vivante dont les sept voies métaboliques sont des notes. Un jeu monotone la stresse et son tempo s’emballe ; un jeu varié la calme. Elle respire, alterne phrases et silences, et pilote l’harmoniseur NIAKABY. L’idée vient de l’Avatar métabolique sonore, créé par NSDOS avec le chercheur Damien Eveillard (LS2N–CNRS). Autour d’elle : POtO (halo granulaire), 8OS (sampler), MGEN (16 pistes génératives), et le terminal EIGHTOS COM qui lui fait écouter un territoire."
+       ],
+       "reperes": [
+        [
+         "Forme",
+         "Créature-instrument pour la scène"
+        ],
+        [
+         "Machine",
+         "Monome Norns, Lua et SuperCollider"
+        ],
+        [
+         "Cœur",
+         "Mémoire de 48 fragments, avatar métabolique METABO"
+        ],
+        [
+         "Inspirations",
+         "Somax2 (IRCAM), Avatar métabolique sonore (NSDOS × Damien Eveillard)"
+        ],
+        [
+         "Licence",
+         "AGPL-3.0"
+        ]
+       ],
+       "tags": [
+        "improvisation",
+        "tamagotchi",
+        "métabolisme",
+        "Norns",
+        "MIDI"
        ]
       }
      ]
@@ -637,218 +818,20 @@
    ]
   },
   {
-   "id": "futur",
-   "nom": "futurs projets",
-   "code": "F",
-   "signe": "E0EE",
-   "pourquoi": "futur = graine · loin · lumière",
-   "teinte": 11992970,
-   "css": "#b6ff8a",
+   "id": "events",
+   "nom": "events",
+   "code": "E",
+   "signe": "E11C",
+   "pourquoi": "où l’on se retrouve",
+   "teinte": 16744539,
+   "css": "#ff8a5b",
    "blocs": [
     {
      "t": "texte",
-     "p": "Ce qui pousse à l’atelier. Choisis un projet pour l’ouvrir."
+     "p": "Workshops, performances et rendez-vous."
     },
     {
-     "t": "explorer",
-     "items": [
-      {
-       "id": "orca",
-       "nom": "ORCA//GLYPH",
-       "sous": "Un langage de code à nous, en trois dimensions",
-       "statut": "bientôt en téléchargement",
-       "texte": [
-        "ORCA//GLYPH part d’une volonté : un langage de code né de la créolisation informatique. L’idée vient de la résidence de Koo à la Villa Albertine, à La Nouvelle-Orléans, consacrée à la créolisation du langage informatique ; ORCA//GLYPH en est la continuité. Un code fondé sur notre propre vision du code et sur le sens de ce qu’on écrit, qui prolonge l’alphabet As-Simt, où chaque signe est une image concrète (graine, paume, vibration) et non une lettre neutre.",
-        "ORCA//GLYPH descend directement d’Orca, le langage de live coding créé par Hundred Rabbits (100 Rabbits). L’original est déjà un langage de code ésotérique : une grille où chaque lettre est une machine. ORCA//GLYPH s’inscrit dans cette lignée et pousse la réflexion plus loin. Orca devient la façon de coder de manière dynamique avec les glyphes : chaque opérateur dit quelque chose, C est « battement », D « pluie », T « tisser ». Écrire un patch, c’est composer une phrase autant qu’un programme. Derrière, l’idée d’un nouveau langage de code qui nous appartient, dont on reprend possession.",
-        "Ce langage prend aussi du volume. Les grilles s’empilent en étages, une couche du morceau par étage ; les données et les bangs prennent corps dans l’espace. Chaque glyphe est extrudé selon sa valeur, et un bang se voit monter d’un étage à l’autre : on lit la musique comme une architecture.",
-        "On code au clavier comme dans Orca ; six opérateurs relient les étages (monter, descendre, écouter, envoyer, relayer, glitcher) et un mode 2D aplatit le volume. Le curseur est un pigeon voyageur en or ; les notes partent en MIDI et en OSC. Ce site en est tiré."
-       ],
-       "reperes": [
-        [
-         "Idée",
-         "La créolisation informatique : un code à nous, porteur de sens"
-        ],
-        [
-         "Origine",
-         "Résidence Villa Albertine, La Nouvelle-Orléans : la créolisation du langage informatique"
-        ],
-        [
-         "Lignée",
-         "Descend d’Orca, le live coding de Hundred Rabbits (100 Rabbits), poussé plus loin"
-        ],
-        [
-         "Forme",
-         "Logiciel de live coding en 3D, application de bureau"
-        ],
-        [
-         "Ce qui change",
-         "Des glyphes qui signifient, des étages au lieu d’une grille plate, des données et des bangs visibles dans l’espace"
-        ],
-        [
-         "Langage",
-         "Orca, glyphes As-Simt"
-        ],
-        [
-         "Sorties",
-         "MIDI, OSC, UDP"
-        ],
-        [
-         "Technique",
-         "Electron, three.js"
-        ]
-       ],
-       "tags": [
-        "créolisation",
-        "langage",
-        "glyphes",
-        "live coding",
-        "3D"
-       ],
-       "liens": [
-        [
-         "Orca, le live coding de Hundred Rabbits (100r.co)",
-         "https://100r.co/site/orca.html"
-        ]
-       ]
-      },
-      {
-       "id": "cave",
-       "nom": "CAVE // FOUR ROBOTS",
-       "sous": "Archéologie, technologie et son dans une grotte",
-       "statut": "en préparation",
-       "texte": [
-        "CAVE // FOUR ROBOTS part d’une relation qui nous passionne : celle entre l’archéologique, le primitif et les nouvelles technologies. Entre les espaces, les machines et le sonique : comment un lieu, par sa forme et sa matière, façonne le son, et comment le son révèle le lieu.",
-        "Selon certaines découvertes archéologiques, des grottes ont été habitées et utilisées par des civilisations, pour leurs voix, leurs rites, leurs rassemblements. Ces lieux ne servent plus comme tels. Nous voulons nous les réapproprier : des endroits sacrés, historiques, rejoués avec les outils d’aujourd’hui. C’est un terrain de recherche qui nous tient vraiment à cœur.",
-        "Quatre robots-chiens Unitree portent chacun un mégaphone sur le dos. Le public se tient au centre ; les robots se déplacent autour de lui et jouent avec l’acoustique de la grotte, la roche devient une partie de l’instrument. Tantôt synchronisés, tantôt désynchronisés : le son se rassemble, puis se disperse dans l’espace."
-       ],
-       "reperes": [
-        [
-         "Recherche",
-         "Archéologie, primitif et nouvelles technologies : le rapport entre espace, machine et son"
-        ],
-        [
-         "Démarche",
-         "Se réapproprier des lieux sacrés et historiques, autrefois habités"
-        ],
-        [
-         "Forme",
-         "Performance musicale spatialisée"
-        ],
-        [
-         "Lieu",
-         "Une grotte, le public au centre"
-        ],
-        [
-         "Interprètes",
-         "Quatre robots Unitree Go2 à mégaphones"
-        ],
-        [
-         "Logiciel",
-         "systema8os.xt : spatialisation par les robots"
-        ],
-        [
-         "Étape",
-         "Prototype 3D, puis répétitions"
-        ]
-       ],
-       "tags": [
-        "archéologie",
-        "lieux sacrés",
-        "robotique",
-        "son spatialisé",
-        "performance"
-       ]
-      },
-      {
-       "id": "langue",
-       "nom": "Langue des images",
-       "sous": "Une langue poétique du futur",
-       "statut": "en cours",
-       "texte": [
-        "Une langue où tout se dit par des images concrètes, jamais par des concepts abstraits ni par des chiffres. Un concept est une composition de trois images au plus : musique = caverne · vibration · torse.",
-        "Sa logique vient d’ailleurs : le verbe à la fin et des marques pour dire d’où l’on sait ce qu’on dit, comme en hopi ; l’intensité par l’allongement et la répétition, comme chez les animaux ; vivant, machine et fantôme au même rang, comme chez Haraway.",
-        "Chaque image a son signe dans l’alphabet As-Simt. Les glyphes de ce site en viennent : double pour la bio, graine pour les futurs projets, paume pour la boutique."
-       ],
-       "reperes": [
-        [
-         "Forme",
-         "Langue construite et alphabet de signes"
-        ],
-        [
-         "Lexique",
-         "100 racines concrètes"
-        ],
-        [
-         "Nombres",
-         "Cinq images, de soleil à main, puis troupeau et essaim"
-        ],
-        [
-         "Écriture",
-         "Alphabet As-Simt, police Glyphs As Simt"
-        ]
-       ],
-       "tags": [
-        "langue",
-        "signes",
-        "As-Simt"
-       ]
-      },
-      {
-       "id": "teammate",
-       "nom": "TEAMMATE.POTO",
-       "sous": "Un tamagotchi pour improvisateurs",
-       "statut": "joué sur scène",
-       "texte": [
-        "TEAMMATE est une créature qui vit dans un Monome Norns : un tamagotchi pour improvisateurs. Elle a un visage, une humeur et des opinions sur ton jeu (« too repetitive », « breathe agent! », « my turn! »). Elle gagne de l’expérience à mesure que vous jouez ensemble, reconnaît les lieux à leur empreinte WiFi et, quand tu te tais, rêve tes motifs.",
-        "Entre la machine et le compositeur se noue une relation : de la composition électronique en temps réel, née de l’improvisation. Tout ce que tu joues est découpé en 48 fragments (hauteur, énergie, timbre, texture). Quand tu t’arrêtes, elle décide : imiter, contraster, densifier, s’éclaircir, se taire. Elle ne joue que ce qu’elle a entendu de toi et apprend ta manière (phrasé, articulation, dynamique) : pas d’IA générative, pas de presets.",
-        "En son cœur, METABO, un avatar métabolique : le son nourrit une cellule vivante dont les sept voies métaboliques sont des notes. Un jeu monotone la stresse et son tempo s’emballe ; un jeu varié la calme. Elle respire, alterne phrases et silences, et pilote l’harmoniseur NIAKABY. L’idée vient de l’Avatar métabolique sonore, créé par NSDOS avec le chercheur Damien Eveillard (LS2N–CNRS). Autour d’elle : POtO (halo granulaire), 8OS (sampler), MGEN (16 pistes génératives), et le terminal EIGHTOS COM qui lui fait écouter un territoire."
-       ],
-       "reperes": [
-        [
-         "Forme",
-         "Créature-instrument pour la scène"
-        ],
-        [
-         "Machine",
-         "Monome Norns, Lua et SuperCollider"
-        ],
-        [
-         "Cœur",
-         "Mémoire de 48 fragments, avatar métabolique METABO"
-        ],
-        [
-         "Inspirations",
-         "Somax2 (IRCAM), Avatar métabolique sonore (NSDOS × Damien Eveillard)"
-        ],
-        [
-         "Licence",
-         "AGPL-3.0"
-        ]
-       ],
-       "tags": [
-        "improvisation",
-        "tamagotchi",
-        "métabolisme",
-        "Norns",
-        "MIDI"
-       ]
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "evenements",
-   "nom": "événements",
-   "code": "E",
-   "signe": "E0E8",
-   "pourquoi": "cercle : on se réunit",
-   "teinte": 16752327,
-   "css": "#ff9ec7",
-   "blocs": [
-    {
-     "t": "texte",
-     "p": "Ateliers, rencontres, concerts : les moments où l’on ouvre le studio. On y fabrique, on y écoute, on y apprend ensemble."
+     "t": "events"
     },
     {
      "t": "explorer",
@@ -1289,7 +1272,7 @@
    "blocs": [
     {
      "t": "texte",
-     "p": "Journey, studio work and collaborations."
+     "p": "Journey, studio work, collaborations, and what is growing in the workshop."
     },
     {
      "t": "explorer",
@@ -1401,6 +1384,187 @@
         "metabolism",
         "art and science",
         "AI and biology"
+       ]
+      },
+      {
+       "id": "orca",
+       "nom": "ORCA//GLYPH",
+       "sous": "A code language of our own, in three dimensions",
+       "statut": "download coming soon",
+       "texte": [
+        "ORCA//GLYPH starts from a wish: a code language born from computational creolisation. The idea comes from Koo’s residency at Villa Albertine in New Orleans, devoted to the creolisation of computer language; ORCA//GLYPH is its continuation. Code grounded in our own vision of code and in the meaning of what we write, extending the As-Simt alphabet, where each sign is a concrete image (seed, palm, vibration) rather than a neutral letter.",
+        "ORCA//GLYPH descends directly from Orca, the live coding language created by Hundred Rabbits (100 Rabbits). The original is already an esoteric programming language: a grid where every letter is a machine. ORCA//GLYPH belongs to that lineage and pushes the thinking further. Orca becomes the way to code dynamically with glyphs: each operator says something, C is “beat”, D “rain”, T “weave”. Writing a patch means composing a sentence as much as a program. Behind it lies the idea of a new code language that belongs to us, one we take back ownership of.",
+        "This language also takes on volume. Grids stack up as floors, one layer of the track per floor; data and bangs take shape in space. Each glyph is extruded according to its value, and you see a bang rise from one floor to the next: you read the music like architecture.",
+        "You code on the keyboard as in Orca; six operators link the floors (up, down, listen, send, relay, glitch) and a 2D mode flattens the volume. The cursor is a golden homing pigeon; notes go out as MIDI and OSC. This site is drawn from it."
+       ],
+       "reperes": [
+        [
+         "Idea",
+         "Computational creolisation: a code of our own that carries meaning"
+        ],
+        [
+         "Origin",
+         "Villa Albertine residency, New Orleans: the creolisation of computer language"
+        ],
+        [
+         "Lineage",
+         "Descends from Orca, the live coding by Hundred Rabbits (100 Rabbits), pushed further"
+        ],
+        [
+         "Form",
+         "3D live coding software, desktop app"
+        ],
+        [
+         "What changes",
+         "Glyphs that mean something, floors instead of a flat grid, data and bangs visible in space"
+        ],
+        [
+         "Language",
+         "Orca, As-Simt glyphs"
+        ],
+        [
+         "Outputs",
+         "MIDI, OSC, UDP"
+        ],
+        [
+         "Tech",
+         "Electron, three.js"
+        ]
+       ],
+       "tags": [
+        "creolisation",
+        "language",
+        "glyphs",
+        "live coding",
+        "3D"
+       ],
+       "liens": [
+        [
+         "Orca, live coding by Hundred Rabbits (100r.co)",
+         "https://100r.co/site/orca.html"
+        ]
+       ]
+      },
+      {
+       "id": "cave",
+       "nom": "CAVE // FOUR ROBOTS",
+       "sous": "Archaeology, technology and sound in a cave",
+       "statut": "in preparation",
+       "texte": [
+        "CAVE // FOUR ROBOTS starts from a relationship we care deeply about: between the archaeological, the primal and new technologies. Between spaces, machines and the sonic: how a place, through its shape and its matter, shapes sound, and how sound reveals the place.",
+        "According to some archaeological findings, caves were inhabited and used by civilisations, for their voices, their rites, their gatherings. These places no longer serve that purpose. We want to reclaim them: sacred, historical sites, played again with today’s tools. It is a field of research that matters a great deal to us.",
+        "Four Unitree robot dogs each carry a megaphone on their back. The audience stands in the middle; the robots move around them and play with the cave’s acoustics, the rock becomes part of the instrument. Sometimes in sync, sometimes out of sync: the sound gathers, then scatters through the space."
+       ],
+       "reperes": [
+        [
+         "Research",
+         "Archaeology, the primal and new technologies: the relation between space, machine and sound"
+        ],
+        [
+         "Approach",
+         "Reclaiming sacred and historical places that were once inhabited"
+        ],
+        [
+         "Form",
+         "Spatialised musical performance"
+        ],
+        [
+         "Venue",
+         "A cave, the audience in the middle"
+        ],
+        [
+         "Performers",
+         "Four Unitree Go2 robots with megaphones"
+        ],
+        [
+         "Software",
+         "systema8os.xt: spatialisation through the robots"
+        ],
+        [
+         "Stage",
+         "3D prototype, then rehearsals"
+        ]
+       ],
+       "tags": [
+        "archaeology",
+        "sacred places",
+        "robotics",
+        "spatial sound",
+        "performance"
+       ]
+      },
+      {
+       "id": "langue",
+       "nom": "Language of images",
+       "sous": "A poetic language of the future",
+       "statut": "in progress",
+       "texte": [
+        "A language where everything is said with concrete images, never with abstract concepts or numbers. A concept is a composition of at most three images: music = cave · vibration · chest.",
+        "Its logic comes from elsewhere: the verb at the end and markers saying how you know what you say, as in Hopi; intensity through lengthening and repetition, as with animals; living, machine and ghost on the same level, as with Haraway.",
+        "Each image has its sign in the As-Simt alphabet. The glyphs of this site come from it: double for the bio, seed for future projects, palm for the shop."
+       ],
+       "reperes": [
+        [
+         "Form",
+         "Constructed language and sign alphabet"
+        ],
+        [
+         "Lexicon",
+         "100 concrete roots"
+        ],
+        [
+         "Numbers",
+         "Five images, from sun to hand, then herd and swarm"
+        ],
+        [
+         "Script",
+         "As-Simt alphabet, Glyphs As Simt font"
+        ]
+       ],
+       "tags": [
+        "language",
+        "signs",
+        "As-Simt"
+       ]
+      },
+      {
+       "id": "teammate",
+       "nom": "TEAMMATE.POTO",
+       "sous": "A tamagotchi for improvisers",
+       "statut": "played live",
+       "texte": [
+        "TEAMMATE is a creature that lives in a Monome Norns: a tamagotchi for improvisers. It has a face, a mood and opinions about your playing (“too repetitive”, “breathe agent!”, “my turn!”). It gains experience as you play together, recognises places by their WiFi fingerprint and, when you fall silent, dreams your motifs.",
+        "Between the machine and the composer, a relationship forms: real-time electronic composition, born from improvisation. Everything you play is cut into 48 fragments (pitch, energy, timbre, texture). When you stop, it decides: imitate, contrast, densify, thin out, stay silent. It only plays what it has heard from you and learns your manner (phrasing, articulation, dynamics): no generative AI, no presets.",
+        "At its heart is METABO, a metabolic avatar: sound feeds a living cell whose seven metabolic pathways are notes. Monotonous playing stresses it and its tempo races; varied playing calms it. It breathes, alternates phrases and silences, and drives the NIAKABY harmoniser. The idea comes from the Sonic Metabolic Avatar, created by NSDOS with researcher Damien Eveillard (LS2N–CNRS). Around it: POtO (granular halo), 8OS (sampler), MGEN (16 generative tracks), and the EIGHTOS COM terminal that lets it listen to a territory."
+       ],
+       "reperes": [
+        [
+         "Form",
+         "Creature-instrument for the stage"
+        ],
+        [
+         "Machine",
+         "Monome Norns, Lua and SuperCollider"
+        ],
+        [
+         "Core",
+         "48-fragment memory, METABO metabolic avatar"
+        ],
+        [
+         "Inspirations",
+         "Somax2 (IRCAM), Sonic Metabolic Avatar (NSDOS × Damien Eveillard)"
+        ],
+        [
+         "Licence",
+         "AGPL-3.0"
+        ]
+       ],
+       "tags": [
+        "improvisation",
+        "tamagotchi",
+        "metabolism",
+        "Norns",
+        "MIDI"
        ]
       }
      ]
@@ -1852,218 +2016,20 @@
    ]
   },
   {
-   "id": "futur",
-   "nom": "future projects",
-   "code": "F",
-   "signe": "E0EE",
-   "pourquoi": "future = seed · far · light",
-   "teinte": 11992970,
-   "css": "#b6ff8a",
-   "blocs": [
-    {
-     "t": "texte",
-     "p": "What is growing in the studio. Pick a project to open it."
-    },
-    {
-     "t": "explorer",
-     "items": [
-      {
-       "id": "orca",
-       "nom": "ORCA//GLYPH",
-       "sous": "A code language of our own, in three dimensions",
-       "statut": "download coming soon",
-       "texte": [
-        "ORCA//GLYPH starts from a wish: a code language born from computational creolisation. The idea comes from Koo’s residency at Villa Albertine in New Orleans, devoted to the creolisation of computer language; ORCA//GLYPH is its continuation. Code grounded in our own vision of code and in the meaning of what we write, extending the As-Simt alphabet, where each sign is a concrete image (seed, palm, vibration) rather than a neutral letter.",
-        "ORCA//GLYPH descends directly from Orca, the live coding language created by Hundred Rabbits (100 Rabbits). The original is already an esoteric programming language: a grid where every letter is a machine. ORCA//GLYPH belongs to that lineage and pushes the thinking further. Orca becomes the way to code dynamically with glyphs: each operator says something, C is “beat”, D “rain”, T “weave”. Writing a patch means composing a sentence as much as a program. Behind it lies the idea of a new code language that belongs to us, one we take back ownership of.",
-        "This language also takes on volume. Grids stack up as floors, one layer of the track per floor; data and bangs take shape in space. Each glyph is extruded according to its value, and you see a bang rise from one floor to the next: you read the music like architecture.",
-        "You code on the keyboard as in Orca; six operators link the floors (up, down, listen, send, relay, glitch) and a 2D mode flattens the volume. The cursor is a golden homing pigeon; notes go out as MIDI and OSC. This site is drawn from it."
-       ],
-       "reperes": [
-        [
-         "Idea",
-         "Computational creolisation: a code of our own that carries meaning"
-        ],
-        [
-         "Origin",
-         "Villa Albertine residency, New Orleans: the creolisation of computer language"
-        ],
-        [
-         "Lineage",
-         "Descends from Orca, the live coding by Hundred Rabbits (100 Rabbits), pushed further"
-        ],
-        [
-         "Form",
-         "3D live coding software, desktop app"
-        ],
-        [
-         "What changes",
-         "Glyphs that mean something, floors instead of a flat grid, data and bangs visible in space"
-        ],
-        [
-         "Language",
-         "Orca, As-Simt glyphs"
-        ],
-        [
-         "Outputs",
-         "MIDI, OSC, UDP"
-        ],
-        [
-         "Tech",
-         "Electron, three.js"
-        ]
-       ],
-       "tags": [
-        "creolisation",
-        "language",
-        "glyphs",
-        "live coding",
-        "3D"
-       ],
-       "liens": [
-        [
-         "Orca, live coding by Hundred Rabbits (100r.co)",
-         "https://100r.co/site/orca.html"
-        ]
-       ]
-      },
-      {
-       "id": "cave",
-       "nom": "CAVE // FOUR ROBOTS",
-       "sous": "Archaeology, technology and sound in a cave",
-       "statut": "in preparation",
-       "texte": [
-        "CAVE // FOUR ROBOTS starts from a relationship we care deeply about: between the archaeological, the primal and new technologies. Between spaces, machines and the sonic: how a place, through its shape and its matter, shapes sound, and how sound reveals the place.",
-        "According to some archaeological findings, caves were inhabited and used by civilisations, for their voices, their rites, their gatherings. These places no longer serve that purpose. We want to reclaim them: sacred, historical sites, played again with today’s tools. It is a field of research that matters a great deal to us.",
-        "Four Unitree robot dogs each carry a megaphone on their back. The audience stands in the middle; the robots move around them and play with the cave’s acoustics, the rock becomes part of the instrument. Sometimes in sync, sometimes out of sync: the sound gathers, then scatters through the space."
-       ],
-       "reperes": [
-        [
-         "Research",
-         "Archaeology, the primal and new technologies: the relation between space, machine and sound"
-        ],
-        [
-         "Approach",
-         "Reclaiming sacred and historical places that were once inhabited"
-        ],
-        [
-         "Form",
-         "Spatialised musical performance"
-        ],
-        [
-         "Venue",
-         "A cave, the audience in the middle"
-        ],
-        [
-         "Performers",
-         "Four Unitree Go2 robots with megaphones"
-        ],
-        [
-         "Software",
-         "systema8os.xt: spatialisation through the robots"
-        ],
-        [
-         "Stage",
-         "3D prototype, then rehearsals"
-        ]
-       ],
-       "tags": [
-        "archaeology",
-        "sacred places",
-        "robotics",
-        "spatial sound",
-        "performance"
-       ]
-      },
-      {
-       "id": "langue",
-       "nom": "Language of images",
-       "sous": "A poetic language of the future",
-       "statut": "in progress",
-       "texte": [
-        "A language where everything is said with concrete images, never with abstract concepts or numbers. A concept is a composition of at most three images: music = cave · vibration · chest.",
-        "Its logic comes from elsewhere: the verb at the end and markers saying how you know what you say, as in Hopi; intensity through lengthening and repetition, as with animals; living, machine and ghost on the same level, as with Haraway.",
-        "Each image has its sign in the As-Simt alphabet. The glyphs of this site come from it: double for the bio, seed for future projects, palm for the shop."
-       ],
-       "reperes": [
-        [
-         "Form",
-         "Constructed language and sign alphabet"
-        ],
-        [
-         "Lexicon",
-         "100 concrete roots"
-        ],
-        [
-         "Numbers",
-         "Five images, from sun to hand, then herd and swarm"
-        ],
-        [
-         "Script",
-         "As-Simt alphabet, Glyphs As Simt font"
-        ]
-       ],
-       "tags": [
-        "language",
-        "signs",
-        "As-Simt"
-       ]
-      },
-      {
-       "id": "teammate",
-       "nom": "TEAMMATE.POTO",
-       "sous": "A tamagotchi for improvisers",
-       "statut": "played live",
-       "texte": [
-        "TEAMMATE is a creature that lives in a Monome Norns: a tamagotchi for improvisers. It has a face, a mood and opinions about your playing (“too repetitive”, “breathe agent!”, “my turn!”). It gains experience as you play together, recognises places by their WiFi fingerprint and, when you fall silent, dreams your motifs.",
-        "Between the machine and the composer, a relationship forms: real-time electronic composition, born from improvisation. Everything you play is cut into 48 fragments (pitch, energy, timbre, texture). When you stop, it decides: imitate, contrast, densify, thin out, stay silent. It only plays what it has heard from you and learns your manner (phrasing, articulation, dynamics): no generative AI, no presets.",
-        "At its heart is METABO, a metabolic avatar: sound feeds a living cell whose seven metabolic pathways are notes. Monotonous playing stresses it and its tempo races; varied playing calms it. It breathes, alternates phrases and silences, and drives the NIAKABY harmoniser. The idea comes from the Sonic Metabolic Avatar, created by NSDOS with researcher Damien Eveillard (LS2N–CNRS). Around it: POtO (granular halo), 8OS (sampler), MGEN (16 generative tracks), and the EIGHTOS COM terminal that lets it listen to a territory."
-       ],
-       "reperes": [
-        [
-         "Form",
-         "Creature-instrument for the stage"
-        ],
-        [
-         "Machine",
-         "Monome Norns, Lua and SuperCollider"
-        ],
-        [
-         "Core",
-         "48-fragment memory, METABO metabolic avatar"
-        ],
-        [
-         "Inspirations",
-         "Somax2 (IRCAM), Sonic Metabolic Avatar (NSDOS × Damien Eveillard)"
-        ],
-        [
-         "Licence",
-         "AGPL-3.0"
-        ]
-       ],
-       "tags": [
-        "improvisation",
-        "tamagotchi",
-        "metabolism",
-        "Norns",
-        "MIDI"
-       ]
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "evenements",
+   "id": "events",
    "nom": "events",
    "code": "E",
-   "signe": "E0E8",
-   "pourquoi": "circle: we gather",
-   "teinte": 16752327,
-   "css": "#ff9ec7",
+   "signe": "E11C",
+   "pourquoi": "where we meet",
+   "teinte": 16744539,
+   "css": "#ff8a5b",
    "blocs": [
     {
      "t": "texte",
-     "p": "Workshops, meetings, concerts: the moments when we open the studio. We make, listen and learn together."
+     "p": "Workshops, performances and dates."
+    },
+    {
+     "t": "events"
     },
     {
      "t": "explorer",

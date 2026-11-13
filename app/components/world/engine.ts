@@ -16,7 +16,7 @@ export type WorldOptions = {
 };
 
 export type World = {
-  descendre: (e: number) => void;
+  descendre: (e: number, immediat?: boolean) => void;
   changer: (e: number) => void;
   remonter: () => void;
   avancer: (pas: number) => void;
@@ -349,8 +349,14 @@ export function createWorld (opts: WorldOptions): World {
 
   // ---------------------------------------------------------------- transitions
   function anim (vers, fin) { etat.de = etat.k; etat.vers = vers; etat.t = 0; etat.fin = fin; etat.duree = reduit ? 0.01 : 1.3; }
-  function descendre (e) {
-    survol = -1; etat.etage = e; etat.mode = 'vers2d'; onMode('vers2d', e);
+  function descendre (e, immediat) {
+    survol = -1; etat.etage = e; focCible = N - e; foc = focCible;
+    if (immediat) {
+      etat.mode = '2d'; etat.k = 1; etat.t = 1; etat.de = 1; etat.vers = 1; etat.fin = null;
+      onMode('2d', e);
+      return;
+    }
+    etat.mode = 'vers2d'; onMode('vers2d', e);
     anim(1, () => { etat.mode = '2d'; onMode('2d', e); });
   }
   function changer (e) {

@@ -93,6 +93,15 @@
   color: var(--foreground);
 }
 
+.adminLink {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--accent-or, #ffb545);
+  text-decoration: none;
+}
+
 .emptyState {
   text-align: center;
   padding: 64px 24px;
