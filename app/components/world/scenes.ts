@@ -1903,9 +1903,10 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
   if (compact) {
     // étroit : seulement l'étape en cours, en grand, et des repères pour les autres
     texte(ctx, L.panneau.toUpperCase(), x + p, yy, GRIS, 10);
-    yy += 26;
+    // le compteur partage sa ligne avec les boutons (à droite) ; le texte de l'étape commence dessous
+    yy += 35;
     texte(ctx, String(R.actif + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0'), x + p, yy, css, 11);
-    yy += 20;
+    yy += 34;
     ctx.font = "13px 'IBM Plex Mono', monospace";
     couper(ctx, etapes[R.actif], w - p * 2).forEach((l) => { texte(ctx, l, x + p, yy, ENCRE, 13); yy += 19; });
   } else {
@@ -2020,15 +2021,16 @@ export function lancerScene (canvas, id, css, locale) {
     ctx.clearRect(0, 0, w, h); points(ctx, w, h, 14);
     // large : la scène à gauche, le panneau à droite ; étroit : la scène en haut, le panneau dessous
     large = w >= 560;
-    sw = large ? Math.round(w * 0.6) : w; sh = large ? h : Math.round(Math.max(h * 0.6, h - 190));
+    sw = large ? Math.round(w * 0.6) : w; sh = large ? h : Math.round(Math.max(h * 0.56, h - 225));
     ctx.save(); ctx.beginPath(); ctx.rect(0, 0, sw, sh); ctx.clip();
     const R = f(ctx, sw, sh, t, etat, css, L);
     ctx.restore();
-    const serre = large && w - sw < 430; R.decal = serre ? 30 : 0;
+    // les boutons et leur traduction ont leur propre ligne quand la place manque : rien ne chevauche le titre du panneau
+    const serre = !large || w - sw < 430; R.decal = serre ? 30 : 0;
     if (large) panneau(ctx, sw, 0, w - sw, h, R, css, L, false);
     else panneau(ctx, 0, sh, w, h - sh, R, css, L, true);
     dernierR = R;
-    const top = (large ? (serre ? 26 : 4) : sh + 4) + 'px'; if (nav.style.top !== top) nav.style.top = top;
+    const top = (large ? (serre ? 26 : 4) : sh + 32) + 'px'; if (nav.style.top !== top) nav.style.top = top;
   };
   const boucle = (now) => {
     const dt = Math.max(0, Math.min((now - avant) / 1000, 0.1)); avant = now; t += dt; etat.dt = dt;
