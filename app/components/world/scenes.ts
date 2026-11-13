@@ -828,7 +828,7 @@ function camera3d (pos, cible, w, h, fov) {
   const yaw = Math.atan2(dx, dz); const pitch = Math.atan2(dy, Math.hypot(dx, dz));
   const cy = Math.cos(yaw); const sy = Math.sin(yaw); const cp = Math.cos(pitch); const sp = Math.sin(pitch);
   const f = h * 0.5 / Math.tan(fov / 2);
-  return { f, p: (x, y, z) => { const X = x - pos[0]; const Y = y - pos[1]; const Z = z - pos[2]; const x1 = X * cy - Z * sy; const z1 = X * sy + Z * cy; const y2 = Y * cp - z1 * sp; const z2 = Y * sp + z1 * cp; return z2 < 0.15 ? null : [w / 2 - f * x1 / z2, h / 2 - f * y2 / z2, z2]; } };
+  return { f, w, h, p: (x, y, z) => { const X = x - pos[0]; const Y = y - pos[1]; const Z = z - pos[2]; const x1 = X * cy - Z * sy; const z1 = X * sy + Z * cy; const y2 = Y * cp - z1 * sp; const z2 = Y * sp + z1 * cp; return z2 < 0.15 ? null : [w / 2 - f * x1 / z2, h / 2 - f * y2 / z2, z2]; } };
 }
 // dessine les glyphes du monde, du plus loin au plus proche, dans un brouillard
 function rendreMonde (ctx, cam, pts, t, css, o) {
@@ -1412,7 +1412,18 @@ const K3 = {
 };
 const GCLES = Object.keys(SIG);
 function orbite (w, h, cx, cy, cz, R, haut, ang, fov = 1.0) { return camera3d([cx + Math.cos(ang) * R, haut, cz + Math.sin(ang) * R], [cx, cy, cz], w, h, fov); }
+// une orbite qui recule jusqu'à ce que toute la scène tienne dans le cadre (le sol mis à part)
+function orbiteC (L, w, h, cx, cy, cz, R, haut, ang, fov = 1.0) {
+  const marge = 14; const hautMin = 30; let cam = null;
+  for (let k = 0; k < 10; k++) {
+    cam = orbite(w, h, cx, cy, cz, R, haut, ang, fov); let ok = true;
+    for (const p of L) { if (p.r === 'sombre' || (p.a ?? 1) < 0.15) continue; const q = cam.p(p.x, p.y, p.z); if (!q || q[0] < marge || q[0] > w - marge || q[1] < hautMin || q[1] > h - marge) { ok = false; break; } }
+    if (ok) break; R *= 1.12; haut = cy + (haut - cy) * 1.12;
+  }
+  return cam;
+}
 function rendre3d (ctx, cam, L, css, o = {}) {
+  etiq.largeur = cam.w;
   const col = { css, or: OR, encre: ENCRE, gris: GRIS, ocre: OCRE, sombre: '#4a4844', eau: '#72dec2', rose: '#ff1fce', ...(o.couleurs || {}) };
   const liste = []; for (const p of L) { const q = cam.p(p.x, p.y, p.z); if (q) liste.push([q, p]); }
   liste.sort((a, b) => b[0][2] - a[0][2]); ctx.imageSmoothingEnabled = false; const portee = o.portee || 18;
@@ -1423,7 +1434,14 @@ function rendre3d (ctx, cam, L, css, o = {}) {
   }
   ctx.globalAlpha = 1;
 }
-function etiq (ctx, cam, p, txt, coul = GRIS, taille = 10, align = 'center', style = '') { const q = cam.p(p[0], p[1], p[2]); if (q) texte(ctx, txt, q[0], q[1], coul, taille, align, style); return q; }
+function etiq (ctx, cam, p, txt, coul = GRIS, taille = 10, align = 'center', style = '') {
+  // une étiquette posée dans l'espace, gardée entière dans le cadre
+  const q = cam.p(p[0], p[1], p[2]); if (!q) return q;
+  ctx.font = `${style}${taille}px 'IBM Plex Mono', monospace`; const tw = ctx.measureText(txt).width; const W = ctx.canvas.clientWidth || ctx.canvas.width; const m = 8;
+  let x = q[0]; const gauche = align === 'center' ? x - tw / 2 : align === 'right' ? x - tw : x; const droite = gauche + tw;
+  if (gauche < m) x += m - gauche; else if (droite > (etiq.largeur || W) - m) x -= droite - ((etiq.largeur || W) - m);
+  texte(ctx, txt, x, Math.max(taille + 4, q[1]), coul, taille, align, style); return q;
+}
 function anneaux (L, cx, cy, cz, t, r, n = 3, rmax = 2.5, vit = 0.8, plan = 'h') {
   // des ondes qui s'éloignent (un son, un signal) : des cercles de points
   for (let k = 0; k < n; k++) { const u = ((t * vit + k / n) % 1); const rr = 0.2 + u * rmax; const m = Math.round(rr * 18); for (let i = 0; i < m; i++) { const a = i / m * 6.283; const p = plan === 'h' ? [cx + Math.cos(a) * rr, cy, cz + Math.sin(a) * rr] : [cx + Math.cos(a) * rr, cy + Math.sin(a) * rr, cz]; L.push({ x: p[0], y: p[1], z: p[2], r, t: 0.05, a: 1 - u, g: GCLES[i % GCLES.length] }); } }
@@ -1440,7 +1458,7 @@ Object.assign(SV, {
       const sources = [[-2.6, 2.4, -1], [-2.2, 0.5, 1.6], [2.4, 0.5, -1.8], [2.2, 0.5, 1.8]];
       sources.forEach((a, i) => { for (let k = 0; k < 10; k++) { const u = ((t * 0.35 + k / 10 + i * 0.13) % 1); const p = [a[0] * (1 - u), a[1] * (1 - u) + 1.2 * u + Math.sin(u * 3.1) * 0.5, a[2] * (1 - u)]; L.push({ x: p[0], y: p[1], z: p[2], r: k % 3 ? 'gris' : 'or', t: 0.09, g: GCLES[(k + i * 5) % GCLES.length] }); } });
       K3.sphere(L, 0, 1.2, 0, 0.35 + 0.05 * Math.sin(t * 3), 'or', 50, 0.07);
-      const cam = orbite(w, h, 0, 0.9, 0, 6.5, 2.6, 0.6 + t * 0.06, 1.0); rendre3d(ctx, cam, L, css);
+      const cam = orbiteC(L, w, h, 0, 0.9, 0, 6.5, 2.6, 0.6 + t * 0.06, 1.0); rendre3d(ctx, cam, L, css);
       etiq(ctx, cam, [-2.6, 2.75, -1], m[0], ENCRE); etiq(ctx, cam, [0, 1.75, 0], m[1], OR, 11);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1453,7 +1471,7 @@ Object.assign(SV, {
       anneaux(L, 3, 0.05, 0, t, 'css', 4, 2.0 * k, 0.5);
       for (let i = 0; i < 12; i++) { const on = hsh(i + Math.floor(t * 2)) > 0.55; K3.pt(L, 2 + i * 0.2, 1.2 + (hsh(i * 3) * 0.8) * (on ? 1 : 0), 0, on ? 'or' : 'sombre', 0.12); }
       [[-1.5, 0], [1.5, 0]].forEach(([x], i) => { for (let q = 0; q < 6; q++) { const u = ((t * 0.5 + q / 6) % 1); K3.pt(L, x * u * (i ? 1 : 1), 1.2 - u * 0.4, 0, 'or', 0.07); } });
-      const cam = orbite(w, h, 0, 0.8, 0, 7.5, 3.2, 1.45 + Math.sin(t * 0.2) * 0.25, 1.0); rendre3d(ctx, cam, L, css);
+      const cam = orbiteC(L, w, h, 0, 0.8, 0, 7.5, 3.2, 1.45 + Math.sin(t * 0.2) * 0.25, 1.0); rendre3d(ctx, cam, L, css);
       etiq(ctx, cam, [-3.2, 2.4, 0], m[2], css, 11, 'center', '600 '); etiq(ctx, cam, [3, 2.4, 0], m[3], css, 11, 'center', '600 '); etiq(ctx, cam, [0, 1.7, 0], m[1], OR);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1470,7 +1488,7 @@ Object.assign(SV, {
       anneaux(L, 3.2, 1.6, -3.4, t, 'or', 3, 1.8, 0.7, 'v');
       for (let i = 0; i < 3; i++) for (let k = 0; k < 8; k++) { const u = ((t * 0.4 + k / 8) % 1); const dest = [[-4, 1.4, -5.8], [3.2, 1.2, -3.4], [vx, 1.2, vz]][i]; K3.pt(L, dest[0] * u, 3 - u * (3 - dest[1]), dest[2] * u, 'or', 0.07); }
       K3.sphere(L, 0, 3, 0, 0.25, 'or', 30, 0.06);
-      const cam = orbite(w, h, -0.5, 0.6, -0.5, 11, 6.5, 0.9 + ph * 0.035, 0.95); rendre3d(ctx, cam, L, css, { portee: 26 });
+      const cam = orbiteC(L, w, h, -0.5, 0.6, -0.5, 11, 6.5, 0.9 + ph * 0.035, 0.95); rendre3d(ctx, cam, L, css, { portee: 26 });
       etiq(ctx, cam, [-3.5, 2.4, -5.9], m[4], css, 11, 'center', '600 '); etiq(ctx, cam, [3.2, 2.2, -3.5], m[5], css, 11, 'center', '600 '); etiq(ctx, cam, [-4, 2.3, 3.5], m[6], css, 11, 'center', '600 ');
     },
   ],
@@ -1482,7 +1500,7 @@ Object.assign(SV, {
       for (let k = 0; k < 7; k++) { const y = 0.3 + k * 0.25; const rr = 0.45 + 0.25 * Math.sin(k * 0.7); const n = 22; for (let i = 0; i < n; i++) { const a = i / n * 6.283; K3.pt(L, Math.cos(a) * rr, y, Math.sin(a) * rr, 'css', 0.06); } }
       K3.ligne(L, [0, 0, 0], [0, 2.1, 0], 'gris', 0.1); K3.sphere(L, 0, 2.3, 0, 0.18, 'or', 24, 0.06);
       K3.ligne(L, [-0.9, 0.05, 1.2], [0.9, 0.05, 1.2], 'gris', 0.1);
-      const cam = orbite(w, h, 0, 1.1, 0, 4.6, 2.2, t * 0.3, 1.0); rendre3d(ctx, cam, L, css);
+      const cam = orbiteC(L, w, h, 0, 1.1, 0, 4.6, 2.2, t * 0.3, 1.0); rendre3d(ctx, cam, L, css);
       etiq(ctx, cam, [0, 0.12, 1.4], '1 800 mm', GRIS, 9); etiq(ctx, cam, [0, 2.7, 0], m[0], ENCRE);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1492,7 +1510,7 @@ Object.assign(SV, {
       const tx = Math.cos(t * 2.2) * 0.55; const tz = Math.sin(t * 2.2) * 0.55;
       K3.boite(L, 0, 2.6, 0, 3, 0.1, 0.12, 'gris', 0.15); K3.ligne(L, [tx, 2.6, tz], [tx, haut + 0.15, tz], 'encre', 0.06); K3.sphere(L, tx, haut + 0.1, tz, 0.06, 'or', 10, 0.05);
       for (let p = 0; p < 10; p++) { const a = t * 8 + p; K3.pt(L, tx + Math.cos(a) * 0.25 * hsh(p), haut + hsh(p + 9) * 0.3, tz + Math.sin(a) * 0.25 * hsh(p + 3), 'ocre', 0.05); }
-      const cam = orbite(w, h, 0, 1.1, 0, 4.4, 2.4, 0.8 + t * 0.12, 1.0); rendre3d(ctx, cam, L, css);
+      const cam = orbiteC(L, w, h, 0, 1.1, 0, 4.4, 2.4, 0.8 + t * 0.12, 1.0); rendre3d(ctx, cam, L, css);
       etiq(ctx, cam, [1.6, 2.85, 0], m[1], ENCRE); etiq(ctx, cam, [0.9, 0.35, 0], m[2], OCRE); etiq(ctx, cam, [0.95, 1.1, 0], m[3], GRIS); etiq(ctx, cam, [0.9, 1.75, 0], m[4], css);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1506,7 +1524,7 @@ Object.assign(SV, {
       for (let k = 0; k < 40; k++) { const u = k / 40; const y = 4.2 - u * 2.2; const rr = u * 1.1; const a = k * 2.4; L.push({ x: Math.cos(a) * rr, y, z: Math.sin(a) * rr, r: 'or', t: 0.05, a: 0.4, g: GCLES[k % GCLES.length] }); }
       K3.sphere(L, 0, 3.15, 0, 0.18 + 0.04 * Math.sin(t * 4), 'or', 22, 0.07);
       [[2, 1.5, 0.4], [-2, 2, 1.8], [1.4, -2, 3]].forEach(([x, z, d], i) => K3.humain(L, x + Math.sin(t * 0.3 + i) * 0.3, z, t * 0.3 + i, 'encre', 0.15, Math.atan2(-z, -x) + Math.PI / 2));
-      const cam = orbite(w, h, 0, 1.2, 0, 8.5, 4.5, 0.6 + ph * 0.04, 0.95); rendre3d(ctx, cam, L, css, { portee: 22 });
+      const cam = orbiteC(L, w, h, 0, 1.2, 0, 8.5, 4.5, 0.6 + ph * 0.04, 0.95); rendre3d(ctx, cam, L, css, { portee: 22 });
       etiq(ctx, cam, [0, 3.6, 0], m[5], css, 11, 'center', '600 '); etiq(ctx, cam, [-3.5, 1.5, -3.8], m[6], GRIS); etiq(ctx, cam, [3.4, 0.9, -3.6], m[7], GRIS);
     },
   ],
@@ -1516,7 +1534,7 @@ Object.assign(SV, {
       const L = []; K3.sol(L, -3, -3, 3, 3, 0.5);
       const J = K3.humain(L, 0, 0, t, 'encre', 1);
       [J.mainG, J.mainD, J.piedG, J.piedD].forEach((p) => K3.boite(L, p[0], p[1] - 0.04, p[2], 0.1, 0.08, 0.1, 'or', 0.04, 0.05));
-      const cam = orbite(w, h, 0, 1, 0, 4, 1.7, 0.4 + t * 0.15, 1.0); rendre3d(ctx, cam, L, css);
+      const cam = orbiteC(L, w, h, 0, 1, 0, 4, 1.7, 0.4 + t * 0.15, 1.0); rendre3d(ctx, cam, L, css);
       etiq(ctx, cam, [J.mainD[0] + 0.1, J.mainD[1] + 0.2, J.mainD[2]], m[0], OR); etiq(ctx, cam, [0, 2.1, 0], m[1], ENCRE);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1528,7 +1546,7 @@ Object.assign(SV, {
       cap.forEach((p, i) => { for (let k = 0; k < 7; k++) { const u = ((t * 0.9 + k / 7 + i * 0.21) % 1); K3.pt(L, p[0] + (R[0] - p[0]) * u, p[1] + (R[1] - p[1]) * u + Math.sin(u * 3.14) * 0.6, p[2] + (R[2] - p[2]) * u, 'or', 0.06); } });
       // les courbes de mouvement, écrites dans l'air au-dessus
       for (let i = 0; i < 40; i++) { const u = i / 40; K3.pt(L, -1.8 + u * 3.6, 2.6 + Math.sin(u * 9 - t * 2) * 0.18, -1.5, 'css', 0.05); K3.pt(L, -1.8 + u * 3.6, 2.2 + Math.sin(u * 5 - t * 3) * 0.15, -1.5, 'or', 0.05); }
-      const cam = orbite(w, h, 0.3, 1.2, -0.3, 4.6, 2, 0.9 + t * 0.08, 1.0); rendre3d(ctx, cam, L, css);
+      const cam = orbiteC(L, w, h, 0.3, 1.2, -0.3, 4.6, 2, 0.9 + t * 0.08, 1.0); rendre3d(ctx, cam, L, css);
       etiq(ctx, cam, [R[0], R[1] + 0.25, R[2]], m[2], css); etiq(ctx, cam, [0, 3, -1.5], m[3], GRIS);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1538,7 +1556,7 @@ Object.assign(SV, {
       [-2.6, -1.2, 0.2].forEach((x, i) => { const n = 30; for (let k = 0; k < n; k++) { const u = k / n; const rr = u * 0.9; const a = k * 2.4 + t; L.push({ x: x + Math.cos(a) * rr, y: 4 - u * 3.6, z: 0.2 + Math.sin(a) * rr, r: 'or', t: 0.06, a: 0.2 + 0.6 * v * (i === 1 ? 1 : 0.5), g: GCLES[k % GCLES.length] }); } K3.boite(L, x, 4, 0.2, 0.25, 0.2, 0.25, 'encre', 0.06); });
       K3.humain(L, 2.4, -0.8, t * 0.6, 'encre', 0.3); K3.boite(L, 2.4, 0, -0.3, 0.9, 0.8, 0.4, 'gris', 0.1); anneaux(L, 2.4, 1, -0.3, t, 'css', 3, 1.6, 0.8, 'v');
       [J.mainG, J.mainD].forEach((p) => K3.boite(L, p[0], p[1] - 0.04, p[2], 0.1, 0.08, 0.1, 'or', 0.04, 0.05));
-      const cam = orbite(w, h, 0, 1.2, 0, 8, 3, 1.3 + Math.sin(t * 0.2) * 0.3, 0.95); rendre3d(ctx, cam, L, css, { portee: 20 });
+      const cam = orbiteC(L, w, h, 0, 1.2, 0, 8, 3, 1.3 + Math.sin(t * 0.2) * 0.3, 0.95); rendre3d(ctx, cam, L, css, { portee: 20 });
       etiq(ctx, cam, [-1.2, 2.2, 0.2], m[4], ENCRE); etiq(ctx, cam, [2.4, 2.1, -0.8], m[5], ENCRE); etiq(ctx, cam, [-1.2, 4.4, 0.2], m[6], OR);
     },
   ],
@@ -1546,7 +1564,7 @@ Object.assign(SV, {
   'sv-go2': [
     (ctx, w, h, t, ph, s, css, m) => {
       const L = []; K3.sol(L, -2, -2, 2, 2, 0.35); const tete = K3.go2(L, 0, 0, 0, t, 'encre', 1);
-      const cam = orbite(w, h, 0, 0.3, 0, 2.6, 1.2, t * 0.35, 1.0); rendre3d(ctx, cam, L, css, { portee: 9 });
+      const cam = orbiteC(L, w, h, 0, 0.3, 0, 2.6, 1.2, t * 0.35, 1.0); rendre3d(ctx, cam, L, css, { portee: 9 });
       etiq(ctx, cam, [0, 0.75, 0], m[0], ENCRE, 11);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1555,7 +1573,7 @@ Object.assign(SV, {
       pts.forEach((p, i) => { const q = pts[(i + 1) % 5]; for (let k = 0; k < 14; k++) if (k % 2 === 0) K3.pt(L, p[0] + (q[0] - p[0]) * k / 14, 0.02, p[1] + (q[1] - p[1]) * k / 14, 'css', 0.06); K3.boite(L, p[0], 0, p[1], 0.18, 0.04, 0.18, 'css', 0.05); });
       const u = (t * 0.1) % 1 * 5; const i = Math.floor(u); const f = lis(u - i); const a = pts[i]; const b = pts[(i + 1) % 5];
       K3.go2(L, a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, Math.atan2(b[1] - a[1], b[0] - a[0]), t, 'encre', 1);
-      const cam = orbite(w, h, 0, 0, 0, 6.5, 4.2, 1.2 + Math.sin(t * 0.15) * 0.3, 1.0); rendre3d(ctx, cam, L, css);
+      const cam = orbiteC(L, w, h, 0, 0, 0, 6.5, 4.2, 1.2 + Math.sin(t * 0.15) * 0.3, 1.0); rendre3d(ctx, cam, L, css);
       pts.forEach((p, k) => etiq(ctx, cam, [p[0], 0.3, p[1]], String(k + 1), css, 10)); etiq(ctx, cam, [0, 0.1, 3.2], m[1], GRIS);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1566,7 +1584,7 @@ Object.assign(SV, {
       K3.ligne(L, [dos[0], dos[1] + dy - 0.3, dos[2]], [dos[0] + 0.3, dos[1] + dy, dos[2]], 'encre', 0.04); for (let a = 0; a < 6.28; a += 0.5) K3.pt(L, dos[0] + 0.32, dos[1] + dy + Math.sin(a) * 0.12, dos[2] + Math.cos(a) * 0.12, 'encre', 0.04);
       anneaux(L, dos[0] + 0.45, dos[1] + dy, dos[2], t, 'or', 3, 1.8, 0.8, 'v');
       for (let k = 0; k < 24; k++) { const u = k / 24; L.push({ x: x + Math.cos(k * 2.4) * u * 0.8, y: 3.6 - u * 3.2, z: Math.sin(k * 2.4) * u * 0.8, r: 'css', t: 0.06, a: 0.35, g: GCLES[k % GCLES.length] }); }
-      const cam = orbite(w, h, 0, 0.6, 0.6, 7.5, 3, 1.57 + Math.sin(t * 0.18) * 0.35, 0.95); rendre3d(ctx, cam, L, css, { portee: 20 });
+      const cam = orbiteC(L, w, h, 0, 0.6, 0.6, 7.5, 3, 1.57 + Math.sin(t * 0.18) * 0.35, 0.95); rendre3d(ctx, cam, L, css, { portee: 20 });
       etiq(ctx, cam, [0, 1.9, 0], m[2], css, 11, 'center', '600 '); etiq(ctx, cam, [0, 1.4, 4], m[3], GRIS);
     },
   ],
@@ -1579,7 +1597,7 @@ Object.assign(SV, {
       K3.boite(L, base[0], 0, 0, 0.4, 0.2, 0.4, 'gris', 0.08); K3.ligne(L, base, ep, 'encre', 0.05); K3.ligne(L, ep, coude, 'encre', 0.05); K3.ligne(L, coude, main, 'css', 0.05); K3.sphere(L, ...main, 0.06, 'or', 10, 0.05);
       for (let k = 0; k < 6; k++) { const rr = 0.15 + k * 0.08; for (let i = 0; i < 16; i++) { const a = i / 16 * 6.28; K3.pt(L, 0.9 + Math.cos(a) * rr, 0.75 - k * 0.12, Math.sin(a) * rr, 'ocre', 0.05); } }
       const frappe = Math.sin(t * 2) > 0.92; if (frappe || ((t * 2) % 6.283) < 2) anneaux(L, 0.9, 0.5, 0, t, 'or', 3, 1.8, 1.2);
-      const cam = orbite(w, h, 0.1, 0.7, 0, 3.4, 1.5, 0.9 + Math.sin(t * 0.2) * 0.4, 1.0); rendre3d(ctx, cam, L, css);
+      const cam = orbiteC(L, w, h, 0.1, 0.7, 0, 3.4, 1.5, 0.9 + Math.sin(t * 0.2) * 0.4, 1.0); rendre3d(ctx, cam, L, css);
       etiq(ctx, cam, [coude[0], coude[1] + 0.25, 0], m[0], css); etiq(ctx, cam, [0.9, 0.95, 0], m[1], OCRE);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1588,9 +1606,10 @@ Object.assign(SV, {
       const a1 = 0.6 + Math.sin(t * 2) * 0.4; K3.boite(L, -3, 0, -1, 0.4, 0.2, 0.4, 'gris', 0.08); K3.ligne(L, [-3, 0, -1], [-3, 0.9, -1], 'encre', 0.06); const c = [-3 + Math.cos(a1) * 0.8, 0.9 + Math.sin(a1) * 0.8, -1]; K3.ligne(L, [-3, 0.9, -1], c, 'css', 0.06);
       const rx = -0.8 + Math.sin(t * 0.7) * 1; K3.boite(L, rx, 0.15, 1.6, 0.8, 0.4, 0.6, 'encre', 0.08); [[-0.3, 0.3], [0.3, 0.3], [-0.3, -0.3], [0.3, -0.3]].forEach(([dx, dz]) => K3.sphere(L, rx + dx, 0.12, 1.6 + dz, 0.12, 'gris', 10, 0.04)); K3.ligne(L, [rx, 0.55, 1.6], [rx, 1.6, 1.6], 'gris', 0.08); K3.sphere(L, rx, 1.7, 1.6, 0.15, 'or', 18, 0.05);
       K3.go2(L, 1.6, -1.5, t * 0.4, t, 'encre', 1);
-      for (let i = 0; i < 5; i++) { const ang = Math.sin(t * 1.2 + i * 0.7) * 0.5; const top = [3.4 + i * 0.3, 3.2, 1]; K3.ligne(L, top, [top[0] + Math.sin(ang) * 1.6, 3.2 - Math.cos(ang) * 1.6, 1], 'gris', 0.1); K3.sphere(L, top[0] + Math.sin(ang) * 1.6, 3.2 - Math.cos(ang) * 1.6, 1, 0.1, 'css', 12, 0.05); }
-      const cam = orbite(w, h, 0.3, 1, 0, 8, 3.2, 1.2 + Math.sin(t * 0.15) * 0.4, 0.95); rendre3d(ctx, cam, L, css, { portee: 20 });
-      etiq(ctx, cam, [-3, 2.1, -1], m[2], GRIS); etiq(ctx, cam, [rx, 2.1, 1.6], m[3], GRIS); etiq(ctx, cam, [1.6, 0.9, -1.5], m[4], GRIS); etiq(ctx, cam, [4, 3.5, 1], m[5], GRIS);
+      for (let i = 0; i < 5; i++) { const ang = Math.sin(t * 1.2 + i * 0.7) * 0.5; const top = [2.4 + i * 0.3, 2.6, 1.6]; K3.ligne(L, top, [top[0] + Math.sin(ang) * 1.3, 2.6 - Math.cos(ang) * 1.3, 1.6], 'gris', 0.1); K3.sphere(L, top[0] + Math.sin(ang) * 1.3, 2.6 - Math.cos(ang) * 1.3, 1.6, 0.1, 'css', 12, 0.05); }
+      K3.ligne(L, [2.3, 2.6, 1.6], [3.8, 2.6, 1.6], 'encre', 0.08);
+      const cam = orbiteC(L, w, h, 0.3, 1, 0, 8, 3.2, 1.2 + Math.sin(t * 0.15) * 0.4, 0.95); rendre3d(ctx, cam, L, css, { portee: 20 });
+      etiq(ctx, cam, [-3, 2.1, -1], m[2], GRIS); etiq(ctx, cam, [rx, 2.1, 1.6], m[3], GRIS); etiq(ctx, cam, [1.6, 0.9, -1.5], m[4], GRIS); etiq(ctx, cam, [3, 2.9, 1.6], m[5], GRIS);
     },
     (ctx, w, h, t, ph, s, css, m) => {
       if (!s.L) { s.L = []; K3.sol(s.L, -6, -4, 6, 6, 0.6); K3.boite(s.L, 0, 0, 0, 9, 0.3, 5, 'sombre', 0.45); for (let i = 0; i < 18; i++) K3.pt(s.L, -4 + (i % 9), 0.9, 4 + Math.floor(i / 9) * 0.9, 'gris', 0.14); }
@@ -1598,7 +1617,7 @@ Object.assign(SV, {
       [-3, -1, 1, 3].forEach((x, i) => { const on = i === pas; const ang = on ? 1.2 : 0.4; K3.boite(L, x, 0.3, -1, 0.4, 0.2, 0.4, 'gris', 0.08); K3.ligne(L, [x, 0.3, -1], [x, 1.2, -1], 'encre', 0.06); K3.ligne(L, [x, 1.2, -1], [x + Math.cos(ang) * 0.7, 1.2 + Math.sin(ang) * 0.7, -1], on ? 'or' : 'css', 0.06);
         for (let k = 0; k < 20; k++) { const u = k / 20; L.push({ x: x + Math.cos(k * 2.4) * u * 0.7, y: 4 - u * 3.6, z: -1 + Math.sin(k * 2.4) * u * 0.7, r: on ? 'or' : 'css', t: 0.06, a: on ? 0.5 : 0.12, g: GCLES[k % GCLES.length] }); }
         if (on) anneaux(L, x, 1.6, -1, t, 'or', 2, 1.4, 1.4, 'v'); });
-      const cam = orbite(w, h, 0, 1, 1, 9.5, 3.4, 1.57 + Math.sin(t * 0.15) * 0.3, 0.95); rendre3d(ctx, cam, L, css, { portee: 24 });
+      const cam = orbiteC(L, w, h, 0, 1, 1, 9.5, 3.4, 1.57 + Math.sin(t * 0.15) * 0.3, 0.95); rendre3d(ctx, cam, L, css, { portee: 24 });
       etiq(ctx, cam, [0, 4.4, -1], m[6], css, 11, 'center', '600 '); etiq(ctx, cam, [0, 1.6, 4.5], m[7], GRIS);
     },
   ],
@@ -1611,7 +1630,7 @@ Object.assign(SV, {
       K3.boite(L, -0.18, 0.32, -0.05, 0.22, 0.01, 0.16, 'css', 0.03, 0.03);
       for (let i = 0; i < 3; i++) { const bx = 0.12 + i * 0.1; for (let a = 0; a < 6.28; a += 0.8) K3.pt(L, bx + Math.cos(a) * 0.035, 0.33, 0.15 + Math.sin(a) * 0.035, 'or', 0.025); }
       for (let i = 0; i < 6; i++) { const a = i / 6 * 6.283 + 0.5; K3.pt(L, Math.cos(a) * 0.53, 0.18, Math.sin(a) * 0.53, 'ocre', 0.04); }
-      const cam = orbite(w, h, 0, 0.15, 0, 1.5, 0.9, t * 0.35, 1.0); rendre3d(ctx, cam, L, css, { portee: 6 });
+      const cam = orbiteC(L, w, h, 0, 0.15, 0, 1.5, 0.9, t * 0.35, 1.0); rendre3d(ctx, cam, L, css, { portee: 6 });
       etiq(ctx, cam, [0, 0.55, 0], m[0], ENCRE, 11); etiq(ctx, cam, [0.55, 0.2, 0.4], m[1], OCRE, 9);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1619,13 +1638,13 @@ Object.assign(SV, {
       for (let k = 0; k < 6; k++) { const y = 0.05 + k * 0.05; const rr = 0.5 - Math.abs(k - 2.5) * 0.04; for (let i = 0; i < 40; i++) { const a = i / 40 * 6.283; K3.pt(L, Math.cos(a) * rr, y, Math.sin(a) * rr, 'encre', 0.035); } }
       const doigt = (t % 2) < 0.3; const dy = doigt ? 0.36 : 0.6 + Math.sin(t) * 0.05; K3.ligne(L, [0.2, dy, 0.15], [0.5, dy + 0.5, 0.5], 'gris', 0.04);
       anneaux(L, 0, 0.3, 0, t, 'css', 4, 1.8, 0.7); anneaux(L, 0, 0.3, 0, t + 0.3, 'or', 2, 1.2, 0.7, 'v');
-      const cam = orbite(w, h, 0, 0.3, 0, 2.6, 1.3, 0.7 + t * 0.15, 1.0); rendre3d(ctx, cam, L, css, { portee: 8 });
+      const cam = orbiteC(L, w, h, 0, 0.3, 0, 2.6, 1.3, 0.7 + t * 0.15, 1.0); rendre3d(ctx, cam, L, css, { portee: 8 });
       etiq(ctx, cam, [0.6, 1.1, 0.5], m[2], GRIS); etiq(ctx, cam, [0, 1.3, 0], m[3], css, 11);
     },
     (ctx, w, h, t, ph, s, css, m) => {
       const L = []; K3.boite(L, 0, 0, 0, 4.2, 0.75, 1.6, 'ocre', 0.25); const tour = Math.floor(t * 1.5) % 5;
       [-1.6, -0.8, 0, 0.8, 1.6].forEach((x, i) => { const rr = 0.22 + (i % 2) * 0.06; for (let k = 0; k < 4; k++) for (let a = 0; a < 6.28; a += 0.35) K3.pt(L, x + Math.cos(a) * rr, 0.8 + k * 0.05, Math.sin(a) * rr * (i % 3 === 0 ? 0.6 : 1), i === tour ? 'or' : 'encre', 0.035); if (i === tour) anneaux(L, x, 1, 0, t, 'or', 2, 1, 1.2); });
-      const cam = orbite(w, h, 0, 0.8, 0, 4, 2.2, 1.2 + Math.sin(t * 0.2) * 0.4, 1.0); rendre3d(ctx, cam, L, css, { portee: 10 });
+      const cam = orbiteC(L, w, h, 0, 0.8, 0, 4, 2.2, 1.2 + Math.sin(t * 0.2) * 0.4, 1.0); rendre3d(ctx, cam, L, css, { portee: 10 });
       etiq(ctx, cam, [0, 1.6, 0], m[4], css, 11);
     },
   ],
@@ -1636,7 +1655,7 @@ Object.assign(SV, {
       // un tube lumineux, et sa carte électronique dedans
       K3.cylindre(L, 0, 0, 0.14, 0.2, 1.6, 'encre', 0.08, 0.04); for (let y = 0.25; y < 1.6; y += 0.08) L.push({ x: 0, y, z: 0, r: 'or', t: 0.07, a: 0.3 + 0.7 * v, g: GCLES[Math.round(y * 50) % GCLES.length] });
       K3.boite(L, 0, 0, 0, 0.5, 0.2, 0.5, 'gris', 0.06); K3.boite(L, 0, 0.06, 0, 0.22, 0.02, 0.14, 'css', 0.03, 0.03);
-      const cam = orbite(w, h, 0, 0.8, 0, 2.6, 1.1, t * 0.3, 1.0); rendre3d(ctx, cam, L, css, { portee: 8 });
+      const cam = orbiteC(L, w, h, 0, 0.8, 0, 2.6, 1.1, t * 0.3, 1.0); rendre3d(ctx, cam, L, css, { portee: 8 });
       etiq(ctx, cam, [0.35, 0.15, 0], m[0], css, 10, 'left'); etiq(ctx, cam, [0, 1.85, 0], m[1], OR, 11);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1645,7 +1664,7 @@ Object.assign(SV, {
       const lampes = [[-1, -1.5], [0.5, -1.8], [2, -1.2], [1.2, 0.8], [-0.4, 0.6]];
       lampes.forEach(([x, z], i) => { const v = 0.5 + 0.5 * Math.sin(t * 2 + i * 1.3); K3.cylindre(L, x, z, 0.1, 0.1, 1.3, 'encre', 0.1, 0.035); for (let y = 0.15; y < 1.3; y += 0.12) L.push({ x, y, z, r: i % 2 ? 'css' : 'or', t: 0.08, a: 0.2 + 0.8 * v, g: GCLES[(i * 9 + Math.round(y * 10)) % GCLES.length] });
         for (let k = 0; k < 6; k++) { const u = ((t * 0.7 + k / 6 + i * 0.17) % 1); K3.pt(L, C[0] + (x - C[0]) * u, 0.9 + Math.sin(u * 3.14) * 1.2 + (1.3 - 0.9) * u, C[2] + (z - C[2]) * u, 'css', 0.05); } });
-      const cam = orbite(w, h, -0.5, 0.7, 0, 6, 2.6, 1.0 + Math.sin(t * 0.2) * 0.3, 1.0); rendre3d(ctx, cam, L, css);
+      const cam = orbiteC(L, w, h, -0.5, 0.7, 0, 6, 2.6, 1.0 + Math.sin(t * 0.2) * 0.3, 1.0); rendre3d(ctx, cam, L, css);
       etiq(ctx, cam, [C[0], 1.05, C[2]], m[2], css); etiq(ctx, cam, [0.5, 2.6, -0.3], m[3], OR);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1653,7 +1672,7 @@ Object.assign(SV, {
       const L = s.L.slice();
       // une forêt de tubes lumineux : une vague de lumière les traverse
       for (let i = 0; i < 9; i++) for (let j = 0; j < 3; j++) { const x = -4 + i; const z = -1.5 + j * 1.2; const v = 0.5 + 0.5 * Math.sin(t * 2.5 - i * 0.6 - j * 0.4); for (let y = 0.4; y < 2.2; y += 0.18) L.push({ x, y, z, r: v > 0.7 ? 'or' : 'css', t: 0.09, a: 0.12 + 0.88 * v, g: GCLES[(i * 5 + j * 3 + Math.round(y * 10)) % GCLES.length] }); }
-      const cam = orbite(w, h, 0, 1.1, 0.5, 9, 3.2, 1.57 + Math.sin(t * 0.15) * 0.35, 0.95); rendre3d(ctx, cam, L, css, { portee: 24 });
+      const cam = orbiteC(L, w, h, 0, 1.1, 0.5, 9, 3.2, 1.57 + Math.sin(t * 0.15) * 0.35, 0.95); rendre3d(ctx, cam, L, css, { portee: 24 });
       etiq(ctx, cam, [0, 2.8, -0.3], m[4], css, 11, 'center', '600 ');
     },
   ],
@@ -1704,7 +1723,7 @@ Object.assign(SV, {
       // dedans : la carte ESP32, le capteur de mouvement, trois moteurs de vibration
       K3.boite(L, 0.14, 0.3, 0.19, 0.1, 0.02, 0.06, 'or', 0.02, 0.025);
       const M = [[-0.25, 0.15, 0.1], [-0.25, 0.3, 0.1], [-0.25, 0.45, 0.1]]; M.forEach((p) => K3.sphere(L, ...p, 0.04, 'ocre', 12, 0.025));
-      const cam = orbite(w, h, 0, 0.3, 0, 1.9, 0.9, 0.9 + Math.sin(t * 0.3) * 0.6, 1.0); rendre3d(ctx, cam, L, css, { portee: 6 });
+      const cam = orbiteC(L, w, h, 0, 0.3, 0, 1.9, 0.9, 0.9 + Math.sin(t * 0.3) * 0.6, 1.0); rendre3d(ctx, cam, L, css, { portee: 6 });
       etiq(ctx, cam, [0, 0.7, 0.19], m[0], css, 10); etiq(ctx, cam, [0.5, 0.05, 0.19], m[1], OR, 10, 'left'); etiq(ctx, cam, [-0.55, 0.75, 0.1], m[2], OCRE, 10, 'right');
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1713,7 +1732,7 @@ Object.assign(SV, {
       tripode3d(L, J.mainD[0], J.mainD[1] - 0.03, J.mainD[2], t, 0.6, 'or'); tripode3d(L, J.mainG[0], J.mainG[1] - 0.03, J.mainG[2], t, 0.6, 'or');
       // le mouvement mesuré : trois courbes, x y z, écrites dans l'air
       ['css', 'or', 'encre'].forEach((c, i) => { for (let k = 0; k < 40; k++) { const u = k / 40; K3.pt(L, -1.6 + u * 3.2, 2.4 + i * 0.25 + Math.sin(u * (6 + i * 3) - t * (2 + i)) * 0.1, -1, c, 0.04); } });
-      const cam = orbite(w, h, 0, 1.3, -0.3, 4, 1.8, 1.2 + Math.sin(t * 0.2) * 0.4, 1.0); rendre3d(ctx, cam, L, css, { portee: 10 });
+      const cam = orbiteC(L, w, h, 0, 1.3, -0.3, 4, 1.8, 1.2 + Math.sin(t * 0.2) * 0.4, 1.0); rendre3d(ctx, cam, L, css, { portee: 10 });
       etiq(ctx, cam, [J.mainD[0], J.mainD[1] + 0.2, J.mainD[2]], m[3], OR); etiq(ctx, cam, [1.8, 2.65, -1], m[4], GRIS, 10, 'left');
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1726,7 +1745,7 @@ Object.assign(SV, {
       K3.boite(L, D[2][0], 1, D[2][2], 0.18, 0.32, 0.03, 'css', 0.04);
       D.forEach((d, i) => { for (let k = 0; k < 10; k++) { const u = ((t * 0.6 + k / 10 + i * 0.27) % 1); K3.pt(L, src[0] + (d[0] - src[0]) * u, src[1] + (d[1] - src[1]) * u + Math.sin(u * 3.14) * 0.6, src[2] + (d[2] - src[2]) * u, 'or', 0.06); } });
       anneaux(L, src[0], src[1], src[2], t, 'css', 2, 1, 0.8, 'v');
-      const cam = orbite(w, h, 0.3, 0.9, 0.2, 5.6, 2.4, 1.35 + Math.sin(t * 0.2) * 0.3, 1.0); rendre3d(ctx, cam, L, css, { portee: 14 });
+      const cam = orbiteC(L, w, h, 0.3, 0.9, 0.2, 5.6, 2.4, 1.35 + Math.sin(t * 0.2) * 0.3, 1.0); rendre3d(ctx, cam, L, css, { portee: 14 });
       etiq(ctx, cam, [D[0][0], 1.35, D[0][2]], m[5], css); etiq(ctx, cam, [D[1][0], 0.95, D[1][2]], m[6], ENCRE); etiq(ctx, cam, [D[2][0], 1.5, D[2][2]], m[7], css);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1737,14 +1756,14 @@ Object.assign(SV, {
       const C = [-1.4, 1.6, -1.2]; K3.boite(L, C[0], 1.2, C[2], 0.6, 0.04, 0.4, 'css', 0.05);
       for (let k = 0; k < 10; k++) { const u = ((t * 0.6 + k / 10) % 1); K3.pt(L, C[0] + (P[0] - C[0]) * u, 1.25 + (P[1] - 1.25) * u + Math.sin(u * 3.14) * 0.4, C[2] + (P[2] - C[2]) * u, 'css', 0.05); }
       [0, 1, 2].forEach((k) => { const x = -0.12 + k * 0.12; const z = 0; const on = Math.floor(t * 3) % 3 === k; if (on) for (let q = 0; q < 3; q++) { const rr = 0.06 + ((t * 2 + q / 3) % 1) * 0.3; for (let i = 0; i < 14; i++) { const b = i / 14 * 6.283; L.push({ x: x + Math.cos(b) * rr, y: 0.97, z: z + Math.sin(b) * rr, r: 'ocre', t: 0.025, a: 1 - rr / 0.36, g: GCLES[i] }); } } });
-      const cam = orbite(w, h, -0.2, 0.95, 0, 1.9, 1.5, 1.0 + Math.sin(t * 0.25) * 0.4, 1.0); rendre3d(ctx, cam, L, css, { portee: 7 });
+      const cam = orbiteC(L, w, h, -0.2, 0.95, 0, 1.9, 1.5, 1.0 + Math.sin(t * 0.25) * 0.4, 1.0); rendre3d(ctx, cam, L, css, { portee: 7 });
       etiq(ctx, cam, [C[0], 1.45, C[2]], m[8], css); etiq(ctx, cam, [0, 1.25, 0], m[9], OCRE, 11);
     },
   ],
   'gear-pcb': [
     (ctx, w, h, t, ph, s, css, m) => {
       const L = []; pcbCarte(L, t, lis(ph / 10));
-      const cam = orbite(w, h, 0, 0, 0.05, 1.9, 1.45, 1.57 + Math.sin(t * 0.18) * 0.45, 1.0); rendre3d(ctx, cam, L, css, { portee: 8 });
+      const cam = orbiteC(L, w, h, 0, 0, 0.05, 1.9, 1.45, 1.57 + Math.sin(t * 0.18) * 0.45, 1.0); rendre3d(ctx, cam, L, css, { portee: 8 });
       etiq(ctx, cam, [0, 0.35, 0], m[1], ENCRE); etiq(ctx, cam, [0, 0.12, 0.95], m[0], OR);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1752,7 +1771,7 @@ Object.assign(SV, {
       // les composants se posent sur la carte
       const comps = [[-0.75, -0.45, 0.16, 0.08, 0.1, 'encre'], [-0.75, 0.45, 0.16, 0.08, 0.1, 'encre'], [0.75, -0.45, 0.16, 0.08, 0.1, 'encre'], [0.75, 0.45, 0.16, 0.08, 0.1, 'encre'], [0, -0.62, 0.3, 0.12, 0.14, 'css'], [-0.95, 0, 0.12, 0.14, 0.12, 'ocre'], [0.95, 0, 0.12, 0.14, 0.12, 'ocre']];
       comps.forEach(([x, z, lx, ly, lz, c], i) => { const u = lis((ph - i * 1.3) / 1); if (u <= 0) return; K3.boite(L, x, 0.04 + (1 - u) * 0.8, z, lx, ly, lz, c, 0.03, 0.03); });
-      const cam = orbite(w, h, 0, 0.1, 0, 2.1, 1.3, 0.8 + t * 0.12, 1.0); rendre3d(ctx, cam, L, css, { portee: 8 });
+      const cam = orbiteC(L, w, h, 0, 0.1, 0, 2.1, 1.3, 0.8 + t * 0.12, 1.0); rendre3d(ctx, cam, L, css, { portee: 8 });
       etiq(ctx, cam, [0, 0.4, 0], m[1], ENCRE); etiq(ctx, cam, [0, 0.35, -0.62], m[2], css); etiq(ctx, cam, [0.95, 0.4, 0], m[3], OCRE);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1761,7 +1780,7 @@ Object.assign(SV, {
       const n = Math.min(6, 1 + Math.floor(ph / 1.5)); for (let i = 0; i < n; i++) K3.boite(L, -1, i * 0.12, 0, 1.2, 0.03, 0.8, '#3a7d44', 0.1);
       K3.boite(L, 1.1, 0, 0, 1.3, 0.5, 0.9, 'encre', 0.1); K3.boite(L, 1.1, 0.15, 0, 1, 0.03, 0.6, '#3a7d44', 0.08);
       const on = Math.sin(t * 5) > 0; K3.sphere(L, 1.4, 0.5, 0, 0.06, on ? 'or' : 'sombre', 12, 0.04); if (on) anneaux(L, 1.4, 0.55, 0, t, 'or', 2, 0.5, 1.2);
-      const cam = orbite(w, h, 0, 0.3, 0, 3.2, 1.8, 1.2 + Math.sin(t * 0.2) * 0.4, 1.0); rendre3d(ctx, cam, L, css, { portee: 9 });
+      const cam = orbiteC(L, w, h, 0, 0.3, 0, 3.2, 1.8, 1.2 + Math.sin(t * 0.2) * 0.4, 1.0); rendre3d(ctx, cam, L, css, { portee: 9 });
       etiq(ctx, cam, [-1, 0.9, 0], m[4], GRIS); etiq(ctx, cam, [1.1, 0.85, 0], m[5], css);
     },
   ],
