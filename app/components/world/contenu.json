@@ -80,6 +80,58 @@
      "t": "explorer",
      "items": [
       {
+       "id": "protocode",
+       "nom": "PROTOCODE",
+       "sous": "Créolisation du langage informatique",
+       "statut": "bientôt en ligne",
+       "texte": [
+        "PROTOCODE est un monde libre en 3D, dans le navigateur, entièrement écrit en signes : les murs, les passants et les autres joueurs y sont des glyphes de l’alphabet As-Simt. On y marche, on regarde, on nomme. Le projet a été initié pendant la résidence de NSDOS à la Villa Albertine, à La Nouvelle-Orléans, en 2023.",
+        "Sa langue est la Langue des images : pas de mots abstraits, seulement des images concrètes, et un mot, c’est trois images. Des images libres flottent dans le monde ; on s’en approche et on les nomme, à la voix ou au clavier : bateau = feuille · rivière · vent. Chaque nom laisse une stèle à l’endroit où il est né, et chaque image nouvelle reçoit son signe. Un créole se forme, signe après signe.",
+        "On y joue à plusieurs : les autres apparaissent en signes, les messages écrits deviennent des images, et la voix arrive en son 3D depuis leur avatar. Dans la salle SYN//NET, on parle et la pièce se remplit d’images, de vidéos et de sons libres. Ce créole d’images nourrira un langage informatique à venir : PROTOCODE, c’est protocole + code."
+       ],
+       "reperes": [
+        [
+         "Idée",
+         "Un créole d’images, qui nourrira un langage informatique"
+        ],
+        [
+         "Forme",
+         "Monde libre en 3D, dans le navigateur, tout en signes As-Simt"
+        ],
+        [
+         "Nommer",
+         "Trois images par mot, à la voix ou au clavier ; chaque image nouvelle reçoit son signe"
+        ],
+        [
+         "À plusieurs",
+         "Chat écrit traduit en images, voix en son 3D, réseau local"
+        ],
+        [
+         "SYN//NET",
+         "Une salle-instrument : la voix appelle des images, des vidéos et des sons libres"
+        ],
+        [
+         "Langues",
+         "Français, anglais"
+        ],
+        [
+         "Origine",
+         "Résidence à la Villa Albertine, La Nouvelle-Orléans, 2023"
+        ],
+        [
+         "Technique",
+         "three.js, reconnaissance vocale locale, images et sons sous licences libres"
+        ]
+       ],
+       "tags": [
+        "jeu",
+        "langue des images",
+        "As-Simt",
+        "multijoueur",
+        "voix"
+       ]
+      },
+      {
        "id": "tripode",
        "nom": "TRIPODE AS-SIMT",
        "sous": "Écrire du code avec le mouvement",
@@ -1291,6 +1343,58 @@
     {
      "t": "explorer",
      "items": [
+      {
+       "id": "protocode",
+       "nom": "PROTOCODE",
+       "sous": "Creolization of computer language",
+       "statut": "soon online",
+       "texte": [
+        "PROTOCODE is a free 3D world, in the browser, written entirely in signs: walls, passers-by and other players are glyphs of the As-Simt alphabet. You walk, you look, you name. The project was initiated during NSDOS’s residency at Villa Albertine, in New Orleans, in 2023.",
+        "Its language is the Language of images: no abstract words, only concrete images, and a word is three images. Free images float in the world; you walk up to them and name them, by voice or with the keys: boat = leaf · river · wind. Every name leaves a stele where it was born, and every new image gets its own sign. A creole is forming, sign by sign.",
+        "You play together: others appear as signs, written messages become images, and voices come in 3D sound from their avatars. In the SYN//NET room, you speak and the room fills with free images, videos and sounds. This creole of images will feed a future computer language: PROTOCODE is protocol + code."
+       ],
+       "reperes": [
+        [
+         "Idea",
+         "A creole of images that will feed a computer language"
+        ],
+        [
+         "Form",
+         "Free 3D world, in the browser, all in As-Simt signs"
+        ],
+        [
+         "Naming",
+         "Three images per word, by voice or keys; every new image gets its own sign"
+        ],
+        [
+         "Together",
+         "Written chat translated into images, 3D voice, local network"
+        ],
+        [
+         "SYN//NET",
+         "An instrument-room: your voice calls up free images, videos and sounds"
+        ],
+        [
+         "Languages",
+         "French, English"
+        ],
+        [
+         "Origin",
+         "Residency at Villa Albertine, New Orleans, 2023"
+        ],
+        [
+         "Technology",
+         "three.js, local speech recognition, freely licensed images and sounds"
+        ]
+       ],
+       "tags": [
+        "game",
+        "language of images",
+        "As-Simt",
+        "multiplayer",
+        "voice"
+       ]
+      },
       {
        "id": "tripode",
        "nom": "TRIPODE AS-SIMT",

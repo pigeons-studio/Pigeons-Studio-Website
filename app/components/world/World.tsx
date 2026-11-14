@@ -32,7 +32,7 @@ const EMAIL = 'contact@punkhazard.org';
 const PATCHS: Record<Locale, Record<string, string[]>> = {
   fr: {
     bio: ['', '..#PIGEONS.STUDIO#', '', '..#KOO.DES#..........#JULIEN.THOMAS#', '', '..2C4................4C8', '...0..................0', '..1D4................1D8', '', '...:03C...............:05G'],
-    projets: ['', '..#PROJETS#', '', '..#AS.SIMT#...#GO2#...#INSTALLATIONS#', '', '..4C8....1D4', '...0', '..........:03C'],
+    projets: ['', '..#PROJETS#', '', '..#PROTOCODE#..#AS.SIMT#', '..#GO2#..#INSTALLATIONS#', '..4C8....1D4', '...0', '..........:03C'],
     services: ['', '..#SERVICES#', '', '..#OBJETS.AUDIO#..#CAPTEURS#..#3D#', '', '..2C4....1D2', '...0', '..........:13E'],
     events: ['', '..#EVENTS#', '', '..#WORKSHOP#..#PERFORMANCE#', '', '..1D8...........8-1', '', '.........:15c'],
     boutique: ['', '..#BOUTIQUE#', '', '..#ACCESSOIRES#..#GEAR#..#MUSIQUE#', '', '..1D2.8TCDEGAcdg', '', '......:14'],
@@ -40,7 +40,7 @@ const PATCHS: Record<Locale, Record<string, string[]>> = {
   },
   en: {
     bio: ['', '..#PIGEONS.STUDIO#', '', '..#KOO.DES#..........#JULIEN.THOMAS#', '', '..2C4................4C8', '...0..................0', '..1D4................1D8', '', '...:03C...............:05G'],
-    projets: ['', '..#PROJECTS#', '', '..#AS.SIMT#...#GO2#...#INSTALLATIONS#', '', '..4C8....1D4', '...0', '..........:03C'],
+    projets: ['', '..#PROJECTS#', '', '..#PROTOCODE#..#AS.SIMT#', '..#GO2#..#INSTALLATIONS#', '..4C8....1D4', '...0', '..........:03C'],
     services: ['', '..#SERVICES#', '', '..#AUDIO.OBJECTS#..#SENSORS#..#3D#', '', '..2C4....1D2', '...0', '..........:13E'],
     events: ['', '..#EVENTS#', '', '..#WORKSHOP#..#PERFORMANCE#', '', '..1D8...........8-1', '', '.........:15c'],
     boutique: ['', '..#SHOP#', '', '..#ACCESSORIES#..#GEAR#..#MUSIC#', '', '..1D2.8TCDEGAcdg', '', '......:14'],

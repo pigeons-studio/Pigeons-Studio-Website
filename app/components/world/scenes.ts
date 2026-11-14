@@ -74,6 +74,16 @@ const TEXTES = {
     voies: ['growth', 'glycolysis', 'respiration', 'fermentation', 'byproduct', 'co2', 'lactate'],
     compos: [['musique', [['E0C8', 'caverne'], ['E11C', 'vibration'], ['E079', 'torse']]], ['heureux', [['E0B2', 'lumière'], ['E148', 'ouvrir'], ['E079', 'torse']]], ['voyage', [['E0E3', 'chemin'], ['E099', 'vent'], ['E08D', 'pied']]], ['futur', [['E0EE', 'graine'], ['E177', 'loin'], ['E0B2', 'lumière']]]],
     etage: 'étage',
+    protocode: {
+      titres: ['UN MONDE ÉCRIT EN SIGNES', 'CHAQUE PASSANT EST UN SIGNE', 'NOMMER CE QU’ON VOIT', 'JOUER ENSEMBLE', 'SYN//NET : PARLER AU MONDE'],
+      touches: ['ZQSD · souris', 'E près d’eux', 'E · voix ou clavier', 'Entrée · F maintenu', 'parler'],
+      etapes: ['Un monde libre en 3D, dans le navigateur. Les murs, le sol, les tours : tout est écrit avec les signes de l’alphabet As-Simt. Pas de mission, pas de chronomètre : on marche, on regarde, on nomme.',
+        'Les passants aussi sont écrits : chacun porte un nom en langue des images, au-dessus de lui. Près d’eux, E : ils répondent en images.',
+        'Des images libres flottent dans le monde, signalées par un rayon jaune. On s’approche et on les nomme avec trois images, à la voix ou au clavier : bateau = feuille · rivière · vent. Le mot laisse une stèle ; l’image nouvelle reçoit son signe.',
+        'Les autres joueurs apparaissent en signes. Entrée pour écrire : chaque message devient des images. F maintenu pour parler : la voix vient de leur avatar, en son 3D.',
+        'Dans la salle SYN//NET, on parle et la pièce se remplit d’images, de vidéos et de sons libres. Au-dessus de l’autel, la DATA//MACHINE en fait un mashup ; TRACKING ou CALME changent la vision.'],
+      legende: [['css', 'touche ou commande du jeu'], ['or', 'image à nommer']],
+    },
     orca: {
       etapes: ["Orca en volume : chaque étage est une grille Orca, et tous les étages sont empilés. Chaque caractère est un glyphe As-Simt extrudé, d’autant plus haut qu’il compte. Ici, le patch de démonstration joue sur quatre étages.", "Chaque opérateur majuscule est dessiné avec le signe de sa définition poétique : T, le séquenceur, est « tisser » ; C, « battement » ; D, « pluie ». Avec NOMS, une étiquette dit ce que fait l’opérateur sous le pigeon.", "On code exactement comme dans Orca, au clavier. Le curseur est un pigeon voyageur d’or. Ici on tape 1D4, une pluie qui bat tous les quatre pas, et :03C, une note MIDI : le patch joue aussitôt.", "Six opérateurs traversent les étages : ' monte, , descend, ( écoute, ) envoie, \" relaie un bang, - déchire la 3D. Un faisceau relie chaque opérateur à la case qu’il vise dans un autre étage.", "Quand plusieurs étages bangent en même temps, un éclair les relie : il avance en zigzag, se ramifie et cristallise des pixels d’espace, qui s’en vont en pétillant.", "Ctrl+D aplatit tout l’univers en un Orca 2D vu de dessus : la caméra recule, la perspective s’efface, les étages se replient. Encore une fois, et la 3D se redéploie.", "F8 relève le plan comme un pont-levis : chaque colonne de glyphes devient une tour, et on lit le code de face, comme une ville.", "Tab change de vision : normale, nuage de points façon Kinect, tirets, arêtes, et glitch, où la 3D se déchire par morceaux.", "F10 donne une matière à chaque étage (carrés, tirets, points), tirée du damier de chaque glyphe. En 2D, les étages se superposent et restent lisibles ensemble.", "Le menu est éclaté dans l’espace : dix glyphes debout au bord des étages. Un clic sur l’un d’eux l’ouvre à plat, et ses réglages apparaissent, gravés en pixels : sorties MIDI et OSC, vision, caméra…", "F5 : ce qui est joué s’écrit en partition, une partie par canal MIDI, avec au-dessus les glyphes du mode de jeu. On l’exporte en SVG, en MusicXML, en page à envoyer aux musiciens ou en carrousel pour Instagram.", "Le tracking pose un réticule sur chaque bang et dit ce qu’il déclenche, avec des lignes d’un étage à l’autre. Et tout part en MIDI ou en OSC : vers un synthé, SuperCollider ou le Norns.", "L’alphabet : les 26 lettres d’Orca gardent leur fonction, et chacune reçoit un signe As-Simt. Le mot de ce signe est une image choisie pour ce que fait l’opérateur."],
       legende: [["or", "le pigeon d’or : le curseur"], ["css", "touche ou commande du logiciel"]],
@@ -169,6 +179,16 @@ const TEXTES = {
     voies: ['growth', 'glycolysis', 'respiration', 'fermentation', 'byproduct', 'co2', 'lactate'],
     compos: [['music', [['E0C8', 'cave'], ['E11C', 'vibration'], ['E079', 'chest']]], ['happy', [['E0B2', 'light'], ['E148', 'open'], ['E079', 'chest']]], ['journey', [['E0E3', 'path'], ['E099', 'wind'], ['E08D', 'foot']]], ['future', [['E0EE', 'seed'], ['E177', 'far'], ['E0B2', 'light']]]],
     etage: 'floor',
+    protocode: {
+      titres: ['A WORLD WRITTEN IN SIGNS', 'EVERY PASSER-BY IS A SIGN', 'NAME WHAT YOU SEE', 'PLAY TOGETHER', 'SYN//NET: SPEAK TO THE WORLD'],
+      touches: ['WASD · mouse', 'E near them', 'E · voice or keys', 'Enter · hold F', 'speak'],
+      etapes: ['A free 3D world, in the browser. Walls, ground, towers: everything is written with the signs of the As-Simt alphabet. No mission, no timer: you walk, you look, you name.',
+        'Passers-by are written too: each one carries a name in the language of images, above their head. Near them, press E: they answer in images.',
+        'Free images float in the world, marked by a yellow beam. Walk up and name them with three images, by voice or with the keys: boat = leaf · river · wind. The word leaves a stele; the new image gets its own sign.',
+        'Other players appear as signs. Enter to write: every message becomes images. Hold F to talk: the voice comes from their avatar, in 3D sound.',
+        'In the SYN//NET room, you speak and the room fills with free images, videos and sounds. Above the altar, the DATA//MACHINE mashes them up; TRACKING or CALM change the vision.'],
+      legende: [['css', 'game key or command'], ['or', 'image to name']],
+    },
     orca: {
       etapes: ["Orca in volume: each floor is an Orca grid, and all floors are stacked. Each character is an extruded As-Simt glyph, taller the more it counts. Here the demo patch plays on four floors.", "Each uppercase operator is drawn with the sign of its poetic definition: T, the sequencer, is “weave”; C, “heartbeat”; D, “rain”. With NAMES, a label tells what the operator under the pigeon does.", "You code exactly as in Orca, with the keyboard. The cursor is a golden homing pigeon. Here we type 1D4, a rain that beats every four steps, and :03C, a MIDI note: the patch plays at once.", "Six operators cross floors: ' goes up, , goes down, ( listens, ) sends, \" relays a bang, - tears the 3D. A beam links each operator to the cell it targets on another floor.", "When several floors bang at once, a lightning bolt links them: it zigzags, branches and crystallises pixels of space, which fizz away.", "Ctrl+D flattens the whole universe into a top-down 2D Orca: the camera pulls back, perspective fades, floors fold in. Once more, and the 3D unfolds again.", "F8 raises the plan like a drawbridge: each column of glyphs becomes a tower, and you read the code face-on, like a city.", "Tab switches vision: normal, Kinect-style point cloud, dashes, edges, and glitch, where the 3D tears apart in pieces.", "F10 gives each floor a material (squares, dashes, dots), taken from each glyph’s checkerboard. In 2D, floors overlap and stay readable together.", "The menu is scattered in space: ten glyphs standing at the edge of the floors. A click on one lays it flat, and its settings appear, engraved in pixels: MIDI and OSC outputs, vision, camera…", "F5: what is played is written as a score, one part per MIDI channel, with the glyphs of the playing mode above. Export as SVG, MusicXML, a page for musicians or an Instagram carousel.", "Tracking locks a reticle on every bang and tells what it triggers, with lines from floor to floor. And everything goes out as MIDI or OSC: to a synth, SuperCollider or the Norns.", "The alphabet: Orca’s 26 letters keep their function, and each gets an As-Simt sign. The word of that sign is an image chosen for what the operator does."],
       legende: [["or", "the golden pigeon: the cursor"], ["css", "key or command of the software"]],
@@ -325,6 +345,37 @@ function orca (ctx, w, h, t, etat, css, L) {
   const touche = L.orcaTouches[actif];
   if (touche) { ctx.font = "600 10px 'IBM Plex Mono', monospace"; const tw = ctx.measureText(touche).width + 14; ctx.fillStyle = '#000'; ctx.fillRect(x + dw - tw - 8, y + 8, tw, 20); ctx.strokeStyle = css; ctx.strokeRect(x + dw - tw - 7.5, y + 8.5, tw - 1, 19); texte(ctx, touche, x + dw - 8 - tw / 2, y + 22, css, 10, 'center', '600 '); }
   return { info: L.orca, actif };
+}
+
+// ---------------------------------------------------------------- PROTOCODE : le jeu filmé, plan par plan (créolisation du langage informatique)
+const PROTO_CLIPS = ['monde', 'passant', 'nommer', 'joueurs', 'synnet'];
+const PROTO_PAS = 12;
+function videoClip (etat, base, nom) {
+  if (!etat.videos) etat.videos = {};
+  if (!etat.videos[nom]) {
+    const v = document.createElement('video'); v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto';
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+    const ext = v.canPlayType('video/webm; codecs="vp9"') ? '.webm' : '.mp4';
+    v.src = base + nom + ext;
+    etat.videos[nom] = v;
+  }
+  return etat.videos[nom];
+}
+function protocode (ctx, w, h, t, etat, css, L) {
+  const P = L.protocode; const n = PROTO_CLIPS.length; const actif = Math.floor((t % (n * PROTO_PAS)) / PROTO_PAS);
+  if (typeof document === 'undefined') return { info: P, actif };
+  const v = videoClip(etat, '/protocode/', PROTO_CLIPS[actif]); videoClip(etat, '/protocode/', PROTO_CLIPS[(actif + 1) % n]);
+  if (etat.vActif !== actif) { Object.values(etat.videos).forEach((x) => { if (x !== v) x.pause(); }); try { v.currentTime = 0; } catch (e) { /* pas encore chargée */ } v.play().catch(() => {}); etat.vActif = actif; }
+  // le jeu, au format 16:10, sous le titre
+  const pad = 6; const haut = 30; const dispo = Math.max(10, h - haut - pad); let dw = w - pad * 2; let dh = dw * 10 / 16; if (dh > dispo) { dh = dispo; dw = dh * 16 / 10; }
+  const x = (w - dw) / 2; const y = haut;
+  ctx.fillStyle = '#000'; ctx.fillRect(x, y, dw, dh);
+  if (v.readyState >= 2) ctx.drawImage(v, x, y, dw, dh); else texte(ctx, L.chargement, x + dw / 2, y + dh / 2, GRIS, 10, 'center');
+  ctx.strokeStyle = SOMBRE; ctx.strokeRect(x + 0.5, y + 0.5, dw - 1, dh - 1);
+  texte(ctx, P.titres[actif], pad, 20, css, 11, 'left', '600 ');
+  const touche = P.touches[actif];
+  if (touche) { ctx.font = "600 10px 'IBM Plex Mono', monospace"; const tw = ctx.measureText(touche).width + 14; ctx.fillStyle = '#000'; ctx.fillRect(x + dw - tw - 8, y + 8, tw, 20); ctx.strokeStyle = css; ctx.strokeRect(x + dw - tw - 7.5, y + 8.5, tw - 1, 19); texte(ctx, touche, x + dw - 8 - tw / 2, y + 22, css, 10, 'center', '600 '); }
+  return { info: P, actif };
 }
 
 function cave (ctx, w, h, t, etat, css, L) {
@@ -2119,7 +2170,7 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
   });
 }
 
-const SCENES = { orca, cave, langue, teammate, tripode, systema, avatar, billy, ...SCENES_SERVICES };
+const SCENES = { protocode, orca, cave, langue, teammate, tripode, systema, avatar, billy, ...SCENES_SERVICES };
 export const SCENE_IDS = Object.keys(SCENES);
 
 
@@ -2128,6 +2179,7 @@ export const SCENE_IDS = Object.keys(SCENES);
 const cumul = (durees) => durees.reduce((acc, d) => [...acc, acc[acc.length - 1] + d], [0]);
 const ETAPES = {
   orca: [...ORCA_CLIPS.map((_, i) => i * ORCA_PAS), ORCA_CLIPS.length * ORCA_PAS, ORCA_CLIPS.length * ORCA_PAS + 26 * 6], // la dernière étape est l'alphabet, qui défile seul
+  protocode: [...PROTO_CLIPS.map((_, i) => i * PROTO_PAS), PROTO_CLIPS.length * PROTO_PAS],
   cave: [0, 16, 32, 52, 72],
   langue: [0, 0.18, 0.45, 0.62, 1].map((u) => u * 32),
   teammate: [0, 0.14, 0.42, 0.66, 1].map((u) => u * 64),
