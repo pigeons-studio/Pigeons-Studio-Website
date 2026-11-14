@@ -21,7 +21,7 @@ type Locale = 'fr' | 'en';
 type Mode = '3d' | 'vers2d' | '2d' | 'vers3d';
 type Prix = 'coming' | 'quote' | 'soon';
 type Item = { id?: string; nom: string; sens: string; tags?: string[]; prix?: Prix; panier?: number; src?: string; duree?: string; image?: string; alt?: string; couleurs?: [string, string][]; glyphes?: [string, string][]; glyphesSens?: string; collab?: { texte: string; nom: string; lien: string }; details?: [string, string][]; tarif?: string; commande?: string };
-type Projet = { id: string; nom: string; sous: string; statut: string; texte: string[]; reperes: string[][]; tags: string[]; objet?: string; video?: string; film?: string; liens?: [string, string][]; tarif?: string; commande?: string; prixLabel?: string; detail?: string; devisSujet?: string };
+type Projet = { id: string; nom: string; sous: string; statut: string; texte: string[]; reperes: string[][]; tags: string[]; objet?: string; video?: string; film?: string; filmAffiche?: string; liens?: [string, string][]; tarif?: string; commande?: string; prixLabel?: string; detail?: string; devisSujet?: string };
 type LigneCommande = { productId: string; nameFr: string; nameEn: string; color?: string; quantity: number; priceLabel: string; detail?: string };
 type Bloc = { t: string; p?: string; titre?: string; sur?: string; duo?: string; legende?: string; signe?: string; code?: string; vide?: string; items?: unknown[]; fiches?: unknown[] };
 type Famille = { id: string; nom: string; code: string; signe: string; pourquoi: string; teinte: number; css: string; blocs: Bloc[] };
@@ -410,11 +410,13 @@ function Explorer({ items, css, code = 'F', locale, ui, fiche, onFiche, allerPro
               <PhraseGlyphes locale={locale} css={css} />
             </figure>
           )}
-          <figure className={'ex-film ex-scene' + (p.id === 'orca' ? ' ex-ecran' : '')}>
-            <Scene id={p.id} css={css} locale={locale} />
-          </figure>
+          {!p.film && (
+            <figure className={'ex-film ex-scene' + (p.id === 'orca' ? ' ex-ecran' : '')}>
+              <Scene id={p.id} css={css} locale={locale} />
+            </figure>
+          )}
           {p.video && <Video id={p.video} locale={locale} />}
-          {p.film && (<figure className="ex-film-local"><video src={p.film} controls playsInline preload="metadata" /></figure>)}
+          {p.film && (<figure className="ex-film-local"><video src={p.film} poster={p.filmAffiche} controls playsInline muted loop autoPlay preload="metadata" aria-label={p.nom} /></figure>)}
           <div className="ex-texte">
             {p.texte.map((t) => <p key={t}><Lie texte={t} ici={p.id} aller={allerProjet} locale={locale} /></p>)}
             {p.liens && <p className="ex-liens">{p.liens.map(([t, u]) => <a key={u} href={u} target="_blank" rel="noopener noreferrer">{t} ↗</a>)}</p>}

@@ -248,6 +248,8 @@
 .orca .ex-film { display: flex; flex-direction: column; gap: 8px; }
 .orca .ex-film video { width: 100%; aspect-ratio: 4 / 5; background: #0b0b0a; border: 1px solid var(--trait); display: block; }
 .orca .ex-film figcaption { color: var(--gris); font-size: 10px; letter-spacing: .1em; }
+.orca .ex-film-local { margin: 0; display: flex; justify-content: center; }
+.orca .ex-film-local video { display: block; max-width: 100%; max-height: min(78vh, 760px); width: auto; height: auto; background: #000; border: 1px solid var(--trait); }
 .orca .ex-films { display: flex; flex-direction: column; gap: 4px; }
 .orca .ex-films button { text-align: left; font-size: 10px; letter-spacing: .08em; color: var(--gris); padding: 4px 6px; border: 1px solid var(--trait); }
 .orca .ex-films button[aria-pressed="true"] { color: var(--c); border-color: var(--c); }

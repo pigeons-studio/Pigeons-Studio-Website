@@ -129,7 +129,9 @@
         "As-Simt",
         "multijoueur",
         "voix"
-       ]
+       ],
+       "film": "/films/protocode-teaser.mp4",
+       "filmAffiche": "/films/protocode-teaser.jpg"
       },
       {
        "id": "tripode",
@@ -1393,7 +1395,9 @@
         "As-Simt",
         "multiplayer",
         "voice"
-       ]
+       ],
+       "film": "/films/protocode-teaser.mp4",
+       "filmAffiche": "/films/protocode-teaser.jpg"
       },
       {
        "id": "tripode",
