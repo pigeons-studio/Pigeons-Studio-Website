@@ -414,7 +414,7 @@ function Explorer({ items, css, code = 'F', locale, fiche, onFiche, allerProjet 
               <PhraseGlyphes locale={locale} css={css} />
             </figure>
           )}
-          <figure className="ex-film ex-scene">
+          <figure className={'ex-film ex-scene' + (p.id === 'orca' ? ' ex-ecran' : '')}>
             <Scene id={p.id} css={css} locale={locale} />
             <figcaption><i className="rec" />{locale === 'fr' ? 'en temps réel' : 'real time'}</figcaption>
           </figure>

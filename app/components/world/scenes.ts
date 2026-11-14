@@ -316,7 +316,7 @@ function orca (ctx, w, h, t, etat, css, L) {
   const v = videoOrca(etat, ORCA_CLIPS[actif]); videoOrca(etat, ORCA_CLIPS[(actif + 1) % n]);
   if (etat.vActif !== actif) { Object.values(etat.videos).forEach((x) => { if (x !== v) x.pause(); }); try { v.currentTime = 0; } catch (e) { /* pas encore chargée */ } v.play().catch(() => {}); etat.vActif = actif; }
   // l'image du logiciel, au format 16:10, sous le titre
-  const pad = 12; const haut = 30; const dispo = Math.max(10, h - haut - pad); let dw = w - pad * 2; let dh = dw * 10 / 16; if (dh > dispo) { dh = dispo; dw = dh * 16 / 10; }
+  const pad = 6; const haut = 30; const dispo = Math.max(10, h - haut - pad); let dw = w - pad * 2; let dh = dw * 10 / 16; if (dh > dispo) { dh = dispo; dw = dh * 16 / 10; }
   const x = (w - dw) / 2; const y = haut;
   ctx.fillStyle = '#000'; ctx.fillRect(x, y, dw, dh);
   if (v.readyState >= 2) ctx.drawImage(v, x, y, dw, dh); else texte(ctx, L.chargement, x + dw / 2, y + dh / 2, GRIS, 10, 'center');
@@ -1995,8 +1995,9 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
     yy += 35;
     texte(ctx, String(R.actif + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0'), x + p, yy, css, 11);
     yy += 34;
-    ctx.font = "13px 'IBM Plex Mono', monospace";
-    couper(ctx, etapes[R.actif], w - p * 2).forEach((l) => { texte(ctx, l, x + p, yy, ENCRE, 13); yy += 19; });
+    // sur un grand écran (ORCA//GLYPH en pleine largeur), l'explication s'écrit plus grand
+    const tx = w >= 560 ? 16 : 13; ctx.font = `${tx}px 'IBM Plex Mono', monospace`;
+    couper(ctx, etapes[R.actif], w - p * 2).forEach((l) => { texte(ctx, l, x + p, yy, ENCRE, tx); yy += Math.round(tx * 1.45); });
   } else {
     texte(ctx, L.panneau.toUpperCase(), x + p, yy, GRIS, 10); yy += 36 + (R.decal || 0);
     const taille = 12; const ligne = 18;
@@ -2017,13 +2018,15 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
   }
   // la légende des couleurs, en bas du panneau
   const leg = R.info.legende;
-  let ly = y + h - p - Math.ceil(leg.length / 2) * 16 + 6;
+  // deux colonnes si chaque nom y tient, sinon une seule : les noms ne se chevauchent jamais
+  const nc = leg.every(([, nom]) => nom.length * 6.2 + 20 < (w - p * 2) / 2) ? 2 : 1;
+  let ly = y + h - p - Math.ceil(leg.length / nc) * 16 + 6;
   if (ly < yy + 10) return;
   texte(ctx, L.legende.toUpperCase(), x + p, ly - 10, GRIS, 10);
   ly += 6;
   leg.forEach(([c, nom], i) => {
-    const col = i % 2; const rang = Math.floor(i / 2);
-    const lx = x + p + col * (w - p * 2) / 2; const ly2 = ly + rang * 16;
+    const col = i % nc; const rang = Math.floor(i / nc);
+    const lx = x + p + col * (w - p * 2) / nc; const ly2 = ly + rang * 16;
     ctx.fillStyle = COUL[c] || c; ctx.fillRect(lx, ly2 - 8, 8, 8);
     texte(ctx, nom, lx + 14, ly2, GRIS, 10);
   });
@@ -2108,8 +2111,9 @@ export function lancerScene (canvas, id, css, locale) {
   const dessiner = () => {
     ctx.clearRect(0, 0, w, h); points(ctx, w, h, 14);
     // large : la scène à gauche, le panneau à droite ; étroit : la scène en haut, le panneau dessous
-    large = w >= 560;
-    sw = large ? Math.round(w * 0.6) : w; sh = large ? h : Math.round(Math.max(h * 0.56, h - 225));
+    // ORCA//GLYPH : l'image du logiciel en pleine largeur, l'explication toujours dessous
+    const ecran = id === 'orca'; large = w >= 560 && !ecran;
+    sw = large ? Math.round(w * 0.6) : w; sh = large ? h : ecran ? Math.round(Math.min(h - 190, 40 + (w - 12) * 10 / 16)) : Math.round(Math.max(h * 0.56, h - 225));
     ctx.save(); ctx.beginPath(); ctx.rect(0, 0, sw, sh); ctx.clip();
     const R = f(ctx, sw, sh, t, etat, css, L);
     ctx.restore();

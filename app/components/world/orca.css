@@ -262,6 +262,8 @@
 .orca .ex-corps { grid-template-columns: 1fr; gap: 22px; }
 .orca .ex-film { max-width: none; }
 .orca .ex-scene canvas { aspect-ratio: 16 / 10; }
+/* ORCA//GLYPH : le logiciel filmé prend toute la largeur, l'explication passe dessous */
+.orca .ex-scene.ex-ecran canvas { aspect-ratio: 16 / 15.2; }
 .orca .ex-texte { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px 28px; }
 .orca .ex-texte dl, .orca .ex-texte .tags { grid-column: 1 / -1; }
 @media (max-width: 760px) {
@@ -273,6 +275,7 @@
   .orca .ex-liste button:nth-child(even) { border-right: 0; }
   .orca .ex-liste button:nth-child(n+3) { border-bottom: 0; }
   .orca .ex-scene canvas { aspect-ratio: 3 / 4; }
+  .orca .ex-scene.ex-ecran canvas { aspect-ratio: 9 / 16; }
 }
 
 /* ---- téléphone : la page défile où que l'on pose le doigt ----
