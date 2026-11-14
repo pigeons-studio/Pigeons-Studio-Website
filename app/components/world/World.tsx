@@ -55,13 +55,13 @@ const MOTS: Record<Locale, Record<string, string>> = {
 
 const UI = {
   fr: {
-    connexion: 'connexion', compte: 'compte', contact: 'Contact', panier: 'panier', retour: '◂ 3D', etage: 'étage', etages: (n: number) => `${n} étages`,
+    connexion: 'connexion', compte: 'compte', contact: 'contact', panier: 'panier', retour: '◂ 3D', etage: 'étage', etages: (n: number) => `${n} étages`,
     aide: 'molette : traverser les étages · clic : entrer', entrer: (n: number) => `étage ${n} · cliquer pour entrer`, aideTactile: 'glisser ↕ · toucher', toucher: (n: number) => `étage ${n} · toucher encore pour entrer`,
     ici: 'tu es ici', aller: (n: number) => `aller à l'étage ${n}`, rubriques: 'rubriques',
     prix: { coming: 'À venir', quote: 'Sur devis', soon: 'Bientôt disponible' } as Record<Prix, string>,
     prevenir: 'être prévenu', devis: 'demander un devis', ajouter: 'ajouter au panier', ajoute: 'ajouté',
     confirmer: 'confirmer', envoye: 'demande envoyée',
-    contactTitre: 'CONTACT', contactTexte: 'Marques, institutions, robotique et IA : parlons de votre projet.', aPropos: 'à propos de : ',
+    contactTitre: 'CONTACT', contactTexte: 'Marques, institutions et robotique : parlons de votre projet.', aPropos: 'à propos de : ',
     copier: 'copier', copie: 'copié', reponse: 'Réponse généralement sous 24-48h.', fermer: 'fermer', legal: 'mentions légales', cgv: 'CGV',
     panierTitre: 'PANIER', vide: 'Vide pour l’instant.', vider: 'vider', commander: 'passer la commande',
     commandeBientot: 'Le paiement en ligne arrive bientôt. Pour commander, écrivez au studio :',
@@ -69,13 +69,13 @@ const UI = {
     droits: '© 2026 Pigeons Studio - Tous droits réservés.', cgvLong: 'conditions générales de vente', ouEcrire: 'ou écrire directement :',
   },
   en: {
-    connexion: 'login', compte: 'account', contact: 'Contact', panier: 'cart', retour: '◂ 3D', etage: 'floor', etages: (n: number) => `${n} floors`,
+    connexion: 'login', compte: 'account', contact: 'contact', panier: 'cart', retour: '◂ 3D', etage: 'floor', etages: (n: number) => `${n} floors`,
     aide: 'scroll: move through the floors · click: enter', entrer: (n: number) => `floor ${n} · click to enter`, aideTactile: 'swipe ↕ · tap', toucher: (n: number) => `floor ${n} · tap again to enter`,
     ici: 'you are here', aller: (n: number) => `go to floor ${n}`, rubriques: 'sections',
     prix: { coming: 'Coming soon', quote: 'On quote', soon: 'Coming soon' } as Record<Prix, string>,
     prevenir: 'get notified', devis: 'request a quote', ajouter: 'add to cart', ajoute: 'added',
     confirmer: 'confirm', envoye: 'request sent',
-    contactTitre: 'CONTACT', contactTexte: 'Brands, institutions, robotics and AI: let’s talk about your project.', aPropos: 'about: ',
+    contactTitre: 'CONTACT', contactTexte: 'Brands, institutions and robotics: let’s talk about your project.', aPropos: 'about: ',
     copier: 'copy', copie: 'copied', reponse: 'We usually reply within 24-48h.', fermer: 'close', legal: 'legal notice', cgv: 'terms',
     panierTitre: 'CART', vide: 'Empty for now.', vider: 'empty', commander: 'checkout',
     commandeBientot: 'Online payment is coming soon. To order, write to the studio:',
@@ -111,7 +111,7 @@ export default function World() {
   const [etage, setEtage] = useState(0);
   const [visible, setVisible] = useState(false);
   const [tiroir, setTiroir] = useState<Tiroir>(null);
-  const [survolHtml, setSurvolHtml] = useState<{ i: number; box: DOMRect } | null>(null);
+  const [survol, setSurvol] = useState<number | null>(null);
   const [monte, setMonte] = useState(false);
   const [pret, setPret] = useState(false);
   const totalPanier = useCartStore((s) => s.getTotalItems());
@@ -216,7 +216,7 @@ export default function World() {
   };
   const changer = (n: number) => {
     if (n === etage) return;
-    setSurvolHtml(null);
+    setSurvol(null);
     setVisible(false);
     window.setTimeout(() => { mondeRef.current?.changer(n); setEtage(n); setVisible(true); pageRef.current?.scrollTo(0, 0); }, 260);
   };
@@ -256,27 +256,26 @@ export default function World() {
         <div className="c bd"><button id="retour" type="button" hidden={mode !== '2d'} onClick={() => mondeRef.current?.remonter()}>{ui.retour}</button><span className="legal3d"><span>{ui.droits}</span><Link href="/legal">{ui.legal}</Link><Link href="/terms">{ui.cgv}</Link></span></div>
       </div>
       <div id="trk" ref={trkRef} aria-hidden="true"><i /><i /><i /><i /><span /></div>
-      {survolHtml && mode === '2d' && <TrackerHtml g={FAMILLES[survolHtml.i]} box={survolHtml.box} />}
-
       <main id="page" ref={pageRef} className={visible && mode === '2d' ? 'on' : ''} aria-hidden={mode !== '2d'}>
         <div className="dedans" id="contenu">
           <div className="familles-bloc">
             <button type="button" className="retour-page" onClick={() => mondeRef.current?.remonter()}>{ui.retour}</button>
             <nav className="familles" aria-label={ui.rubriques}>
               {FAMILLES.map((g, i) => (
-                <button key={g.id} type="button" aria-label={g.nom} aria-current={i === etage}
-                  onPointerEnter={(e) => setSurvolHtml({ i, box: e.currentTarget.getBoundingClientRect() })}
-                  onPointerLeave={() => setSurvolHtml(null)}
-                  onFocus={(e) => setSurvolHtml({ i, box: e.currentTarget.getBoundingClientRect() })}
-                  onBlur={() => setSurvolHtml(null)}
+                <button key={g.id} type="button" aria-label={g.nom} aria-current={i === etage} style={{ ['--c' as string]: g.css }}
+                  onPointerEnter={() => setSurvol(i)}
+                  onPointerLeave={() => setSurvol(null)}
+                  onFocus={() => setSurvol(i)}
+                  onBlur={() => setSurvol(null)}
                   onClick={() => changer(i)}>
-                  <Glyphe signe={g.signe} couleur={i === etage || survolHtml?.i === i ? g.css : '#8a8780'} />
+                  <span className="visee" aria-hidden="true"><i /><i /><i /><i /></span>
+                  <Glyphe signe={g.signe} couleur={i === etage || survol === i ? g.css : '#8a8780'} />
                   <span className="lib" style={{ ['--c' as string]: g.css }} aria-hidden="true"><em>{MOTS[locale][g.signe]}</em><b>{g.nom}</b></span>
                 </button>
               ))}
             </nav>
             {/* la traduction se lit sur sa propre ligne, sous les glyphes : elle ne recouvre jamais un autre glyphe */}
-            <Traduction g={FAMILLES[survolHtml?.i ?? etage]} n={survolHtml?.i ?? etage} ici={(survolHtml?.i ?? etage) === etage} ui={ui} locale={locale} />
+            <Traduction g={FAMILLES[survol ?? etage]} n={survol ?? etage} ici={(survol ?? etage) === etage} ui={ui} locale={locale} />
           </div>
           <div className="titre">
             <Glyphe signe={f.signe} couleur={f.css} />
@@ -295,16 +294,6 @@ export default function World() {
           {tiroir.quoi === 'connexion' && <TiroirConnexion inscription={tiroir.inscription} ui={ui} basculer={(v) => setTiroir({ quoi: 'connexion', inscription: v })} fermer={() => setTiroir(null)} />}
         </aside>
       )}
-    </div>
-  );
-}
-
-// le réticule se pose sur le glyphe survolé ; le texte, lui, est écrit sous la rangée (Traduction)
-function TrackerHtml({ g, box }: { g: Famille; box: DOMRect }) {
-  const m = 5;
-  return (
-    <div className="trk on" style={{ ['--c' as string]: g.css, transform: `translate(${box.left - m}px,${box.top - m}px)`, width: box.width + 2 * m, height: box.height + 2 * m }} aria-hidden="true">
-      <i /><i /><i /><i />
     </div>
   );
 }
@@ -654,7 +643,7 @@ function TiroirContact({ sujet, devis, ui, fermer }: { sujet: string; devis?: bo
   const t = useTranslations('contact');
   const locale = useLocale();
   const { data: session } = useSession();
-  const connu = Boolean(devis && session?.user?.email);
+  const connu = Boolean(session?.user?.email);
   const [champs, setChamps] = useState({ name: '', email: '', subject: sujet, message: '' });
   const [curseur, setCurseur] = useState(0);
   const [piege, setPiege] = useState('');
@@ -670,7 +659,7 @@ function TiroirContact({ sujet, devis, ui, fermer }: { sujet: string; devis?: bo
     if (piege.trim()) { setEtat('error'); setErreur(t('form.error')); return; }
     setEtat('loading'); setErreur('');
     try {
-      const r = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...champs, name: connu ? session?.user?.name : champs.name, email: connu ? session?.user?.email : champs.email, locale, quote: Boolean(devis && connu), antiBot: { sliderValue: connu ? 100 : curseur, honeypot: piege, elapsedMs: Date.now() - debut.current } }) });
+      const r = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...champs, name: connu ? session?.user?.name : champs.name, email: connu ? session?.user?.email : champs.email, locale, antiBot: { sliderValue: connu ? 100 : curseur, honeypot: piege, elapsedMs: Date.now() - debut.current } }) });
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || t('form.error'));
       setEtat('success'); setChamps({ name: '', email: '', subject: '', message: '' }); setCurseur(0); debut.current = Date.now();

@@ -128,13 +128,12 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { name, email, subject, message, locale, quote, antiBot } = body as {
+    const { name, email, subject, message, locale, antiBot } = body as {
       name?: string;
       email?: string;
       subject?: string;
       message?: string;
       locale?: string;
-      quote?: boolean;
       antiBot?: {
         sliderValue?: number;
         honeypot?: string;
@@ -144,7 +143,7 @@ export async function POST(request: NextRequest) {
 
     localeKey = normalizeLocale(locale);
     const copy = COPY[localeKey];
-    const session = quote ? await getServerSession(authOptions) : null;
+    const session = await getServerSession(authOptions);
     const sessionEmail = session?.user?.email?.trim() || '';
     const sessionName = session?.user?.name?.trim() || '';
 

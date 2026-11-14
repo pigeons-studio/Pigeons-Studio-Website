@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -6,6 +6,10 @@ import { routing } from '@/i18n/routing';
 import { baseUrl, buildPageMetadata } from '@/lib/seo';
 import SessionProvider from '@/app/providers/SessionProvider';
 import "../globals.css";
+
+export const viewport: Viewport = {
+  themeColor: '#000000',
+};
 
 export async function generateMetadata({
   params,

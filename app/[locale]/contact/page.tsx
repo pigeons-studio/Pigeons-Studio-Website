@@ -2,6 +2,7 @@
 
 import { useState, FormEvent, useEffect, useRef, ChangeEvent } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
+import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import Header from '@/app/components/Header';
 import styles from './page.module.css';
@@ -10,6 +11,7 @@ import OrcaFond from '@/app/components/world/OrcaFond';
 export default function ContactPage() {
   const t = useTranslations('contact');
   const locale = useLocale();
+  const { data: session } = useSession();
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     name: '',
@@ -22,7 +24,8 @@ export default function ContactPage() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const formStartedAtRef = useRef<number>(Date.now());
-  const isHumanVerified = antiBotSlider >= 100;
+  const connu = Boolean(session?.user?.email);
+  const isHumanVerified = connu || antiBotSlider >= 100;
 
   // Préremplir le sujet si présent dans l'URL
   useEffect(() => {
@@ -65,9 +68,11 @@ export default function ContactPage() {
         },
         body: JSON.stringify({
           ...formData,
+          name: connu ? session?.user?.name : formData.name,
+          email: connu ? session?.user?.email : formData.email,
           locale,
           antiBot: {
-            sliderValue: antiBotSlider,
+            sliderValue: connu ? 100 : antiBotSlider,
             honeypot,
             elapsedMs: Date.now() - formStartedAtRef.current,
           },
@@ -117,7 +122,7 @@ export default function ContactPage() {
 
           <div className={styles.content}>
             <form onSubmit={handleSubmit} className={styles.form}>
-              <div className={styles.formGroup}>
+              {!connu && <div className={styles.formGroup}>
                 <label htmlFor="name" className={styles.label}>
                   {t('form.name')} {t('form.required')}
                 </label>
@@ -131,9 +136,9 @@ export default function ContactPage() {
                   className={styles.input}
                   placeholder={t('form.namePlaceholder')}
                 />
-              </div>
+              </div>}
 
-              <div className={styles.formGroup}>
+              {!connu && <div className={styles.formGroup}>
                 <label htmlFor="email" className={styles.label}>
                   {t('form.email')} {t('form.required')}
                 </label>
@@ -147,7 +152,7 @@ export default function ContactPage() {
                   className={styles.input}
                   placeholder={t('form.emailPlaceholder')}
                 />
-              </div>
+              </div>}
 
               <div className={styles.formGroup}>
                 <label htmlFor="subject" className={styles.label}>
@@ -180,7 +185,7 @@ export default function ContactPage() {
                 />
               </div>
 
-              <div className={styles.honeypotWrapper} aria-hidden="true">
+              {!connu && <div className={styles.honeypotWrapper} aria-hidden="true">
                 <label htmlFor="website">Website</label>
                 <input
                   type="text"
@@ -191,9 +196,9 @@ export default function ContactPage() {
                   tabIndex={-1}
                   autoComplete="off"
                 />
-              </div>
+              </div>}
 
-              <div className={`${styles.formGroup} ${styles.humanCheckGroup}`}>
+              {!connu && <div className={`${styles.formGroup} ${styles.humanCheckGroup}`}>
                 <label htmlFor="antiBotSlider" className={styles.label}>
                   {t('form.humanCheckLabel')} {t('form.required')}
                 </label>
@@ -219,7 +224,7 @@ export default function ContactPage() {
                     ? t('form.humanCheckReady')
                     : t('form.humanCheckProgress', { value: antiBotSlider })}
                 </p>
-              </div>
+              </div>}
 
               {status === 'error' && (
                 <div className={styles.error}>

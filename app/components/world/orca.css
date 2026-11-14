@@ -12,7 +12,7 @@
 .orca p, .orca h1, .orca h2, .orca h3, .orca dl, .orca dd, .orca figure { margin: 0; }
 .orca h1, .orca h2, .orca h3 { font-family: var(--mono); }
 .orca p { line-height: normal; }
-.orca #page { background: none; }
+.orca #page { background: #000; }
 .orca, .orca canvas, .orca button { cursor: url('/cursor/pigeon.png') 9 6, crosshair; }
 .orca button { font: inherit; color: inherit; background: none; border: 0; padding: 0; }
 .orca button:focus-visible { outline: 1px solid var(--cyan); outline-offset: 3px; }
@@ -51,9 +51,20 @@
 .orca #page.on { opacity: 1; pointer-events: auto; transform: none; }
 .orca #page .dedans { max-width: 880px; margin: 0 auto; padding-inline: 16px; padding-block: 8px 24px; display: flex; flex-direction: column; gap: 28px; }
 .orca .familles { display: flex; gap: 8px; }
-.orca .familles button { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--trait); background: rgba(0,0,0,.6); }
+.orca .familles button { position: relative; display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--trait); background: rgba(0,0,0,.6); }
 .orca .familles button[aria-current="true"] { border-color: var(--or); }
 .orca .familles button:hover { border-color: var(--gris); }
+.orca .familles button:focus-visible { outline: none; }
+.orca .familles button .visee { position: absolute; inset: -6px; pointer-events: none; opacity: 0; }
+.orca .familles button .visee i { position: absolute; width: 10px; height: 10px; border: 0 solid var(--c, var(--or)); }
+.orca .familles button .visee i:nth-child(1) { left: 0; top: 0; border-width: 1px 0 0 1px; }
+.orca .familles button .visee i:nth-child(2) { right: 0; top: 0; border-width: 1px 1px 0 0; }
+.orca .familles button .visee i:nth-child(3) { left: 0; bottom: 0; border-width: 0 0 1px 1px; }
+.orca .familles button .visee i:nth-child(4) { right: 0; bottom: 0; border-width: 0 1px 1px 0; }
+@media (hover: hover) and (pointer: fine) {
+  .orca .familles button:hover .visee { opacity: 1; }
+}
+.orca .familles button:focus-visible .visee { opacity: 1; }
 .orca .familles svg { width: 22px; height: 22px; display: block; }
 .orca .titre { display: flex; gap: 18px; align-items: center; }
 .orca .titre svg { width: 56px; height: 56px; flex: none; }
@@ -133,14 +144,6 @@
 }
 
 /* ---- ajouts du site : tracker des glyphes 2D, panier, langue ---- */
-.orca .trk { position: fixed; left: 0; top: 0; z-index: 4; pointer-events: none; --c: var(--or); }
-.orca .trk i { position: absolute; width: 10px; height: 10px; border: 0 solid var(--c); }
-.orca .trk i:nth-child(1) { left: 0; top: 0; border-width: 1px 0 0 1px; }
-.orca .trk i:nth-child(2) { right: 0; top: 0; border-width: 1px 1px 0 0; }
-.orca .trk i:nth-child(3) { left: 0; bottom: 0; border-width: 0 0 1px 1px; }
-.orca .trk i:nth-child(4) { right: 0; bottom: 0; border-width: 0 1px 1px 0; }
-.orca .trk span { position: absolute; left: 100%; top: 0; margin-left: 10px; white-space: nowrap; line-height: 16px; color: var(--c); letter-spacing: .06em; }
-.orca .trk span em { display: block; font-style: italic; color: var(--gris); letter-spacing: 0; }
 .orca #panier-btn { color: var(--or); }
 .orca #panier-btn:hover { color: var(--encre); }
 .orca .langue { display: flex; gap: 6px; }
@@ -284,7 +287,7 @@
 @media (max-width: 760px) {
   .orca { --haut: calc(var(--marge) + env(safe-area-inset-top, 0px) + 44px); --bas: calc(var(--marge) + env(safe-area-inset-bottom, 0px) + 44px); }
   .orca #page { top: 0; bottom: 0; left: 0; right: 0; padding-inline: max(var(--marge), env(safe-area-inset-left, 0px)); overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
-  .orca #page .dedans { padding-top: calc(var(--haut) + 8px); padding-bottom: calc(var(--bas) + 24px); }
+  .orca #page .dedans { padding-top: calc(var(--haut) + 8px); padding-bottom: calc(var(--bas) + 40px); }
   .orca .familles-bloc { top: 0; margin-top: calc(-1 * (var(--haut) + 8px)); padding-top: calc(var(--haut) + 8px); }
   .orca:has(#page.on) #cadre { box-shadow: 0 0 0 100vmax #000; }
   .orca:has(#page.on) #cadre .bg, .orca:has(#page.on) #cadre .bd { background: #000; }
