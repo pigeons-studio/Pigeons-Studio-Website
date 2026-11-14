@@ -847,6 +847,8 @@
         "save": "Save",
         "saving": "Saving…",
         "cancelEdit": "Cancel",
+        "exportTitle": "Your data",
+        "exportText": "Download a JSON file with your account (name and email), your orders and your event registrations. The password is not included.",
         "export": "Download my data",
         "nameInvalid": "The name must be between 1 and 80 characters.",
         "deleteAccount": "Delete account",

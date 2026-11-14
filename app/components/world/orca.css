@@ -322,13 +322,19 @@
 .orca .familles button .lib { display: none; }
 .orca .etiq { position: fixed; left: 0; top: 0; z-index: 4; pointer-events: none; white-space: nowrap; font-size: 10px; line-height: 14px; letter-spacing: .05em; padding: 2px 6px; background: rgba(0,0,0,.72); color: var(--encre); text-transform: uppercase; transition: opacity .2s; }
 .orca .etiq em { color: var(--c); font-style: italic; text-transform: none; margin-right: 6px; }
+@media (max-width: 1100px) {
+  /* copyright sur une ligne, liens en dessous : à 800 px une seule ligne recouvre « 6 étages » */
+  .orca #cadre .bd { left: 0; right: 0; max-width: none; bottom: 0; flex-direction: column; align-items: flex-end; row-gap: 2px; padding: 4px 10px 6px; }
+  .orca #cadre .legal3d { display: flex; flex-wrap: wrap; justify-content: flex-end; width: 100%; max-width: 100%; column-gap: 10px; row-gap: 2px; }
+  .orca #cadre .legal3d > span { flex: 1 0 100%; text-align: right; }
+  .orca #cadre .bg { max-width: calc(100% - 440px); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+}
 @media (max-width: 760px) {
   /* connexion et contact : une fenêtre au centre de l'écran, sur un voile noir */
   .orca #voile { display: block; position: fixed; inset: 0; z-index: 5; background: rgba(0,0,0,.78); }
   .orca #tiroir.tiroir-connexion, .orca #tiroir.tiroir-contact, .orca #tiroir.tiroir-commande { z-index: 6; left: 50%; right: auto; top: 50%; transform: translate(-50%, -50%); width: min(380px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); overflow-y: auto; overscroll-behavior: contain; }
-  .orca #cadre .bd { left: 0; right: 0; max-width: none; bottom: 0; flex-direction: column; align-items: flex-end; row-gap: 2px; padding: 4px 10px 6px; }
-  .orca #cadre .legal3d { display: flex; flex-wrap: wrap; justify-content: flex-end; width: 100%; max-width: 100%; column-gap: 10px; row-gap: 2px; }
-  .orca #cadre .legal3d > span { flex: 1 0 100%; text-align: right; }
+  /* vue 3D : « 6 étages » passe sous les liens légaux, qui prennent toute la largeur */
+  .orca:not(:has(#page.on)) #cadre .bg { display: none; }
   .orca #cadre .bg { bottom: 6px; height: 12px; max-width: calc(100% - 168px); padding: 0 8px; line-height: 12px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 }
 @media (pointer: coarse), (max-width: 560px) {

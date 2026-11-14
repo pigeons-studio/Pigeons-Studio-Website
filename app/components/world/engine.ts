@@ -207,18 +207,30 @@ export function createWorld (opts: WorldOptions): World {
   // en portrait (téléphone), les étages s'écartent pour remplir la hauteur de l'écran
   let etir = 1;
   function placerCamera () {
-    const k = etat.k; const z = Math.min(1, foc); const a = camera.aspect;
+    const k = etat.k; const z = Math.min(1, foc); const a = Math.max(camera.aspect, 0.35);
     const fov = lerp(34, 9, k);
+    const tan17 = Math.tan(THREE.MathUtils.degToRad(17));
+    // le cadre blanc et les glyphes à droite des dalles : sur un écran étroit ou très haut, on recule et on recentre
+    const serre = Math.min(1, Math.max(0, (1.15 - a) / 0.7));
+    const insetX = Math.min(0.1, 28 / Math.max(largeur, 1));
+    const insetY = Math.min(0.12, 40 / Math.max(hauteur, 1));
+    const utileX = Math.max(0.62, 1 - insetX * 2);
+    const utileY = Math.max(0.62, 1 - insetY * 2);
+    const gauche = -W / 2 - 0.6;
+    const droite = W / 2 + 1.6 + G * 0.55;
+    const centreX = (gauche + droite) / 2 + serre * 4.2;
+    const demiX = (droite - gauche) / 2 + serre * 0.8;
+    const demiY = (N - 1) * GAP * etir / 2 + G * 0.35;
+    const distOrb = Math.max(44, demiX / (tan17 * a * utileX), demiY / (tan17 * utileY));
     const demi = Math.max((D + 3) / 2, (W + 5) / 2 / a);
     const distTop = demi / Math.tan(THREE.MathUtils.degToRad(fov / 2));
-    const distOrb = Math.max(44, (etir > 1 ? 13.5 : 12) / (Math.tan(THREE.MathUtils.degToRad(17)) * a));
     const dist = lerp(distOrb * lerp(1, 0.72, z), distTop, k);
     const th = lerp(theta, Math.round(theta / (Math.PI * 2)) * Math.PI * 2, ease(Math.min(1, k * 1.25)));
     const ph = lerp(0.5 + flotte, 1.5695, k);
     dir.set(Math.sin(th) * Math.cos(ph), Math.sin(ph), Math.cos(th) * Math.cos(ph));
     const yf = etages[etat.etage].y0;
-    const y3d = lerp((N - 1) * GAP * etir / 2 + flotte * 4, etageFoc() * GAP * etir + 0.6, z);
-    cib.set(lerp(etir > 1 ? 0.6 : 1.4, 0, k), lerp(y3d, yf, k), 0);
+    const y3d = lerp((N - 1) * GAP * etir / 2 + flotte * 4 + serre * 1.1, etageFoc() * GAP * etir + 0.6, z);
+    cib.set(lerp(a < 1.2 ? centreX : 1.4, 0, k), lerp(y3d, yf, k), 0);
     camera.fov = fov; camera.updateProjectionMatrix();
     camera.position.copy(cib).addScaledVector(dir, dist);
     camera.lookAt(cib);

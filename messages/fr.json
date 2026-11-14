@@ -847,6 +847,8 @@
         "save": "Enregistrer",
         "saving": "Enregistrement…",
         "cancelEdit": "Annuler",
+        "exportTitle": "Vos données",
+        "exportText": "Télécharge un fichier JSON avec votre compte (nom et email), vos commandes et vos inscriptions aux événements. Le mot de passe n’y figure pas.",
         "export": "Télécharger mes données",
         "nameInvalid": "Le nom doit faire entre 1 et 80 caractères.",
         "deleteAccount": "Supprimer le compte",

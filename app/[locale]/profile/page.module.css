@@ -366,6 +366,25 @@
   border-radius: 6px;
 }
 
+.exportCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.exportText {
+  margin: 0;
+  max-width: 62ch;
+  line-height: 1.5;
+  color: var(--foreground);
+  opacity: 0.85;
+}
+
 .textButton {
   background: none;
   border: 1px solid var(--border);

@@ -141,7 +141,6 @@ export default function ProfilePage() {
                   )}
                 </div>
                 {messageNom && <p className={styles.dangerZoneWarning}>{messageNom}</p>}
-                <button type="button" className={styles.textButton} onClick={exporter}>{tInfo('export')}</button>
                 {admin && (
                   <div className={styles.adminBlock}>
                     <span className={styles.infoLabel}>admin</span>
@@ -234,6 +233,14 @@ export default function ProfilePage() {
                   ))}
                 </div>
               )}
+            </section>
+
+            <section className={styles.section}>
+              <h2 className={styles.sectionTitle}>{tInfo('exportTitle')}</h2>
+              <div className={styles.exportCard}>
+                <p className={styles.exportText}>{tInfo('exportText')}</p>
+                <button type="button" className={styles.textButton} onClick={exporter}>{tInfo('export')}</button>
+              </div>
             </section>
           </div>
         </div>
