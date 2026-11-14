@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useTranslations, useLocale } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 import { useRouter, Link } from '@/i18n/routing';
 import Header from '@/app/components/Header';
 import DeleteAccountModal from '@/app/components/DeleteAccountModal';
@@ -37,6 +38,12 @@ export default function ProfilePage() {
   const [nom, setNom] = useState('');
   const [messageNom, setMessageNom] = useState('');
   const [sauve, setSauve] = useState(false);
+  const [editionEmail, setEditionEmail] = useState(false);
+  const [emailSaisi, setEmailSaisi] = useState('');
+  const [messageEmail, setMessageEmail] = useState('');
+  const [sauveEmail, setSauveEmail] = useState(false);
+  const [adresseConfirmee, setAdresseConfirmee] = useState(false);
+  const recherche = useSearchParams();
   
   // Rediriger si non connecté
   useEffect(() => {
@@ -50,6 +57,19 @@ export default function ProfilePage() {
     fetch('/api/admin/me').then((r) => setAdmin(r.ok)).catch(() => setAdmin(false));
     fetch('/api/orders').then((r) => r.ok ? r.json() : { orders: [] }).then((d) => setCommandes(d.orders || [])).catch(() => setCommandes([]));
   }, [status]);
+
+  const emailConfirme = recherche.get('email') === 'confirme';
+
+  useEffect(() => {
+    if (status !== 'authenticated' || !emailConfirme) return;
+    let ignore = false;
+    fetch('/api/account').then((r) => r.ok ? r.json() : null).then(async (data) => {
+      if (ignore || !data?.email) return;
+      await update({ email: data.email, name: data.name });
+      setAdresseConfirmee(true);
+    }).catch(() => {});
+    return () => { ignore = true; };
+  }, [status, emailConfirme, update]);
 
   const enregistrerNom = async () => {
     setSauve(true);
@@ -71,6 +91,35 @@ export default function ProfilePage() {
       setMessageNom(tInfo('nameInvalid'));
     } finally {
       setSauve(false);
+    }
+  };
+
+  const enregistrerEmail = async () => {
+    setSauveEmail(true);
+    setMessageEmail('');
+    try {
+      const reponse = await fetch('/api/account', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: emailSaisi, locale }),
+      });
+      const data = await reponse.json().catch(() => ({}));
+      if (!reponse.ok) {
+        const textes: Record<string, string> = {
+          invalid: tInfo('emailInvalid'),
+          exists: tInfo('emailExists'),
+          same: tInfo('emailSame'),
+          rate: tInfo('emailRate'),
+        };
+        setMessageEmail(textes[data.error] || tInfo('emailInvalid'));
+        return;
+      }
+      setMessageEmail(tInfo('emailSent'));
+      setEditionEmail(false);
+    } catch {
+      setMessageEmail(tInfo('emailInvalid'));
+    } finally {
+      setSauveEmail(false);
     }
   };
 
@@ -123,8 +172,20 @@ export default function ProfilePage() {
               <div className={styles.infoCard}>
                 <div className={styles.infoRow}>
                   <span className={styles.infoLabel}>{tInfo('email')}</span>
-                  <span className={styles.infoValue}>{session.user?.email || '-'}</span>
+                  {editionEmail ? (
+                    <span className={styles.inlineActions}>
+                      <input className={styles.nameInput} type="email" value={emailSaisi} onChange={(e) => setEmailSaisi(e.target.value)} autoComplete="email" />
+                      <button type="button" className={styles.textButton} onClick={enregistrerEmail} disabled={sauveEmail}>{sauveEmail ? tInfo('saving') : tInfo('save')}</button>
+                      <button type="button" className={styles.textButton} onClick={() => setEditionEmail(false)}>{tInfo('cancelEdit')}</button>
+                    </span>
+                  ) : (
+                    <span className={styles.inlineActions}>
+                      <span className={styles.infoValue}>{session.user?.email || '-'}</span>
+                      <button type="button" className={styles.textButton} onClick={() => { setEmailSaisi(session.user?.email || ''); setEditionEmail(true); }}>{tInfo('edit')}</button>
+                    </span>
+                  )}
                 </div>
+                {(messageEmail || adresseConfirmee) && <p className={styles.dangerZoneWarning}>{adresseConfirmee ? tInfo('emailConfirmed') : messageEmail}</p>}
                 <div className={styles.infoRow}>
                   <span className={styles.infoLabel}>{tInfo('name')}</span>
                   {edition ? (

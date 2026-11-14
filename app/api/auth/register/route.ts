@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { registerWithPassword } from '@/lib/accounts';
 import { memeOrigine } from '@/lib/origin';
 import { motDePasseAcceptable } from '@/lib/passwords';
-import { adresseIp, limiteAtteinte } from '@/lib/rate-limit';
+import { adresseIp, FENETRE_TENTATIVES_MS, limiteAtteinte, PLAFOND_TENTATIVES } from '@/lib/rate-limit';
 
 const MIN_FORM_MS = 1500;
 
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
       antiBot?: { sliderValue?: number; honeypot?: string; elapsedMs?: number };
     };
 
-    if (await limiteAtteinte(`register:${adresseIp(request)}`, 8, 15 * 60 * 1000)) {
+    if (await limiteAtteinte(`register:${adresseIp(request)}`, PLAFOND_TENTATIVES, FENETRE_TENTATIVES_MS)) {
       return NextResponse.json({ error: 'rate' }, { status: 429 });
     }
     if (acceptCgu !== true) {

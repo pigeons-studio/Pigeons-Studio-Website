@@ -29,6 +29,9 @@ export const users = pgTable('users', {
   emailVerifiedAt: timestamp('email_verified_at', { withTimezone: true }),
   googleSub: text('google_sub').unique(),
   role: text('role').notNull().default('user'),
+  cguAcceptedAt: timestamp('cgu_accepted_at', { withTimezone: true }),
+  cguVersion: text('cgu_version'),
+  pendingEmail: text('pending_email'),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
 });
 
@@ -38,6 +41,7 @@ export const emailTokens = pgTable('email_tokens', {
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
   tokenHash: text('token_hash').notNull().unique(),
+  kind: text('kind').notNull().default('signup'),
   expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
 });
 

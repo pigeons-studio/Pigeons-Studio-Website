@@ -139,6 +139,68 @@
 .orca #tiroir li { display: flex; justify-content: space-between; gap: 10px; font-variant-numeric: tabular-nums; }
 .orca #tiroir li span:last-child, .orca #tiroir .total { color: var(--or); }
 .orca #tiroir .note { color: var(--gris); font-size: 10px; }
+.orca #tiroir .cgu-ligne {
+  display: flex;
+  align-items: center;
+  gap: .6em;
+  margin: 0;
+  color: var(--gris);
+  font-size: 11px;
+  letter-spacing: .06em;
+}
+.orca #tiroir label.cgu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 8px 0;
+  border: 0;
+  color: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+.orca #tiroir label.cgu input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+.orca #tiroir label.cgu .case {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--gris);
+  background: #0b0b0a;
+  position: relative;
+}
+.orca #tiroir label.cgu input:checked + .case { border-color: var(--or); }
+.orca #tiroir label.cgu input:checked + .case::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 3px;
+  height: 7px;
+  border: solid var(--or);
+  border-width: 0 1px 1px 0;
+  transform: rotate(45deg);
+}
+.orca #tiroir label.cgu input:focus-visible + .case { outline: 1px solid var(--cyan); outline-offset: 2px; }
+.orca #tiroir .cgu-ligne a {
+  color: var(--cyan);
+  padding: 8px 2px;
+  margin: -8px -2px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.orca #tiroir a.btn { width: 100%; box-sizing: border-box; text-decoration: none; justify-content: center; }
 @media (max-width: 560px) {
 .orca #cadre .bg .aide { display: none; }
 }
@@ -319,6 +381,19 @@
 .orca #tiroir .erreur { color: var(--rose); font-size: 11px; }
 .orca #tiroir button[disabled] { opacity: .5; }
 .orca #voile { display: none; }
+.orca.tiroir-page {
+  background: transparent;
+  z-index: 300;
+  overflow: visible;
+}
+.orca.tiroir-page #voile {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  background: rgba(0, 0, 0, .55);
+}
+.orca.tiroir-page #tiroir { z-index: 6; }
 .orca .familles button .lib { display: none; }
 .orca .etiq { position: fixed; left: 0; top: 0; z-index: 4; pointer-events: none; white-space: nowrap; font-size: 10px; line-height: 14px; letter-spacing: .05em; padding: 2px 6px; background: rgba(0,0,0,.72); color: var(--encre); text-transform: uppercase; transition: opacity .2s; }
 .orca .etiq em { color: var(--c); font-style: italic; text-transform: none; margin-right: 6px; }

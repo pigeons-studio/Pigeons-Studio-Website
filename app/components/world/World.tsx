@@ -5,7 +5,7 @@
 // En plus de la page Claude : le français et l'anglais, un vrai panier et la vraie connexion du site.
 import { Suspense, useEffect, useRef, useState, type FormEvent } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { usePathname, useRouter, Link } from '@/i18n/routing';
 import { useCartStore } from '@/app/store/cartStore';
 import GLYPHES from './glyphes.json';
@@ -14,6 +14,7 @@ import OPS from './operateurs.json';
 import type { World as Monde, Etage } from './engine';
 import EventsPanel from './Events';
 import Scene from './Scene';
+import TiroirConnexion from './TiroirConnexion';
 import './orca.css';
 
 type Locale = 'fr' | 'en';
@@ -281,7 +282,7 @@ export default function World() {
             <Glyphe signe={f.signe} couleur={f.css} />
             <div><h1>{f.nom}</h1><p>{MOTS[locale][f.signe]}{f.pourquoi !== MOTS[locale][f.signe] ? ` · ${f.pourquoi}` : ''}</p></div>
           </div>
-          {f.blocs.map((b, i) => <BlocVue key={`${f.id}-${i}`} b={b} f={f} ui={ui} locale={locale} ouvrirContact={(sujet, devis) => setTiroir({ quoi: 'contact', sujet, devis })} ouvrirCommande={(items, kind) => setTiroir({ quoi: 'commande', kind, items })} fiche={menu[0] === f.id ? menu[1] : undefined} onFiche={(id) => pousser(f.id, id)} allerProjet={allerProjet} />)}
+          {f.blocs.map((b, i) => <BlocVue key={`${f.id}-${i}`} b={b} f={f} ui={ui} locale={locale} ouvrirContact={(sujet, devis) => setTiroir({ quoi: 'contact', sujet, devis })} ouvrirCommande={(items, kind) => session?.user?.email ? setTiroir({ quoi: 'commande', kind, items }) : setTiroir({ quoi: 'connexion', inscription: false })} fiche={menu[0] === f.id ? menu[1] : undefined} onFiche={(id) => pousser(f.id, id)} allerProjet={allerProjet} />)}
         </div>
       </main>
 
@@ -289,9 +290,9 @@ export default function World() {
       {tiroir && (
         <aside id="tiroir" className={`tiroir-${tiroir.quoi}`} aria-label={tiroir.quoi} role={tiroir.quoi === 'panier' ? undefined : 'dialog'}>
           {tiroir.quoi === 'contact' && <TiroirContact sujet={tiroir.sujet} devis={tiroir.devis} ui={ui} fermer={() => setTiroir(null)} />}
-          {tiroir.quoi === 'panier' && <TiroirPanier ui={ui} locale={locale} fermer={() => setTiroir(null)} commander={(items) => setTiroir({ quoi: 'commande', kind: 'order', items })} />}
+          {tiroir.quoi === 'panier' && <TiroirPanier ui={ui} locale={locale} fermer={() => setTiroir(null)} commander={(items) => session?.user?.email ? setTiroir({ quoi: 'commande', kind: 'order', items }) : setTiroir({ quoi: 'connexion', inscription: false })} />}
           {tiroir.quoi === 'commande' && <TiroirCommande demande={tiroir} ui={ui} locale={locale} fermer={() => setTiroir(null)} />}
-          {tiroir.quoi === 'connexion' && <TiroirConnexion inscription={tiroir.inscription} ui={ui} basculer={(v) => setTiroir({ quoi: 'connexion', inscription: v })} fermer={() => setTiroir(null)} />}
+          {tiroir.quoi === 'connexion' && <TiroirConnexion inscription={tiroir.inscription} basculer={(v) => setTiroir({ quoi: 'connexion', inscription: v })} fermer={() => setTiroir(null)} />}
         </aside>
       )}
     </div>
@@ -725,12 +726,8 @@ function TiroirPanier({ ui, locale, fermer, commander }: { ui: Ui; locale: Local
 }
 
 function TiroirCommande({ demande, ui, locale, fermer }: { demande: { kind: 'preorder' | 'order'; items: LigneCommande[] }; ui: Ui; locale: Locale; fermer: () => void }) {
-  const { data: session } = useSession();
   const clearCart = useCartStore((s) => s.clearCart);
-  const [nom, setNom] = useState('');
-  const [email, setEmail] = useState('');
   const [etat, setEtat] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const connu = Boolean(session?.user?.email);
   const envoyer = async (e: FormEvent) => {
     e.preventDefault();
     setEtat('loading');
@@ -738,7 +735,7 @@ function TiroirCommande({ demande, ui, locale, fermer }: { demande: { kind: 'pre
       const r = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ kind: demande.kind, locale, name: nom, email, items: demande.items }),
+        body: JSON.stringify({ kind: demande.kind, locale, items: demande.items }),
       });
       if (!r.ok) throw new Error();
       if (demande.kind === 'order') clearCart();
@@ -760,105 +757,11 @@ function TiroirCommande({ demande, ui, locale, fermer }: { demande: { kind: 'pre
       </ul>
       {etat === 'success' ? <p className="ok">{ui.envoye}</p> : (
         <form onSubmit={envoyer}>
-          {!connu && <label htmlFor="cmd-nom">{locale === 'fr' ? 'Nom' : 'Name'} *<input id="cmd-nom" type="text" value={nom} onChange={(e) => setNom(e.target.value)} required autoComplete="name" /></label>}
-          {!connu && <label htmlFor="cmd-email">Email *<input id="cmd-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" /></label>}
           {etat === 'error' && <p className="erreur">{locale === 'fr' ? 'Envoi impossible.' : 'Could not send.'}</p>}
-          <p className="note">{locale === 'fr' ? 'Les informations envoyées ici sont décrites dans la' : 'What you send here is described in the'} <Link href="/privacy">{locale === 'fr' ? 'politique de confidentialité' : 'privacy policy'}</Link></p>
+          <p className="note">{locale === 'fr' ? 'La demande part avec le nom et l’email du compte. Détail :' : 'The request uses the name and email of the account. Details:'} <Link href="/privacy">{locale === 'fr' ? 'politique de confidentialité' : 'privacy policy'}</Link></p>
           <button type="submit" className="btn plein" disabled={etat === 'loading'}>{etat === 'loading' ? '…' : ui.confirmer}</button>
         </form>
       )}
-      <button type="button" className="btn doux" onClick={fermer}>{ui.fermer}</button>
-    </>
-  );
-}
-
-function TiroirConnexion({ inscription, ui, basculer, fermer }: { inscription: boolean; ui: Ui; basculer: (v: boolean) => void; fermer: () => void }) {
-  const t = useTranslations('auth');
-  const tr = useTranslations('auth.register');
-  const locale = useLocale();
-  const tc = useTranslations('contact');
-  const { data: session } = useSession();
-  const [email, setEmail] = useState('');
-  const [mdp, setMdp] = useState('');
-  const [nom, setNom] = useState('');
-  const [msg, setMsg] = useState('');
-  const [charge, setCharge] = useState(false);
-  const [curseur, setCurseur] = useState(0);
-  const [piege, setPiege] = useState('');
-  const [cgu, setCgu] = useState(false);
-  const debut = useRef(Date.now());
-  const humain = curseur >= 100;
-
-  if (session) {
-    return (
-      <>
-        <div className="etiquette">{ui.connexion.toUpperCase()}</div>
-        <p>{ui.bonjour} · {session.user?.name || session.user?.email}</p>
-        <div className="ligne">
-          <Link href="/profile" className="btn doux">{ui.profil}</Link>
-          <button type="button" className="btn doux" onClick={() => signOut()}>{ui.deconnexion}</button>
-        </div>
-        <button type="button" className="btn doux" onClick={fermer}>{ui.fermer}</button>
-      </>
-    );
-  }
-
-  const envoyer = async (e: FormEvent) => {
-    e.preventDefault(); setMsg(''); setCharge(true);
-    try {
-      if (inscription) {
-        if (!humain || piege.trim()) { setMsg(tc('form.humanCheckError')); return; }
-        if (!cgu) { setMsg(tr('cguRequired')); return; }
-        const r = await fetch('/api/auth/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password: mdp, name: nom, locale, acceptCgu: true, antiBot: { sliderValue: curseur, honeypot: piege, elapsedMs: Date.now() - debut.current } }) });
-        const d = await r.json();
-        const erreurs: Record<string, string> = {
-          emailExists: tr('emailExists'),
-          invalidEmail: tr('invalidEmail'),
-          passwordTooShort: tr('passwordTooShort'),
-          allFieldsRequired: tr('allFieldsRequired'),
-          antiBot: tc('form.humanCheckError'),
-          cgu: tr('cguRequired'),
-          rate: tr('rate'),
-        };
-        if (!r.ok) setMsg(erreurs[d.error] || t('error'));
-        else { setMsg(tr('success')); setCurseur(0); debut.current = Date.now(); }
-      } else {
-        const r = await signIn('credentials', { email, password: mdp, redirect: false });
-        if (r?.error === 'EMAIL_NOT_VERIFIED') setMsg(t('emailNotVerified'));
-        else if (r?.error === 'RATE_LIMIT') setMsg(t('rateLimit'));
-        else if (r?.error) setMsg(t('invalidCredentials'));
-        else fermer();
-      }
-    } catch { setMsg(t('error')); } finally { setCharge(false); setMdp(''); }
-  };
-
-  return (
-    <>
-      <div className="etiquette">{(inscription ? tr('title') : t('login')).toUpperCase()}</div>
-      <form onSubmit={envoyer}>
-        {inscription && <label htmlFor="compte-nom">{t('name')}<input id="compte-nom" type="text" autoComplete="name" value={nom} onChange={(e) => setNom(e.target.value)} required /></label>}
-        <label htmlFor="compte-email">{t('email')}<input id="compte-email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required /></label>
-        <label htmlFor="compte-mdp">{t('password')}<input id="compte-mdp" type="password" autoComplete={inscription ? 'new-password' : 'current-password'} minLength={inscription ? 8 : undefined} value={mdp} onChange={(e) => setMdp(e.target.value)} required /></label>
-        {inscription && (
-          <>
-            <div className="piege" aria-hidden="true"><label htmlFor="compte-site">Website</label><input id="compte-site" name="website" type="text" tabIndex={-1} autoComplete="off" value={piege} onChange={(e) => setPiege(e.target.value)} /></div>
-            <label htmlFor="compte-robot" className="robot">{tc('form.humanCheckLabel')} *
-              <span className="note">{tc('form.humanCheckHint')}</span>
-              <input id="compte-robot" type="range" min={0} max={100} value={curseur} onChange={(e) => setCurseur(Number(e.target.value))} />
-              <span className={humain ? 'ok' : 'note'}>{humain ? tc('form.humanCheckReady') : tc('form.humanCheckProgress', { value: curseur })}</span>
-            </label>
-            <label className="note">
-              <input type="checkbox" checked={cgu} onChange={(e) => setCgu(e.target.checked)} /> {tr('acceptCgu')} <Link href="/cgu">{tr('cguLink')}</Link>
-            </label>
-          </>
-        )}
-        <button type="submit" className="btn plein" disabled={charge || (inscription && (!humain || !cgu))}>{charge ? (inscription ? t('signingUp') : t('signingIn')) : (inscription ? t('signUp') : t('signIn'))}</button>
-        {msg && <p className="note">{msg}</p>}
-      </form>
-      {!inscription && <button type="button" className="btn doux" onClick={() => signIn('google', { callbackUrl: window.location.href })}>{t('signInWithGoogle')}</button>}
-      <div className="ligne">
-        <button type="button" className="lien" onClick={() => basculer(!inscription)}>{inscription ? `${t('alreadyHaveAccount')} ${t('signIn')}` : `${t('noAccount')} ${t('signUp')}`}</button>
-      </div>
       <button type="button" className="btn doux" onClick={fermer}>{ui.fermer}</button>
     </>
   );

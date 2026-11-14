@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import { signIn } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
+import { poserCookieCgu } from '@/lib/cgu';
 import styles from './LoginModal.module.css';
 
 type LoginModalProps = {
@@ -137,6 +138,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   };
 
   const handleGoogleSignIn = () => {
+    if (!acceptCgu) return;
+    poserCookieCgu();
     signIn('google', { callbackUrl: window.location.href });
   };
 
@@ -210,9 +213,14 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
                 <input id="signup-slider" className={styles.slider} type="range" min={0} max={100} value={slider} onChange={(e) => setSlider(Number(e.target.value))} />
                 <span className={styles.helpText}>{slider >= 100 ? tContact('form.humanCheckReady') : tContact('form.humanCheckProgress', { value: slider })}</span>
               </div>
-              <label className={styles.notice}>
-                <input type="checkbox" checked={acceptCgu} onChange={(e) => setAcceptCgu(e.target.checked)} /> {tRegister('acceptCgu')} <Link href="/cgu">{tRegister('cguLink')}</Link>
-              </label>
+              <div className={styles.cguLigne}>
+                <label className={styles.notice}>
+                  <input type="checkbox" aria-label={`${tRegister('acceptCgu')} ${tRegister('cguLink')}`} checked={acceptCgu} onChange={(e) => setAcceptCgu(e.target.checked)} />
+                  <span className={styles.case} aria-hidden="true" />
+                  <span>{tRegister('acceptCgu')}</span>
+                </label>
+                <Link href="/cgu">{tRegister('cguLink')}</Link>
+              </div>
             </>
           )}
 
@@ -245,12 +253,20 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         </div>
 
         {!isSignUp && (
-          <>
+          <div className={styles.googleBlock}>
             <div className={styles.divider}>
               <span>ou</span>
             </div>
 
-            <button onClick={handleGoogleSignIn} className={styles.googleButton}>
+            <div className={styles.cguLigne}>
+              <label className={styles.notice}>
+                <input type="checkbox" aria-label={`${tRegister('acceptCgu')} ${tRegister('cguLink')}`} checked={acceptCgu} onChange={(e) => setAcceptCgu(e.target.checked)} />
+                <span className={styles.case} aria-hidden="true" />
+                <span>{tRegister('acceptCgu')}</span>
+              </label>
+              <Link href="/cgu">{tRegister('cguLink')}</Link>
+            </div>
+            <button onClick={handleGoogleSignIn} className={styles.googleButton} disabled={!acceptCgu}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -259,7 +275,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
               </svg>
               {t('signInWithGoogle')}
             </button>
-          </>
+          </div>
         )}
       </div>
     </div>,

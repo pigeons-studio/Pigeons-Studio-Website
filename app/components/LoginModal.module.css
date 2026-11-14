@@ -162,7 +162,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 24px 0;
+  margin: 0;
   color: var(--foreground);
   opacity: 0.5;
   font-size: 14px;
@@ -187,12 +187,67 @@
   width: 100%;
 }
 
+.googleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.cguLigne {
+  display: flex;
+  align-items: center;
+  gap: .4em;
+  font-size: 14px;
+}
+
 .notice {
   display: flex;
+  align-items: center;
   gap: 8px;
-  align-items: flex-start;
-  font-size: 13px;
-  line-height: 1.4;
+  margin: 0;
+  padding: 8px 0;
+  border: 0;
+  cursor: pointer;
+}
+
+.notice input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.notice .case {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--foreground);
+  opacity: 0.7;
+  position: relative;
+}
+
+.notice input:checked + .case {
+  border-color: #ffb545;
+  opacity: 1;
+}
+
+.notice input:checked + .case::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid #ffb545;
+  border-width: 0 1px 1px 0;
+  transform: rotate(45deg);
+}
+
+.cguLigne a {
+  color: #72dec2;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .googleButton {
@@ -210,6 +265,11 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
+}
+
+.googleButton:disabled {
+  opacity: 0.45;
+  cursor: default;
 }
 
 .googleButton:hover {

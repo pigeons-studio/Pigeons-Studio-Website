@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { echap, uneLigne } from '@/lib/html';
 import { memeOrigine } from '@/lib/origin';
-import { adresseIp, limiteAtteinte } from '@/lib/rate-limit';
+import { adresseIp, FENETRE_TENTATIVES_MS, limiteAtteinte, PLAFOND_TENTATIVES } from '@/lib/rate-limit';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const MIN_FORM_COMPLETION_MS = 1500;
@@ -152,7 +152,7 @@ export async function POST(request: NextRequest) {
 
     localeKey = normalizeLocale(locale);
     const copy = COPY[localeKey];
-    if (await limiteAtteinte(`contact:${adresseIp(request)}`, 8, 15 * 60 * 1000)) {
+    if (await limiteAtteinte(`contact:${adresseIp(request)}`, PLAFOND_TENTATIVES, FENETRE_TENTATIVES_MS)) {
       return NextResponse.json({ error: copy.errors.rate }, { status: 429 });
     }
     const session = await getServerSession(authOptions);

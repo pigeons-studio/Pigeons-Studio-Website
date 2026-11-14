@@ -831,7 +831,7 @@
       "allFieldsRequired": "All fields are required",
       "cguRequired": "Accept the terms of use to create the account.",
       "acceptCgu": "I accept the",
-      "cguLink": "terms of use",
+      "cguLink": "terms",
       "rate": "Too many sign-ups. Try again in a few minutes."
     }
   },
@@ -847,6 +847,12 @@
         "save": "Save",
         "saving": "Saving…",
         "cancelEdit": "Cancel",
+        "emailSent": "A link was sent to the new address. The previous one stays active until you confirm.",
+        "emailInvalid": "Invalid email address.",
+        "emailExists": "This address is already in use.",
+        "emailSame": "That is already the account address.",
+        "emailConfirmed": "New address confirmed.",
+        "emailRate": "Too many requests. Try again in a few minutes.",
         "exportTitle": "Your data",
         "exportText": "Download a JSON file with your account (name and email), your orders and your event registrations. The password is not included.",
         "export": "Download my data",

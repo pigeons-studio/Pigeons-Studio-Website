@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { memeOrigine } from '@/lib/origin';
 import { createOrder, listOrders, type OrderLineInput } from '@/lib/orders';
+import { adresseIp, FENETRE_TENTATIVES_MS, limiteAtteinte, PLAFOND_TENTATIVES } from '@/lib/rate-limit';
 
 export async function GET() {
   const session = await getServerSession(authOptions);
@@ -15,15 +16,19 @@ export async function GET() {
 
 export async function POST(request: Request) {
   if (!memeOrigine(request)) return NextResponse.json({ error: 'origin' }, { status: 403 });
+  if (await limiteAtteinte(`order:${adresseIp(request)}`, PLAFOND_TENTATIVES, FENETRE_TENTATIVES_MS)) {
+    return NextResponse.json({ error: 'rate' }, { status: 429 });
+  }
   const session = await getServerSession(authOptions);
-  let body: { kind?: string; locale?: string; name?: string; email?: string; items?: OrderLineInput[] };
+  const email = session?.user?.email?.trim() || '';
+  if (!email) return NextResponse.json({ error: 'auth' }, { status: 401 });
+  let body: { kind?: string; locale?: string; items?: OrderLineInput[] };
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: 'invalid' }, { status: 400 });
   }
-  const name = session?.user?.name?.trim() || (typeof body.name === 'string' ? body.name : '');
-  const email = session?.user?.email?.trim() || (typeof body.email === 'string' ? body.email : '');
+  const name = session?.user?.name?.trim() || email;
   const result = await createOrder({
     kind: body.kind || '',
     locale: body.locale,

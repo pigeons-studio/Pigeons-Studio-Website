@@ -831,7 +831,7 @@
       "allFieldsRequired": "Tous les champs sont requis",
       "cguRequired": "Accepte les conditions d’utilisation pour créer le compte.",
       "acceptCgu": "J’accepte les",
-      "cguLink": "conditions d’utilisation",
+      "cguLink": "CGU",
       "rate": "Trop d’inscriptions. Réessayez dans quelques minutes."
     }
   },
@@ -847,6 +847,12 @@
         "save": "Enregistrer",
         "saving": "Enregistrement…",
         "cancelEdit": "Annuler",
+        "emailSent": "Un lien a été envoyé à la nouvelle adresse. L’ancienne reste active tant qu’elle n’est pas confirmée.",
+        "emailInvalid": "Adresse email invalide.",
+        "emailExists": "Cette adresse est déjà utilisée.",
+        "emailSame": "C’est déjà l’adresse du compte.",
+        "emailConfirmed": "Nouvelle adresse confirmée.",
+        "emailRate": "Trop de demandes. Réessayez dans quelques minutes.",
         "exportTitle": "Vos données",
         "exportText": "Télécharge un fichier JSON avec votre compte (nom et email), vos commandes et vos inscriptions aux événements. Le mot de passe n’y figure pas.",
         "export": "Télécharger mes données",

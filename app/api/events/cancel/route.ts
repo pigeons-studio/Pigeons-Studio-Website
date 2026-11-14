@@ -2,11 +2,11 @@ import { NextResponse } from 'next/server';
 import { lireDesinscription } from '@/lib/event-cancel';
 import { unregisterForEvent } from '@/lib/events';
 import { memeOrigine } from '@/lib/origin';
-import { adresseIp, limiteAtteinte } from '@/lib/rate-limit';
+import { adresseIp, FENETRE_TENTATIVES_MS, limiteAtteinte, PLAFOND_TENTATIVES } from '@/lib/rate-limit';
 
 export async function POST(request: Request) {
   if (!memeOrigine(request)) return NextResponse.json({ error: 'origin' }, { status: 403 });
-  if (await limiteAtteinte(`event-cancel:${adresseIp(request)}`, 10, 15 * 60 * 1000)) {
+  if (await limiteAtteinte(`event-cancel:${adresseIp(request)}`, PLAFOND_TENTATIVES, FENETRE_TENTATIVES_MS)) {
     return NextResponse.json({ error: 'rate' }, { status: 429 });
   }
   let token = '';

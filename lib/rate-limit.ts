@@ -2,6 +2,9 @@ import { eq } from 'drizzle-orm';
 import { getDb } from '@/lib/db';
 import { rateLimits } from '@/lib/db/schema';
 
+export const PLAFOND_TENTATIVES = 30;
+export const FENETRE_TENTATIVES_MS = 15 * 60 * 1000;
+
 const memoire = new Map<string, { hits: number; debut: number }>();
 
 function autoriseMemoire(cle: string, limite: number, fenetreMs: number) {

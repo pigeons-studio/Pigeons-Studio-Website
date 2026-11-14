@@ -8,8 +8,8 @@ import { Link, usePathname } from '@/i18n/routing';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useCartStore } from '@/app/store/cartStore';
 import Cart from './Cart';
-import LoginModal from './LoginModal';
-import UserMenu from './UserMenu';
+import TiroirConnexion from './world/TiroirConnexion';
+import './world/orca.css';
 import styles from "./Header.module.css";
 
 const PIED = {
@@ -49,6 +49,7 @@ export default function Header() {
   const { data: session } = useSession();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [inscription, setInscription] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -134,13 +135,9 @@ export default function Header() {
               {tCart('title')} · {totalItems}
             </button>
           )}
-          {session ? (
-            <UserMenu />
-          ) : (
-            <button type="button" className={styles.cadreLien} onClick={() => setIsLoginOpen(true)}>
-              {tAuth('login')}
-            </button>
-          )}
+          <button type="button" className={styles.cadreLien} onClick={() => { setInscription(false); setIsLoginOpen(true); }}>
+            {session ? (session.user?.name?.split(' ')[0] || tAuth('profile')) : tAuth('login')}
+          </button>
           <Link href="/contact" className={`${styles.cadreLien} ${styles.cadreOr} ${isActive('/contact') ? styles.active : ''}`}>
             {t('contact')}
           </Link>
@@ -158,7 +155,15 @@ export default function Header() {
         </div>,
         document.body
       )}
-      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+      {mounted && isLoginOpen && createPortal(
+        <div className="orca tiroir-page">
+          <div id="voile" onClick={() => setIsLoginOpen(false)} />
+          <aside id="tiroir" className="tiroir-connexion" role="dialog" aria-label={tAuth('login')}>
+            <TiroirConnexion inscription={inscription} basculer={setInscription} fermer={() => setIsLoginOpen(false)} />
+          </aside>
+        </div>,
+        document.body
+      )}
       {nom && <div className={`${styles.coinBas} ${styles.coinGauche}`}>{nom}</div>}
       <div className={`${styles.coinBas} ${styles.coinDroite}`}>
         <span>{pied.droits}</span>
