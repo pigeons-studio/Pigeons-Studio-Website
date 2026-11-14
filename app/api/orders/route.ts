@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import { memeOrigine } from '@/lib/origin';
 import { createOrder, listOrders, type OrderLineInput } from '@/lib/orders';
 
 export async function GET() {
@@ -13,6 +14,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  if (!memeOrigine(request)) return NextResponse.json({ error: 'origin' }, { status: 403 });
   const session = await getServerSession(authOptions);
   let body: { kind?: string; locale?: string; name?: string; email?: string; items?: OrderLineInput[] };
   try {

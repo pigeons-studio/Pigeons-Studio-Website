@@ -4,6 +4,7 @@ import { orderEmails } from '@/lib/admin-emails';
 import { findUserByEmail } from '@/lib/accounts';
 import { getDb } from '@/lib/db';
 import { orderItems, orders } from '@/lib/db/schema';
+import { echap } from '@/lib/html';
 import { baseUrl } from '@/lib/seo';
 import { ORDER_KINDS, ORDER_STATUSES, type OrderKind, type OrderLine, type OrderStatus, type OrderView } from '@/lib/order-types';
 
@@ -19,14 +20,6 @@ export type OrderLineInput = {
   priceLabel: string;
   detail?: string | null;
 };
-
-function echap(value: string) {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
 
 function asKind(value: string): OrderKind | null {
   return ORDER_KINDS.includes(value as OrderKind) ? (value as OrderKind) : null;

@@ -89,6 +89,13 @@ export async function registerWithPassword(input: { email: string; password: str
   if (existing?.emailVerifiedAt) return { error: 'exists' as const };
   if (existing?.googleSub && !existing.passwordHash) return { error: 'exists' as const };
 
+  if (existing && !existing.emailVerifiedAt) {
+    const token = await issueToken(existing.id);
+    if (!token) return { error: 'unavailable' as const };
+    await sendConfirmationEmail(email, token, input.locale);
+    return { ok: true as const };
+  }
+
   const passwordHash = await hashPassword(input.password);
   let userId = existing?.id;
   if (existing) {

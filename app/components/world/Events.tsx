@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { Link } from '@/i18n/routing';
 import { useSession } from 'next-auth/react';
 import ReactMarkdown from 'react-markdown';
 import rehypeSanitize from 'rehype-sanitize';
@@ -39,7 +40,11 @@ const COPY = {
     glisser: 'Faites glisser le curseur complètement vers la droite pour activer l’envoi.',
     progres: (n: number) => `Progression : ${n}%`,
     pret: 'Vérification validée.',
+    notice: 'Un email de confirmation contient un lien pour se désinscrire. Il ne retire rien tant qu’on ne confirme pas.',
+    donnees: 'Nom et email servent à tenir la place. Détail :',
+    confidentialite: 'politique de confidentialité',
     erreur: 'L’inscription n’a pas abouti.',
+    rate: 'Trop d’inscriptions. Réessayez dans quelques minutes.',
     charge: 'chargement',
   },
   en: {
@@ -69,7 +74,11 @@ const COPY = {
     glisser: 'Slide all the way to the right to unlock sending.',
     progres: (n: number) => `Progress: ${n}%`,
     pret: 'Verification complete.',
+    notice: 'The confirmation email has a cancellation link. It cancels nothing until you confirm.',
+    donnees: 'Name and email are used to hold the seat. Details:',
+    confidentialite: 'privacy policy',
     erreur: 'Registration didn’t go through.',
+    rate: 'Too many registrations. Try again in a few minutes.',
     charge: 'loading',
   },
 };
@@ -339,6 +348,8 @@ export default function EventsPanel({
               <input id="invite-robot" type="range" min={0} max={100} value={curseur} onChange={(e) => setCurseur(Number(e.target.value))} />
               <span className={humain ? 'ok' : undefined}>{humain ? t.pret : t.progres(curseur)}</span>
             </label>
+            <p className="note">{t.notice}</p>
+            <p className="note">{t.donnees} <Link href="/privacy">{t.confidentialite}</Link></p>
             <button type="submit" className="btn plein" disabled={charge || !humain}>{charge ? t.envoi : t.envoyer}</button>
             {msg && <p className={msg === t.ok ? 'ok' : 'erreur'}>{msg}</p>}
           </form>

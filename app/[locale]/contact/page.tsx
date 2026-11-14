@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import Header from '@/app/components/Header';
+import { Link } from '@/i18n/routing';
 import styles from './page.module.css';
 import OrcaFond from '@/app/components/world/OrcaFond';
 
@@ -237,6 +238,11 @@ export default function ContactPage() {
                   {t('form.success')}
                 </div>
               )}
+
+              <p className={styles.humanCheckHint}>
+                {t('form.privacyNotice')}{' '}
+                <Link href="/privacy">{t('form.privacyLink')}</Link>
+              </p>
 
               <button
                 type="submit"

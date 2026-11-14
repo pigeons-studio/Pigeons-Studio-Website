@@ -1,18 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { registerWithPassword } from '@/lib/accounts';
+import { memeOrigine } from '@/lib/origin';
+import { motDePasseAcceptable } from '@/lib/passwords';
+import { adresseIp, limiteAtteinte } from '@/lib/rate-limit';
 
 const MIN_FORM_MS = 1500;
 
 export async function POST(request: NextRequest) {
+  if (!memeOrigine(request)) {
+    return NextResponse.json({ error: 'origin' }, { status: 403 });
+  }
   try {
     const body = await request.json();
-    const { email, password, name, locale, antiBot } = body as {
+    const { email, password, name, locale, acceptCgu, antiBot } = body as {
       email?: string;
       password?: string;
       name?: string;
       locale?: string;
+      acceptCgu?: boolean;
       antiBot?: { sliderValue?: number; honeypot?: string; elapsedMs?: number };
     };
+
+    if (await limiteAtteinte(`register:${adresseIp(request)}`, 8, 15 * 60 * 1000)) {
+      return NextResponse.json({ error: 'rate' }, { status: 429 });
+    }
+    if (acceptCgu !== true) {
+      return NextResponse.json({ error: 'cgu' }, { status: 400 });
+    }
 
     if ((antiBot?.honeypot ?? '').trim()) {
       return NextResponse.json({ error: 'antiBot' }, { status: 400 });
@@ -29,7 +43,7 @@ export async function POST(request: NextRequest) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: 'invalidEmail' }, { status: 400 });
     }
-    if (password.length < 8) {
+    if (!motDePasseAcceptable(password)) {
       return NextResponse.json({ error: 'passwordTooShort' }, { status: 400 });
     }
 

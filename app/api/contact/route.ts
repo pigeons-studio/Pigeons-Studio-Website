@@ -2,6 +2,9 @@ import { Resend } from 'resend';
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import { echap, uneLigne } from '@/lib/html';
+import { memeOrigine } from '@/lib/origin';
+import { adresseIp, limiteAtteinte } from '@/lib/rate-limit';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const MIN_FORM_COMPLETION_MS = 1500;
@@ -14,6 +17,7 @@ type LocalizedCopy = {
     antiBot: string;
     invalidEmail: string;
     sendEmail: string;
+    rate: string;
     server: string;
   };
   successMessage: string;
@@ -48,6 +52,7 @@ const COPY: Record<SupportedLocale, LocalizedCopy> = {
       required: 'Tous les champs sont requis',
       antiBot: 'Validation anti-robot échouée',
       invalidEmail: 'Email invalide',
+      rate: 'Trop de messages. Réessayez dans quelques minutes.',
       sendEmail: 'Erreur lors de l\'envoi de l\'email',
       server: 'Erreur serveur',
     },
@@ -83,6 +88,7 @@ const COPY: Record<SupportedLocale, LocalizedCopy> = {
       required: 'All required fields must be completed',
       antiBot: 'Anti-bot verification failed',
       invalidEmail: 'Invalid email address',
+      rate: 'Too many messages. Try again in a few minutes.',
       sendEmail: 'Error while sending email',
       server: 'Server error',
     },
@@ -124,6 +130,9 @@ function normalizeLocale(locale?: string): SupportedLocale {
 }
 
 export async function POST(request: NextRequest) {
+  if (!memeOrigine(request)) {
+    return NextResponse.json({ error: 'origin' }, { status: 403 });
+  }
   let localeKey: SupportedLocale = 'fr';
 
   try {
@@ -143,6 +152,9 @@ export async function POST(request: NextRequest) {
 
     localeKey = normalizeLocale(locale);
     const copy = COPY[localeKey];
+    if (await limiteAtteinte(`contact:${adresseIp(request)}`, 8, 15 * 60 * 1000)) {
+      return NextResponse.json({ error: copy.errors.rate }, { status: 429 });
+    }
     const session = await getServerSession(authOptions);
     const sessionEmail = session?.user?.email?.trim() || '';
     const sessionName = session?.user?.name?.trim() || '';
@@ -196,9 +208,15 @@ export async function POST(request: NextRequest) {
 
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'contact@punkhazard.org';
     const toEmail = process.env.RESEND_TO_EMAIL || 'contact@punkhazard.org';
-    const contactSubject = normalizedSubject
-      ? copy.admin.subjectWithTopic(normalizedSubject, normalizedName)
-      : copy.admin.subjectWithoutTopic(normalizedName);
+    const safeName = echap(normalizedName);
+    const safeEmail = echap(normalizedEmail);
+    const safeSubject = echap(normalizedSubject);
+    const safeMessage = echap(normalizedMessage).replace(/\n/g, '<br>');
+    const headerName = uneLigne(normalizedName);
+    const headerSubject = uneLigne(normalizedSubject);
+    const contactSubject = headerSubject
+      ? copy.admin.subjectWithTopic(headerSubject, headerName)
+      : copy.admin.subjectWithoutTopic(headerName);
 
     // Envoi de l'email à l'administrateur
     // Le replyTo est configuré pour que vous puissiez répondre directement au client
@@ -210,13 +228,13 @@ export async function POST(request: NextRequest) {
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <p style="margin: 0 0 15px 0; color: #495057; font-size: 14px;">
-            <strong>${copy.admin.nameLabel}:</strong> ${normalizedName}<br>
-            <strong>${copy.admin.emailLabel}:</strong> <a href="mailto:${normalizedEmail}" style="color: #0066cc; text-decoration: none;">${normalizedEmail}</a><br>
-            ${normalizedSubject ? `<strong>${copy.admin.subjectLabel}:</strong> ${normalizedSubject}<br>` : ''}
+            <strong>${copy.admin.nameLabel}:</strong> ${safeName}<br>
+            <strong>${copy.admin.emailLabel}:</strong> <a href="mailto:${safeEmail}" style="color: #0066cc; text-decoration: none;">${safeEmail}</a><br>
+            ${safeSubject ? `<strong>${copy.admin.subjectLabel}:</strong> ${safeSubject}<br>` : ''}
           </p>
           <div style="margin: 15px 0; padding: 15px; background: #f8f9fa; border-left: 3px solid #0066cc;">
             <p style="margin: 0 0 8px 0; color: #212529; font-weight: 600; font-size: 14px;">${copy.admin.messageLabel}:</p>
-            <p style="margin: 0; color: #495057; white-space: pre-wrap; font-size: 14px; line-height: 1.5;">${normalizedMessage.replace(/\n/g, '<br>')}</p>
+            <p style="margin: 0; color: #495057; white-space: pre-wrap; font-size: 14px; line-height: 1.5;">${safeMessage}</p>
           </div>
         </div>
       `,
@@ -241,8 +259,8 @@ ${normalizedMessage}
     }
 
     // Envoi de l'email de confirmation au client
-    const confirmationSubject = normalizedSubject
-      ? copy.confirmation.subjectWithTopic(normalizedSubject)
+    const confirmationSubject = headerSubject
+      ? copy.confirmation.subjectWithTopic(headerSubject)
       : copy.confirmation.subjectWithoutTopic;
 
     const { error: confirmationError } = await resend.emails.send({
@@ -256,7 +274,7 @@ ${normalizedMessage}
             <h2 style="margin: 0; color: #212529;">${copy.confirmation.heading}</h2>
           </div>
           <div style="background: #ffffff; padding: 20px; border-radius: 0 0 8px 8px;">
-            <p style="margin: 0 0 15px 0; color: #495057; font-size: 16px;">${copy.confirmation.greeting(normalizedName)}</p>
+            <p style="margin: 0 0 15px 0; color: #495057; font-size: 16px;">${copy.confirmation.greeting(safeName)}</p>
             <p style="margin: 0 0 20px 0; color: #495057; line-height: 1.6;">
               ${copy.confirmation.intro}
             </p>
@@ -264,13 +282,13 @@ ${normalizedMessage}
             <div style="margin-bottom: 20px;">
               <p style="margin: 0; color: #495057;">
                 <strong style="color: #212529; display: inline-block; min-width: 60px;">${copy.admin.subjectLabel}:</strong> 
-                <span>${normalizedSubject}</span>
+                <span>${safeSubject}</span>
               </p>
             </div>
             ` : ''}
             <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #0066cc; margin: 20px 0;">
               <p style="margin: 0 0 10px 0; color: #212529; font-weight: 600; font-size: 14px;">${copy.confirmation.messageLabel}:</p>
-              <p style="margin: 0; color: #495057; white-space: pre-wrap; line-height: 1.6;">${normalizedMessage.replace(/\n/g, '<br>')}</p>
+              <p style="margin: 0; color: #495057; white-space: pre-wrap; line-height: 1.6;">${safeMessage}</p>
             </div>
             <p style="margin: 20px 0 0 0; color: #495057; line-height: 1.6;">
               ${copy.confirmation.thanks}

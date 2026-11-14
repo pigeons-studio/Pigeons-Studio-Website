@@ -62,7 +62,7 @@ const UI = {
     prevenir: 'être prévenu', devis: 'demander un devis', ajouter: 'ajouter au panier', ajoute: 'ajouté',
     confirmer: 'confirmer', envoye: 'demande envoyée',
     contactTitre: 'CONTACT', contactTexte: 'Marques, institutions et robotique : parlons de votre projet.', aPropos: 'à propos de : ',
-    copier: 'copier', copie: 'copié', reponse: 'Réponse généralement sous 24-48h.', fermer: 'fermer', legal: 'mentions légales', cgv: 'CGV',
+    copier: 'copier', copie: 'copié', reponse: 'Réponse généralement sous 24-48h.', fermer: 'fermer', legal: 'mentions légales', privacy: 'confidentialité', cgu: 'CGU', cgv: 'CGV',
     panierTitre: 'PANIER', vide: 'Vide pour l’instant.', vider: 'vider', commander: 'passer la commande',
     commandeBientot: 'Le paiement en ligne arrive bientôt. Pour commander, écrivez au studio :',
     profil: 'mon profil', bonjour: 'connecté·e', deconnexion: 'déconnexion',
@@ -76,7 +76,7 @@ const UI = {
     prevenir: 'get notified', devis: 'request a quote', ajouter: 'add to cart', ajoute: 'added',
     confirmer: 'confirm', envoye: 'request sent',
     contactTitre: 'CONTACT', contactTexte: 'Brands, institutions and robotics: let’s talk about your project.', aPropos: 'about: ',
-    copier: 'copy', copie: 'copied', reponse: 'We usually reply within 24-48h.', fermer: 'close', legal: 'legal notice', cgv: 'terms',
+    copier: 'copy', copie: 'copied', reponse: 'We usually reply within 24-48h.', fermer: 'close', legal: 'legal notice', privacy: 'privacy', cgu: 'terms of use', cgv: 'terms',
     panierTitre: 'CART', vide: 'Empty for now.', vider: 'empty', commander: 'checkout',
     commandeBientot: 'Online payment is coming soon. To order, write to the studio:',
     profil: 'my profile', bonjour: 'signed in', deconnexion: 'log out',
@@ -253,7 +253,7 @@ export default function World() {
           <Langue />
         </div>
         <div className="c bg"><span id="etat"><b>{etatLabel}</b>{etatTexte}</span>{mode === '3d' && <span className="aide">{ui.aide}</span>}{mode === '3d' && <span className="aide-tactile">{ui.aideTactile}</span>}</div>
-        <div className="c bd"><button id="retour" type="button" hidden={mode !== '2d'} onClick={() => mondeRef.current?.remonter()}>{ui.retour}</button><span className="legal3d"><span>{ui.droits}</span><Link href="/legal">{ui.legal}</Link><Link href="/terms">{ui.cgv}</Link></span></div>
+        <div className="c bd"><button id="retour" type="button" hidden={mode !== '2d'} onClick={() => mondeRef.current?.remonter()}>{ui.retour}</button><span className="legal3d"><span>{ui.droits}</span><Link href="/legal">{ui.legal}</Link><Link href="/privacy">{ui.privacy}</Link><Link href="/cgu">{ui.cgu}</Link><Link href="/terms">{ui.cgv}</Link></span></div>
       </div>
       <div id="trk" ref={trkRef} aria-hidden="true"><i /><i /><i /><i /><span /></div>
       <main id="page" ref={pageRef} className={visible && mode === '2d' ? 'on' : ''} aria-hidden={mode !== '2d'}>
@@ -682,6 +682,7 @@ function TiroirContact({ sujet, devis, ui, fermer }: { sujet: string; devis?: bo
         </label>}
         {etat === 'error' && <p className="erreur" role="alert">{erreur || t('form.error')}</p>}
         {etat === 'success' && <p className="ok" role="status">{t('form.success')}</p>}
+        <p className="note">{t('form.privacyNotice')} <Link href="/privacy">{t('form.privacyLink')}</Link></p>
         <button type="submit" className="btn plein" disabled={etat === 'loading' || !humain}>{etat === 'loading' ? t('form.sending') : humain ? t('form.submit') : t('form.submitLocked')}</button>
       </form>
       <p className="note">{ui.ouEcrire}</p>
@@ -762,6 +763,7 @@ function TiroirCommande({ demande, ui, locale, fermer }: { demande: { kind: 'pre
           {!connu && <label htmlFor="cmd-nom">{locale === 'fr' ? 'Nom' : 'Name'} *<input id="cmd-nom" type="text" value={nom} onChange={(e) => setNom(e.target.value)} required autoComplete="name" /></label>}
           {!connu && <label htmlFor="cmd-email">Email *<input id="cmd-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" /></label>}
           {etat === 'error' && <p className="erreur">{locale === 'fr' ? 'Envoi impossible.' : 'Could not send.'}</p>}
+          <p className="note">{locale === 'fr' ? 'Les informations envoyées ici sont décrites dans la' : 'What you send here is described in the'} <Link href="/privacy">{locale === 'fr' ? 'politique de confidentialité' : 'privacy policy'}</Link></p>
           <button type="submit" className="btn plein" disabled={etat === 'loading'}>{etat === 'loading' ? '…' : ui.confirmer}</button>
         </form>
       )}
@@ -783,6 +785,7 @@ function TiroirConnexion({ inscription, ui, basculer, fermer }: { inscription: b
   const [charge, setCharge] = useState(false);
   const [curseur, setCurseur] = useState(0);
   const [piege, setPiege] = useState('');
+  const [cgu, setCgu] = useState(false);
   const debut = useRef(Date.now());
   const humain = curseur >= 100;
 
@@ -805,7 +808,8 @@ function TiroirConnexion({ inscription, ui, basculer, fermer }: { inscription: b
     try {
       if (inscription) {
         if (!humain || piege.trim()) { setMsg(tc('form.humanCheckError')); return; }
-        const r = await fetch('/api/auth/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password: mdp, name: nom, locale, antiBot: { sliderValue: curseur, honeypot: piege, elapsedMs: Date.now() - debut.current } }) });
+        if (!cgu) { setMsg(tr('cguRequired')); return; }
+        const r = await fetch('/api/auth/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password: mdp, name: nom, locale, acceptCgu: true, antiBot: { sliderValue: curseur, honeypot: piege, elapsedMs: Date.now() - debut.current } }) });
         const d = await r.json();
         const erreurs: Record<string, string> = {
           emailExists: tr('emailExists'),
@@ -813,12 +817,15 @@ function TiroirConnexion({ inscription, ui, basculer, fermer }: { inscription: b
           passwordTooShort: tr('passwordTooShort'),
           allFieldsRequired: tr('allFieldsRequired'),
           antiBot: tc('form.humanCheckError'),
+          cgu: tr('cguRequired'),
+          rate: tr('rate'),
         };
         if (!r.ok) setMsg(erreurs[d.error] || t('error'));
         else { setMsg(tr('success')); setCurseur(0); debut.current = Date.now(); }
       } else {
         const r = await signIn('credentials', { email, password: mdp, redirect: false });
         if (r?.error === 'EMAIL_NOT_VERIFIED') setMsg(t('emailNotVerified'));
+        else if (r?.error === 'RATE_LIMIT') setMsg(t('rateLimit'));
         else if (r?.error) setMsg(t('invalidCredentials'));
         else fermer();
       }
@@ -840,9 +847,12 @@ function TiroirConnexion({ inscription, ui, basculer, fermer }: { inscription: b
               <input id="compte-robot" type="range" min={0} max={100} value={curseur} onChange={(e) => setCurseur(Number(e.target.value))} />
               <span className={humain ? 'ok' : 'note'}>{humain ? tc('form.humanCheckReady') : tc('form.humanCheckProgress', { value: curseur })}</span>
             </label>
+            <label className="note">
+              <input type="checkbox" checked={cgu} onChange={(e) => setCgu(e.target.checked)} /> {tr('acceptCgu')} <Link href="/cgu">{tr('cguLink')}</Link>
+            </label>
           </>
         )}
-        <button type="submit" className="btn plein" disabled={charge || (inscription && !humain)}>{charge ? (inscription ? t('signingUp') : t('signingIn')) : (inscription ? t('signUp') : t('signIn'))}</button>
+        <button type="submit" className="btn plein" disabled={charge || (inscription && (!humain || !cgu))}>{charge ? (inscription ? t('signingUp') : t('signingIn')) : (inscription ? t('signUp') : t('signIn'))}</button>
         {msg && <p className="note">{msg}</p>}
       </form>
       {!inscription && <button type="button" className="btn doux" onClick={() => signIn('google', { callbackUrl: window.location.href })}>{t('signInWithGoogle')}</button>}

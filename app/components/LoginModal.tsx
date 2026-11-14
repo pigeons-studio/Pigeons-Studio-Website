@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect, useRef, FormEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { signIn } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
 import styles from './LoginModal.module.css';
 
 type LoginModalProps = {
@@ -14,10 +15,16 @@ type LoginModalProps = {
 export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const t = useTranslations('auth');
   const tRegister = useTranslations('auth.register');
+  const tContact = useTranslations('contact');
+  const locale = useLocale();
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [slider, setSlider] = useState(0);
+  const [honeypot, setHoneypot] = useState('');
+  const [acceptCgu, setAcceptCgu] = useState(false);
+  const startedAt = useRef(Date.now());
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -33,6 +40,10 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
       setEmail('');
       setPassword('');
       setName('');
+      setSlider(0);
+      setHoneypot('');
+      setAcceptCgu(false);
+      startedAt.current = Date.now();
       setError('');
       setSuccess('');
     }
@@ -53,7 +64,11 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         redirect: false,
       });
 
-      if (result?.error) {
+      if (result?.error === 'RATE_LIMIT') {
+        setError(t('rateLimit'));
+      } else if (result?.error === 'EMAIL_NOT_VERIFIED') {
+        setError(t('emailNotVerified'));
+      } else if (result?.error) {
         setError(t('invalidCredentials'));
       } else {
         onClose();
@@ -83,13 +98,29 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           email,
           password,
           name,
+          locale,
+          acceptCgu,
+          antiBot: {
+            sliderValue: slider,
+            honeypot,
+            elapsedMs: Date.now() - startedAt.current,
+          },
         }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || tRegister('allFieldsRequired'));
+        const erreurs: Record<string, string> = {
+          emailExists: tRegister('emailExists'),
+          invalidEmail: tRegister('invalidEmail'),
+          passwordTooShort: tRegister('passwordTooShort'),
+          allFieldsRequired: tRegister('allFieldsRequired'),
+          antiBot: tContact('form.humanCheckError'),
+          cgu: tRegister('cguRequired'),
+          rate: tRegister('rate'),
+        };
+        setError(erreurs[data.error] || t('error'));
       } else {
         setSuccess(tRegister('success'));
         // Basculer vers le mode connexion après 2 secondes
@@ -162,12 +193,30 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             />
             {isSignUp && (
               <span className={styles.helpText}>
-                Minimum 8 caractères
+                {tRegister('passwordTooShort')}
               </span>
             )}
           </div>
 
-          <button type="submit" className={styles.submitButton} disabled={isLoading}>
+          {isSignUp && (
+            <>
+              <div className={styles.honeypot} aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
+              </div>
+              <div className={styles.field}>
+                <label htmlFor="signup-slider">{tContact('form.humanCheckLabel')}</label>
+                <span className={styles.helpText}>{tContact('form.humanCheckHint')}</span>
+                <input id="signup-slider" className={styles.slider} type="range" min={0} max={100} value={slider} onChange={(e) => setSlider(Number(e.target.value))} />
+                <span className={styles.helpText}>{slider >= 100 ? tContact('form.humanCheckReady') : tContact('form.humanCheckProgress', { value: slider })}</span>
+              </div>
+              <label className={styles.notice}>
+                <input type="checkbox" checked={acceptCgu} onChange={(e) => setAcceptCgu(e.target.checked)} /> {tRegister('acceptCgu')} <Link href="/cgu">{tRegister('cguLink')}</Link>
+              </label>
+            </>
+          )}
+
+          <button type="submit" className={styles.submitButton} disabled={isLoading || (isSignUp && (slider < 100 || !acceptCgu))}>
             {isLoading 
               ? (isSignUp ? t('signingUp') : t('signingIn'))
               : (isSignUp ? t('signUp') : t('signIn'))

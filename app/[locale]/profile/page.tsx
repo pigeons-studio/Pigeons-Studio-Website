@@ -24,7 +24,7 @@ function etatCommande(status: string, locale: string) {
 }
 
 export default function ProfilePage() {
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
   const router = useRouter();
   const t = useTranslations('profile');
   const locale = useLocale();
@@ -33,6 +33,10 @@ export default function ProfilePage() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [commandes, setCommandes] = useState<OrderView[]>([]);
+  const [edition, setEdition] = useState(false);
+  const [nom, setNom] = useState('');
+  const [messageNom, setMessageNom] = useState('');
+  const [sauve, setSauve] = useState(false);
   
   // Rediriger si non connecté
   useEffect(() => {
@@ -46,6 +50,33 @@ export default function ProfilePage() {
     fetch('/api/admin/me').then((r) => setAdmin(r.ok)).catch(() => setAdmin(false));
     fetch('/api/orders').then((r) => r.ok ? r.json() : { orders: [] }).then((d) => setCommandes(d.orders || [])).catch(() => setCommandes([]));
   }, [status]);
+
+  const enregistrerNom = async () => {
+    setSauve(true);
+    setMessageNom('');
+    try {
+      const reponse = await fetch('/api/account', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: nom }),
+      });
+      const data = await reponse.json();
+      if (!reponse.ok) {
+        setMessageNom(tInfo('nameInvalid'));
+        return;
+      }
+      await update({ name: data.name });
+      setEdition(false);
+    } catch {
+      setMessageNom(tInfo('nameInvalid'));
+    } finally {
+      setSauve(false);
+    }
+  };
+
+  const exporter = () => {
+    window.location.href = '/api/account/export';
+  };
 
   if (status === 'loading') {
     return (
@@ -96,8 +127,21 @@ export default function ProfilePage() {
                 </div>
                 <div className={styles.infoRow}>
                   <span className={styles.infoLabel}>{tInfo('name')}</span>
-                  <span className={styles.infoValue}>{session.user?.name || '-'}</span>
+                  {edition ? (
+                    <span className={styles.inlineActions}>
+                      <input className={styles.nameInput} value={nom} onChange={(e) => setNom(e.target.value)} maxLength={80} />
+                      <button type="button" className={styles.textButton} onClick={enregistrerNom} disabled={sauve}>{sauve ? tInfo('saving') : tInfo('save')}</button>
+                      <button type="button" className={styles.textButton} onClick={() => setEdition(false)}>{tInfo('cancelEdit')}</button>
+                    </span>
+                  ) : (
+                    <span className={styles.inlineActions}>
+                      <span className={styles.infoValue}>{session.user?.name || '-'}</span>
+                      <button type="button" className={styles.textButton} onClick={() => { setNom(session.user?.name || ''); setEdition(true); }}>{tInfo('edit')}</button>
+                    </span>
+                  )}
                 </div>
+                {messageNom && <p className={styles.dangerZoneWarning}>{messageNom}</p>}
+                <button type="button" className={styles.textButton} onClick={exporter}>{tInfo('export')}</button>
                 {admin && (
                   <div className={styles.adminBlock}>
                     <span className={styles.infoLabel}>admin</span>

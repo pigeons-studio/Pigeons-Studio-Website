@@ -350,6 +350,31 @@
   color: var(--foreground);
 }
 
+.inlineActions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.nameInput {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: inherit;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+.textButton {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 .deleteAccountButton {
   width: 100%;
   padding: 12px 24px;

@@ -33,11 +33,16 @@ export default function CGVPage() {
           <div className={styles.header}>
             <h1 className={styles.title}>{t('title')}</h1>
             <p className={styles.subtitle}>
-              {t('lastUpdate')} {new Date().toLocaleDateString('fr-FR')}
+              {t('lastUpdate')} {t('lastUpdateDate')}
             </p>
           </div>
 
           <div className={styles.content}>
+            <section className={styles.section}>
+              <h2 className={styles.sectionTitle}>{t('sections.seller.title')}</h2>
+              <p>{t('sections.seller.content')}</p>
+            </section>
+
             <section className={styles.section}>
               <h2 className={styles.sectionTitle}>{t('sections.object.title')}</h2>
               <p>{t('sections.object.content')}</p>
@@ -61,6 +66,11 @@ export default function CGVPage() {
             <section className={styles.section}>
               <h2 className={styles.sectionTitle}>{t('sections.withdrawal.title')}</h2>
               <p>{t('sections.withdrawal.content')}</p>
+            </section>
+
+            <section className={styles.section}>
+              <h2 className={styles.sectionTitle}>{t('sections.mediator.title')}</h2>
+              <p>{t('sections.mediator.content')}</p>
             </section>
 
             <section className={styles.section}>

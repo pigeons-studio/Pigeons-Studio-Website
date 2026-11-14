@@ -81,6 +81,12 @@ export const orderItems = pgTable('order_items', {
   detail: text('detail'),
 });
 
+export const rateLimits = pgTable('rate_limits', {
+  key: text('key').primaryKey(),
+  hits: integer('hits').notNull(),
+  windowStart: timestamp('window_start', { withTimezone: true }).notNull(),
+});
+
 export const invites = pgTable('invites', {
   id: uuid('id').defaultRandom().primaryKey(),
   eventId: uuid('event_id')

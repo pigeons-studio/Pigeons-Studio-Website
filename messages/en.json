@@ -407,6 +407,8 @@
       "humanCheckHint": "Slide all the way to the right to unlock sending.",
       "humanCheckProgress": "Progress: {value}%",
       "humanCheckReady": "Verification complete.",
+      "privacyNotice": "What you send here is described in the",
+      "privacyLink": "privacy policy",
       "humanCheckError": "Please complete the anti-bot verification."
     },
     "other": {
@@ -715,46 +717,56 @@
   },
   "cgv": {
     "title": "Terms and Conditions of Sale",
-    "metaDescription": "Pigeons Studio terms and conditions of sale: orders, delivery, payment, warranty and contact.",
+    "metaDescription": "Terms of sale of PUNK HAZARD, publisher of Pigeons Studio: requests, delivery, payment and contact.",
     "lastUpdate": "Last updated:",
+    "lastUpdateDate": "14 November 2026",
     "sections": {
+      "seller": {
+        "title": "1. Seller",
+        "content": "PUNK HAZARD, a simplified joint-stock company (SAS) with a share capital of €1,000, registered office at 27 rue de Chinon, 94110 Arcueil, France. RCS Créteil 944 151 141. SIRET 944 151 141 00016. VAT FR85944151141. Contact: contact@punkhazard.org. The site is presented under the name Pigeons Studio."
+      },
       "object": {
-        "title": "1. Object",
-        "content": "These Terms and Conditions of Sale (TCS) govern the relationship between Pigeons Studio and its customers for the sale of audio and artistic equipment, as well as for electronic engineering services."
+        "title": "2. Purpose",
+        "content": "These terms govern requests sent to PUNK HAZARD for audio and artistic equipment and for electronic engineering services. Online payment is not open: sending a request does not create a paid sale."
       },
       "orders": {
-        "title": "2. Orders",
-        "content": "Any order implies unreserved acceptance of these TCS. Prices are indicated in euros including tax. Pigeons Studio reserves the right to modify its prices at any time, it being understood that the applicable price is that in force on the day of the order."
+        "title": "3. Requests",
+        "content": "A request or pre-order is a way to get in touch. It becomes a sale only after a written agreement on the price, the content and the terms. Announced prices, when there are any, are in euros including tax. The applicable price is the one accepted in that agreement."
       },
       "delivery": {
-        "title": "3. Delivery",
+        "title": "4. Delivery",
         "content": "Delivery times are given for information only. In case of delivery delay, the customer will be informed as soon as possible. The risks of loss or damage to products are transferred to the customer at the time of delivery."
       },
       "payment": {
-        "title": "4. Payment",
-        "content": "Payment is made according to the terms agreed at the time of order. For custom services, a deposit may be required."
+        "title": "5. Payment",
+        "content": "No payment is collected on the site. If payment is due, it is arranged offline. For a custom service, a deposit may be requested in that agreement."
       },
       "withdrawal": {
-        "title": "5. Right of withdrawal",
-        "content": "In accordance with current legislation, the customer has a period of 14 days to exercise their right of withdrawal, except for personalized or custom products."
+        "title": "6. Right of withdrawal",
+        "content": "The 14-day period for distance sales will apply to paid distance sales, except for clearly personalised goods or services fully performed with consent. A request sent through the site is not a sale."
+      },
+      "mediator": {
+        "title": "7. Mediator",
+        "content": "The consumer mediator will be named here before any paid online sale opens."
       },
       "warranty": {
-        "title": "6. Warranty",
+        "title": "8. Warranty",
         "content": "Products benefit from the legal warranty of conformity and the warranty against hidden defects. For service provision, the warranty covers design and execution defects."
       },
       "contact": {
-        "title": "7. Contact",
-        "content": "For any questions regarding these TCS, you can contact us at: contact@punkhazard.org"
+        "title": "9. Contact",
+        "content": "For any question about these terms: contact@punkhazard.org, or by post at the registered office, 27 rue de Chinon, 94110 Arcueil, France."
       }
     }
   },
   "legal": {
     "title": "Legal Notice",
-    "metaDescription": "Legal information for Pigeons Studio website: publisher, hosting, intellectual property, personal data and cookies.",
+    "metaDescription": "Legal information for the Pigeons Studio website, published by PUNK HAZARD SAS: publisher, hosting, intellectual property, personal data and cookies.",
+    "privacyLink": "Privacy policy",
     "sections": {
       "publisher": {
         "title": "Site publisher",
-        "content": "Pigeons Studio\nElectronic engineering, PCB, embedded systems & robots\nEmail: contact@punkhazard.org"
+        "content": "PUNK HAZARD\nSAS, a simplified joint-stock company with a share capital of €1,000\nRegistered office: 27 rue de Chinon, 94110 Arcueil, France\nRCS Créteil 944 151 141\nSIRET: 944 151 141 00016\nVAT: FR85944151141\nActivity: other information technology activities (NAF 62.09Z)\nPublication director: Julien Thomas, president\nContact: contact@punkhazard.org\nThe site is presented under the name Pigeons Studio."
       },
       "hosting": {
         "title": "Hosting",
@@ -762,11 +774,11 @@
       },
       "intellectual": {
         "title": "Intellectual property",
-        "content": "All content on this site (texts, images, logos, etc.) is the property of Pigeons Studio and is protected by intellectual property laws. Any reproduction, even partial, is prohibited without prior authorization."
+        "content": "All content on this site (texts, images, logos, etc.) belongs to PUNK HAZARD, publisher of Pigeons Studio, and is protected by intellectual property laws. Any reproduction, even partial, is prohibited without prior permission."
       },
       "data": {
         "title": "Data protection",
-        "content": "Personal data collected via the contact form is used only to respond to your requests. It is not transmitted to third parties and is kept in accordance with current regulations (GDPR)."
+        "content": "PUNK HAZARD processes data sent through the contact form, account creation, order or pre-order requests, and event registrations. Hosting, the database, email delivery and, if you use it, Google sign-in are handled by processors. Purposes, retention and your rights are set out in the privacy policy."
       },
       "cookies": {
         "title": "Cookies",
@@ -774,7 +786,7 @@
       },
       "contact": {
         "title": "Contact",
-        "content": "For any questions regarding the legal notice, you can contact us at: contact@punkhazard.org"
+        "content": "For any question about this legal notice: contact@punkhazard.org, or by post at the registered office, 27 rue de Chinon, 94110 Arcueil, France."
       }
     }
   },
@@ -805,6 +817,7 @@
     "signingUp": "Signing up...",
     "error": "Login error",
     "invalidCredentials": "Invalid email or password",
+    "rateLimit": "Too many attempts. Try again in a few minutes.",
     "emailNotVerified": "Confirm the address we emailed you first.",
     "profile": "My profile",
     "alreadyHaveAccount": "Already have an account?",
@@ -813,9 +826,13 @@
       "title": "Create an account",
       "success": "Account created. Check your email to confirm the address.",
       "emailExists": "This email is already in use",
-      "passwordTooShort": "Password must be at least 8 characters",
+      "passwordTooShort": "Password must be at least 8 characters and include a letter and a digit",
       "invalidEmail": "Invalid email",
-      "allFieldsRequired": "All fields are required"
+      "allFieldsRequired": "All fields are required",
+      "cguRequired": "Accept the terms of use to create the account.",
+      "acceptCgu": "I accept the",
+      "cguLink": "terms of use",
+      "rate": "Too many sign-ups. Try again in a few minutes."
     }
   },
   "profile": {
@@ -827,6 +844,11 @@
         "email": "Email",
         "name": "Name",
         "edit": "Edit",
+        "save": "Save",
+        "saving": "Saving…",
+        "cancelEdit": "Cancel",
+        "export": "Download my data",
+        "nameInvalid": "The name must be between 1 and 80 characters.",
         "deleteAccount": "Delete account",
         "deleteAccountWarning": "This action is irreversible",
         "dangerZone": "Danger zone"
@@ -850,12 +872,87 @@
     },
     "deleteAccount": {
       "title": "Delete account",
-      "message": "Are you sure you want to delete your account? This action is irreversible and will delete all your data (orders, cart, etc.).",
+      "message": "This deletes the account, confirmation tokens and event registrations tied to this email. Orders are kept without the name or email. The cart in this browser is cleared.",
+      "error": "Deletion did not go through. Try again, or write to contact@punkhazard.org.",
       "confirm": "Yes, delete my account",
       "cancel": "Cancel",
       "deleting": "Deleting...",
       "success": "Your account has been successfully deleted"
     }
+  },
+  "privacy": {
+    "title": "Privacy policy",
+    "metaDescription": "Privacy policy of PUNK HAZARD, publisher of Pigeons Studio: data collected, retention, processors and rights.",
+    "sections": {
+      "controller": {
+        "title": "Controller",
+        "content": "PUNK HAZARD, a SAS with a share capital of €1,000, 27 rue de Chinon, 94110 Arcueil, France. RCS Créteil 944 151 141. Contact: contact@punkhazard.org. The site is presented under the name Pigeons Studio."
+      },
+      "purposes": {
+        "title": "Data and purposes",
+        "content": "Contact form: name, email, subject and message, so we can reply.\nAccount: name, email and a hashed password, or the Google identifier if you choose that sign-in, to open and keep the account.\nOrder or pre-order requests: name, email and the request, so we can follow up.\nEvent registration: name and email, to hold the seat and send the confirmation, including the cancellation link."
+      },
+      "bases": {
+        "title": "Legal bases",
+        "content": "The account, the requests and the registrations rest on the steps you take. So does a contact message. Keeping a record of an order, once one exists, may also meet a duty to follow it. You can object to processing based on legitimate interest."
+      },
+      "retention": {
+        "title": "Retention",
+        "content": "The account is kept until you delete it. Email confirmation tokens expire after 24 hours. Orders are kept, and anonymised (name and email removed) if the account is deleted. Event registrations are deleted with the account, when you cancel, or when the event is deleted."
+      },
+      "recipients": {
+        "title": "Recipients",
+        "content": "Vercel hosts the site. Neon hosts the database. Resend sends the emails. Google is involved only if you sign in with Google. These providers process the data for us."
+      },
+      "transfers": {
+        "title": "Transfers outside the European Union",
+        "content": "Vercel, Neon, Resend and Google may process data from the United States. Those transfers rely on the standard contractual clauses or adequacy decisions those providers use."
+      },
+      "rights": {
+        "title": "Your rights",
+        "content": "You can access your data, correct it, erase it, ask for a portable copy, and object to processing. From your profile: edit your name, download a JSON export, delete the account. Otherwise: contact@punkhazard.org. You can also contact the CNIL, 3 place de Fontenoy, TSA 80715, 75334 Paris Cedex 07, France, www.cnil.fr."
+      },
+      "cookies": {
+        "title": "Cookies",
+        "content": "No audience-measurement or advertising cookies. A technical session cookie keeps you signed in. The cart is stored in the browser (localStorage), not in an advertising cookie."
+      }
+    }
+  },
+  "cgu": {
+    "title": "Terms of use",
+    "metaDescription": "Terms of use of the Pigeons Studio site, published by PUNK HAZARD: account, events and requests.",
+    "sections": {
+      "object": {
+        "title": "Purpose",
+        "content": "These terms govern use of pigeons.studio, published by PUNK HAZARD, SAS, 27 rue de Chinon, 94110 Arcueil, France. The name on the site is Pigeons Studio. Contact: contact@punkhazard.org."
+      },
+      "account": {
+        "title": "Account",
+        "content": "Creating an account means accepting these terms and confirming your email. The password has at least 8 characters, a letter and a digit. From the profile you can correct your name, export your data and delete the account."
+      },
+      "events": {
+        "title": "Events",
+        "content": "Registration holds a seat within the stated limit. The confirmation email contains a link: it cancels nothing until you confirm on the page. A signed-in person can also cancel from the event page."
+      },
+      "requests": {
+        "title": "Requests and pre-orders",
+        "content": "The site does not take payment. Sending a request or a pre-order is not a sale. The terms of sale describe that frame."
+      },
+      "conduct": {
+        "title": "Use",
+        "content": "Do not send unlawful content, do not try to bypass accounts or forms, and do not use the site to harm people or the service."
+      }
+    }
+  },
+  "leave": {
+    "title": "Cancel registration",
+    "metaDescription": "Confirm cancellation of a Pigeons Studio event registration.",
+    "intro": "This link does nothing by itself. Confirm to cancel the registration.",
+    "confirm": "Cancel my registration",
+    "working": "Cancelling…",
+    "missing": "Incomplete or expired link.",
+    "ok": "Registration cancelled.",
+    "error": "Cancellation failed."
   },
   "world": {
     "etats": {

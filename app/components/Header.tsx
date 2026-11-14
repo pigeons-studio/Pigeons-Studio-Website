@@ -13,18 +13,18 @@ import UserMenu from './UserMenu';
 import styles from "./Header.module.css";
 
 const PIED = {
-  fr: { droits: '© 2026 Pigeons Studio - Tous droits réservés.', legal: 'mentions légales', cgv: 'CGV' },
-  en: { droits: '© 2026 Pigeons Studio - All rights reserved.', legal: 'legal notice', cgv: 'terms' },
+  fr: { droits: '© 2026 Pigeons Studio - Tous droits réservés.', legal: 'mentions légales', privacy: 'confidentialité', cgu: 'CGU', cgv: 'CGV' },
+  en: { droits: '© 2026 Pigeons Studio - All rights reserved.', legal: 'legal notice', privacy: 'privacy', cgu: 'terms of use', cgv: 'terms' },
 };
 
 const NOMS: Record<'fr' | 'en', Record<string, string>> = {
   fr: {
-    legal: 'mentions légales', terms: 'CGV', profile: 'mon profil', contact: 'contact',
+    legal: 'mentions légales', privacy: 'confidentialité', cgu: 'CGU', terms: 'CGV', profile: 'mon profil', contact: 'contact',
     about: 'à propos', login: 'connexion', projects: 'projets', shop: 'boutique', softwares: 'logiciels',
     admin: 'events',
   },
   en: {
-    legal: 'legal notice', terms: 'terms', profile: 'my profile', contact: 'contact',
+    legal: 'legal notice', privacy: 'privacy', cgu: 'terms of use', terms: 'terms', profile: 'my profile', contact: 'contact',
     about: 'about', login: 'login', projects: 'projects', shop: 'shop', softwares: 'softwares',
     admin: 'events',
   },
@@ -163,6 +163,8 @@ export default function Header() {
       <div className={`${styles.coinBas} ${styles.coinDroite}`}>
         <span>{pied.droits}</span>
         <Link href="/legal">{pied.legal}</Link>
+        <Link href="/privacy">{pied.privacy}</Link>
+        <Link href="/cgu">{pied.cgu}</Link>
         <Link href="/terms">{pied.cgv}</Link>
       </div>
     </header>

@@ -308,7 +308,7 @@
 .orca .pied-page { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; margin-top: 12px; padding-top: 16px; border-top: 1px dashed var(--trait); color: var(--gris); font-size: 10px; letter-spacing: .06em; }
 .orca .pied-page a, .orca .legal3d a { color: var(--gris); text-decoration: underline; text-underline-offset: 3px; }
 .orca .pied-page a:hover, .orca .legal3d a:hover { color: var(--encre); }
-.orca #cadre .legal3d { display: inline-flex; gap: 12px; align-items: baseline; color: #5f5d58; font-size: 10px; letter-spacing: .04em; }
+.orca #cadre .legal3d { display: inline-flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; align-items: baseline; color: #5f5d58; font-size: 10px; letter-spacing: .04em; max-width: min(640px, 72vw); }
 .orca #cadre .legal3d a { pointer-events: auto; }
 .orca #tiroir.tiroir-contact { width: min(380px, calc(100vw - 2 * var(--marge))); max-height: calc(100dvh - 2 * var(--marge) - 60px); overflow-y: auto; overscroll-behavior: contain; }
 .orca #tiroir textarea { font: inherit; color: var(--encre); background: #0b0b0a; border: 1px solid var(--trait); padding: 7px 8px; resize: vertical; min-height: 90px; }

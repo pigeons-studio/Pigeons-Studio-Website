@@ -3,6 +3,8 @@ import { type DefaultSession } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { linkGoogleAccount, loginWithPassword } from '@/lib/accounts';
+import { egalTempsConstant } from '@/lib/passwords';
+import { adresseIp, limiteAtteinte } from '@/lib/rate-limit';
 
 // Pour un vrai e-commerce, vous devriez utiliser une vraie base de données
 // Ici, on utilise une solution simple avec variables d'environnement pour les admins
@@ -25,9 +27,14 @@ export const authOptions: NextAuthOptions = {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
           return null;
+        }
+
+        const ip = adresseIp({ headers: req?.headers ?? {} });
+        if (await limiteAtteinte(`login:${ip}`, 10, 15 * 60 * 1000)) {
+          throw new Error('RATE_LIMIT');
         }
 
         // Trim pour éviter les espaces
@@ -40,7 +47,7 @@ export const authOptions: NextAuthOptions = {
         if (adminEmail && adminPassword) {
           adminEmail = adminEmail.trim().replace(/^["']|["']$/g, '');
           adminPassword = adminPassword.trim().replace(/^["']|["']$/g, '');
-          if (email.toLowerCase() === adminEmail.toLowerCase() && password === adminPassword) {
+          if (email.toLowerCase() === adminEmail.toLowerCase() && egalTempsConstant(password, adminPassword)) {
             return { id: '1', email: adminEmail, name: 'Admin' };
           }
         }
@@ -86,11 +93,14 @@ export const authOptions: NextAuthOptions = {
       user.id = id;
       return true;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
         token.email = user.email;
         token.name = user.name;
+      }
+      if (trigger === 'update' && typeof session?.name === 'string') {
+        token.name = session.name;
       }
       return token;
     },

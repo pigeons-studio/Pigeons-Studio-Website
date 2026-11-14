@@ -4,6 +4,8 @@ import { Resend } from 'resend';
 import { getDb } from '@/lib/db';
 import { events, invites, registrations } from '@/lib/db/schema';
 import { isEventScene } from '@/lib/event-scenes';
+import { signerDesinscription } from '@/lib/event-cancel';
+import { echap } from '@/lib/html';
 import { baseUrl } from '@/lib/seo';
 
 export type EventPublic = {
@@ -112,14 +114,6 @@ export type EventMail = {
   endsAt: string;
 };
 
-function echap(value: string) {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
 function quandMail(iso: string, locale: 'fr' | 'en') {
   return new Intl.DateTimeFormat(locale, {
     weekday: 'short',
@@ -137,7 +131,10 @@ export async function sendEventConfirmation(mail: EventMail, locale: 'fr' | 'en'
   const origin = process.env.NODE_ENV === 'development'
     ? (process.env.NEXTAUTH_URL || 'http://localhost:3000')
     : baseUrl;
-  const link = `${origin.replace(/\/$/, '')}/${locale}/events/${mail.slug}`;
+  const racine = origin.replace(/\/$/, '');
+  const link = `${racine}/${locale}/events/${mail.slug}`;
+  const jeton = signerDesinscription(mail.slug, mail.email);
+  const lienDesinscription = jeton ? `${racine}/${locale}/events/leave?token=${encodeURIComponent(jeton)}` : '';
   const titre = echap(fr ? mail.titleFr : mail.titleEn);
   const quand = `${echap(quandMail(mail.startsAt, locale))} — ${echap(quandMail(mail.endsAt, locale))}`;
   const lieu = echap(mail.place);
@@ -145,6 +142,9 @@ export async function sendEventConfirmation(mail: EventMail, locale: 'fr' | 'en'
     ? 'Ton inscription à cet event est confirmée.'
     : 'Your registration for this event is confirmed.';
   const bouton = fr ? 'Voir l’event' : 'See the event';
+  const retrait = fr
+    ? 'Pour te désinscrire, ouvre ce lien puis confirme. Il ne retire rien tout seul.'
+    : 'To cancel, open this link and confirm. Opening it does not cancel by itself.';
   const resend = new Resend(process.env.RESEND_API_KEY);
   await resend.emails.send({
     from: process.env.RESEND_FROM_EMAIL || 'contact@punkhazard.org',
@@ -162,10 +162,11 @@ export async function sendEventConfirmation(mail: EventMail, locale: 'fr' | 'en'
 <p style="margin:0 0 24px;font-size:13px;line-height:1.5;color:#f2f0ea;">${phrase}</p>
 <a href="${link}" style="display:inline-block;padding:10px 16px;border:1px solid #ffb545;color:#ffb545;text-decoration:none;letter-spacing:.12em;text-transform:uppercase;font-size:11px;">${bouton}</a>
 <p style="margin:24px 0 0;font-size:11px;line-height:1.4;color:#f2f0ea;word-break:break-all;">${link}</p>
+${lienDesinscription ? `<p style="margin:24px 0 8px;font-size:11px;line-height:1.4;color:#f2f0ea;">${retrait}</p><p style="margin:0;font-size:11px;line-height:1.4;color:#f2f0ea;word-break:break-all;">${echap(lienDesinscription)}</p>` : ''}
 </td></tr></table>
 </td></tr></table>
 </body></html>`,
-    text: `${fr ? mail.titleFr : mail.titleEn}\n${quandMail(mail.startsAt, locale)} — ${quandMail(mail.endsAt, locale)}\n${mail.place}\n\n${phrase}\n${link}`,
+    text: `${fr ? mail.titleFr : mail.titleEn}\n${quandMail(mail.startsAt, locale)} — ${quandMail(mail.endsAt, locale)}\n${mail.place}\n\n${phrase}\n${link}${lienDesinscription ? `\n\n${retrait}\n${lienDesinscription}` : ''}`,
   });
 }
 

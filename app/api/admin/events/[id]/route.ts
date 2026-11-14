@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/admin';
 import { deleteEvent, eventAdminDetail, updateEvent, type EventInput } from '@/lib/events';
+import { memeOrigine } from '@/lib/origin';
 
 function isUniqueViolation(error: unknown) {
   return typeof error === 'object' && error !== null && 'code' in error && (error as { code?: string }).code === '23505';
@@ -16,6 +17,7 @@ export async function GET(_request: Request, context: { params: Promise<{ id: st
 }
 
 export async function PATCH(request: Request, context: { params: Promise<{ id: string }> }) {
+  if (!memeOrigine(request)) return NextResponse.json({ error: 'origin' }, { status: 403 });
   const admin = await requireAdmin();
   if (!admin) return NextResponse.json({ error: 'forbidden' }, { status: 403 });
   const { id } = await context.params;
@@ -38,7 +40,8 @@ export async function PATCH(request: Request, context: { params: Promise<{ id: s
   }
 }
 
-export async function DELETE(_request: Request, context: { params: Promise<{ id: string }> }) {
+export async function DELETE(request: Request, context: { params: Promise<{ id: string }> }) {
+  if (!memeOrigine(request)) return NextResponse.json({ error: 'origin' }, { status: 403 });
   const admin = await requireAdmin();
   if (!admin) return NextResponse.json({ error: 'forbidden' }, { status: 403 });
   const { id } = await context.params;

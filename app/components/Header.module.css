@@ -415,7 +415,13 @@
   pointer-events: auto;
 }
 .coinGauche { left: max(var(--marge, 12px), env(safe-area-inset-left, 0px)); color: var(--foreground); }
-.coinDroite { right: max(var(--marge, 12px), env(safe-area-inset-right, 0px)); }
+.coinDroite {
+  right: max(var(--marge, 12px), env(safe-area-inset-right, 0px));
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: min(640px, calc(100vw - 48px));
+  white-space: normal;
+}
 .coinDroite a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .coinDroite a:hover { color: var(--foreground); }
 
