@@ -244,7 +244,7 @@ export default function World() {
       <canvas id="monde" ref={canvasRef} aria-hidden="true" />
       <div id="cadre">
         <i className="coin a" /><i className="coin b" /><i className="coin c" /><i className="coin d" />
-        <div className="c hg">PIGEONS//STUDIO</div>
+        <div className="c hg"><Link href="/">PIGEONS//STUDIO</Link></div>
         <div className="c hd">
           {monte && totalPanier > 0 && (
             <button id="panier-btn" type="button" onClick={() => setTiroir(tiroir?.quoi === 'panier' ? null : { quoi: 'panier' })}>{ui.panier} · {totalPanier}</button>

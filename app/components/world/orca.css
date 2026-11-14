@@ -12,7 +12,7 @@
 .orca p, .orca h1, .orca h2, .orca h3, .orca dl, .orca dd, .orca figure { margin: 0; }
 .orca h1, .orca h2, .orca h3 { font-family: var(--mono); }
 .orca p { line-height: normal; }
-.orca #page { background: #000; }
+.orca #page { background: none; }
 .orca, .orca canvas, .orca button { cursor: url('/cursor/pigeon.png') 9 6, crosshair; }
 .orca button { font: inherit; color: inherit; background: none; border: 0; padding: 0; }
 .orca button:focus-visible { outline: 1px solid var(--cyan); outline-offset: 3px; }
