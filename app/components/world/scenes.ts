@@ -1505,7 +1505,7 @@ function orbiteC (L, w, h, cx, cy, cz, R, haut, ang, fov = 1.0) {
   const marge = 14; const hautMin = 30; let cam = null;
   for (let k = 0; k < 10; k++) {
     cam = orbite(w, h, cx, cy, cz, R, haut, ang, fov); let ok = true;
-    for (const p of L) { if (p.r === 'sombre' || (p.a ?? 1) < 0.15) continue; const q = cam.p(p.x, p.y, p.z); if (!q || q[0] < marge || q[0] > w - marge || q[1] < hautMin || q[1] > h - marge) { ok = false; break; } }
+    for (const p of L) { if (p.onde || p.r === 'sombre' || (p.a ?? 1) < 0.15) continue; const q = cam.p(p.x, p.y, p.z); if (!q || q[0] < marge || q[0] > w - marge || q[1] < hautMin || q[1] > h - marge) { ok = false; break; } }
     if (ok) break; R *= 1.12; haut = cy + (haut - cy) * 1.12;
   }
   return cam;
@@ -1532,7 +1532,7 @@ function etiq (ctx, cam, p, txt, coul = GRIS, taille = 10, align = 'center', sty
 }
 function anneaux (L, cx, cy, cz, t, r, n = 3, rmax = 2.5, vit = 0.8, plan = 'h') {
   // des ondes qui s'éloignent (un son, un signal) : des cercles de points
-  for (let k = 0; k < n; k++) { const u = ((t * vit + k / n) % 1); const rr = 0.2 + u * rmax; const m = Math.round(rr * 18); for (let i = 0; i < m; i++) { const a = i / m * 6.283; const p = plan === 'h' ? [cx + Math.cos(a) * rr, cy, cz + Math.sin(a) * rr] : [cx + Math.cos(a) * rr, cy + Math.sin(a) * rr, cz]; L.push({ x: p[0], y: p[1], z: p[2], r, t: 0.05, a: 1 - u, g: GCLES[i % GCLES.length] }); } }
+  for (let k = 0; k < n; k++) { const u = ((t * vit + k / n) % 1); const rr = 0.2 + u * rmax; const m = Math.round(rr * 18); for (let i = 0; i < m; i++) { const a = i / m * 6.283; const p = plan === 'h' ? [cx + Math.cos(a) * rr, cy, cz + Math.sin(a) * rr] : [cx + Math.cos(a) * rr, cy + Math.sin(a) * rr, cz]; L.push({ x: p[0], y: p[1], z: p[2], r, t: 0.05, a: 1 - u, onde: true, g: GCLES[i % GCLES.length] }); } }
 }
 
 Object.assign(SV, {
@@ -1843,7 +1843,7 @@ Object.assign(SV, {
       tripode3d(L, P[0], P[1], P[2], t * 0.2, 0.9, 'or');
       const C = [-1.4, 1.6, -1.2]; K3.boite(L, C[0], 1.2, C[2], 0.6, 0.04, 0.4, 'css', 0.05);
       for (let k = 0; k < 10; k++) { const u = ((t * 0.6 + k / 10) % 1); K3.pt(L, C[0] + (P[0] - C[0]) * u, 1.25 + (P[1] - 1.25) * u + Math.sin(u * 3.14) * 0.4, C[2] + (P[2] - C[2]) * u, 'css', 0.05); }
-      [0, 1, 2].forEach((k) => { const x = -0.12 + k * 0.12; const z = 0; const on = Math.floor(t * 3) % 3 === k; if (on) for (let q = 0; q < 3; q++) { const rr = 0.06 + ((t * 2 + q / 3) % 1) * 0.3; for (let i = 0; i < 14; i++) { const b = i / 14 * 6.283; L.push({ x: x + Math.cos(b) * rr, y: 0.97, z: z + Math.sin(b) * rr, r: 'ocre', t: 0.025, a: 1 - rr / 0.36, g: GCLES[i] }); } } });
+      [0, 1, 2].forEach((k) => { const x = -0.12 + k * 0.12; const z = 0; const on = Math.floor(t * 3) % 3 === k; if (on) for (let q = 0; q < 3; q++) { const rr = 0.06 + ((t * 2 + q / 3) % 1) * 0.3; for (let i = 0; i < 14; i++) { const b = i / 14 * 6.283; L.push({ x: x + Math.cos(b) * rr, y: 0.97, z: z + Math.sin(b) * rr, r: 'ocre', t: 0.025, a: 1 - rr / 0.36, onde: true, g: GCLES[i] }); } } });
       const cam = orbiteC(L, w, h, -0.2, 0.95, 0, 1.9, 1.5, 1.0 + Math.sin(t * 0.25) * 0.4, 1.0); rendre3d(ctx, cam, L, css, { portee: 7 });
       etiq(ctx, cam, [C[0], 1.45, C[2]], m[8], css); etiq(ctx, cam, [0, 1.25, 0], m[9], OCRE, 11);
     },
@@ -2022,34 +2022,75 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
     texte(ctx, String(R.actif + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0'), x + p, yy, css, 11);
     yy += 34;
     ctx.font = "13px 'IBM Plex Mono', monospace";
-    couper(ctx, etapes[R.actif], w - p * 2).forEach((l) => { texte(ctx, l, x + p, yy, ENCRE, 13); yy += 19; });
+    ctx.save(); ctx.beginPath(); ctx.rect(x, yy - 16, w, y + h - yy - 8); ctx.clip();
+    couper(ctx, etapes[R.actif], w - p * 2).forEach((l) => { if (yy > y + h - 10) return; texte(ctx, l, x + p, yy, ENCRE, 13); yy += 19; });
+    ctx.restore();
   } else {
     texte(ctx, L.panneau.toUpperCase(), x + p, yy, GRIS, 10); yy += 36 + (R.decal || 0);
-    const taille = 12; const ligne = 18;
+    const taille = 12; let ligne = 18; let ecart = 10;
     ctx.font = `${taille}px 'IBM Plex Mono', monospace`;
-    // beaucoup d'étapes : seule l'étape en cours s'écrit en entier, les autres tiennent sur une ligne
-    const hauteurTotale = etapes.reduce((acc, e) => acc + couper(ctx, e, w - p * 2 - 28).length * ligne + 10, 0);
-    const serre = hauteurTotale > h - 80;
-    etapes.forEach((s, i) => {
-      const on = i === R.actif;
-      let lignes = couper(ctx, s, w - p * 2 - 28);
-      if (serre && !on) { let l0 = lignes[0]; if (lignes.length > 1) { while (ctx.measureText(l0 + ' …').width > w - p * 2 - 28 && l0.includes(' ')) l0 = l0.slice(0, l0.lastIndexOf(' ')); l0 += ' …'; } lignes = [l0]; }
-      (R.zones || (R.zones = []))[i] = [yy - taille - 4, yy + (lignes.length - 1) * ligne + 8];
-      if (on) { ctx.fillStyle = css; ctx.fillRect(x + p - 6, yy - taille, 2, lignes.length * ligne); }
-      texte(ctx, String(i + 1).padStart(2, '0'), x + p, yy, on ? css : '#55534e', taille);
-      lignes.forEach((l, j) => texte(ctx, l, x + p + 28, yy + j * ligne, on ? ENCRE : '#6f6c66', taille));
-      yy += lignes.length * ligne + 10;
+    const largeur = w - p * 2 - 28;
+    const plein = etapes.map((s) => couper(ctx, s, largeur));
+    const leg = R.info.legende || [];
+    ctx.font = `${taille}px 'IBM Plex Mono', monospace`;
+    const legCols = leg.length && leg.some(([, nom]) => ctx.measureText(nom).width + 28 > (w - p * 2) / 2) ? 1 : 2;
+    const legH = leg.length ? 28 + Math.ceil(leg.length / legCols) * 16 : 0;
+    const bas = y + h - 10 - legH;
+    const dispo = Math.max(ligne, bas - yy);
+    const blocs = plein.map((lignes, i) => {
+      if (i === R.actif) return lignes;
+      let l0 = lignes[0] || '';
+      if (lignes.length > 1) { while (ctx.measureText(l0 + ' …').width > largeur && l0.includes(' ')) l0 = l0.slice(0, l0.lastIndexOf(' ')); l0 += ' …'; }
+      return [l0];
     });
+    const haut = (ls) => ls.length * ligne + ecart;
+    const total = blocs.reduce((acc, ls) => acc + haut(ls), 0);
+    const maxDefile = Math.max(0, total - dispo);
+    const mem = R.mem;
+    if (mem) {
+      if (mem.actif !== R.actif) {
+        let avant = 0; for (let i = 0; i < R.actif; i++) avant += haut(blocs[i]);
+        const hAct = haut(blocs[R.actif]);
+        if (avant < mem.defile) mem.defile = avant;
+        else if (avant + Math.min(hAct, dispo) > mem.defile + dispo) mem.defile = avant;
+        mem.actif = R.actif;
+      }
+      mem.defile = Math.min(maxDefile, Math.max(0, mem.defile || 0));
+      mem.maxDefile = maxDefile;
+    }
+    const defile = mem ? mem.defile : 0;
+    ctx.save();
+    ctx.beginPath(); ctx.rect(x, yy - taille - 6, w, bas - (yy - taille - 6)); ctx.clip();
+    let y0 = yy - defile;
+    R.zones = [];
+    blocs.forEach((lignes, i) => {
+      const on = i === R.actif;
+      const z0 = y0 - taille - 4; const z1 = y0 + (lignes.length - 1) * ligne + 8;
+      const clipTop = yy - taille - 6;
+      if (z1 >= clipTop && z0 <= bas) {
+        R.zones[i] = [Math.max(z0, clipTop), Math.min(z1, bas)];
+        if (on) { ctx.fillStyle = css; ctx.fillRect(x + p - 6, y0 - taille, 2, lignes.length * ligne); }
+        texte(ctx, String(i + 1).padStart(2, '0'), x + p, y0, on ? css : '#55534e', taille);
+        lignes.forEach((l, j) => texte(ctx, l, x + p + 28, y0 + j * ligne, on ? ENCRE : '#6f6c66', taille));
+      }
+      y0 += haut(lignes);
+    });
+    ctx.restore();
+    yy = Math.min(bas, yy + total - defile);
   }
   // la légende des couleurs, en bas du panneau
-  const leg = R.info.legende;
-  let ly = y + h - p - Math.ceil(leg.length / 2) * 16 + 6;
-  if (ly < yy + 10) return;
+  const leg = R.info.legende || [];
+  if (!leg.length) return;
+  ctx.font = "10px 'IBM Plex Mono', monospace";
+  const cols = leg.some(([, nom]) => ctx.measureText(nom).width + 28 > (w - p * 2) / 2) ? 1 : 2;
+  const rangs = Math.ceil(leg.length / cols);
+  let ly = y + h - p - rangs * 16 + 6;
+  if (ly < yy + 8) return;
   texte(ctx, L.legende.toUpperCase(), x + p, ly - 10, GRIS, 10);
   ly += 6;
   leg.forEach(([c, nom], i) => {
-    const col = i % 2; const rang = Math.floor(i / 2);
-    const lx = x + p + col * (w - p * 2) / 2; const ly2 = ly + rang * 16;
+    const col = cols === 1 ? 0 : i % cols; const rang = cols === 1 ? i : Math.floor(i / cols);
+    const lx = x + p + col * (w - p * 2) / cols; const ly2 = ly + rang * 16;
     ctx.fillStyle = COUL[c] || c; ctx.fillRect(lx, ly2 - 8, 8, 8);
     texte(ctx, nom, lx + 14, ly2, GRIS, 10);
   });
@@ -2085,6 +2126,7 @@ export function lancerScene (canvas, id, css, locale) {
   const f = SCENES[id]; if (!f) return () => {};
   const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const etat = { dt: 0, relance: 0 };
+  const mem = { defile: 0, actif: -1, maxDefile: 0 };
   let w = 0; let h = 0; let sw = 0; let sh = 0; let large = true; let raf = 0; let avant = performance.now(); let t = reduit ? 2.6 : 0;
   let dernierR = null;
   // l'étape avance toute seule ; « suite » et « précédent » servent à sauter
@@ -2130,6 +2172,17 @@ export function lancerScene (canvas, id, css, locale) {
   canvas.addEventListener('click', clic);
   const survol = (ev) => { if (!dernierR || !dernierR.zones || !large) return; const r = canvas.getBoundingClientRect(); const x = ev.clientX - r.left; const y = ev.clientY - r.top; const sur = x >= sw && dernierR.zones.some((z, i) => z && i !== dernierR.actif && y >= z[0] && y <= z[1]); canvas.style.cursor = sur ? 'pointer' : ''; };
   canvas.addEventListener('mousemove', survol);
+  const roue = (ev) => {
+    if (!large || !mem.maxDefile) return;
+    const r = canvas.getBoundingClientRect();
+    const x = ev.clientX - r.left;
+    if (x < sw) return;
+    const prochain = Math.min(mem.maxDefile, Math.max(0, mem.defile + ev.deltaY));
+    if (prochain === mem.defile) return;
+    ev.preventDefault();
+    mem.defile = prochain;
+  };
+  canvas.addEventListener('wheel', roue, { passive: false });
   const taille = () => { const d = Math.min(devicePixelRatio, 2); w = canvas.clientWidth; h = canvas.clientHeight; canvas.width = Math.round(w * d); canvas.height = Math.round(h * d); ctx.setTransform(d, 0, 0, d, 0, 0); };
   const ro = new ResizeObserver(taille); ro.observe(canvas); taille();
   const dessiner = () => {
@@ -2140,6 +2193,7 @@ export function lancerScene (canvas, id, css, locale) {
     ctx.save(); ctx.beginPath(); ctx.rect(0, 0, sw, sh); ctx.clip();
     const R = f(ctx, sw, sh, t, etat, css, L);
     ctx.restore();
+    R.mem = mem;
     // les boutons et leur traduction ont leur propre ligne quand la place manque : rien ne chevauche le titre du panneau
     const serre = !large || w - sw < 430; R.decal = serre ? 30 : 0;
     if (large) panneau(ctx, sw, 0, w - sw, h, R, css, L, false);
@@ -2154,5 +2208,5 @@ export function lancerScene (canvas, id, css, locale) {
     dessiner(); raf = requestAnimationFrame(boucle);
   };
   if (reduit) { etat.dt = 0.016; dessiner(); } else raf = requestAnimationFrame(boucle);
-  return () => { if (etat.videos) Object.values(etat.videos).forEach((v) => { v.pause(); v.removeAttribute('src'); v.load(); }); cancelAnimationFrame(raf); ro.disconnect(); canvas.removeEventListener('click', clic); canvas.removeEventListener('mousemove', survol); nav.remove(); };
+  return () => { if (etat.videos) Object.values(etat.videos).forEach((v) => { v.pause(); v.removeAttribute('src'); v.load(); }); cancelAnimationFrame(raf); ro.disconnect(); canvas.removeEventListener('click', clic); canvas.removeEventListener('mousemove', survol); canvas.removeEventListener('wheel', roue); nav.remove(); };
 }
