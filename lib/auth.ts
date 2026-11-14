@@ -1,8 +1,12 @@
+import { cookies } from 'next/headers';
 import type { NextAuthOptions } from 'next-auth';
 import { type DefaultSession } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
-import { linkGoogleAccount, loginWithPassword } from '@/lib/accounts';
+import { findUserByEmail, findUserByGoogleSub, linkGoogleAccount, loginWithPassword } from '@/lib/accounts';
+import { CGU_COOKIE, CGU_VERSION } from '@/lib/cgu';
+import { egalTempsConstant } from '@/lib/passwords';
+import { adresseIp, FENETRE_TENTATIVES_MS, limiteAtteinte, PLAFOND_TENTATIVES } from '@/lib/rate-limit';
 
 // Pour un vrai e-commerce, vous devriez utiliser une vraie base de données
 // Ici, on utilise une solution simple avec variables d'environnement pour les admins
@@ -25,9 +29,14 @@ export const authOptions: NextAuthOptions = {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
           return null;
+        }
+
+        const ip = adresseIp({ headers: req?.headers ?? {} });
+        if (await limiteAtteinte(`login:${ip}`, PLAFOND_TENTATIVES, FENETRE_TENTATIVES_MS)) {
+          throw new Error('RATE_LIMIT');
         }
 
         // Trim pour éviter les espaces
@@ -40,7 +49,7 @@ export const authOptions: NextAuthOptions = {
         if (adminEmail && adminPassword) {
           adminEmail = adminEmail.trim().replace(/^["']|["']$/g, '');
           adminPassword = adminPassword.trim().replace(/^["']|["']$/g, '');
-          if (email.toLowerCase() === adminEmail.toLowerCase() && password === adminPassword) {
+          if (email.toLowerCase() === adminEmail.toLowerCase() && egalTempsConstant(password, adminPassword)) {
             return { id: '1', email: adminEmail, name: 'Admin' };
           }
         }
@@ -77,20 +86,31 @@ export const authOptions: NextAuthOptions = {
       const email = user.email?.toLowerCase();
       const verified = Boolean((profile as { email_verified?: boolean } | undefined)?.email_verified);
       if (!email || !verified || !account.providerAccountId) return false;
+      const deja = await findUserByGoogleSub(account.providerAccountId) ?? await findUserByEmail(email);
+      if (!deja?.cguAcceptedAt) {
+        const jar = await cookies();
+        if (jar.get(CGU_COOKIE)?.value !== CGU_VERSION) return false;
+      }
       const id = await linkGoogleAccount({
         email,
         name: user.name || email,
         sub: account.providerAccountId,
+        acceptCgu: !deja?.cguAcceptedAt,
       });
       if (!id) return false;
       user.id = id;
       return true;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
         token.email = user.email;
         token.name = user.name;
+      }
+      if (trigger === 'update') {
+        const maj = session as { name?: string; email?: string } | undefined;
+        if (typeof maj?.name === 'string') token.name = maj.name;
+        if (typeof maj?.email === 'string') token.email = maj.email;
       }
       return token;
     },

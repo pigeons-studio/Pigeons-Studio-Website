@@ -8,23 +8,23 @@ import { Link, usePathname } from '@/i18n/routing';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useCartStore } from '@/app/store/cartStore';
 import Cart from './Cart';
-import LoginModal from './LoginModal';
-import UserMenu from './UserMenu';
+import TiroirConnexion from './world/TiroirConnexion';
+import './world/orca.css';
 import styles from "./Header.module.css";
 
 const PIED = {
-  fr: { droits: '© 2026 Pigeons Studio - Tous droits réservés.', legal: 'mentions légales', cgv: 'CGV' },
-  en: { droits: '© 2026 Pigeons Studio - All rights reserved.', legal: 'legal notice', cgv: 'terms' },
+  fr: { droits: '© 2026 Pigeons Studio - Tous droits réservés.', legal: 'mentions légales', privacy: 'confidentialité', cgu: 'CGU', cgv: 'CGV' },
+  en: { droits: '© 2026 Pigeons Studio - All rights reserved.', legal: 'legal notice', privacy: 'privacy', cgu: 'terms of use', cgv: 'terms' },
 };
 
 const NOMS: Record<'fr' | 'en', Record<string, string>> = {
   fr: {
-    legal: 'mentions légales', terms: 'CGV', profile: 'mon profil', contact: 'contact',
+    legal: 'mentions légales', privacy: 'confidentialité', cgu: 'CGU', terms: 'CGV', profile: 'mon profil', contact: 'contact',
     about: 'à propos', login: 'connexion', projects: 'projets', shop: 'boutique', softwares: 'logiciels',
     admin: 'events',
   },
   en: {
-    legal: 'legal notice', terms: 'terms', profile: 'my profile', contact: 'contact',
+    legal: 'legal notice', privacy: 'privacy', cgu: 'terms of use', terms: 'terms', profile: 'my profile', contact: 'contact',
     about: 'about', login: 'login', projects: 'projects', shop: 'shop', softwares: 'softwares',
     admin: 'events',
   },
@@ -49,6 +49,7 @@ export default function Header() {
   const { data: session } = useSession();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [inscription, setInscription] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -115,25 +116,28 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      <div className={styles.cadre} aria-hidden="true" />
+      <div className={styles.cadre} aria-hidden="true">
+        <i className={`${styles.coin} ${styles.coinA}`} />
+        <i className={`${styles.coin} ${styles.coinB}`} />
+        <i className={`${styles.coin} ${styles.coinC}`} />
+        <i className={`${styles.coin} ${styles.coinD}`} />
+      </div>
       <div className={styles.container}>
-        <Link href="/" className={styles.logo} aria-label={t('home')}>
-          PIGEONS//STUDIO
-        </Link>
-        <Link href="/" className={styles.cadreLien}>◂ {t('home')}</Link>
+        <div className={styles.coinHautGauche}>
+          <Link href="/" className={styles.logo} aria-label={t('home')}>
+            PIGEONS//STUDIO
+          </Link>
+          <Link href="/" className={styles.cadreLien}>◂ {t('home')}</Link>
+        </div>
         <div className={styles.cadreActions}>
           {mounted && totalItems > 0 && (
             <button type="button" className={styles.cadreLien} onClick={() => setIsCartOpen(true)}>
               {tCart('title')} · {totalItems}
             </button>
           )}
-          {session ? (
-            <UserMenu />
-          ) : (
-            <button type="button" className={styles.cadreLien} onClick={() => setIsLoginOpen(true)}>
-              {tAuth('login')}
-            </button>
-          )}
+          <button type="button" className={styles.cadreLien} onClick={() => { setInscription(false); setIsLoginOpen(true); }}>
+            {session ? (session.user?.name?.split(' ')[0] || tAuth('profile')) : tAuth('login')}
+          </button>
           <Link href="/contact" className={`${styles.cadreLien} ${styles.cadreOr} ${isActive('/contact') ? styles.active : ''}`}>
             {t('contact')}
           </Link>
@@ -151,11 +155,21 @@ export default function Header() {
         </div>,
         document.body
       )}
-      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+      {mounted && isLoginOpen && createPortal(
+        <div className="orca tiroir-page">
+          <div id="voile" onClick={() => setIsLoginOpen(false)} />
+          <aside id="tiroir" className="tiroir-connexion" role="dialog" aria-label={tAuth('login')}>
+            <TiroirConnexion inscription={inscription} basculer={setInscription} fermer={() => setIsLoginOpen(false)} />
+          </aside>
+        </div>,
+        document.body
+      )}
       {nom && <div className={`${styles.coinBas} ${styles.coinGauche}`}>{nom}</div>}
       <div className={`${styles.coinBas} ${styles.coinDroite}`}>
         <span>{pied.droits}</span>
         <Link href="/legal">{pied.legal}</Link>
+        <Link href="/privacy">{pied.privacy}</Link>
+        <Link href="/cgu">{pied.cgu}</Link>
         <Link href="/terms">{pied.cgv}</Link>
       </div>
     </header>

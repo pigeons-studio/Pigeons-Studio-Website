@@ -3,23 +3,47 @@
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useTranslations, useLocale } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 import { useRouter, Link } from '@/i18n/routing';
 import Header from '@/app/components/Header';
 import DeleteAccountModal from '@/app/components/DeleteAccountModal';
-import { useOrdersStore } from '@/app/store/ordersStore';
+import type { OrderView } from '@/lib/order-types';
 import styles from './page.module.css';
 import OrcaFond from '@/app/components/world/OrcaFond';
 
+const ETATS: Record<string, { fr: string; en: string }> = {
+  received: { fr: 'reçue', en: 'received' },
+  confirmed: { fr: 'confirmée', en: 'confirmed' },
+  making: { fr: 'en fabrication', en: 'in production' },
+  ready: { fr: 'prête', en: 'ready' },
+  cancelled: { fr: 'annulée', en: 'cancelled' },
+};
+
+function etatCommande(status: string, locale: string) {
+  const lib = ETATS[status];
+  return lib ? lib[locale === 'en' ? 'en' : 'fr'] : status;
+}
+
 export default function ProfilePage() {
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
   const router = useRouter();
   const t = useTranslations('profile');
   const locale = useLocale();
   const tInfo = useTranslations('profile.sections.info');
   const tOrders = useTranslations('profile.sections.orders');
-  const getOrdersByUser = useOrdersStore((state) => state.getOrdersByUser);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [admin, setAdmin] = useState(false);
+  const [commandes, setCommandes] = useState<OrderView[]>([]);
+  const [edition, setEdition] = useState(false);
+  const [nom, setNom] = useState('');
+  const [messageNom, setMessageNom] = useState('');
+  const [sauve, setSauve] = useState(false);
+  const [editionEmail, setEditionEmail] = useState(false);
+  const [emailSaisi, setEmailSaisi] = useState('');
+  const [messageEmail, setMessageEmail] = useState('');
+  const [sauveEmail, setSauveEmail] = useState(false);
+  const [adresseConfirmee, setAdresseConfirmee] = useState(false);
+  const recherche = useSearchParams();
   
   // Rediriger si non connecté
   useEffect(() => {
@@ -31,7 +55,77 @@ export default function ProfilePage() {
   useEffect(() => {
     if (status !== 'authenticated') return;
     fetch('/api/admin/me').then((r) => setAdmin(r.ok)).catch(() => setAdmin(false));
+    fetch('/api/orders').then((r) => r.ok ? r.json() : { orders: [] }).then((d) => setCommandes(d.orders || [])).catch(() => setCommandes([]));
   }, [status]);
+
+  const emailConfirme = recherche.get('email') === 'confirme';
+
+  useEffect(() => {
+    if (status !== 'authenticated' || !emailConfirme) return;
+    let ignore = false;
+    fetch('/api/account').then((r) => r.ok ? r.json() : null).then(async (data) => {
+      if (ignore || !data?.email) return;
+      await update({ email: data.email, name: data.name });
+      setAdresseConfirmee(true);
+    }).catch(() => {});
+    return () => { ignore = true; };
+  }, [status, emailConfirme, update]);
+
+  const enregistrerNom = async () => {
+    setSauve(true);
+    setMessageNom('');
+    try {
+      const reponse = await fetch('/api/account', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: nom }),
+      });
+      const data = await reponse.json();
+      if (!reponse.ok) {
+        setMessageNom(tInfo('nameInvalid'));
+        return;
+      }
+      await update({ name: data.name });
+      setEdition(false);
+    } catch {
+      setMessageNom(tInfo('nameInvalid'));
+    } finally {
+      setSauve(false);
+    }
+  };
+
+  const enregistrerEmail = async () => {
+    setSauveEmail(true);
+    setMessageEmail('');
+    try {
+      const reponse = await fetch('/api/account', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: emailSaisi, locale }),
+      });
+      const data = await reponse.json().catch(() => ({}));
+      if (!reponse.ok) {
+        const textes: Record<string, string> = {
+          invalid: tInfo('emailInvalid'),
+          exists: tInfo('emailExists'),
+          same: tInfo('emailSame'),
+          rate: tInfo('emailRate'),
+        };
+        setMessageEmail(textes[data.error] || tInfo('emailInvalid'));
+        return;
+      }
+      setMessageEmail(tInfo('emailSent'));
+      setEditionEmail(false);
+    } catch {
+      setMessageEmail(tInfo('emailInvalid'));
+    } finally {
+      setSauveEmail(false);
+    }
+  };
+
+  const exporter = () => {
+    window.location.href = '/api/account/export';
+  };
 
   if (status === 'loading') {
     return (
@@ -51,8 +145,6 @@ export default function ProfilePage() {
     return null;
   }
 
-  const orders = getOrdersByUser(session.user?.id || '');
-
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat('fr-FR', {
@@ -60,21 +152,6 @@ export default function ProfilePage() {
       month: 'long',
       day: 'numeric',
     }).format(date);
-  };
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('fr-FR', {
-      style: 'currency',
-      currency: 'EUR',
-    }).format(price);
-  };
-
-  const getStatusLabel = (status: string) => {
-    return tOrders(`statuses.${status as any}`);
-  };
-
-  const getStatusClass = (status: string) => {
-    return styles[`status${status.charAt(0).toUpperCase() + status.slice(1)}`];
   };
 
   return (
@@ -95,20 +172,65 @@ export default function ProfilePage() {
               <div className={styles.infoCard}>
                 <div className={styles.infoRow}>
                   <span className={styles.infoLabel}>{tInfo('email')}</span>
-                  <span className={styles.infoValue}>{session.user?.email || '-'}</span>
+                  {editionEmail ? (
+                    <span className={styles.inlineActions}>
+                      <input className={styles.nameInput} type="email" value={emailSaisi} onChange={(e) => setEmailSaisi(e.target.value)} autoComplete="email" />
+                      <button type="button" className={styles.textButton} onClick={enregistrerEmail} disabled={sauveEmail}>{sauveEmail ? tInfo('saving') : tInfo('save')}</button>
+                      <button type="button" className={styles.textButton} onClick={() => setEditionEmail(false)}>{tInfo('cancelEdit')}</button>
+                    </span>
+                  ) : (
+                    <span className={styles.inlineActions}>
+                      <span className={styles.infoValue}>{session.user?.email || '-'}</span>
+                      <button type="button" className={styles.textButton} onClick={() => { setEmailSaisi(session.user?.email || ''); setEditionEmail(true); }}>{tInfo('edit')}</button>
+                    </span>
+                  )}
                 </div>
+                {(messageEmail || adresseConfirmee) && <p className={styles.dangerZoneWarning}>{adresseConfirmee ? tInfo('emailConfirmed') : messageEmail}</p>}
                 <div className={styles.infoRow}>
                   <span className={styles.infoLabel}>{tInfo('name')}</span>
-                  <span className={styles.infoValue}>{session.user?.name || '-'}</span>
-                </div>
-                {admin && (
-                  <div className={styles.infoRow}>
-                    <span className={styles.infoLabel}>admin</span>
-                    <span className={styles.infoValue}>
-                      <Link href="/admin/users" className={styles.adminLink}>{locale === 'fr' ? 'comptes' : 'accounts'}</Link>
-                      {' · '}
-                      <Link href="/admin/events" className={styles.adminLink}>events</Link>
+                  {edition ? (
+                    <span className={styles.inlineActions}>
+                      <input className={styles.nameInput} value={nom} onChange={(e) => setNom(e.target.value)} maxLength={80} />
+                      <button type="button" className={styles.textButton} onClick={enregistrerNom} disabled={sauve}>{sauve ? tInfo('saving') : tInfo('save')}</button>
+                      <button type="button" className={styles.textButton} onClick={() => setEdition(false)}>{tInfo('cancelEdit')}</button>
                     </span>
+                  ) : (
+                    <span className={styles.inlineActions}>
+                      <span className={styles.infoValue}>{session.user?.name || '-'}</span>
+                      <button type="button" className={styles.textButton} onClick={() => { setNom(session.user?.name || ''); setEdition(true); }}>{tInfo('edit')}</button>
+                    </span>
+                  )}
+                </div>
+                {messageNom && <p className={styles.dangerZoneWarning}>{messageNom}</p>}
+                {admin && (
+                  <div className={styles.adminBlock}>
+                    <span className={styles.infoLabel}>admin</span>
+                    <div className={styles.adminLinks}>
+                      <Link href="/admin/users" className={styles.adminLink}>
+                        <span>{locale === 'fr' ? 'comptes' : 'accounts'}</span>
+                        <small>{locale === 'fr'
+                          ? 'Voir les comptes, et donner ou retirer l’accès admin.'
+                          : 'See the accounts, and grant or revoke admin access.'}</small>
+                      </Link>
+                      <Link href="/admin/events" className={styles.adminLink}>
+                        <span>events</span>
+                        <small>{locale === 'fr'
+                          ? 'Créer les rendez-vous, les places, les inscriptions et les liens d’invitation.'
+                          : 'Create the dates, the seats, the registrations and the invitation links.'}</small>
+                      </Link>
+                      <Link href="/admin/animations" className={styles.adminLink}>
+                        <span>animations</span>
+                        <small>{locale === 'fr'
+                          ? 'Regarder les animations du site et copier leur identifiant pour l’attacher à un event.'
+                          : 'Watch the site animations and copy an id to attach one to an event.'}</small>
+                      </Link>
+                      <Link href="/admin/orders" className={styles.adminLink}>
+                        <span>{locale === 'fr' ? 'commandes' : 'orders'}</span>
+                        <small>{locale === 'fr'
+                          ? 'Voir toutes les commandes et précommandes, et changer leur état.'
+                          : 'See every order and pre-order, and change its status.'}</small>
+                      </Link>
+                    </div>
                   </div>
                 )}
                 <div className={styles.dangerZone}>
@@ -130,62 +252,41 @@ export default function ProfilePage() {
             <section className={styles.section}>
               <h2 className={styles.sectionTitle}>{tOrders('title')}</h2>
               
-              {orders.length === 0 ? (
+              {commandes.length === 0 ? (
                 <div className={styles.emptyState}>
                   <p>{tOrders('empty')}</p>
                 </div>
               ) : (
                 <div className={styles.ordersList}>
-                  {orders.map((order) => (
+                  {commandes.map((order) => (
                     <div key={order.id} className={styles.orderCard}>
                       <div className={styles.orderHeader}>
                         <div className={styles.orderInfo}>
                           <span className={styles.orderNumber}>
-                            {tOrders('orderNumber')} {order.orderNumber}
+                            {order.kind === 'preorder' ? (locale === 'fr' ? 'Précommande' : 'Pre-order') : (locale === 'fr' ? 'Commande' : 'Order')}
                           </span>
                           <span className={styles.orderDate}>
-                            {formatDate(order.date)}
+                            {formatDate(order.createdAt)}
                           </span>
                         </div>
                         <div className={styles.orderMeta}>
-                          <span className={`${styles.orderStatus} ${getStatusClass(order.status)}`}>
-                            {getStatusLabel(order.status)}
-                          </span>
-                          <span className={styles.orderTotal}>
-                            {formatPrice(order.total)}
+                          <span className={styles.orderStatus}>
+                            {etatCommande(order.status, locale)}
                           </span>
                         </div>
                       </div>
-                      
                       <div className={styles.orderItems}>
-                        {order.items.map((item, index) => (
-                          <div key={index} className={styles.orderItem}>
-                            <div className={styles.orderItemImage}>
-                              {item.image ? (
-                                <img src={item.image} alt={item.name.fr} />
-                              ) : (
-                                <div className={styles.orderItemPlaceholder}>
-                                  {item.name.fr.charAt(0)}
-                                </div>
-                              )}
-                            </div>
+                        {order.items.map((item) => (
+                          <div key={`${item.productId}-${item.color || ''}`} className={styles.orderItem}>
                             <div className={styles.orderItemInfo}>
                               <span className={styles.orderItemName}>
-                                {item.name.fr}
+                                {(locale === 'en' ? item.nameEn : item.nameFr)}{item.color ? ` · ${item.color}` : ''}
                               </span>
                               <span className={styles.orderItemQuantity}>
                                 x{item.quantity}
                               </span>
                             </div>
-                            <div className={styles.orderItemPrice}>
-                              {item.price === 'coming' || item.price === 'quote' ? (
-                                <span className={styles.orderItemPriceSpecial}>
-                                  {item.price === 'coming' ? 'À venir' : 'Sur devis'}
-                                </span>
-                              ) : (
-                                formatPrice(parseFloat(item.price.replace(/[^\d.,]/g, '').replace(',', '.')) * item.quantity)
-                              )}
-                            </div>
+                            <div className={styles.orderItemPrice}>{item.priceLabel}</div>
                           </div>
                         ))}
                       </div>
@@ -193,6 +294,14 @@ export default function ProfilePage() {
                   ))}
                 </div>
               )}
+            </section>
+
+            <section className={styles.section}>
+              <h2 className={styles.sectionTitle}>{tInfo('exportTitle')}</h2>
+              <div className={styles.exportCard}>
+                <p className={styles.exportText}>{tInfo('exportText')}</p>
+                <button type="button" className={styles.textButton} onClick={exporter}>{tInfo('export')}</button>
+              </div>
             </section>
           </div>
         </div>

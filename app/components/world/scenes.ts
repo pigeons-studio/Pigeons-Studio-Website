@@ -11,7 +11,7 @@ const TEXTES = {
   fr: {
     orcaTitres: ["LES ÉTAGES", "DES SIGNES QUI ONT UN SENS", "CODER AU CLAVIER", "D’UN ÉTAGE À L’AUTRE", "LES LIENS ENTRE ÉTAGES", "MODE 2D ⇄ 3D", "PLAN / IMMEUBLES", "LES VISIONS", "UNE MATIÈRE PAR ÉTAGE", "LE MENU EN GLYPHES", "LA PARTITION", "TRACKING, MIDI, OSC"], orcaTouches: ["démo · Ctrl+Maj+D", "NOMS", "clavier", "' , ( ) \" -", "F9", "Ctrl+D", "F8", "Tab", "F10", "clic sur un glyphe", "F5 · Ctrl+F5 REC", "TRACKING"], chargement: "chargement\u2026",
     svLegende: [["css", "ce qu’on conçoit"], ["or", "ce qui agit, le signal"], ["encre", "l’objet, le corps"], ["gris", "le contexte"]],
-    sv: {"sv-data": {"titres": ["LES DONNÉES", "VISUEL OU MUSIQUE", "POUR QUI, POUR OÙ"], "etapes": ["Des capteurs, des stations, des flux : les données arrivent de partout et convergent.", "On les convertit en forme artistique : un visuel qui se construit, ou une musique qui en joue les variations.", "Cette forme trouve sa place : au musée, en concert, dans une installation ou un système interactif où le public la fait réagir."], "mots": ["capteurs, mesures", "les données", "un visuel", "une musique", "musée", "concert", "installation interactive"]}, "sv-conseil": {"titres": ["L’IDÉE", "TROIS MONDES", "LA FEUILLE DE ROUTE"], "etapes": ["Un projet commence souvent flou : une envie, un lieu, un public, un délai. On écoute et on pose les contraintes.", "On le regarde avec trois paires d’yeux, l’art, le design et l’ingénierie, jusqu’à trouver ce qui tient des trois.", "Puis on trace la route : idée, prototype, test, scène. Chaque étape a son livrable, et on sait où l’on va."], "mots": ["une idée, des contraintes", "budget", "public", "délai", "lieu", "art", "design", "ingénierie", "le projet", "idée", "prototype", "test", "scène"]}, "sv-da": {"titres": ["LES RÉFÉRENCES", "LES CHOIX", "L’UNIVERS"], "etapes": ["On réunit des références : matières, motifs, signes, images. Elles se répondent, et une direction se dessine.", "On choisit : une palette, une typographie, une couleur de son. Peu d’éléments, mais tenus partout.", "Ensemble, ils forment un univers cohérent, qu’on retrouve dans l’image, l’objet, la scène et le son."], "mots": ["références", "couleurs", "typographie", "son", "un univers cohérent"]}, "sv-digital": {"titres": ["L’ESPACE", "LUMIÈRE ET SON", "LE PUBLIC AGIT"], "etapes": ["Tout part d’un lieu et de ceux qui le traversent : ses murs, ses volumes, ses visiteurs.", "On l’habite d’images projetées et de sons spatialisés : la pièce devient une œuvre.", "Et l’œuvre écoute : chaque présence, chaque mouvement du public la transforme en temps réel."], "mots": ["un espace, des visiteurs", "projection et son", "chaque présence modifie l’œuvre"]}, "sv-physique": {"titres": ["L’IDÉE", "LA FABRICATION", "SA PLACE"], "etapes": ["On imagine avec vous un objet qui n’existe pas encore, et on le dessine en 3D, à la cote.", "Puis on le fabrique : machine, bois, métal, résine, et l’électronique intégrée quand il le faut.", "La pièce rejoint son lieu : un musée, une installation, la scène d’un artiste. Elle est unique, faite pour lui."], "mots": ["un objet imaginé pour vous", "la machine", "bois", "métal", "résine", "une pièce unique", "musée", "installation"]}, "sv-cdm": {"titres": ["LE CORPS", "LES CAPTEURS", "LA MUSIQUE"], "etapes": ["Tout part du corps en mouvement : une danse, un geste, un appui.", "Des capteurs aux poignets et aux chevilles traduisent le mouvement en données.", "Ces données écrivent la musique : le mouvement déclenche les pas d’une séquence et module le son. TRIPODE AS-SIMT en est un outil."], "mots": ["le corps", "capteurs → données", "une séquence jouée par le mouvement"]}, "sv-robot": {"titres": ["UN ACTIONNEUR", "TOUTE LA ROBOTIQUE", "EN SCÈNE"], "etapes": ["Un bras robotique frappe une cloche : un geste mécanique devient un son.", "On travaille avec tout type de robotique : bras, bases roulantes, quadrupèdes, sculptures cinétiques.", "Sur scène, robots, lumière et son jouent la même partition. CAVE // FOUR ROBOTS pousse cette idée jusqu’au bout."], "mots": ["bras robotique", "cloche", "bras", "base roulante", "quadrupède", "sculpture cinétique", "robots, lumière, son : une seule partition", "le public"]}, "sv-audio": {"titres": ["UN PETIT OBJET", "IL SONNE", "UNE FAMILLE D’OBJETS"], "etapes": ["Un petit objet tient dans la main : une coque, un écran, quelques boutons, un glyphe gravé.", "On le touche, il sonne : chaque objet a sa voix, son geste, son caractère.", "Ensemble, ils forment une famille d’objets sonores qu’on joue sur scène ou qu’on pose dans une installation. TEAMMATE.POTO en est né."], "mots": ["un petit objet sonore", "notre esthétique", "on le touche", "il sonne", "une famille d’objets"]}, "sv-capteurs": {"titres": ["LE CORPS ÉQUIPÉ", "LES SIGNAUX", "LA SCÈNE RÉPOND"], "etapes": ["On conçoit des capteurs faits pour le corps : légers, portés aux poignets et aux chevilles d’un danseur ou sur l’instrument d’un musicien.", "Ils envoient le mouvement sans fil, en continu, vers un récepteur : le geste devient données.", "Et la scène répond : la lumière suit la main du danseur, le son suit le musicien, la scénographie bouge avec eux."], "mots": ["capteur", "un danseur équipé", "récepteur sans fil", "le mouvement, en données", "danseur", "musicien", "la lumière suit le geste"]}, "sv-objets": {"titres": ["LE PROTOTYPE", "L’INTÉGRATION", "EN SCÈNE"], "etapes": ["Sur l’établi, un premier prototype : un boîtier, une carte, une lumière qui clignote.", "On l’intègre dans un dispositif : plusieurs modules reliés à un contrôleur qui les fait dialoguer.", "Puis tout part en scène, monté, éclairé, prêt pour le public. TEAMMATE.POTO est passé par là."], "mots": ["le prototype, sur l’établi", "contrôleur", "en scène"]}, "sv-3d": {"titres": ["LA FORME", "L’USAGE", "LE PROTOTYPE"], "etapes": ["On cherche la forme : des volumes qu’on tourne, qu’on affine, qu’on compare.", "On la confronte à l’usage : la main, la prise, les points de contact.", "Puis on l’imprime en 3D, couche par couche, pour la tenir en main dès le lendemain."], "mots": ["la forme", "la main, l’usage", "impression 3D, couche par couche"]}, "sv-lumiere": {"titres": ["UN OBJET LUMINEUX", "PILOTÉ EN WI-FI", "LA SCÈNE LUMIÈRE"], "etapes": ["On crée des objets lumineux intelligents : la lumière, et dedans un microcontrôleur qui la pilote.", "Ils se pilotent sans fil, en Wi-Fi, depuis une console ou un ordinateur : chaque lampe répond. On travaille avec différents microcontrôleurs selon le projet.", "Ensemble, ils deviennent une scénographie lumière : une vague traverse la scène, la lumière suit le son ou le geste."], "mots": ["microcontrôleur", "un objet lumineux", "console, Wi-Fi", "chaque lampe répond", "une scène de lumière"]}, "sv-go2": {"titres": ["LE ROBOT", "LA CHORÉGRAPHIE", "À LOUER, SUR MESURE"], "etapes": ["Le Go2 de Unitree : un robot quadrupède agile, qu’on programme pour la scène et l’installation.", "On écrit sa chorégraphie : des points de passage, des postures, un rythme, calés sur la musique.", "On peut le louer pour une scénographie, équipé sur mesure (mégaphone, lumière, capteurs), pour que vous puissiez vous projeter avec lui. Voir CAVE // FOUR ROBOTS et BILLY // STEAM DECK."], "mots": ["Go2 · Unitree", "les points de passage", "à louer, équipé sur mesure", "le public"]}, "sv-repar": {"titres": ["LA REMISE À NEUF", "LE DIAGNOSTIC", "LE RECALIBRAGE", "MODIFIER, AMÉLIORER"], "etapes": ["D’abord, systématiquement, quelle que soit la panne : on remet à neuf les composants qui vieillissent avec le temps, comme les condensateurs électrolytiques gonflés ou desséchés.", "Puis on cherche la panne : à l’oscilloscope, le signal dit ce qui ne va pas (souffle, craquements, saturation), et on répare.", "On recalibre : un signal propre, des oscillateurs accordés note par note, un ampli qui sonne comme au premier jour.", "Et sur les synthés, on peut aller plus loin : les midifier, leur ajouter des fonctions, les adapter à votre façon de jouer."], "mots": ["synthétiseur, ampli, hi-fi", "souffle, craquements, saturation", "condensateurs fatigués", "soudures, potentiomètres", "un signal propre", "accordé", "prise MIDI ajoutée", "une nouvelle fonction", "contrôleur · MIDI"]}, "gear-capteurs": {"titres": ["LE CAPTEUR", "PORTÉ SUR LE CORPS", "ENVOYER", "RECEVOIR : L’ÉCOUTE HAPTIQUE"], "etapes": ["Un petit boîtier imprimé en 3D. Dedans : une carte ESP32, un capteur de mouvement (accéléromètre et magnétomètre) et trois moteurs de vibration.", "On le porte au poignet, à la cheville, sur un instrument : il mesure le mouvement sur trois axes, en continu.", "Il envoie ce mouvement sans fil : en Wi-Fi vers l’ordinateur (OSC), vers un synthé ou un logiciel (MIDI), et vers une page web pour le régler depuis un téléphone.", "Et il reçoit : le son ou les données reviennent jusqu’au capteur, et ses trois moteurs les font vibrer. On entend aussi par la peau : c’est l’écoute haptique."], "mots": ["carte ESP32", "capteur de mouvement", "moteurs de vibration", "un capteur au poignet", "x · y · z", "ordinateur · Wi-Fi · OSC", "synthé · MIDI", "téléphone · page web", "le son revient", "on l’entend par la peau"]}, "gear-pcb": {"titres": ["LA CARTE", "LES COMPOSANTS", "LA PETITE SÉRIE"], "etapes": ["On part de votre besoin et on dessine la carte : une puce au centre, des pistes qui en partent en faisceaux jusqu’aux bords et au connecteur.", "Puis on pose les composants : condensateurs, connecteurs, alimentation, capteurs.", "On fabrique en petite série, et la carte prend place dans son objet, prête à fonctionner."], "mots": ["les pistes en cuivre", "la puce", "connecteur", "composants", "une petite série", "dans son objet"]}, "ev-micros": {"titres": ["SOUDER UN XLR", "ÉLECTRET", "RUBAN FAIT MAISON", "ONDES ÉLECTROMAGNÉTIQUES", "ULTRASONS"], "etapes": ["On commence par souder : un câble, une prise XLR, trois broches. 1 la masse, 2 le point chaud, 3 le point froid. Simple, et pas cher.", "Les micros à électret : des capsules très variées et très communes. Une voix fait vibrer leur membrane, et le signal part dans le câble.", "Un micro à ruban fait maison : une feuille d’aluminium plissée, tendue entre deux aimants. Elle vibre avec l’air, et ce mouvement devient courant.", "Un micro sensible aux ondes électromagnétiques : une bobine de cuivre près d’un téléphone ou d’un chargeur, et on entend l’invisible.", "Un micro capable d’entendre les ultrasons : le cri d’une chauve-souris, au-dessus de 20 kHz, ramené dans ce que l’oreille entend. Et d’autres designs encore, pour d’autres capsules."], "mots": ["prise XLR", "1 masse · 2 point chaud · 3 point froid", "on soude", "des capsules à électret", "très variées, très communes", "ruban d’aluminium plissé", "fait maison", "bobine de cuivre", "téléphone", "capsule ultrasons", "plus de 20 kHz", "inaudible", "ramené dans l’audible"]}},
+    sv: {"sv-data": {"titres": ["LES DONNÉES", "VISUEL OU MUSIQUE", "POUR QUI, POUR OÙ"], "etapes": ["Des capteurs, des stations, des flux : les données arrivent de partout et convergent.", "On les convertit en forme artistique : un visuel qui se construit, ou une musique qui en joue les variations.", "Cette forme trouve sa place : au musée, en concert, dans une installation ou un système interactif où le public la fait réagir."], "mots": ["capteurs, mesures", "les données", "un visuel", "une musique", "musée", "concert", "installation interactive"]}, "sv-conseil": {"titres": ["L’IDÉE", "TROIS MONDES", "LA FEUILLE DE ROUTE"], "etapes": ["Un projet commence souvent flou : une envie, un lieu, un public, un délai. On écoute et on pose les contraintes.", "On le regarde avec trois paires d’yeux, l’art, le design et l’ingénierie, jusqu’à trouver ce qui tient des trois.", "Puis on trace la route : idée, prototype, test, scène. Chaque étape a son livrable, et on sait où l’on va."], "mots": ["une idée, des contraintes", "budget", "public", "délai", "lieu", "art", "design", "ingénierie", "le projet", "idée", "prototype", "test", "scène"]}, "sv-da": {"titres": ["LES RÉFÉRENCES", "LES CHOIX", "L’UNIVERS"], "etapes": ["On réunit des références : matières, motifs, signes, images. Elles se répondent, et une direction se dessine.", "On choisit : une palette, une typographie, une couleur de son. Peu d’éléments, mais tenus partout.", "Ensemble, ils forment un univers cohérent, qu’on retrouve dans l’image, l’objet, la scène et le son."], "mots": ["références", "couleurs", "typographie", "son", "un univers cohérent"]}, "sv-digital": {"titres": ["L’ESPACE", "LUMIÈRE ET SON", "LE PUBLIC AGIT"], "etapes": ["Tout part d’un lieu et de ceux qui le traversent : ses murs, ses volumes, ses visiteurs.", "On l’habite d’images projetées et de sons spatialisés : la pièce devient une œuvre.", "Et l’œuvre écoute : chaque présence, chaque mouvement du public la transforme en temps réel."], "mots": ["un espace, des visiteurs", "projection et son", "chaque présence modifie l’œuvre"]}, "sv-physique": {"titres": ["L’IDÉE", "LA FABRICATION", "SA PLACE"], "etapes": ["On imagine avec vous un objet qui n’existe pas encore, et on le dessine en 3D, à la cote.", "Puis on le fabrique : machine, bois, métal, résine, et l’électronique intégrée quand il le faut.", "La pièce rejoint son lieu : un musée, une installation, la scène d’un artiste. Elle est unique, faite pour lui."], "mots": ["un objet imaginé pour vous", "la machine", "bois", "métal", "résine", "une pièce unique", "musée", "installation"]}, "sv-cdm": {"titres": ["LE CORPS", "LES CAPTEURS", "LA MUSIQUE"], "etapes": ["Tout part du corps en mouvement : une danse, un geste, un appui.", "Des capteurs aux poignets et aux chevilles traduisent le mouvement en données.", "Ces données écrivent la musique : le mouvement déclenche les pas d’une séquence et module le son. TRIPODE AS-SIMT en est un outil."], "mots": ["le corps", "capteurs → données", "une séquence jouée par le mouvement"]}, "sv-robot": {"titres": ["UN ACTIONNEUR", "TOUTE LA ROBOTIQUE", "EN SCÈNE"], "etapes": ["Un bras robotique frappe une cloche : un geste mécanique devient un son.", "On travaille avec tout type de robotique : bras, bases roulantes, quadrupèdes, sculptures cinétiques.", "Sur scène, robots, lumière et son jouent la même partition. CAVE // FOUR ROBOTS pousse cette idée jusqu’au bout."], "mots": ["bras robotique", "cloche", "bras", "base roulante", "quadrupède", "sculpture cinétique", "robots, lumière, son : une seule partition", "le public"]}, "sv-audio": {"titres": ["UN PETIT OBJET", "IL SONNE", "UNE FAMILLE D’OBJETS"], "etapes": ["Un petit objet tient dans la main : une coque, un écran, quelques boutons, un glyphe gravé.", "On le touche, il sonne : chaque objet a sa voix, son geste, son caractère.", "Ensemble, ils forment une famille d’objets sonores qu’on joue sur scène ou qu’on pose dans une installation. TEAMMATE.POTO en est né."], "mots": ["un petit objet sonore", "notre esthétique", "on le touche", "il sonne", "une famille d’objets"]}, "sv-capteurs": {"titres": ["LE CORPS ÉQUIPÉ", "LES SIGNAUX", "LA SCÈNE RÉPOND"], "etapes": ["On conçoit des capteurs faits pour le corps : légers, portés aux poignets et aux chevilles d’un danseur ou sur l’instrument d’un musicien.", "Ils envoient le mouvement sans fil, en continu, vers un récepteur : le geste devient données.", "Et la scène répond : la lumière suit la main du danseur, le son suit le musicien, la scénographie bouge avec eux."], "mots": ["capteur", "un danseur équipé", "récepteur sans fil", "le mouvement, en données", "danseur", "musicien", "la lumière suit le geste"]}, "sv-objets": {"titres": ["LE PROTOTYPE", "L’INTÉGRATION", "EN SCÈNE"], "etapes": ["Sur l’établi, un premier prototype : un boîtier, une carte, une lumière qui clignote.", "On l’intègre dans un dispositif : plusieurs modules reliés à un contrôleur qui les fait dialoguer.", "Puis tout part en scène, monté, éclairé, prêt pour le public. TEAMMATE.POTO est passé par là."], "mots": ["le prototype, sur l’établi", "contrôleur", "en scène"]}, "sv-3d": {"titres": ["LA FORME", "L’USAGE", "LE PROTOTYPE"], "etapes": ["On cherche la forme : des volumes qu’on tourne, qu’on affine, qu’on compare.", "On la confronte à l’usage : la main, la prise, les points de contact.", "Puis on l’imprime en 3D, couche par couche, pour la tenir en main dès le lendemain."], "mots": ["la forme", "la main, l’usage", "impression 3D, couche par couche"]}, "sv-lumiere": {"titres": ["UN OBJET LUMINEUX", "PILOTÉ EN WI-FI", "LA SCÈNE LUMIÈRE"], "etapes": ["On crée des objets lumineux intelligents : la lumière, et dedans un microcontrôleur qui la pilote.", "Ils se pilotent sans fil, en Wi-Fi, depuis une console ou un ordinateur : chaque lampe répond. On travaille avec différents microcontrôleurs selon le projet.", "Ensemble, ils deviennent une scénographie lumière : une vague traverse la scène, la lumière suit le son ou le geste."], "mots": ["microcontrôleur", "un objet lumineux", "console, Wi-Fi", "chaque lampe répond", "une scène de lumière"]}, "sv-go2": {"titres": ["LE ROBOT", "LA CHORÉGRAPHIE", "À LOUER, SUR MESURE"], "etapes": ["Le Go2 de Unitree : un robot quadrupède agile, qu’on programme pour la scène et l’installation.", "On écrit sa chorégraphie : des points de passage, des postures, un rythme, calés sur la musique.", "On peut le louer pour une scénographie, équipé sur mesure (mégaphone, lumière, capteurs), pour que vous puissiez vous projeter avec lui. Voir CAVE // FOUR ROBOTS et BILLY // STEAM DECK."], "mots": ["Go2 · Unitree", "les points de passage", "à louer, équipé sur mesure", "le public"]}, "sv-repar": {"titres": ["LA REMISE À NEUF", "LE DIAGNOSTIC", "LE RECALIBRAGE", "MODIFIER, AMÉLIORER"], "etapes": ["D’abord, systématiquement, quelle que soit la panne : on remplace les condensateurs électrolytiques gonflés ou desséchés, et on répare ou on remplace les potentiomètres.", "Puis on cherche la panne : à l’oscilloscope, le signal dit ce qui ne va pas (souffle, craquements, saturation), et on répare.", "On recalibre : un signal propre, des oscillateurs accordés note par note, un ampli qui sonne comme au premier jour.", "Et sur les synthés, on peut aller plus loin : les midifier, leur ajouter des fonctions, les adapter à votre façon de jouer."], "mots": ["synthétiseur, ampli, hi-fi", "souffle, craquements, saturation", "condensateurs remplacés", "potentiomètres réparés", "un signal propre", "accordé", "prise MIDI ajoutée", "une nouvelle fonction", "contrôleur · MIDI"]}, "gear-capteurs": {"titres": ["LE CAPTEUR", "PORTÉ SUR LE CORPS", "ENVOYER", "RECEVOIR : L’ÉCOUTE HAPTIQUE"], "etapes": ["Un petit boîtier imprimé en 3D. Dedans : une carte, un capteur de mouvement (accéléromètre et magnétomètre) et trois moteurs de vibration.", "On le porte au poignet, à la cheville, sur un instrument : il mesure le mouvement sur trois axes, en continu.", "Il envoie ce mouvement sans fil : en Wi-Fi vers l’ordinateur (OSC), vers un synthé ou un logiciel (MIDI), et vers une page web pour le régler depuis un téléphone.", "Et il reçoit : le son ou les données reviennent jusqu’au capteur, et ses trois moteurs les font vibrer. On entend aussi par la peau : c’est l’écoute haptique."], "mots": ["carte", "capteur de mouvement", "moteurs de vibration", "un capteur au poignet", "x · y · z", "ordinateur · Wi-Fi · OSC", "synthé · MIDI", "téléphone · page web", "le son revient", "on l’entend par la peau"]}, "gear-pcb": {"titres": ["LA CARTE", "LES COMPOSANTS", "LA PETITE SÉRIE"], "etapes": ["On part de votre besoin et on dessine la carte : une puce au centre, des pistes qui en partent en faisceaux jusqu’aux bords et au connecteur.", "Puis on pose les composants : condensateurs, connecteurs, alimentation, capteurs.", "On fabrique en petite série, et la carte prend place dans son objet, prête à fonctionner."], "mots": ["les pistes en cuivre", "la puce", "connecteur", "composants", "une petite série", "dans son objet"]}, "ev-micros": {"titres": ["ÉLECTRET", "RUBAN FAIT MAISON", "ONDES ÉLECTROMAGNÉTIQUES", "ULTRASONS"], "etapes": ["Les micros à électret : des capsules très variées et très communes. Une voix fait vibrer leur membrane, et le signal part dans le câble.", "Un micro à ruban fait maison : une feuille d’aluminium plissée, tendue entre deux aimants. Elle vibre avec l’air, et ce mouvement devient courant.", "Un micro sensible aux ondes électromagnétiques : une bobine de cuivre près d’un téléphone ou d’un chargeur, et on entend l’invisible.", "Un micro capable d’entendre les ultrasons : le cri d’une chauve-souris, au-dessus de 20 kHz, ramené dans ce que l’oreille entend. Et d’autres designs encore, pour d’autres capsules."], "mots": ["des capsules à électret", "très variées, très communes", "ruban d’aluminium plissé", "fait maison", "bobine de cuivre", "téléphone", "capsule ultrasons", "plus de 20 kHz", "inaudible", "ramené dans l’audible"]}},
     panneau: 'comment ça marche', legende: 'légende', suivant: 'suite', precedent: 'précédent',
     sync: 'synchronisés', desync: 'désynchronisés', public: 'public', toi: 'toi', memoire: 'mémoire · 48 fragments', reponse: 'teammate',
     decisions: ['imiter', 'contraster', 'densifier', 's’éclaircir', 'se taire'],
@@ -106,7 +106,7 @@ const TEXTES = {
   en: {
     orcaTitres: ["THE FLOORS", "SIGNS THAT MEAN SOMETHING", "CODING WITH THE KEYBOARD", "FROM FLOOR TO FLOOR", "LINKS BETWEEN FLOORS", "2D ⇄ 3D MODE", "PLAN / BUILDINGS", "THE VISIONS", "ONE MATERIAL PER FLOOR", "THE GLYPH MENU", "THE SCORE", "TRACKING, MIDI, OSC"], orcaTouches: ["demo · Ctrl+Shift+D", "NAMES", "keyboard", "' , ( ) \" -", "F9", "Ctrl+D", "F8", "Tab", "F10", "click a glyph", "F5 · Ctrl+F5 REC", "TRACKING"], chargement: "loading\u2026",
     svLegende: [["css", "what we design"], ["or", "what acts, the signal"], ["encre", "the object, the body"], ["gris", "the context"]],
-    sv: {"sv-data": {"titres": ["THE DATA", "VISUALS OR MUSIC", "FOR WHOM, WHERE"], "etapes": ["Sensors, stations, feeds: data comes from everywhere and converges.", "We turn it into an artistic form: visuals that build themselves, or music that plays its variations.", "That form finds its place: in a museum, at a concert, in an installation or an interactive system where the audience makes it react."], "mots": ["sensors, measurements", "the data", "visuals", "music", "museum", "concert", "interactive installation"]}, "sv-conseil": {"titres": ["THE IDEA", "THREE WORLDS", "THE ROADMAP"], "etapes": ["A project often starts blurry: a wish, a place, an audience, a deadline. We listen and lay out the constraints.", "We look at it with three pairs of eyes, art, design and engineering, until we find what holds all three.", "Then we draw the road: idea, prototype, test, stage. Each step has its deliverable, and we know where we are going."], "mots": ["an idea, constraints", "budget", "audience", "deadline", "venue", "art", "design", "engineering", "the project", "idea", "prototype", "test", "stage"]}, "sv-da": {"titres": ["REFERENCES", "CHOICES", "THE WORLD"], "etapes": ["We gather references: materials, patterns, signs, images. They answer each other, and a direction appears.", "We choose: a palette, a typeface, a colour of sound. Few elements, but held everywhere.", "Together they form a coherent world, found in the image, the object, the stage and the sound."], "mots": ["references", "colours", "typeface", "sound", "a coherent world"]}, "sv-digital": {"titres": ["THE SPACE", "LIGHT AND SOUND", "THE AUDIENCE ACTS"], "etapes": ["It all starts with a place and those who cross it: its walls, its volumes, its visitors.", "We fill it with projected images and spatialised sound: the room becomes a work.", "And the work listens: every presence, every movement of the audience changes it in real time."], "mots": ["a space, visitors", "projection and sound", "every presence changes the work"]}, "sv-physique": {"titres": ["THE IDEA", "MAKING", "ITS PLACE"], "etapes": ["We imagine with you an object that does not exist yet, and draw it in 3D, to size.", "Then we make it: machine, wood, metal, resin, and built-in electronics when needed.", "The piece joins its place: a museum, an installation, an artist’s stage. It is unique, made for it."], "mots": ["an object imagined for you", "the machine", "wood", "metal", "resin", "a one-off piece", "museum", "installation"]}, "sv-cdm": {"titres": ["THE BODY", "THE SENSORS", "THE MUSIC"], "etapes": ["It all starts with the moving body: a dance, a gesture, a step.", "Sensors on wrists and ankles translate movement into data.", "That data writes the music: movement triggers the steps of a sequence and shapes the sound. TRIPODE AS-SIMT is one such tool."], "mots": ["the body", "sensors → data", "a sequence played by movement"]}, "sv-robot": {"titres": ["ONE ACTUATOR", "ALL ROBOTICS", "ON STAGE"], "etapes": ["A robotic arm strikes a bell: a mechanical gesture becomes a sound.", "We work with all kinds of robotics: arms, rolling bases, quadrupeds, kinetic sculptures.", "On stage, robots, light and sound play the same score. CAVE // FOUR ROBOTS takes this idea all the way."], "mots": ["robotic arm", "bell", "arm", "rolling base", "quadruped", "kinetic sculpture", "robots, light, sound: one score", "the audience"]}, "sv-audio": {"titres": ["A SMALL OBJECT", "IT SOUNDS", "A FAMILY OF OBJECTS"], "etapes": ["A small object fits in the hand: a shell, a screen, a few knobs, an engraved glyph.", "You touch it, it sounds: each object has its voice, its gesture, its character.", "Together they form a family of sound objects, played on stage or set in an installation. TEAMMATE.POTO was born this way."], "mots": ["a small sound object", "our style", "you touch it", "it sounds", "a family of objects"]}, "sv-capteurs": {"titres": ["THE EQUIPPED BODY", "THE SIGNALS", "THE STAGE ANSWERS"], "etapes": ["We design sensors made for the body: light, worn on a dancer’s wrists and ankles or on a musician’s instrument.", "They send movement wirelessly and continuously to a receiver: gesture becomes data.", "And the stage answers: light follows the dancer’s hand, sound follows the musician, the set moves with them."], "mots": ["sensor", "an equipped dancer", "wireless receiver", "movement, as data", "dancer", "musician", "light follows the gesture"]}, "sv-objets": {"titres": ["THE PROTOTYPE", "INTEGRATION", "ON STAGE"], "etapes": ["On the workbench, a first prototype: a case, a board, a blinking light.", "We integrate it into a device: several modules linked to a controller that makes them talk.", "Then everything goes on stage, rigged, lit, ready for the audience. TEAMMATE.POTO went this way."], "mots": ["the prototype, on the bench", "controller", "on stage"]}, "sv-3d": {"titres": ["THE FORM", "THE USE", "THE PROTOTYPE"], "etapes": ["We look for the form: volumes we turn, refine, compare.", "We test it against use: the hand, the grip, the contact points.", "Then we 3D-print it, layer by layer, to hold it in hand the next day."], "mots": ["the form", "the hand, the use", "3D printing, layer by layer"]}, "sv-lumiere": {"titres": ["A LIGHT OBJECT", "CONTROLLED OVER WI-FI", "A STAGE OF LIGHT"], "etapes": ["We create smart light objects: the light, and inside, a microcontroller that drives it.", "They are controlled wirelessly over Wi-Fi from a desk or a computer: each lamp answers. We work with different microcontrollers depending on the project.", "Together they become a lighting design: a wave crosses the stage, light follows sound or gesture."], "mots": ["microcontroller", "a light object", "desk, Wi-Fi", "each lamp answers", "a stage of light"]}, "sv-go2": {"titres": ["THE ROBOT", "THE CHOREOGRAPHY", "FOR HIRE, CUSTOM-BUILT"], "etapes": ["Unitree’s Go2: an agile quadruped robot we program for stage and installation.", "We write its choreography: waypoints, postures, a rhythm, locked to the music.", "It can be hired for a stage design, custom-equipped (megaphone, light, sensors), so you can picture it in your own project. See CAVE // FOUR ROBOTS and BILLY // STEAM DECK."], "mots": ["Go2 · Unitree", "the waypoints", "for hire, custom-equipped", "the audience"]}, "sv-repar": {"titres": ["THE OVERHAUL", "DIAGNOSIS", "RECALIBRATION", "MODIFY, UPGRADE"], "etapes": ["First, every time, whatever the fault: we renew the parts that age over time, such as swollen or dried-out electrolytic capacitors.", "Then we look for the fault: on the oscilloscope, the signal tells what is wrong (hiss, crackle, clipping), and we repair it.", "We recalibrate: a clean signal, oscillators tuned note by note, an amp that sounds like the first day.", "And on synths we can go further: add MIDI, add functions, adapt them to the way you play."], "mots": ["synth, amp, hi-fi", "hiss, crackle, clipping", "worn capacitors", "solder joints, pots", "a clean signal", "tuned", "MIDI port added", "a new function", "controller · MIDI"]}, "gear-capteurs": {"titres": ["THE SENSOR", "WORN ON THE BODY", "SENDING", "RECEIVING: HAPTIC LISTENING"], "etapes": ["A small 3D-printed case. Inside: an ESP32 board, a motion sensor (accelerometer and magnetometer) and three vibration motors.", "You wear it on the wrist, the ankle, on an instrument: it measures movement on three axes, continuously.", "It sends that movement wirelessly: over Wi-Fi to a computer (OSC), to a synth or software (MIDI), and to a web page to set it up from a phone.", "And it receives: sound or data come back to the sensor, and its three motors turn them into vibration. You also hear through the skin: that is haptic listening."], "mots": ["ESP32 board", "motion sensor", "vibration motors", "a sensor on the wrist", "x · y · z", "computer · Wi-Fi · OSC", "synth · MIDI", "phone · web page", "the sound comes back", "you hear it through the skin"]}, "gear-pcb": {"titres": ["THE BOARD", "THE COMPONENTS", "THE SMALL RUN"], "etapes": ["We start from your need and draw the board: a chip in the middle, traces running out in bundles to the edges and the connector.", "Then we place the components: capacitors, connectors, power, sensors.", "We make a small run, and the board takes its place in its object, ready to work."], "mots": ["copper traces", "the chip", "connector", "components", "a small run", "in its object"]}, "ev-micros": {"titres": ["SOLDERING AN XLR", "ELECTRET", "HOMEMADE RIBBON", "ELECTROMAGNETIC WAVES", "ULTRASOUND"], "etapes": ["We start by soldering: a cable, an XLR plug, three pins. 1 ground, 2 hot, 3 cold. Simple, and cheap.", "Electret mics: very varied, very common capsules. A voice makes their membrane vibrate, and the signal goes down the cable.", "A homemade ribbon mic: a pleated aluminium foil stretched between two magnets. It moves with the air, and that movement becomes current.", "A mic sensitive to electromagnetic waves: a copper coil near a phone or a charger, and you hear the invisible.", "A mic that hears ultrasound: a bat’s call, above 20 kHz, brought down into what the ear can hear. And more designs, for other capsules."], "mots": ["XLR plug", "1 ground · 2 hot · 3 cold", "soldering", "electret capsules", "very varied, very common", "pleated aluminium ribbon", "homemade", "copper coil", "phone", "ultrasonic capsule", "above 20 kHz", "inaudible", "brought into hearing range"]}},
+    sv: {"sv-data": {"titres": ["THE DATA", "VISUALS OR MUSIC", "FOR WHOM, WHERE"], "etapes": ["Sensors, stations, feeds: data comes from everywhere and converges.", "We turn it into an artistic form: visuals that build themselves, or music that plays its variations.", "That form finds its place: in a museum, at a concert, in an installation or an interactive system where the audience makes it react."], "mots": ["sensors, measurements", "the data", "visuals", "music", "museum", "concert", "interactive installation"]}, "sv-conseil": {"titres": ["THE IDEA", "THREE WORLDS", "THE ROADMAP"], "etapes": ["A project often starts blurry: a wish, a place, an audience, a deadline. We listen and lay out the constraints.", "We look at it with three pairs of eyes, art, design and engineering, until we find what holds all three.", "Then we draw the road: idea, prototype, test, stage. Each step has its deliverable, and we know where we are going."], "mots": ["an idea, constraints", "budget", "audience", "deadline", "venue", "art", "design", "engineering", "the project", "idea", "prototype", "test", "stage"]}, "sv-da": {"titres": ["REFERENCES", "CHOICES", "THE WORLD"], "etapes": ["We gather references: materials, patterns, signs, images. They answer each other, and a direction appears.", "We choose: a palette, a typeface, a colour of sound. Few elements, but held everywhere.", "Together they form a coherent world, found in the image, the object, the stage and the sound."], "mots": ["references", "colours", "typeface", "sound", "a coherent world"]}, "sv-digital": {"titres": ["THE SPACE", "LIGHT AND SOUND", "THE AUDIENCE ACTS"], "etapes": ["It all starts with a place and those who cross it: its walls, its volumes, its visitors.", "We fill it with projected images and spatialised sound: the room becomes a work.", "And the work listens: every presence, every movement of the audience changes it in real time."], "mots": ["a space, visitors", "projection and sound", "every presence changes the work"]}, "sv-physique": {"titres": ["THE IDEA", "MAKING", "ITS PLACE"], "etapes": ["We imagine with you an object that does not exist yet, and draw it in 3D, to size.", "Then we make it: machine, wood, metal, resin, and built-in electronics when needed.", "The piece joins its place: a museum, an installation, an artist’s stage. It is unique, made for it."], "mots": ["an object imagined for you", "the machine", "wood", "metal", "resin", "a one-off piece", "museum", "installation"]}, "sv-cdm": {"titres": ["THE BODY", "THE SENSORS", "THE MUSIC"], "etapes": ["It all starts with the moving body: a dance, a gesture, a step.", "Sensors on wrists and ankles translate movement into data.", "That data writes the music: movement triggers the steps of a sequence and shapes the sound. TRIPODE AS-SIMT is one such tool."], "mots": ["the body", "sensors → data", "a sequence played by movement"]}, "sv-robot": {"titres": ["ONE ACTUATOR", "ALL ROBOTICS", "ON STAGE"], "etapes": ["A robotic arm strikes a bell: a mechanical gesture becomes a sound.", "We work with all kinds of robotics: arms, rolling bases, quadrupeds, kinetic sculptures.", "On stage, robots, light and sound play the same score. CAVE // FOUR ROBOTS takes this idea all the way."], "mots": ["robotic arm", "bell", "arm", "rolling base", "quadruped", "kinetic sculpture", "robots, light, sound: one score", "the audience"]}, "sv-audio": {"titres": ["A SMALL OBJECT", "IT SOUNDS", "A FAMILY OF OBJECTS"], "etapes": ["A small object fits in the hand: a shell, a screen, a few knobs, an engraved glyph.", "You touch it, it sounds: each object has its voice, its gesture, its character.", "Together they form a family of sound objects, played on stage or set in an installation. TEAMMATE.POTO was born this way."], "mots": ["a small sound object", "our style", "you touch it", "it sounds", "a family of objects"]}, "sv-capteurs": {"titres": ["THE EQUIPPED BODY", "THE SIGNALS", "THE STAGE ANSWERS"], "etapes": ["We design sensors made for the body: light, worn on a dancer’s wrists and ankles or on a musician’s instrument.", "They send movement wirelessly and continuously to a receiver: gesture becomes data.", "And the stage answers: light follows the dancer’s hand, sound follows the musician, the set moves with them."], "mots": ["sensor", "an equipped dancer", "wireless receiver", "movement, as data", "dancer", "musician", "light follows the gesture"]}, "sv-objets": {"titres": ["THE PROTOTYPE", "INTEGRATION", "ON STAGE"], "etapes": ["On the workbench, a first prototype: a case, a board, a blinking light.", "We integrate it into a device: several modules linked to a controller that makes them talk.", "Then everything goes on stage, rigged, lit, ready for the audience. TEAMMATE.POTO went this way."], "mots": ["the prototype, on the bench", "controller", "on stage"]}, "sv-3d": {"titres": ["THE FORM", "THE USE", "THE PROTOTYPE"], "etapes": ["We look for the form: volumes we turn, refine, compare.", "We test it against use: the hand, the grip, the contact points.", "Then we 3D-print it, layer by layer, to hold it in hand the next day."], "mots": ["the form", "the hand, the use", "3D printing, layer by layer"]}, "sv-lumiere": {"titres": ["A LIGHT OBJECT", "CONTROLLED OVER WI-FI", "A STAGE OF LIGHT"], "etapes": ["We create smart light objects: the light, and inside, a microcontroller that drives it.", "They are controlled wirelessly over Wi-Fi from a desk or a computer: each lamp answers. We work with different microcontrollers depending on the project.", "Together they become a lighting design: a wave crosses the stage, light follows sound or gesture."], "mots": ["microcontroller", "a light object", "desk, Wi-Fi", "each lamp answers", "a stage of light"]}, "sv-go2": {"titres": ["THE ROBOT", "THE CHOREOGRAPHY", "FOR HIRE, CUSTOM-BUILT"], "etapes": ["Unitree’s Go2: an agile quadruped robot we program for stage and installation.", "We write its choreography: waypoints, postures, a rhythm, locked to the music.", "It can be hired for a stage design, custom-equipped (megaphone, light, sensors), so you can picture it in your own project. See CAVE // FOUR ROBOTS and BILLY // STEAM DECK."], "mots": ["Go2 · Unitree", "the waypoints", "for hire, custom-equipped", "the audience"]}, "sv-repar": {"titres": ["THE OVERHAUL", "DIAGNOSIS", "RECALIBRATION", "MODIFY, UPGRADE"], "etapes": ["First, every time, whatever the fault: we replace swollen or dried-out electrolytic capacitors, and we repair or replace the potentiometers.", "Then we look for the fault: on the oscilloscope, the signal tells what is wrong (hiss, crackle, clipping), and we repair it.", "We recalibrate: a clean signal, oscillators tuned note by note, an amp that sounds like the first day.", "And on synths we can go further: add MIDI, add functions, adapt them to the way you play."], "mots": ["synth, amp, hi-fi", "hiss, crackle, clipping", "capacitors replaced", "pots repaired", "a clean signal", "tuned", "MIDI port added", "a new function", "controller · MIDI"]}, "gear-capteurs": {"titres": ["THE SENSOR", "WORN ON THE BODY", "SENDING", "RECEIVING: HAPTIC LISTENING"], "etapes": ["A small 3D-printed case. Inside: a board, a motion sensor (accelerometer and magnetometer) and three vibration motors.", "You wear it on the wrist, the ankle, on an instrument: it measures movement on three axes, continuously.", "It sends that movement wirelessly: over Wi-Fi to a computer (OSC), to a synth or software (MIDI), and to a web page to set it up from a phone.", "And it receives: sound or data come back to the sensor, and its three motors turn them into vibration. You also hear through the skin: that is haptic listening."], "mots": ["board", "motion sensor", "vibration motors", "a sensor on the wrist", "x · y · z", "computer · Wi-Fi · OSC", "synth · MIDI", "phone · web page", "the sound comes back", "you hear it through the skin"]}, "gear-pcb": {"titres": ["THE BOARD", "THE COMPONENTS", "THE SMALL RUN"], "etapes": ["We start from your need and draw the board: a chip in the middle, traces running out in bundles to the edges and the connector.", "Then we place the components: capacitors, connectors, power, sensors.", "We make a small run, and the board takes its place in its object, ready to work."], "mots": ["copper traces", "the chip", "connector", "components", "a small run", "in its object"]}, "ev-micros": {"titres": ["ELECTRET", "HOMEMADE RIBBON", "ELECTROMAGNETIC WAVES", "ULTRASOUND"], "etapes": ["Electret mics: very varied, very common capsules. A voice makes their membrane vibrate, and the signal goes down the cable.", "A homemade ribbon mic: a pleated aluminium foil stretched between two magnets. It moves with the air, and that movement becomes current.", "A mic sensitive to electromagnetic waves: a copper coil near a phone or a charger, and you hear the invisible.", "A mic that hears ultrasound: a bat’s call, above 20 kHz, brought down into what the ear can hear. And more designs, for other capsules."], "mots": ["electret capsules", "very varied, very common", "pleated aluminium ribbon", "homemade", "copper coil", "phone", "ultrasonic capsule", "above 20 kHz", "inaudible", "brought into hearing range"]}},
     panneau: 'how it works', legende: 'key', suivant: 'next', precedent: 'previous',
     sync: 'in sync', desync: 'out of sync', public: 'audience', toi: 'you', memoire: 'memory · 48 fragments', reponse: 'teammate',
     decisions: ['imitate', 'contrast', 'densify', 'thin out', 'stay silent'],
@@ -1500,15 +1500,37 @@ const K3 = {
 };
 const GCLES = Object.keys(SIG);
 function orbite (w, h, cx, cy, cz, R, haut, ang, fov = 1.0) { return camera3d([cx + Math.cos(ang) * R, haut, cz + Math.sin(ang) * R], [cx, cy, cz], w, h, fov); }
-// une orbite qui recule jusqu'à ce que toute la scène tienne dans le cadre (le sol mis à part)
-function orbiteC (L, w, h, cx, cy, cz, R, haut, ang, fov = 1.0) {
-  const marge = 14; const hautMin = 30; let cam = null;
-  for (let k = 0; k < 10; k++) {
-    cam = orbite(w, h, cx, cy, cz, R, haut, ang, fov); let ok = true;
-    for (const p of L) { if (p.r === 'sombre' || (p.a ?? 1) < 0.15) continue; const q = cam.p(p.x, p.y, p.z); if (!q || q[0] < marge || q[0] > w - marge || q[1] < hautMin || q[1] > h - marge) { ok = false; break; } }
-    if (ok) break; R *= 1.12; haut = cy + (haut - cy) * 1.12;
+// une orbite qui recule jusqu'à ce que toute la scène tienne dans le cadre.
+// Le recul est lissé : un bras, une pièce qui tombe ou un point au bord ne fait plus zoomer et dézoomer à chaque image.
+let cadreMemo = null;
+function orbiteC (L, w, h, cx, cy, cz, R0, haut0, ang, fov = 1.0) {
+  const marge = 14; const hautMin = 30;
+  const tient = (s) => {
+    const cam = orbite(w, h, cx, cy, cz, R0 * s, cy + (haut0 - cy) * s, ang, fov);
+    for (const p of L) {
+      if (p.onde || p.r === 'sombre' || (p.a ?? 1) < 0.15) continue;
+      const q = cam.p(p.x, p.y, p.z);
+      if (!q || q[0] < marge || q[0] > w - marge || q[1] < hautMin || q[1] > h - marge) return false;
+    }
+    return true;
+  };
+  let voulu = 1;
+  if (!tient(1)) {
+    let lo = 1; let hi = 1.12;
+    while (hi < 4 && !tient(hi)) { lo = hi; hi *= 1.12; }
+    for (let i = 0; i < 6; i++) { const mid = (lo + hi) / 2; if (tient(mid)) hi = mid; else lo = mid; }
+    voulu = hi;
   }
-  return cam;
+  const cle = [w, h, cx, cy, cz, R0, haut0, fov].join('|');
+  const now = performance.now();
+  if (!cadreMemo || cadreMemo.cle !== cle) cadreMemo = { cle, s: voulu, t: now };
+  else {
+    const dt = Math.min(0.05, (now - cadreMemo.t) / 1000); cadreMemo.t = now;
+    const diff = voulu - cadreMemo.s;
+    if (Math.abs(diff) > 0.03) cadreMemo.s += diff * (1 - Math.exp(-dt * (diff > 0 ? 1.6 : 0.55)));
+  }
+  const s = cadreMemo.s;
+  return orbite(w, h, cx, cy, cz, R0 * s, cy + (haut0 - cy) * s, ang, fov);
 }
 function rendre3d (ctx, cam, L, css, o = {}) {
   etiq.largeur = cam.w;
@@ -1532,7 +1554,7 @@ function etiq (ctx, cam, p, txt, coul = GRIS, taille = 10, align = 'center', sty
 }
 function anneaux (L, cx, cy, cz, t, r, n = 3, rmax = 2.5, vit = 0.8, plan = 'h') {
   // des ondes qui s'éloignent (un son, un signal) : des cercles de points
-  for (let k = 0; k < n; k++) { const u = ((t * vit + k / n) % 1); const rr = 0.2 + u * rmax; const m = Math.round(rr * 18); for (let i = 0; i < m; i++) { const a = i / m * 6.283; const p = plan === 'h' ? [cx + Math.cos(a) * rr, cy, cz + Math.sin(a) * rr] : [cx + Math.cos(a) * rr, cy + Math.sin(a) * rr, cz]; L.push({ x: p[0], y: p[1], z: p[2], r, t: 0.05, a: 1 - u, g: GCLES[i % GCLES.length] }); } }
+  for (let k = 0; k < n; k++) { const u = ((t * vit + k / n) % 1); const rr = 0.2 + u * rmax; const m = Math.round(rr * 18); for (let i = 0; i < m; i++) { const a = i / m * 6.283; const p = plan === 'h' ? [cx + Math.cos(a) * rr, cy, cz + Math.sin(a) * rr] : [cx + Math.cos(a) * rr, cy + Math.sin(a) * rr, cz]; L.push({ x: p[0], y: p[1], z: p[2], r, t: 0.05, a: 1 - u, onde: true, g: GCLES[i % GCLES.length] }); } }
 }
 
 Object.assign(SV, {
@@ -1843,7 +1865,7 @@ Object.assign(SV, {
       tripode3d(L, P[0], P[1], P[2], t * 0.2, 0.9, 'or');
       const C = [-1.4, 1.6, -1.2]; K3.boite(L, C[0], 1.2, C[2], 0.6, 0.04, 0.4, 'css', 0.05);
       for (let k = 0; k < 10; k++) { const u = ((t * 0.6 + k / 10) % 1); K3.pt(L, C[0] + (P[0] - C[0]) * u, 1.25 + (P[1] - 1.25) * u + Math.sin(u * 3.14) * 0.4, C[2] + (P[2] - C[2]) * u, 'css', 0.05); }
-      [0, 1, 2].forEach((k) => { const x = -0.12 + k * 0.12; const z = 0; const on = Math.floor(t * 3) % 3 === k; if (on) for (let q = 0; q < 3; q++) { const rr = 0.06 + ((t * 2 + q / 3) % 1) * 0.3; for (let i = 0; i < 14; i++) { const b = i / 14 * 6.283; L.push({ x: x + Math.cos(b) * rr, y: 0.97, z: z + Math.sin(b) * rr, r: 'ocre', t: 0.025, a: 1 - rr / 0.36, g: GCLES[i] }); } } });
+      [0, 1, 2].forEach((k) => { const x = -0.12 + k * 0.12; const z = 0; const on = Math.floor(t * 3) % 3 === k; if (on) for (let q = 0; q < 3; q++) { const rr = 0.06 + ((t * 2 + q / 3) % 1) * 0.3; for (let i = 0; i < 14; i++) { const b = i / 14 * 6.283; L.push({ x: x + Math.cos(b) * rr, y: 0.97, z: z + Math.sin(b) * rr, r: 'ocre', t: 0.025, a: 1 - rr / 0.36, onde: true, g: GCLES[i] }); } } });
       const cam = orbiteC(L, w, h, -0.2, 0.95, 0, 1.9, 1.5, 1.0 + Math.sin(t * 0.25) * 0.4, 1.0); rendre3d(ctx, cam, L, css, { portee: 7 });
       etiq(ctx, cam, [C[0], 1.45, C[2]], m[8], css); etiq(ctx, cam, [0, 1.25, 0], m[9], OCRE, 11);
     },
@@ -1874,10 +1896,53 @@ Object.assign(SV, {
   ],
 });
 
+// étape 1 seulement : les condensateurs gonflés et les potentiomètres usés partent, les neufs se posent
+function remiseNeuf (ctx, w, h, t, ph, s, css, m) {
+  const L = [];
+  K3.boite(L, 0, 0, 0, 2.2, 0.03, 1.35, '#2f6b3a', 0.12);
+  for (let i = -2; i <= 2; i++) K3.ligne(L, [-0.95, 0.04, i * 0.22], [0.95, 0.04, i * 0.22], 'ocre', 0.16, 0.015);
+  K3.boite(L, -0.05, 0.035, -0.02, 0.32, 0.04, 0.32, 'encre', 0.06, 0.022);
+  const pastille = (x, z) => { K3.pt(L, x - 0.05, 0.045, z, 'or', 0.032); K3.pt(L, x + 0.05, 0.045, z, 'or', 0.032); };
+  const condo = (x, z, y, neuf) => {
+    const rr = neuf ? 0.075 : 0.1; const haut = neuf ? 0.2 : 0.14;
+    K3.cylindre(L, x, z, rr, y, y + haut, neuf ? 'css' : 'ocre', 0.045, 0.03);
+    K3.ligne(L, [x - rr, y + haut * 0.7, z], [x + rr, y + haut * 0.7, z], neuf ? 'or' : 'encre', 0.03, 0.022);
+    if (!neuf) K3.sphere(L, x, y + haut + 0.03, z, 0.045, 'ocre', 14, 0.03);
+    K3.ligne(L, [x - 0.035, 0.04, z], [x - 0.035, y, z], 'or', 0.045, 0.016);
+    K3.ligne(L, [x + 0.035, 0.04, z], [x + 0.035, y, z], 'or', 0.045, 0.016);
+  };
+  const potar = (x, z, y, ang, neuf) => {
+    K3.cylindre(L, x, z, 0.11, y, y + 0.05, neuf ? 'encre' : 'ocre', 0.04, 0.026);
+    K3.cylindre(L, x, z, 0.028, y + 0.05, y + 0.14, 'gris', 0.035, 0.02);
+    K3.ligne(L, [x, y + 0.15, z], [x + Math.cos(ang) * 0.1, y + 0.15, z + Math.sin(ang) * 0.1], neuf ? 'or' : 'ocre', 0.028, 0.024);
+  };
+  const geste = (debut) => {
+    const u = ph - debut;
+    if (u < 0) return { y: 0.04, neuf: false };
+    if (u < 1.8) return { y: 0.04 + lis(u / 1.8) * 0.38, neuf: false };
+    if (u < 2.15) return { y: 0.42, neuf: true, cache: true };
+    if (u < 3.8) return { y: 0.04 + (1 - lis((u - 2.15) / 1.65)) * 0.38, neuf: true };
+    return { y: 0.04, neuf: true };
+  };
+  const caps = [[-0.7, -0.28], [0.12, -0.16], [0.68, -0.34]];
+  const pots = [[-0.4, 0.38], [0.55, 0.34]];
+  caps.forEach(([x, z]) => pastille(x, z));
+  pots.forEach(([x, z]) => pastille(x, z));
+  caps.forEach(([x, z], i) => { const e = geste(0.4 + i * 2.2); if (!e.cache) condo(x, z, e.y, e.neuf); });
+  pots.forEach(([x, z], i) => {
+    const e = geste(0.4 + (caps.length + i) * 2.2);
+    if (!e.cache) potar(x, z, e.y, e.neuf ? t * 0.6 : Math.sin(t * 8) * 0.7, e.neuf);
+  });
+  const cam = orbiteC(L, w, h, 0, 0.1, 0, 2.15, 1.35, 0.7 + Math.sin(t * 0.16) * 0.18, 1.02);
+  rendre3d(ctx, cam, L, css, { portee: 7 });
+  texte(ctx, m[2], 14, h - 14, css, 10);
+  texte(ctx, m[3], w - 14, h - 14, OR, 10, 'right');
+}
+
 // la réparation en quatre temps : remise à neuf, diagnostic, recalibrage, modifications
 {
   const r = SV['sv-repar'];
-  SV['sv-repar'] = [r[1], r[0], r[2], (ctx, w, h, t, ph, s, css, m) => {
+  SV['sv-repar'] = [remiseNeuf, r[0], r[2], (ctx, w, h, t, ph, s, css, m) => {
     // un synthé qu'on modifie : une prise MIDI ajoutée, une carte de fonctions en plus
     const x0 = w * 0.08; const y0 = h * 0.18; const W = w * 0.84; const k = lis(ph / 4);
     boite(ctx, x0, y0, W, 80, ENCRE, '#0b0b0a'); for (let i = 0; i < 6; i++) bouton(ctx, x0 + 24 + i * 30, y0 + 24, 9, 1 + i + Math.sin(t + i) * 0.4, ENCRE);
@@ -1897,32 +1962,10 @@ Object.assign(SV, {
     }
   }];
 }
-// ---------------------------------------------------------------- ÉVÉNEMENTS · workshop micros XLR : souder, puis quatre façons d'entendre
-function jackXLR (ctx, s, x, y, r, t, k) {
-  // l'embase XLR vue de face : trois broches, 1 masse, 2 point chaud, 3 point froid
-  ctx.strokeStyle = ENCRE; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.stroke(); ctx.lineWidth = 1;
-  ctx.fillStyle = ENCRE; ctx.fillRect(x - 5, y - r - 6, 10, 8);
-  const B = [[x - r * 0.42, y - r * 0.1, '1'], [x + r * 0.42, y - r * 0.1, '2'], [x, y + r * 0.45, '3']];
-  B.forEach(([bx, by, n], i) => { const fait = k > (i + 1) / 4; ctx.fillStyle = fait ? OR : '#000'; ctx.strokeStyle = fait ? OR : GRIS; ctx.beginPath(); ctx.arc(bx, by, r * 0.13, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); texte(ctx, n, bx, by - r * 0.2, GRIS, 10, 'center'); });
-  return B;
-}
+// ---------------------------------------------------------------- ÉVÉNEMENTS · workshop micros : quatre façons d'entendre
 function osc2 (ctx, w, h, f, coul = OR) { oscillo(ctx, 14, h - 48, w - 28, 34, f, coul); texte(ctx, '→ XLR → table de mixage', 14, h - 4, GRIS, 9); }
 Object.assign(SV, {
   'ev-micros': [
-    (ctx, w, h, t, ph, s, css, m) => {
-      // souder un XLR : chaque fil trouve sa broche
-      const x = w * 0.62; const y = h * 0.42; const r = Math.min(w, h) * 0.2; const k = lis(ph / 12);
-      const B = jackXLR(ctx, s, x, y, r, t, k);
-      const fils = [[GRIS, 0], [ '#ff6b5a', 1], [ENCRE, 2]]; const cx0 = w * 0.08; const cy0 = h * 0.5;
-      ctx.lineWidth = 3; ctx.strokeStyle = '#3c3b38'; ctx.beginPath(); ctx.moveTo(cx0 - 30, cy0); ctx.lineTo(cx0 + 20, cy0); ctx.stroke(); ctx.lineWidth = 1;
-      fils.forEach(([c, i]) => { const [bx, by] = B[i]; const u = Math.max(0, Math.min(1, k * 4 - i * 0.9)); ctx.strokeStyle = c; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(cx0 + 20, cy0 + (i - 1) * 4); ctx.bezierCurveTo(cx0 + 90, cy0 + (i - 1) * 30, bx - 90, by, cx0 + 20 + (bx - cx0 - 20) * u, cy0 + (by - cy0) * u); ctx.stroke(); ctx.lineWidth = 1; });
-      const cible = B[Math.min(2, Math.floor(k * 3))]; const fx = cible[0] + 8; const fy = cible[1] - 8;
-      ctx.strokeStyle = ENCRE; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(fx, fy); ctx.lineTo(fx + 70, fy - 70); ctx.stroke(); ctx.lineWidth = 1; ctx.fillStyle = OR; ctx.beginPath(); ctx.arc(fx, fy, 3, 0, Math.PI * 2); ctx.fill();
-      for (let p = 0; p < 6; p++) { const a = ((t * 0.8 + p / 6) % 1); ctx.fillStyle = GRIS; ctx.globalAlpha = 1 - a; ctx.beginPath(); ctx.arc(fx + Math.sin(t * 2 + p) * 6, fy - a * 50, 2 + a * 4, 0, Math.PI * 2); ctx.fill(); }
-      ctx.globalAlpha = 1;
-      texte(ctx, m[0], x, y + r + 26, ENCRE, 10, 'center'); texte(ctx, m[1], x, y + r + 42, GRIS, 9, 'center'); texte(ctx, m[2], fx + 70, fy - 78, OR, 10, 'center');
-      osc2(ctx, w, h, (u) => (k > 0.95 ? Math.sin(u * 40 + t * 6) * 0.6 : 0));
-    },
     (ctx, w, h, t, ph, s, css, m) => {
       // électret : des capsules très variées, très communes ; une voix les fait vibrer
       const env = Math.max(0, 0.45 + 0.55 * Math.sin(t * 2.3) * Math.sin(t * 0.9 + 1)); const vx = w * 0.12; const cy = h * 0.4;
@@ -1930,7 +1973,7 @@ Object.assign(SV, {
       for (let k = 0; k < 6; k++) { const r = (ph * 60 + k * 22) % 130 + 24; ctx.strokeStyle = GRIS; ctx.globalAlpha = Math.max(0, 1 - r / 150) * (0.3 + env); ctx.beginPath(); ctx.arc(vx, cy, r, -0.6, 0.6); ctx.stroke(); }
       ctx.globalAlpha = 1;
       [[0.42, 9], [0.55, 14], [0.7, 6], [0.84, 11]].forEach(([fx, rr], i) => { const x = w * fx; const y = cy + (i % 2 ? -20 : 18); const dep = Math.sin(t * 30 + i) * 2 * env; ctx.strokeStyle = ENCRE; ctx.beginPath(); ctx.arc(x, y, rr * 1.4, 0, Math.PI * 2); ctx.stroke(); ctx.strokeStyle = css; ctx.beginPath(); ctx.arc(x, y, rr * 0.9 + dep, 0, Math.PI * 2); ctx.stroke(); ctx.fillStyle = ENCRE; ctx.fillRect(x - 3, y + rr * 1.4, 1, 10); ctx.fillRect(x + 2, y + rr * 1.4, 1, 10); });
-      texte(ctx, m[3], w * 0.63, cy + 60, ENCRE, 10, 'center'); texte(ctx, m[4], w * 0.63, cy + 76, GRIS, 9, 'center');
+      texte(ctx, m[0], w * 0.63, cy + 60, ENCRE, 10, 'center'); texte(ctx, m[1], w * 0.63, cy + 76, GRIS, 9, 'center');
       osc2(ctx, w, h, (u) => env * (Math.sin(u * 31 + t * 30) * 0.55 + Math.sin(u * 53 + t * 47) * 0.25));
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1941,7 +1984,7 @@ Object.assign(SV, {
       ctx.strokeStyle = '#d8d4c8'; ctx.lineWidth = 2; ctx.beginPath(); for (let y = y0 + 6; y <= y1 - 6; y += 2) { const plis = ((y - y0) % 10 < 5 ? -1 : 1) * 3; const x = cx + plis + Math.sin(t * 22 + y * 0.03) * 5 * env; y === y0 + 6 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); } ctx.stroke(); ctx.lineWidth = 1;
       for (let k = 0; k < 5; k++) { const r = ((ph * 55 + k * 24) % 120) + 10; ctx.strokeStyle = GRIS; ctx.globalAlpha = Math.max(0, 1 - r / 130) * env; ctx.beginPath(); ctx.arc(w * 0.02, (y0 + y1) / 2, r + w * 0.12, -0.5, 0.5); ctx.stroke(); }
       ctx.globalAlpha = 1;
-      texte(ctx, m[5], cx, y1 + 18, ENCRE, 10, 'center'); texte(ctx, m[6], cx, y0 - 8, GRIS, 9, 'center');
+      texte(ctx, m[2], cx, y1 + 18, ENCRE, 10, 'center'); texte(ctx, m[3], cx, y0 - 8, GRIS, 9, 'center');
       osc2(ctx, w, h, (u) => env * Math.sin(u * 18 + t * 22) * 0.7);
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1952,7 +1995,7 @@ Object.assign(SV, {
       ctx.fillStyle = '#000'; ctx.beginPath(); ctx.roundRect(tx - 20, cy - 36, 40, 72, 6); ctx.fill(); ctx.strokeStyle = ENCRE; ctx.stroke();
       ctx.fillStyle = css; ctx.globalAlpha = salve ? 0.5 + 0.4 * Math.sin(t * 20) : 0.15; ctx.fillRect(tx - 15, cy - 28, 30, 50); ctx.globalAlpha = 1;
       ctx.strokeStyle = OCRE; for (let i = 0; i < 12; i++) { ctx.beginPath(); ctx.ellipse(bx, cy - 33 + i * 6, 20, 5, 0, 0, Math.PI * 2); ctx.stroke(); }
-      texte(ctx, m[7], bx, cy + 56, OCRE, 10, 'center'); texte(ctx, m[8], tx, cy + 56, css, 10, 'center');
+      texte(ctx, m[4], bx, cy + 56, OCRE, 10, 'center'); texte(ctx, m[5], tx, cy + 56, css, 10, 'center');
       osc2(ctx, w, h, (u) => (salve ? Math.sign(Math.sin(u * 70 + t * 70)) * 0.6 : Math.sin(u * 20 + t * 20) * 0.12));
     },
     (ctx, w, h, t, ph, s, css, m) => {
@@ -1962,12 +2005,17 @@ Object.assign(SV, {
       for (let k = 0; k < 14; k++) { const r = ((ph * 90 + k * 12) % 170) + 30; ctx.strokeStyle = OR; ctx.globalAlpha = Math.max(0, 1 - r / 200); ctx.beginPath(); ctx.arc(cx, cy + 4, r, -0.35, 0.35); ctx.stroke(); }
       ctx.globalAlpha = 1;
       const mx = w * 0.72; ctx.strokeStyle = ENCRE; ctx.strokeRect(mx - 12, cy - 10, 24, 20); ctx.strokeStyle = css; ctx.beginPath(); ctx.arc(mx - 4, cy, 5, 0, Math.PI * 2); ctx.stroke();
-      texte(ctx, m[9], mx, cy + 30, ENCRE, 10, 'center'); texte(ctx, m[10], cx, cy - 34, OR, 10, 'center');
-      oscillo(ctx, 14, h - 98, w - 28, 30, (u) => Math.sin(u * 220 + t * 90) * 0.7 * (0.5 + 0.5 * Math.sin(u * 6 + t)), OR); texte(ctx, m[11], 14, h - 102, OR, 9);
-      osc2(ctx, w, h, (u) => Math.sin(u * 22 + t * 10) * 0.7 * (0.5 + 0.5 * Math.sin(u * 6 + t)), css); texte(ctx, m[12], w - 14, h - 52, css, 9, 'right');
+      texte(ctx, m[6], mx, cy + 30, ENCRE, 10, 'center'); texte(ctx, m[7], cx, cy - 34, OR, 10, 'center');
+      oscillo(ctx, 14, h - 98, w - 28, 30, (u) => Math.sin(u * 220 + t * 90) * 0.7 * (0.5 + 0.5 * Math.sin(u * 6 + t)), OR); texte(ctx, m[8], 14, h - 102, OR, 9);
+      osc2(ctx, w, h, (u) => Math.sin(u * 22 + t * 10) * 0.7 * (0.5 + 0.5 * Math.sin(u * 6 + t)), css); texte(ctx, m[9], w - 14, h - 52, css, 9, 'right');
     },
   ],
 });
+
+// le service « PCB sur mesure » joue la même animation que la carte de la boutique
+SV['sv-pcb'] = SV['gear-pcb'];
+TEXTES.fr.sv['sv-pcb'] = TEXTES.fr.sv['gear-pcb'];
+TEXTES.en.sv['sv-pcb'] = TEXTES.en.sv['gear-pcb'];
 
 function serviceScene (id) {
   return (ctx, w, h, t, etat, css, L) => {
@@ -1997,42 +2045,82 @@ function panneau (ctx, x, y, w, h, R, css, L, compact) {
     yy += 34;
     // sur un grand écran (ORCA//GLYPH en pleine largeur), l'explication s'écrit plus grand
     const tx = w >= 560 ? 16 : 13; ctx.font = `${tx}px 'IBM Plex Mono', monospace`;
-    couper(ctx, etapes[R.actif], w - p * 2).forEach((l) => { texte(ctx, l, x + p, yy, ENCRE, tx); yy += Math.round(tx * 1.45); });
+    ctx.save(); ctx.beginPath(); ctx.rect(x, yy - 16 - (tx - 13), w, y + h - yy - 8); ctx.clip();
+    couper(ctx, etapes[R.actif], w - p * 2).forEach((l) => { if (yy > y + h - 10) return; texte(ctx, l, x + p, yy, ENCRE, tx); yy += Math.round(tx * 1.45); });
+    ctx.restore();
   } else {
     texte(ctx, L.panneau.toUpperCase(), x + p, yy, GRIS, 10); yy += 36 + (R.decal || 0);
-    const taille = 12; const ligne = 18;
+    const taille = 12; let ligne = 18; let ecart = 10;
     ctx.font = `${taille}px 'IBM Plex Mono', monospace`;
-    // beaucoup d'étapes : seule l'étape en cours s'écrit en entier, les autres tiennent sur une ligne
-    const hauteurTotale = etapes.reduce((acc, e) => acc + couper(ctx, e, w - p * 2 - 28).length * ligne + 10, 0);
-    const serre = hauteurTotale > h - 80;
-    etapes.forEach((s, i) => {
-      const on = i === R.actif;
-      let lignes = couper(ctx, s, w - p * 2 - 28);
-      if (serre && !on) { let l0 = lignes[0]; if (lignes.length > 1) { while (ctx.measureText(l0 + ' …').width > w - p * 2 - 28 && l0.includes(' ')) l0 = l0.slice(0, l0.lastIndexOf(' ')); l0 += ' …'; } lignes = [l0]; }
-      (R.zones || (R.zones = []))[i] = [yy - taille - 4, yy + (lignes.length - 1) * ligne + 8];
-      if (on) { ctx.fillStyle = css; ctx.fillRect(x + p - 6, yy - taille, 2, lignes.length * ligne); }
-      texte(ctx, String(i + 1).padStart(2, '0'), x + p, yy, on ? css : '#55534e', taille);
-      lignes.forEach((l, j) => texte(ctx, l, x + p + 28, yy + j * ligne, on ? ENCRE : '#6f6c66', taille));
-      yy += lignes.length * ligne + 10;
+    const largeur = w - p * 2 - 28;
+    const plein = etapes.map((s) => couper(ctx, s, largeur));
+    const leg = R.info.legende || [];
+    ctx.font = `${taille}px 'IBM Plex Mono', monospace`;
+    const legCols = leg.length && leg.some(([, nom]) => ctx.measureText(nom).width + 28 > (w - p * 2) / 2) ? 1 : 2;
+    const legH = leg.length ? 28 + Math.ceil(leg.length / legCols) * 16 : 0;
+    const bas = y + h - 10 - legH;
+    const dispo = Math.max(ligne, bas - yy);
+    const blocs = plein.map((lignes, i) => {
+      if (i === R.actif) return lignes;
+      let l0 = lignes[0] || '';
+      if (lignes.length > 1) { while (ctx.measureText(l0 + ' …').width > largeur && l0.includes(' ')) l0 = l0.slice(0, l0.lastIndexOf(' ')); l0 += ' …'; }
+      return [l0];
     });
+    const haut = (ls) => ls.length * ligne + ecart;
+    const total = blocs.reduce((acc, ls) => acc + haut(ls), 0);
+    const maxDefile = Math.max(0, total - dispo);
+    const mem = R.mem;
+    if (mem) {
+      if (mem.actif !== R.actif) {
+        let avant = 0; for (let i = 0; i < R.actif; i++) avant += haut(blocs[i]);
+        const hAct = haut(blocs[R.actif]);
+        if (avant < mem.defile) mem.defile = avant;
+        else if (avant + Math.min(hAct, dispo) > mem.defile + dispo) mem.defile = avant;
+        mem.actif = R.actif;
+      }
+      mem.defile = Math.min(maxDefile, Math.max(0, mem.defile || 0));
+      mem.maxDefile = maxDefile;
+    }
+    const defile = mem ? mem.defile : 0;
+    ctx.save();
+    ctx.beginPath(); ctx.rect(x, yy - taille - 6, w, bas - (yy - taille - 6)); ctx.clip();
+    let y0 = yy - defile;
+    R.zones = [];
+    blocs.forEach((lignes, i) => {
+      const on = i === R.actif;
+      const z0 = y0 - taille - 4; const z1 = y0 + (lignes.length - 1) * ligne + 8;
+      const clipTop = yy - taille - 6;
+      if (z1 >= clipTop && z0 <= bas) {
+        R.zones[i] = [Math.max(z0, clipTop), Math.min(z1, bas)];
+        if (on) { ctx.fillStyle = css; ctx.fillRect(x + p - 6, y0 - taille, 2, lignes.length * ligne); }
+        texte(ctx, String(i + 1).padStart(2, '0'), x + p, y0, on ? css : '#55534e', taille);
+        lignes.forEach((l, j) => texte(ctx, l, x + p + 28, y0 + j * ligne, on ? ENCRE : '#6f6c66', taille));
+      }
+      y0 += haut(lignes);
+    });
+    ctx.restore();
+    yy = Math.min(bas, yy + total - defile);
   }
   // la légende des couleurs, en bas du panneau
-  const leg = R.info.legende;
-  // deux colonnes si chaque nom y tient, sinon une seule : les noms ne se chevauchent jamais
-  const nc = leg.every(([, nom]) => nom.length * 6.2 + 20 < (w - p * 2) / 2) ? 2 : 1;
-  let ly = y + h - p - Math.ceil(leg.length / nc) * 16 + 6;
-  if (ly < yy + 10) return;
+  const leg = R.info.legende || [];
+  if (!leg.length) return;
+  ctx.font = "10px 'IBM Plex Mono', monospace";
+  const cols = leg.some(([, nom]) => ctx.measureText(nom).width + 28 > (w - p * 2) / 2) ? 1 : 2;
+  const rangs = Math.ceil(leg.length / cols);
+  let ly = y + h - p - rangs * 16 + 6;
+  if (ly < yy + 8) return;
   texte(ctx, L.legende.toUpperCase(), x + p, ly - 10, GRIS, 10);
   ly += 6;
   leg.forEach(([c, nom], i) => {
-    const col = i % nc; const rang = Math.floor(i / nc);
-    const lx = x + p + col * (w - p * 2) / nc; const ly2 = ly + rang * 16;
+    const col = cols === 1 ? 0 : i % cols; const rang = cols === 1 ? i : Math.floor(i / cols);
+    const lx = x + p + col * (w - p * 2) / cols; const ly2 = ly + rang * 16;
     ctx.fillStyle = COUL[c] || c; ctx.fillRect(lx, ly2 - 8, 8, 8);
     texte(ctx, nom, lx + 14, ly2, GRIS, 10);
   });
 }
 
 const SCENES = { orca, cave, langue, teammate, tripode, systema, avatar, billy, ...SCENES_SERVICES };
+export const SCENE_IDS = Object.keys(SCENES);
 
 
 // ---------------------------------------------------------------- les étapes de chaque scène : on avance à son rythme
@@ -2061,9 +2149,10 @@ export function lancerScene (canvas, id, css, locale) {
   const f = SCENES[id]; if (!f) return () => {};
   const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const etat = { dt: 0, relance: 0 };
+  const mem = { defile: 0, actif: -1, maxDefile: 0 };
   let w = 0; let h = 0; let sw = 0; let sh = 0; let large = true; let raf = 0; let avant = performance.now(); let t = reduit ? 2.6 : 0;
   let dernierR = null;
-  // à son rythme : l'étape tourne en boucle tant qu'on la lit ; « suite » passe à la suivante
+  // l'étape avance toute seule ; « suite » et « précédent » servent à sauter
   const coupures = ETAPES[id]; let borne = coupures ? bornes(coupures, t) : null;
   const nav = document.createElement('div'); nav.className = 'pas-nav';
   // les boutons sont des glyphes d'opérateurs Orca : E (aube, va vers l'est) avance, W (nuit, va vers l'ouest) recule ; la traduction s'écrit au survol
@@ -2106,6 +2195,17 @@ export function lancerScene (canvas, id, css, locale) {
   canvas.addEventListener('click', clic);
   const survol = (ev) => { if (!dernierR || !dernierR.zones || !large) return; const r = canvas.getBoundingClientRect(); const x = ev.clientX - r.left; const y = ev.clientY - r.top; const sur = x >= sw && dernierR.zones.some((z, i) => z && i !== dernierR.actif && y >= z[0] && y <= z[1]); canvas.style.cursor = sur ? 'pointer' : ''; };
   canvas.addEventListener('mousemove', survol);
+  const roue = (ev) => {
+    if (!large || !mem.maxDefile) return;
+    const r = canvas.getBoundingClientRect();
+    const x = ev.clientX - r.left;
+    if (x < sw) return;
+    const prochain = Math.min(mem.maxDefile, Math.max(0, mem.defile + ev.deltaY));
+    if (prochain === mem.defile) return;
+    ev.preventDefault();
+    mem.defile = prochain;
+  };
+  canvas.addEventListener('wheel', roue, { passive: false });
   const taille = () => { const d = Math.min(devicePixelRatio, 2); w = canvas.clientWidth; h = canvas.clientHeight; canvas.width = Math.round(w * d); canvas.height = Math.round(h * d); ctx.setTransform(d, 0, 0, d, 0, 0); };
   const ro = new ResizeObserver(taille); ro.observe(canvas); taille();
   const dessiner = () => {
@@ -2117,6 +2217,7 @@ export function lancerScene (canvas, id, css, locale) {
     ctx.save(); ctx.beginPath(); ctx.rect(0, 0, sw, sh); ctx.clip();
     const R = f(ctx, sw, sh, t, etat, css, L);
     ctx.restore();
+    R.mem = mem;
     // les boutons et leur traduction ont leur propre ligne quand la place manque : rien ne chevauche le titre du panneau
     const serre = !large || w - sw < 430; R.decal = serre ? 30 : 0;
     if (large) panneau(ctx, sw, 0, w - sw, h, R, css, L, false);
@@ -2126,10 +2227,10 @@ export function lancerScene (canvas, id, css, locale) {
   };
   const boucle = (now) => {
     const dt = Math.max(0, Math.min((now - avant) / 1000, 0.1)); avant = now; t += dt; etat.dt = dt;
-    // fin de l'étape : on la rejoue, et le bouton « suite » invite à continuer
-    if (borne && t >= borne[1]) { t = borne[0] + 1e-4; etat.relance++; nav.classList.add('pret'); }
+    // fin de l'étape : on passe à la suivante, et on boucle après la dernière
+    if (borne && t >= borne[1]) { borne = bornes(coupures, t); etat.relance++; nav.classList.remove('pret'); }
     dessiner(); raf = requestAnimationFrame(boucle);
   };
   if (reduit) { etat.dt = 0.016; dessiner(); } else raf = requestAnimationFrame(boucle);
-  return () => { if (etat.videos) Object.values(etat.videos).forEach((v) => { v.pause(); v.removeAttribute('src'); v.load(); }); cancelAnimationFrame(raf); ro.disconnect(); canvas.removeEventListener('click', clic); canvas.removeEventListener('mousemove', survol); nav.remove(); };
+  return () => { if (etat.videos) Object.values(etat.videos).forEach((v) => { v.pause(); v.removeAttribute('src'); v.load(); }); cancelAnimationFrame(raf); ro.disconnect(); canvas.removeEventListener('click', clic); canvas.removeEventListener('mousemove', survol); canvas.removeEventListener('wheel', roue); nav.remove(); };
 }

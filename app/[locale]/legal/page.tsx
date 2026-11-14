@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import Header from '@/app/components/Header';
+import { Link } from '@/i18n/routing';
 import { buildPageMetadata } from '@/lib/seo';
 import styles from './page.module.css';
 import OrcaFond from '@/app/components/world/OrcaFond';
@@ -53,6 +54,7 @@ export default function MentionsLegalesPage() {
             <section className={styles.section}>
               <h2 className={styles.sectionTitle}>{t('sections.data.title')}</h2>
               <p>{t('sections.data.content')}</p>
+              <p><Link href="/privacy">{t('privacyLink')}</Link></p>
             </section>
 
             <section className={styles.section}>

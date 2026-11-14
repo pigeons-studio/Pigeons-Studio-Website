@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/admin';
 import { createEvent, listEventsAdmin, type EventInput } from '@/lib/events';
+import { memeOrigine } from '@/lib/origin';
 
 function isUniqueViolation(error: unknown) {
   return typeof error === 'object' && error !== null && 'code' in error && (error as { code?: string }).code === '23505';
@@ -15,6 +16,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  if (!memeOrigine(request)) return NextResponse.json({ error: 'origin' }, { status: 403 });
   const admin = await requireAdmin();
   if (!admin) return NextResponse.json({ error: 'forbidden' }, { status: 403 });
   let body: EventInput;

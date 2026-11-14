@@ -20,6 +20,7 @@ export default function DeleteAccountModal({ isOpen, onClose, userId }: DeleteAc
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [error, setError] = useState('');
   const clearCart = useCartStore((state) => state.clearCart);
   const deleteOrdersByUser = useOrdersStore((state) => state.deleteOrdersByUser);
 
@@ -31,9 +32,14 @@ export default function DeleteAccountModal({ isOpen, onClose, userId }: DeleteAc
 
   const handleDelete = async () => {
     setIsDeleting(true);
+    setError('');
     
     try {
-      // Supprimer les données locales
+      const reponse = await fetch('/api/account', { method: 'DELETE' });
+      if (!reponse.ok) {
+        setError(t('error'));
+        return;
+      }
       clearCart();
       deleteOrdersByUser(userId);
       
@@ -61,6 +67,7 @@ export default function DeleteAccountModal({ isOpen, onClose, userId }: DeleteAc
         </button>
         <h2 className={styles.title}>{t('title')}</h2>
         <p className={styles.message}>{t('message')}</p>
+        {error && <p className={styles.message}>{error}</p>}
         
         <div className={styles.actions}>
           <button

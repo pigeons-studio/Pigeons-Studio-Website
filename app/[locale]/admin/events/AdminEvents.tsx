@@ -1,10 +1,11 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import AdminShell from './AdminShell';
+import EventApercu, { apercuDepuisDetail, type Apercu } from './EventApercu';
 import styles from './admin.module.css';
 
 type Row = {
@@ -16,6 +17,7 @@ type Row = {
   place: string;
   capacity: number;
   taken: number;
+  hidden: boolean;
 };
 
 function quand(iso: string, locale: string) {
@@ -29,11 +31,58 @@ function quand(iso: string, locale: string) {
   }).format(new Date(iso));
 }
 
+function Actions({
+  fr,
+  row,
+  onVoir,
+  onBasculer,
+  onSupprimer,
+}: {
+  fr: boolean;
+  row: Row;
+  onVoir: (row: Row) => void;
+  onBasculer: (row: Row) => void;
+  onSupprimer: (row: Row) => void;
+}) {
+  const bouton = useRef<HTMLButtonElement>(null);
+  const [ouvert, setOuvert] = useState(false);
+  const [place, setPlace] = useState({ top: 0, right: 0, auDessus: false });
+
+  const ouvrir = () => {
+    const rect = bouton.current?.getBoundingClientRect();
+    if (!rect) return;
+    const auDessus = rect.bottom + 160 > window.innerHeight;
+    setPlace({ top: auDessus ? rect.top - 8 : rect.bottom + 8, right: Math.max(8, window.innerWidth - rect.right), auDessus });
+    setOuvert(true);
+  };
+
+  const menu = ouvert && typeof document !== 'undefined' ? createPortal(
+    <>
+      <div className={styles.menuFond} onClick={() => setOuvert(false)} />
+      <div className={styles.menuListe} role="menu" style={place.auDessus ? { bottom: window.innerHeight - place.top, right: place.right } : { top: place.top, right: place.right }}>
+        <button type="button" className={styles.btn} role="menuitem" onClick={() => { setOuvert(false); onVoir(row); }}>{fr ? 'aperçu' : 'preview'}</button>
+        <button type="button" className={styles.btn} role="menuitem" onClick={() => { setOuvert(false); onBasculer(row); }}>{row.hidden ? (fr ? 'afficher' : 'show') : (fr ? 'masquer' : 'hide')}</button>
+        <button type="button" className={styles.btn} role="menuitem" onClick={() => { setOuvert(false); onSupprimer(row); }}>{fr ? 'supprimer' : 'delete'}</button>
+      </div>
+    </>,
+    document.body,
+  ) : null;
+
+  return (
+    <div className={styles.ligneActions}>
+      <Link className={styles.btn} href={`/admin/events/${row.id}`}>{fr ? 'éditer' : 'edit'}</Link>
+      <button ref={bouton} type="button" className={styles.btn} aria-expanded={ouvert} aria-label={fr ? 'plus d’actions' : 'more actions'} onClick={() => (ouvert ? setOuvert(false) : ouvrir())}>...</button>
+      {menu}
+    </div>
+  );
+}
+
 export default function AdminEvents() {
   const locale = useLocale();
   const fr = locale === 'fr';
   const [rows, setRows] = useState<Row[] | null>(null);
   const [cible, setCible] = useState<Row | null>(null);
+  const [apercu, setApercu] = useState<Apercu | null>(null);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState('');
 
@@ -62,10 +111,29 @@ export default function AdminEvents() {
     charger().catch(() => setMsg('error'));
   };
 
+  const voir = async (row: Row) => {
+    setMsg('');
+    const r = await fetch(`/api/admin/events/${row.id}`);
+    if (!r.ok) { setMsg(fr ? 'L’aperçu n’a pas pu s’ouvrir.' : 'Could not open the preview.'); return; }
+    setApercu(apercuDepuisDetail(await r.json(), locale));
+  };
+
+  const basculer = async (row: Row) => {
+    setMsg('');
+    const hidden = !row.hidden;
+    const r = await fetch(`/api/admin/events/${row.id}/visibility`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ hidden }),
+    });
+    if (!r.ok) { setMsg(fr ? 'Le changement n’a pas abouti.' : 'Could not update visibility.'); return; }
+    setRows((liste) => liste && liste.map((item) => (item.id === row.id ? { ...item, hidden } : item)));
+  };
+
   const titre = cible ? (fr ? cible.titleFr : cible.titleEn) : '';
   const fenetre = cible && typeof document !== 'undefined' ? createPortal(
-    <div className={styles.voile} role="dialog" aria-modal="true" aria-labelledby="confirm-titre">
-      <div className={styles.fenetre}>
+    <div className={styles.voile} role="dialog" aria-modal="true" aria-labelledby="confirm-titre" onClick={() => { if (!busy) setCible(null); }}>
+      <div className={styles.fenetre} onClick={(e) => e.stopPropagation()}>
         <p id="confirm-titre">{fr ? 'Supprimer cet event' : 'Delete this event'}</p>
         <p>{titre}</p>
         <p>{fr
@@ -88,7 +156,11 @@ export default function AdminEvents() {
       extra={<p><Link className={styles.lien} href="/admin/users">{fr ? 'comptes' : 'accounts'}</Link></p>}
     >
       {fenetre}
-      <Link className={styles.btn} href="/admin/events/new">{fr ? 'créer un event' : 'create event'}</Link>
+      <EventApercu apercu={apercu} locale={locale} onClose={() => setApercu(null)} />
+      <div className={styles.choix}>
+        <Link className={styles.btn} href="/admin/events/new">{fr ? 'créer un event' : 'create event'}</Link>
+        <Link className={styles.btn} href="/admin/animations">{fr ? 'animations' : 'animations'}</Link>
+      </div>
       {msg && <p>{msg}</p>}
       {rows && (
         <div className={styles.tableWrap}>
@@ -107,17 +179,14 @@ export default function AdminEvents() {
               {rows.length === 0 ? (
                 <tr><td colSpan={6} className={styles.muet}>{fr ? 'Aucun event.' : 'No events yet.'}</td></tr>
               ) : rows.map((row) => (
-                <tr key={row.id}>
-                  <td>{fr ? row.titleFr : row.titleEn}</td>
-                  <td>{row.slug}</td>
-                  <td>{row.place}</td>
-                  <td>{quand(row.startsAt, locale)}</td>
-                  <td>{row.taken}/{row.capacity}</td>
+                <tr key={row.id} className={row.hidden ? styles.masque : undefined}>
+                  <td data-label={fr ? 'Titre' : 'Title'}>{fr ? row.titleFr : row.titleEn}{row.hidden ? (fr ? ' · masqué' : ' · hidden') : ''}</td>
+                  <td data-label="Slug">{row.slug}</td>
+                  <td data-label={fr ? 'Lieu' : 'Place'}>{row.place}</td>
+                  <td data-label={fr ? 'Début' : 'Start'}>{quand(row.startsAt, locale)}</td>
+                  <td data-label={fr ? 'Places' : 'Seats'}>{row.taken}/{row.capacity}</td>
                   <td className={styles.action}>
-                    <div className={styles.choix}>
-                      <Link className={styles.btn} href={`/admin/events/${row.id}`}>{fr ? 'éditer' : 'edit'}</Link>
-                      <button type="button" className={styles.btn} onClick={() => setCible(row)}>{fr ? 'supprimer' : 'delete'}</button>
-                    </div>
+                    <Actions fr={fr} row={row} onVoir={voir} onBasculer={basculer} onSupprimer={setCible} />
                   </td>
                 </tr>
               ))}

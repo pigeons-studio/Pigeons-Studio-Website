@@ -60,7 +60,7 @@
 }
 
 .infoCard {
-  background: var(--surface);
+  background: #000;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 24px;
@@ -93,19 +93,57 @@
   color: var(--foreground);
 }
 
+.adminBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.adminLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .adminLink {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  text-decoration: none;
+  color: inherit;
+}
+
+.adminLink:hover {
+  border-color: var(--accent-or, #ffb545);
+}
+
+.adminLink span {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: lowercase;
   color: var(--accent-or, #ffb545);
-  text-decoration: none;
+}
+
+.adminLink small {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--foreground);
+  opacity: 0.75;
 }
 
 .emptyState {
   text-align: center;
   padding: 64px 24px;
-  background: var(--surface);
+  background: #000;
   border: 1px solid var(--border);
   border-radius: 12px;
   opacity: 0.7;
@@ -124,7 +162,7 @@
 }
 
 .orderCard {
-  background: var(--surface);
+  background: #000;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 24px;
@@ -310,6 +348,51 @@
   opacity: 0.7;
   margin: 0;
   color: var(--foreground);
+}
+
+.inlineActions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.nameInput {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: inherit;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+.exportCard {
+  background: #000;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.exportText {
+  margin: 0;
+  max-width: 62ch;
+  line-height: 1.5;
+  color: var(--foreground);
+  opacity: 0.85;
+}
+
+.textButton {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 .deleteAccountButton {

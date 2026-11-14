@@ -74,6 +74,8 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  background-color: #000;
+  overscroll-behavior: none;
 }
 
 body {
@@ -119,6 +121,8 @@ body .page {
   min-height: 0;
   overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: none;
+  background: #000;
   top: calc(var(--marge) + env(safe-area-inset-top, 0px) + 44px);
   bottom: calc(var(--marge) + env(safe-area-inset-bottom, 0px) + 44px);
   left: max(var(--marge), env(safe-area-inset-left, 0px));
@@ -193,6 +197,24 @@ body:not(:has(.orca))::after {
   left: max(var(--marge), env(safe-area-inset-left, 0px));
   right: max(var(--marge), env(safe-area-inset-right, 0px));
   border: 1px solid var(--border);
+}
+body:not(:has(.orca))::before {
+  content: "";
+  position: fixed;
+  z-index: 201;
+  pointer-events: none;
+  top: calc(var(--marge) + env(safe-area-inset-top, 0px));
+  right: max(var(--marge), env(safe-area-inset-right, 0px));
+  bottom: calc(var(--marge) + env(safe-area-inset-bottom, 0px));
+  left: max(var(--marge), env(safe-area-inset-left, 0px));
+  background-image:
+    linear-gradient(#8a8780, #8a8780), linear-gradient(#8a8780, #8a8780),
+    linear-gradient(#8a8780, #8a8780), linear-gradient(#8a8780, #8a8780),
+    linear-gradient(#8a8780, #8a8780), linear-gradient(#8a8780, #8a8780),
+    linear-gradient(#8a8780, #8a8780), linear-gradient(#8a8780, #8a8780);
+  background-size: 10px 1px, 1px 10px, 10px 1px, 1px 10px, 10px 1px, 1px 10px, 10px 1px, 1px 10px;
+  background-position: top left, top left, top right, top right, bottom left, bottom left, bottom right, bottom right;
+  background-repeat: no-repeat;
 }
 
 a, button, [role="button"], label, select, summary {

@@ -10,3 +10,12 @@ export function adminEmails() {
 export function isAdminEmail(email: string) {
   return adminEmails().has(email.toLowerCase());
 }
+
+export function orderEmails() {
+  const listed = (process.env.ORDER_EMAILS ?? '').split(',').map((part) => clean(part)).filter(Boolean);
+  if (listed.length) return listed;
+  const admins = [...adminEmails()];
+  if (admins.length) return admins;
+  const fallback = clean(process.env.RESEND_TO_EMAIL) || 'contact@punkhazard.org';
+  return [fallback];
+}

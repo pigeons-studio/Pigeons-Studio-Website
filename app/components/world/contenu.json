@@ -124,7 +124,7 @@
         ],
         [
          "Technique",
-         "ESP32, écran TFT, PlatformIO"
+         "écran, firmware embarqué"
         ],
         [
          "Conception",
@@ -778,13 +778,13 @@
        "sous": "Remise à neuf, réparation, recalibrage et modifications",
        "statut": "sur devis",
        "texte": [
-        "On répare les synthétiseurs analogiques, les amplis et le matériel hi-fi. À chaque intervention, quelle que soit la panne, on remet à neuf les composants qui vieillissent avec le temps, comme les condensateurs électrolytiques.",
+        "On répare les synthétiseurs analogiques, les amplis et le matériel hi-fi. À chaque intervention, quelle que soit la panne, on remplace les condensateurs électrolytiques qui vieillissent, et on répare ou on remplace les potentiomètres.",
         "Puis on diagnostique la panne et on la répare, avant de tout recalibrer. Sur les synthés, on peut aussi faire des modifications et des upgrades : les midifier, leur ajouter des fonctions."
        ],
        "reperes": [
         [
          "Systématique",
-         "Remise à neuf des composants qui vieillissent (condensateurs électrolytiques, etc.), quelle que soit la panne"
+         "Remplacement des condensateurs électrolytiques, réparation ou remplacement des potentiomètres, quelle que soit la panne"
         ],
         [
          "Réparation",
@@ -809,6 +809,36 @@
         "Recalibrage",
         "Midification"
        ]
+      },
+      {
+       "id": "sv-pcb",
+       "nom": "PCB sur mesure",
+       "sous": "Des cartes électroniques dessinées pour votre projet",
+       "statut": "sur devis",
+       "devisSujet": "PCB sur mesure",
+       "texte": [
+        "On conçoit et on fabrique des circuits imprimés sur mesure : du schéma au tracé des pistes, du choix des composants à la petite série, jusqu’à l’intégration dans votre objet.",
+        "C’est le même savoir-faire que pour nos capteurs AS-SIMT et nos objets sonores : des cartes pensées pour la scène, l’installation et les objets qui doivent fonctionner longtemps."
+       ],
+       "reperes": [
+        [
+         "Pour qui",
+         "Artistes, studios, designers, entreprises"
+        ],
+        [
+         "On fait",
+         "Schéma, routage, choix des composants, fabrication, montage"
+        ],
+        [
+         "Formats",
+         "Prototype, petite série, intégration dans un objet"
+        ]
+       ],
+       "tags": [
+        "Électronique",
+        "Prototype",
+        "Petite série"
+       ]
       }
      ]
     },
@@ -832,54 +862,6 @@
     },
     {
      "t": "events"
-    },
-    {
-     "t": "explorer",
-     "items": [
-      {
-       "id": "ev-micros",
-       "nom": "WORKSHOP // MICROS",
-       "sous": "Apprendre à souder et bricoler des micros XLR, simplement et pas cher",
-       "statut": "dimanche 22 novembre · 14h → 20h",
-       "texte": [
-        "Un atelier pour apprendre à souder et bricoler des micros XLR, simplement et pas cher. On va explorer et fabriquer plusieurs micros, avec différents principes et designs : des micros à électret (des capsules très variées et très communes), des micros à ruban faits maison (avec une membrane DIY), des micros sensibles aux ondes électromagnétiques et des micros capables d’entendre les ultrasons. Et découvrir d’autres designs, plus ou moins simples, pour différents types de capsules.",
-        "L’atelier est animé par Hugo Thomas, étudiant en cinéma d’animation qui passe son temps libre à bricoler : il adore démonter, détourner et fabriquer ses propres outils de création, que ce soit en créant ou modifiant des appareils photo, ou en soudant des micros maison.",
-        "Pour s’inscrire, écrivez au studio avec le bouton contact."
-       ],
-       "reperes": [
-        [
-         "Quand",
-         "Dimanche 22 novembre, 14h → 20h"
-        ],
-        [
-         "Où",
-         "111 rue Marceau, Montreuil"
-        ],
-        [
-         "Places",
-         "12"
-        ],
-        [
-         "On fabrique",
-         "Électret, ruban fait maison, ondes électromagnétiques, ultrasons"
-        ],
-        [
-         "Animé par",
-         "Hugo Thomas"
-        ],
-        [
-         "Organisé par",
-         "Pigeons Studio"
-        ]
-       ],
-       "tags": [
-        "Atelier",
-        "Soudure",
-        "Micros XLR",
-        "DIY"
-       ]
-      }
-     ]
     }
    ]
   },
@@ -903,6 +885,7 @@
      "code": "A",
      "items": [
       {
+       "id": "bonnet-pompon",
        "nom": "Bonnet pompon",
        "sens": "Un bonnet couvert de pompons faits main, qui forme comme une petite montagne douce autour du visage. Crocheté à l’aiguille 3,5, pompons faits à la main, cordons réalisés au tricotin manuel.",
        "image": "/boutique/bonnet-pompon-orange.jpg",
@@ -975,8 +958,12 @@
        "id": "gear-capteurs",
        "nom": "Capteurs AS-SIMT",
        "sous": "Des capteurs de mouvement à porter, qui s’écoutent aussi par la peau",
-       "statut": "bientôt disponible",
+       "statut": "pré-commande",
        "objet": "/models/tripode.bin",
+       "tarif": "500 € · pré-commande",
+       "commande": "pré-commander",
+       "prixLabel": "500 €",
+       "detail": "Petits boîtiers imprimés en 3D, portés sur le corps ou posés sur un instrument. Ils mesurent le mouvement en temps réel et l’envoient sans fil. Trois moteurs de vibration rendent le son sensible sur la peau.",
        "texte": [
         "Les capteurs AS-SIMT sont de petits boîtiers imprimés en 3D qu’on porte sur le corps ou qu’on pose sur un instrument. Ils mesurent le mouvement en temps réel et l’envoient sans fil, pour jouer de la musique, piloter de la lumière ou écrire du code avec le geste.",
         "Ils fonctionnent dans les deux sens : ils envoient le mouvement, et ils reçoivent le son ou les données, que leurs trois moteurs de vibration rendent sensibles. On écoute aussi par la peau : c’est l’écoute haptique. Ce sont les capteurs de TRIPODE AS-SIMT.",
@@ -989,7 +976,7 @@
         ],
         [
          "Dedans",
-         "Carte ESP32, accéléromètre et magnétomètre, 3 moteurs de vibration"
+         "Accéléromètre, magnétomètre, 3 moteurs de vibration"
         ],
         [
          "Envoyer",
@@ -1008,35 +995,6 @@
         "Capteurs de mouvement",
         "Haptique",
         "OSC · MIDI · Wi-Fi"
-       ]
-      },
-      {
-       "id": "gear-pcb",
-       "nom": "PCB sur mesure",
-       "sous": "Des cartes électroniques dessinées pour votre projet",
-       "statut": "sur devis",
-       "texte": [
-        "On conçoit et on fabrique des circuits imprimés sur mesure : du schéma au tracé des pistes, du choix des composants à la petite série, jusqu’à l’intégration dans votre objet.",
-        "C’est le même savoir-faire que pour nos capteurs AS-SIMT et nos objets sonores : des cartes pensées pour la scène, l’installation et les objets qui doivent fonctionner longtemps."
-       ],
-       "reperes": [
-        [
-         "Pour qui",
-         "Artistes, studios, designers, entreprises"
-        ],
-        [
-         "On fait",
-         "Schéma, routage, choix des composants, fabrication, montage"
-        ],
-        [
-         "Formats",
-         "Prototype, petite série, intégration dans un objet"
-        ]
-       ],
-       "tags": [
-        "Électronique",
-        "Prototype",
-        "Petite série"
        ]
       }
      ]
@@ -1378,7 +1336,7 @@
         ],
         [
          "Tech",
-         "ESP32, TFT screen, PlatformIO"
+         "screen, onboard firmware"
         ],
         [
          "Design",
@@ -2032,13 +1990,13 @@
        "sous": "Overhaul, repair, recalibration and mods",
        "statut": "on request",
        "texte": [
-        "We repair analogue synthesizers, amplifiers and hi-fi gear. Every time, whatever the fault, we renew the parts that age over time, such as electrolytic capacitors.",
+        "We repair analogue synthesizers, amplifiers and hi-fi gear. Every time, whatever the fault, we replace the electrolytic capacitors that age, and we repair or replace the potentiometers.",
         "Then we diagnose and repair the fault, before recalibrating everything. On synths we can also do mods and upgrades: adding MIDI, adding functions."
        ],
        "reperes": [
         [
          "Every time",
-         "Renewal of ageing parts (electrolytic capacitors, etc.), whatever the fault"
+         "Replacement of electrolytic capacitors, and repair or replacement of potentiometers, whatever the fault"
         ],
         [
          "Repair",
@@ -2063,6 +2021,36 @@
         "Recalibration",
         "MIDI retrofit"
        ]
+      },
+      {
+       "id": "sv-pcb",
+       "nom": "Custom PCBs",
+       "sous": "Circuit boards designed for your project",
+       "statut": "on quote",
+       "devisSujet": "Custom PCBs",
+       "texte": [
+        "We design and make custom printed circuit boards: from schematic to trace layout, from component choice to small runs, all the way to integration in your object.",
+        "It is the same know-how as for our AS-SIMT sensors and sound objects: boards made for the stage, installations and objects that must last."
+       ],
+       "reperes": [
+        [
+         "For",
+         "Artists, studios, designers, companies"
+        ],
+        [
+         "We do",
+         "Schematic, routing, component choice, manufacturing, assembly"
+        ],
+        [
+         "Formats",
+         "Prototype, small run, integration in an object"
+        ]
+       ],
+       "tags": [
+        "Electronics",
+        "Prototype",
+        "Small run"
+       ]
       }
      ]
     },
@@ -2086,54 +2074,6 @@
     },
     {
      "t": "events"
-    },
-    {
-     "t": "explorer",
-     "items": [
-      {
-       "id": "ev-micros",
-       "nom": "WORKSHOP // MICS",
-       "sous": "Learn to solder and hack XLR microphones, simply and cheaply",
-       "statut": "Sunday 22 November · 2pm → 8pm",
-       "texte": [
-        "A workshop to learn how to solder and hack XLR microphones, simply and cheaply. We will explore and build several mics with different principles and designs: electret mics (very varied, very common capsules), homemade ribbon mics (with a DIY membrane), mics sensitive to electromagnetic waves, and mics that can hear ultrasound. And discover other designs, more or less simple, for different kinds of capsules.",
-        "The workshop is led by Hugo Thomas, an animation film student who spends his free time tinkering: he loves taking apart, hacking and making his own creative tools, whether building or modifying cameras or soldering homemade mics.",
-        "To sign up, write to the studio with the contact button."
-       ],
-       "reperes": [
-        [
-         "When",
-         "Sunday 22 November, 2pm → 8pm"
-        ],
-        [
-         "Where",
-         "111 rue Marceau, Montreuil"
-        ],
-        [
-         "Places",
-         "12"
-        ],
-        [
-         "We build",
-         "Electret, homemade ribbon, electromagnetic, ultrasound"
-        ],
-        [
-         "Led by",
-         "Hugo Thomas"
-        ],
-        [
-         "Organised by",
-         "Pigeons Studio"
-        ]
-       ],
-       "tags": [
-        "Workshop",
-        "Soldering",
-        "XLR mics",
-        "DIY"
-       ]
-      }
-     ]
     }
    ]
   },
@@ -2157,6 +2097,7 @@
      "code": "A",
      "items": [
       {
+       "id": "bonnet-pompon",
        "nom": "Pompom hood",
        "sens": "A hood covered with handmade pompoms, like a small soft mountain around the face. Crocheted with a 3.5 hook, handmade pompoms, cords made on a hand knitting spool.",
        "image": "/boutique/bonnet-pompon-orange.jpg",
@@ -2229,8 +2170,12 @@
        "id": "gear-capteurs",
        "nom": "AS-SIMT sensors",
        "sous": "Wearable motion sensors you can also hear through the skin",
-       "statut": "coming soon",
+       "statut": "pre-order",
        "objet": "/models/tripode.bin",
+       "tarif": "€500 · pre-order",
+       "commande": "pre-order",
+       "prixLabel": "€500",
+       "detail": "Small 3D-printed cases worn on the body or placed on an instrument. They measure movement in real time and send it wirelessly. Three vibration motors make sound tangible on the skin.",
        "texte": [
         "AS-SIMT sensors are small 3D-printed cases worn on the body or placed on an instrument. They measure movement in real time and send it wirelessly, to play music, drive light or write code with gesture.",
         "They work both ways: they send movement, and they receive sound or data, which their three vibration motors make tangible. You also listen through the skin: that is haptic listening. They are the sensors of TRIPODE AS-SIMT.",
@@ -2243,7 +2188,7 @@
         ],
         [
          "Inside",
-         "ESP32 board, accelerometer and magnetometer, 3 vibration motors"
+         "Accelerometer, magnetometer, 3 vibration motors"
         ],
         [
          "Send",
@@ -2262,35 +2207,6 @@
         "Motion sensors",
         "Haptics",
         "OSC · MIDI · Wi-Fi"
-       ]
-      },
-      {
-       "id": "gear-pcb",
-       "nom": "Custom PCBs",
-       "sous": "Circuit boards designed for your project",
-       "statut": "on quote",
-       "texte": [
-        "We design and make custom printed circuit boards: from schematic to trace layout, from component choice to small runs, all the way to integration in your object.",
-        "It is the same know-how as for our AS-SIMT sensors and sound objects: boards made for the stage, installations and objects that must last."
-       ],
-       "reperes": [
-        [
-         "For",
-         "Artists, studios, designers, companies"
-        ],
-        [
-         "We do",
-         "Schematic, routing, component choice, manufacturing, assembly"
-        ],
-        [
-         "Formats",
-         "Prototype, small run, integration in an object"
-        ]
-       ],
-       "tags": [
-        "Electronics",
-        "Prototype",
-        "Small run"
        ]
       }
      ]

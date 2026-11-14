@@ -7,7 +7,7 @@
       "projects": "Projets",
       "events": "Events",
       "softwares": "Logiciels",
-      "contact": "Contact"
+      "contact": "contact"
     },
     "cta": {
       "requestQuote": "Demander un devis",
@@ -304,7 +304,6 @@
             "tags": [
               "Capteurs haptiques",
               "PCB custom",
-              "ESP32",
               "OSC"
             ]
           },
@@ -408,7 +407,9 @@
       "humanCheckHint": "Faites glisser le curseur complètement vers la droite pour activer l'envoi.",
       "humanCheckProgress": "Progression: {value}%",
       "humanCheckReady": "Vérification validée.",
-      "humanCheckError": "Veuillez compléter la vérification anti-robot."
+      "humanCheckError": "Veuillez compléter la vérification anti-robot.",
+      "privacyNotice": "Les informations envoyées ici sont décrites dans la",
+      "privacyLink": "politique de confidentialité"
     },
     "other": {
       "title": "Autres moyens de contact",
@@ -716,46 +717,56 @@
   },
   "cgv": {
     "title": "Conditions Générales de Vente",
-    "metaDescription": "Conditions générales de vente de Pigeons Studio : commandes, livraison, paiement, garantie et contact.",
-    "lastUpdate": "Dernière mise à jour:",
+    "metaDescription": "Conditions générales de vente de PUNK HAZARD, éditeur de Pigeons Studio : demandes, livraison, paiement et contact.",
+    "lastUpdate": "Dernière mise à jour :",
+    "lastUpdateDate": "14 novembre 2026",
     "sections": {
+      "seller": {
+        "title": "1. Vendeur",
+        "content": "PUNK HAZARD, SAS au capital de 1 000 €, siège 27 rue de Chinon, 94110 Arcueil, France. RCS Créteil 944 151 141. SIRET 944 151 141 00016. TVA FR85944151141. Contact : contact@punkhazard.org. Le site est présenté sous la marque Pigeons Studio."
+      },
       "object": {
-        "title": "1. Objet",
-        "content": "Les présentes Conditions Générales de Vente (CGV) régissent les relations entre Pigeons Studio et ses clients pour la vente de matériel audio et artistique, ainsi que pour la prestation de services d'ingénierie électronique."
+        "title": "2. Objet",
+        "content": "Les présentes conditions régissent les demandes adressées à PUNK HAZARD pour du matériel audio et artistique et pour des prestations d’ingénierie électronique. Le paiement en ligne n’est pas ouvert : envoyer une demande ne forme pas une vente payée."
       },
       "orders": {
-        "title": "2. Commandes",
-        "content": "Toute commande implique l'acceptation sans réserve des présentes CGV. Les prix sont indiqués en euros TTC. Pigeons Studio se réserve le droit de modifier ses prix à tout moment, étant entendu que le prix applicable est celui en vigueur au jour de la commande."
+        "title": "3. Demandes",
+        "content": "Une demande ou une précommande est une prise de contact. Elle n’est une vente qu’après accord écrit sur le prix, le contenu et les modalités. Les prix annoncés, lorsqu’ils le sont, sont en euros TTC. Le prix applicable est celui accepté au moment de cet accord."
       },
       "delivery": {
-        "title": "3. Livraison",
+        "title": "4. Livraison",
         "content": "Les délais de livraison sont indiqués à titre indicatif. En cas de retard de livraison, le client sera informé dans les plus brefs délais. Les risques de perte ou d'endommagement des produits sont transférés au client au moment de la livraison."
       },
       "payment": {
-        "title": "4. Paiement",
-        "content": "Le paiement s'effectue selon les modalités convenues lors de la commande. Pour les prestations sur mesure, un acompte peut être demandé."
+        "title": "5. Paiement",
+        "content": "Aucun paiement n’est encaissé sur le site. Le règlement, s’il y a lieu, se fait selon les modalités convenues hors ligne. Pour une prestation sur mesure, un acompte peut être demandé dans cet accord."
       },
       "withdrawal": {
-        "title": "5. Droit de rétractation",
-        "content": "Conformément à la législation en vigueur, le client dispose d'un délai de 14 jours pour exercer son droit de rétractation, sauf pour les produits personnalisés ou sur mesure."
+        "title": "6. Droit de rétractation",
+        "content": "Le délai de 14 jours prévu pour les ventes à distance s’appliquera aux ventes payées conclues à distance, sauf pour les produits nettement personnalisés ou les prestations pleinement exécutées avec accord. Une simple demande sur le site n’est pas une vente."
+      },
+      "mediator": {
+        "title": "7. Médiateur",
+        "content": "Le médiateur de la consommation sera indiqué ici avant l’ouverture d’une vente payante en ligne."
       },
       "warranty": {
-        "title": "6. Garantie",
+        "title": "8. Garantie",
         "content": "Les produits bénéficient de la garantie légale de conformité et de la garantie des vices cachés. Pour les prestations de service, la garantie couvre les défauts de conception et de réalisation."
       },
       "contact": {
-        "title": "7. Contact",
-        "content": "Pour toute question concernant les présentes CGV, vous pouvez nous contacter à l'adresse: contact@punkhazard.org"
+        "title": "9. Contact",
+        "content": "Pour toute question concernant les présentes CGV : contact@punkhazard.org, ou par courrier au siège, 27 rue de Chinon, 94110 Arcueil."
       }
     }
   },
   "legal": {
     "title": "Mentions Légales",
-    "metaDescription": "Informations légales du site Pigeons Studio : éditeur, hébergement, propriété intellectuelle, données personnelles et cookies.",
+    "metaDescription": "Informations légales du site Pigeons Studio, édité par la SAS PUNK HAZARD : éditeur, hébergement, propriété intellectuelle, données personnelles et cookies.",
+    "privacyLink": "Politique de confidentialité",
     "sections": {
       "publisher": {
         "title": "Éditeur du site",
-        "content": "Pigeons Studio\nIngénierie électronique, PCB, embarqué & robots\nEmail: contact@punkhazard.org"
+        "content": "PUNK HAZARD\nSAS, société par actions simplifiée au capital de 1 000 €\nSiège : 27 rue de Chinon, 94110 Arcueil, France\nRCS Créteil 944 151 141\nSIRET : 944 151 141 00016\nTVA : FR85944151141\nActivité : autres activités informatiques (NAF 62.09Z)\nDirecteur de la publication : Julien Thomas, président\nContact : contact@punkhazard.org\nLe site est présenté sous la marque Pigeons Studio."
       },
       "hosting": {
         "title": "Hébergement",
@@ -763,11 +774,11 @@
       },
       "intellectual": {
         "title": "Propriété intellectuelle",
-        "content": "L'ensemble du contenu de ce site (textes, images, logos, etc.) est la propriété de Pigeons Studio et est protégé par les lois relatives à la propriété intellectuelle. Toute reproduction, même partielle, est interdite sans autorisation préalable."
+        "content": "L'ensemble du contenu de ce site (textes, images, logos, etc.) est la propriété de PUNK HAZARD, éditeur de Pigeons Studio, et est protégé par les lois relatives à la propriété intellectuelle. Toute reproduction, même partielle, est interdite sans autorisation préalable."
       },
       "data": {
         "title": "Protection des données",
-        "content": "Les données personnelles collectées via le formulaire de contact sont utilisées uniquement pour répondre à vos demandes. Elles ne sont pas transmises à des tiers et sont conservées conformément à la réglementation en vigueur (RGPD)."
+        "content": "PUNK HAZARD traite les données envoyées par le formulaire de contact, la création de compte, les demandes de commande ou de précommande et les inscriptions aux événements. L’hébergement, la base de données, l’envoi d’emails et, si vous l’utilisez, la connexion Google sont assurés par des sous-traitants. Les finalités, les durées et vos droits sont détaillés dans la politique de confidentialité."
       },
       "cookies": {
         "title": "Cookies",
@@ -775,7 +786,7 @@
       },
       "contact": {
         "title": "Contact",
-        "content": "Pour toute question concernant les mentions légales, vous pouvez nous contacter à l'adresse: contact@punkhazard.org"
+        "content": "Pour toute question concernant les mentions légales : contact@punkhazard.org, ou par courrier au siège, 27 rue de Chinon, 94110 Arcueil."
       }
     }
   },
@@ -806,6 +817,7 @@
     "signingUp": "Inscription en cours...",
     "error": "Erreur de connexion",
     "invalidCredentials": "Email ou mot de passe incorrect",
+    "rateLimit": "Trop de tentatives. Réessayez dans quelques minutes.",
     "emailNotVerified": "Confirme d’abord l’adresse reçue par email.",
     "profile": "Mon profil",
     "alreadyHaveAccount": "Déjà un compte ?",
@@ -814,9 +826,13 @@
       "title": "Créer un compte",
       "success": "Compte créé. Regarde tes mails pour confirmer l’adresse.",
       "emailExists": "Cet email est déjà utilisé",
-      "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
+      "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères, une lettre et un chiffre",
       "invalidEmail": "Email invalide",
-      "allFieldsRequired": "Tous les champs sont requis"
+      "allFieldsRequired": "Tous les champs sont requis",
+      "cguRequired": "Accepte les conditions d’utilisation pour créer le compte.",
+      "acceptCgu": "J’accepte les",
+      "cguLink": "CGU",
+      "rate": "Trop d’inscriptions. Réessayez dans quelques minutes."
     }
   },
   "profile": {
@@ -828,6 +844,19 @@
         "email": "Email",
         "name": "Nom",
         "edit": "Modifier",
+        "save": "Enregistrer",
+        "saving": "Enregistrement…",
+        "cancelEdit": "Annuler",
+        "emailSent": "Un lien a été envoyé à la nouvelle adresse. L’ancienne reste active tant qu’elle n’est pas confirmée.",
+        "emailInvalid": "Adresse email invalide.",
+        "emailExists": "Cette adresse est déjà utilisée.",
+        "emailSame": "C’est déjà l’adresse du compte.",
+        "emailConfirmed": "Nouvelle adresse confirmée.",
+        "emailRate": "Trop de demandes. Réessayez dans quelques minutes.",
+        "exportTitle": "Vos données",
+        "exportText": "Télécharge un fichier JSON avec votre compte (nom et email), vos commandes et vos inscriptions aux événements. Le mot de passe n’y figure pas.",
+        "export": "Télécharger mes données",
+        "nameInvalid": "Le nom doit faire entre 1 et 80 caractères.",
         "deleteAccount": "Supprimer le compte",
         "deleteAccountWarning": "Cette action est irréversible",
         "dangerZone": "Zone de danger"
@@ -851,12 +880,87 @@
     },
     "deleteAccount": {
       "title": "Supprimer le compte",
-      "message": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible et supprimera toutes vos données (commandes, panier, etc.).",
+      "message": "Cette action supprime le compte, les jetons de confirmation et les inscriptions aux événements liées à cet email. Les commandes sont conservées sans le nom ni l’email. Le panier de ce navigateur est vidé.",
+      "error": "La suppression n’a pas abouti. Réessayez, ou écrivez à contact@punkhazard.org.",
       "confirm": "Oui, supprimer mon compte",
       "cancel": "Annuler",
       "deleting": "Suppression en cours...",
       "success": "Votre compte a été supprimé avec succès"
     }
+  },
+  "privacy": {
+    "title": "Politique de confidentialité",
+    "metaDescription": "Politique de confidentialité de PUNK HAZARD, éditeur de Pigeons Studio : données collectées, durées, sous-traitants et droits.",
+    "sections": {
+      "controller": {
+        "title": "Responsable",
+        "content": "PUNK HAZARD, SAS au capital de 1 000 €, 27 rue de Chinon, 94110 Arcueil, France. RCS Créteil 944 151 141. Contact : contact@punkhazard.org. Le site est présenté sous la marque Pigeons Studio."
+      },
+      "purposes": {
+        "title": "Données et finalités",
+        "content": "Formulaire de contact : nom, email, sujet et message, pour répondre.\nCompte : nom, email et mot de passe haché, ou l’identifiant Google si vous choisissez cette connexion, pour ouvrir et tenir le compte.\nDemandes de commande ou de précommande : nom, email et contenu de la demande, pour y donner suite.\nInscriptions aux événements : nom et email, pour gérer la place et envoyer la confirmation, y compris le lien de désinscription."
+      },
+      "bases": {
+        "title": "Bases",
+        "content": "Le compte, les demandes et les inscriptions reposent sur les démarches que vous engagez. Le message de contact aussi. La conservation d’une trace de commande, une fois qu’elle existe, peut aussi répondre à une obligation de suivi. Vous pouvez vous opposer à un traitement fondé sur l’intérêt légitime."
+      },
+      "retention": {
+        "title": "Durées",
+        "content": "Le compte est conservé jusqu’à sa suppression. Les jetons de confirmation d’email expirent au bout de 24 heures. Les commandes sont conservées, et anonymisées (nom et email retirés) si le compte est supprimé. Les inscriptions à un événement sont supprimées avec le compte, ou lorsque vous vous désinscrivez, ou lorsque l’événement est supprimé."
+      },
+      "recipients": {
+        "title": "Destinataires",
+        "content": "Vercel héberge le site. Neon héberge la base de données. Resend envoie les emails. Google intervient seulement si vous vous connectez avec Google. Ces prestataires traitent les données pour notre compte."
+      },
+      "transfers": {
+        "title": "Transferts hors Union européenne",
+        "content": "Vercel, Neon, Resend et Google peuvent traiter des données depuis les États-Unis. Ces transferts s’appuient sur les clauses contractuelles types ou les décisions d’adéquation en vigueur chez ces prestataires."
+      },
+      "rights": {
+        "title": "Vos droits",
+        "content": "Vous pouvez accéder à vos données, les rectifier, les effacer, en demander la portabilité, et vous opposer à un traitement. Depuis votre profil : modifier le nom, télécharger un export JSON, supprimer le compte. Pour le reste : contact@punkhazard.org. Vous pouvez aussi saisir la CNIL, 3 place de Fontenoy, TSA 80715, 75334 Paris Cedex 07, www.cnil.fr."
+      },
+      "cookies": {
+        "title": "Cookies",
+        "content": "Pas de cookie de mesure d’audience ni de publicité. Un cookie technique de session sert à rester connecté. Le panier est stocké dans le navigateur (localStorage), pas dans un cookie publicitaire."
+      }
+    }
+  },
+  "cgu": {
+    "title": "Conditions d’utilisation",
+    "metaDescription": "Conditions d’utilisation du site Pigeons Studio, édité par PUNK HAZARD : compte, événements et demandes.",
+    "sections": {
+      "object": {
+        "title": "Objet",
+        "content": "Ces conditions régissent l’usage du site pigeons.studio, édité par PUNK HAZARD, SAS, 27 rue de Chinon, 94110 Arcueil. La marque affichée est Pigeons Studio. Contact : contact@punkhazard.org."
+      },
+      "account": {
+        "title": "Compte",
+        "content": "Créer un compte suppose d’accepter ces conditions et de confirmer l’email. Le mot de passe contient au moins 8 caractères, une lettre et un chiffre. Vous pouvez corriger votre nom, exporter vos données et supprimer le compte depuis le profil."
+      },
+      "events": {
+        "title": "Événements",
+        "content": "L’inscription réserve une place dans la limite indiquée. Un email de confirmation contient un lien : il n’annule rien tant que vous n’avez pas confirmé sur la page. Une personne connectée peut aussi se désinscrire depuis la fiche."
+      },
+      "requests": {
+        "title": "Demandes et précommandes",
+        "content": "Le site ne prend pas de paiement. Envoyer une demande ou une précommande n’est pas une vente. Les conditions de vente décrivent ce cadre."
+      },
+      "conduct": {
+        "title": "Usage",
+        "content": "N’envoyez pas de contenu illicite, n’essayez pas de contourner les comptes ou les formulaires, et n’utilisez pas le site pour porter atteinte aux personnes ou au service."
+      }
+    }
+  },
+  "leave": {
+    "title": "Se désinscrire",
+    "metaDescription": "Confirmer le retrait d’une inscription à un événement Pigeons Studio.",
+    "intro": "Ce lien ne retire rien tout seul. Confirme pour annuler l’inscription.",
+    "confirm": "Me désinscrire",
+    "working": "Retrait…",
+    "missing": "Lien incomplet ou expiré.",
+    "ok": "Inscription retirée.",
+    "error": "Désinscription impossible."
   },
   "world": {
     "etats": {

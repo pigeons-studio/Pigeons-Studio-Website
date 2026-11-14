@@ -3,8 +3,10 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocale } from 'next-intl';
-import { useRouter } from '@/i18n/routing';
+import { Link, useRouter } from '@/i18n/routing';
+import { isEventScene, sceneIds } from '@/lib/event-scenes';
 import AdminShell from './AdminShell';
+import EventApercu, { apercuDepuisForm } from './EventApercu';
 import styles from './admin.module.css';
 
 type Detail = {
@@ -18,6 +20,12 @@ type Detail = {
   endsAt: string;
   place: string;
   imageUrl: string | null;
+  scene: string | null;
+  subtitleFr: string | null;
+  subtitleEn: string | null;
+  tagsFr: string | null;
+  tagsEn: string | null;
+  hidden: boolean;
   capacity: number;
   registrations: { name: string; email: string; invite: boolean }[];
   invites: { token: string; sent: boolean; usedAt: string | null; name: string | null; email: string | null }[];
@@ -33,6 +41,12 @@ const vide = {
   endsAt: '',
   place: '',
   imageUrl: '',
+  scene: '',
+  subtitleFr: '',
+  subtitleEn: '',
+  tagsFr: '',
+  tagsEn: '',
+  hidden: false,
   capacity: '12',
 };
 
@@ -43,16 +57,20 @@ function localInput(iso: string) {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 
-export default function EventEditor({ id }: { id?: string }) {
+export default function EventEditor({ id, initialScene }: { id?: string; initialScene?: string }) {
   const locale = useLocale();
   const router = useRouter();
   const fr = locale === 'fr';
-  const [form, setForm] = useState(vide);
+  const [form, setForm] = useState(() => ({
+    ...vide,
+    scene: initialScene && isEventScene(initialScene) ? initialScene : '',
+  }));
   const [detail, setDetail] = useState<Detail | null>(null);
   const [msg, setMsg] = useState('');
   const [manque, setManque] = useState(false);
   const [origin, setOrigin] = useState('');
   const [confirme, setConfirme] = useState(false);
+  const [apercu, setApercu] = useState(false);
   const [busy, setBusy] = useState(false);
 
   const lire = useCallback(async (remplir: boolean) => {
@@ -74,6 +92,12 @@ export default function EventEditor({ id }: { id?: string }) {
         endsAt: localInput(data.endsAt),
         place: data.place,
         imageUrl: data.imageUrl ?? '',
+        scene: data.scene && isEventScene(data.scene) ? data.scene : '',
+        subtitleFr: data.subtitleFr ?? '',
+        subtitleEn: data.subtitleEn ?? '',
+        tagsFr: data.tagsFr ?? '',
+        tagsEn: data.tagsEn ?? '',
+        hidden: data.hidden,
         capacity: String(data.capacity),
       });
     }
@@ -173,8 +197,8 @@ export default function EventEditor({ id }: { id?: string }) {
 
   const titre = id ? (detail ? (fr ? detail.titleFr : detail.titleEn) : (fr ? 'Éditer' : 'Edit')) : (fr ? 'Créer un event' : 'Create event');
   const fenetre = confirme && detail && typeof document !== 'undefined' ? createPortal(
-    <div className={styles.voile} role="dialog" aria-modal="true" aria-labelledby="confirm-titre">
-      <div className={styles.fenetre}>
+    <div className={styles.voile} role="dialog" aria-modal="true" aria-labelledby="confirm-titre" onClick={() => { if (!busy) setConfirme(false); }}>
+      <div className={styles.fenetre} onClick={(e) => e.stopPropagation()}>
         <p id="confirm-titre">{fr ? 'Supprimer cet event' : 'Delete this event'}</p>
         <p>{fr ? detail.titleFr : detail.titleEn}</p>
         <p>{fr
@@ -204,15 +228,36 @@ export default function EventEditor({ id }: { id?: string }) {
             <label>slug<input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} placeholder="atelier-nantes" /></label>
             <label>titre fr<input required value={form.titleFr} onChange={(e) => setForm({ ...form, titleFr: e.target.value })} /></label>
             <label>title en<input required value={form.titleEn} onChange={(e) => setForm({ ...form, titleEn: e.target.value })} /></label>
+            <label>{fr ? 'sous-titre fr' : 'subtitle fr'}<input value={form.subtitleFr} onChange={(e) => setForm({ ...form, subtitleFr: e.target.value })} /></label>
+            <label>{fr ? 'sous-titre en' : 'subtitle en'}<input value={form.subtitleEn} onChange={(e) => setForm({ ...form, subtitleEn: e.target.value })} /></label>
+            <p className={styles.muet}>{fr ? 'Markdown : paragraphes, **gras**, listes, liens.' : 'Markdown: paragraphs, **bold**, lists, links.'}</p>
             <label>texte fr<textarea required value={form.descriptionFr} onChange={(e) => setForm({ ...form, descriptionFr: e.target.value })} /></label>
             <label>text en<textarea required value={form.descriptionEn} onChange={(e) => setForm({ ...form, descriptionEn: e.target.value })} /></label>
+            <label>{fr ? 'tags fr' : 'tags fr'}<input value={form.tagsFr} onChange={(e) => setForm({ ...form, tagsFr: e.target.value })} placeholder={fr ? 'Atelier, Soudure, DIY' : 'Workshop, Soldering, DIY'} /></label>
+            <label>tags en<input value={form.tagsEn} onChange={(e) => setForm({ ...form, tagsEn: e.target.value })} placeholder="Workshop, Soldering, DIY" /></label>
+            <label>{fr ? 'animation' : 'animation'}
+              <select value={form.scene} onChange={(e) => setForm({ ...form, scene: e.target.value })}>
+                <option value="">{fr ? 'aucune' : 'none'}</option>
+                {sceneIds().map((scene) => <option key={scene} value={scene}>{scene}</option>)}
+              </select>
+            </label>
+            <p className={styles.muet}>
+              <Link className={styles.lien} href={form.scene ? `/admin/animations?scene=${form.scene}` : '/admin/animations'}>
+                {fr ? 'voir dans le visualiseur' : 'see in the viewer'}
+              </Link>
+            </p>
             <label>{fr ? 'début' : 'start'}<input required type="datetime-local" value={form.startsAt} onChange={(e) => setForm({ ...form, startsAt: e.target.value })} /></label>
             <label>{fr ? 'fin' : 'end'}<input required type="datetime-local" value={form.endsAt} onChange={(e) => setForm({ ...form, endsAt: e.target.value })} /></label>
             <label>{fr ? 'lieu' : 'place'}<input required value={form.place} onChange={(e) => setForm({ ...form, place: e.target.value })} /></label>
             <label>{fr ? 'image (url)' : 'image (url)'}<input type="url" inputMode="url" value={form.imageUrl} onChange={(e) => setForm({ ...form, imageUrl: e.target.value })} placeholder="https://" /></label>
             <label>{fr ? 'places' : 'seats'}<input required type="number" min={1} value={form.capacity} onChange={(e) => setForm({ ...form, capacity: e.target.value })} /></label>
+            <label className={styles.sent}>
+              <input type="checkbox" checked={form.hidden} onChange={(e) => setForm({ ...form, hidden: e.target.checked })} />
+              {fr ? 'masquer au public' : 'hide from the public'}
+            </label>
             <div className={styles.choix}>
               <button className={styles.btn} type="submit">{id ? (fr ? 'enregistrer' : 'save') : (fr ? 'créer' : 'create')}</button>
+              <button type="button" className={styles.btn} onClick={() => setApercu(true)}>{fr ? 'aperçu' : 'preview'}</button>
               {id && detail && (
                 <button type="button" className={styles.btn} onClick={() => setConfirme(true)}>{fr ? 'supprimer' : 'delete'}</button>
               )}
@@ -220,6 +265,7 @@ export default function EventEditor({ id }: { id?: string }) {
             {msg && <p>{msg}</p>}
           </form>
           {fenetre}
+          <EventApercu apercu={apercu ? apercuDepuisForm(form, locale) : null} locale={locale} onClose={() => setApercu(false)} />
           {detail && (
             <>
               <h2>{fr ? 'Inscrits' : 'Guests'}</h2>

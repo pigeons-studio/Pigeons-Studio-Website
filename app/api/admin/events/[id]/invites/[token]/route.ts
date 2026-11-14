@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/admin';
 import { deleteInvite, setInviteSent } from '@/lib/events';
+import { memeOrigine } from '@/lib/origin';
 
 export async function PATCH(request: Request, context: { params: Promise<{ id: string; token: string }> }) {
+  if (!memeOrigine(request)) return NextResponse.json({ error: 'origin' }, { status: 403 });
   const admin = await requireAdmin();
   if (!admin) return NextResponse.json({ error: 'forbidden' }, { status: 403 });
   const { id, token } = await context.params;
@@ -21,7 +23,8 @@ export async function PATCH(request: Request, context: { params: Promise<{ id: s
   return NextResponse.json({ ok: true });
 }
 
-export async function DELETE(_request: Request, context: { params: Promise<{ id: string; token: string }> }) {
+export async function DELETE(request: Request, context: { params: Promise<{ id: string; token: string }> }) {
+  if (!memeOrigine(request)) return NextResponse.json({ error: 'origin' }, { status: 403 });
   const admin = await requireAdmin();
   if (!admin) return NextResponse.json({ error: 'forbidden' }, { status: 403 });
   const { id, token } = await context.params;

@@ -2,11 +2,17 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { isSlug, registerForEvent, sendEventConfirmation, unregisterForEvent } from '@/lib/events';
+import { memeOrigine } from '@/lib/origin';
+import { adresseIp, FENETRE_TENTATIVES_MS, limiteAtteinte, PLAFOND_TENTATIVES } from '@/lib/rate-limit';
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_FORM_MS = 1500;
 
 export async function POST(request: Request, context: { params: Promise<{ slug: string }> }) {
+  if (!memeOrigine(request)) return NextResponse.json({ error: 'origin' }, { status: 403 });
+  if (await limiteAtteinte(`event:${adresseIp(request)}`, PLAFOND_TENTATIVES, FENETRE_TENTATIVES_MS)) {
+    return NextResponse.json({ error: 'rate' }, { status: 429 });
+  }
   const { slug } = await context.params;
   if (!isSlug(slug)) return NextResponse.json({ error: 'missing' }, { status: 404 });
 
@@ -58,7 +64,8 @@ export async function POST(request: Request, context: { params: Promise<{ slug: 
   return NextResponse.json({ error: result.status }, { status });
 }
 
-export async function DELETE(_request: Request, context: { params: Promise<{ slug: string }> }) {
+export async function DELETE(request: Request, context: { params: Promise<{ slug: string }> }) {
+  if (!memeOrigine(request)) return NextResponse.json({ error: 'origin' }, { status: 403 });
   const { slug } = await context.params;
   if (!isSlug(slug)) return NextResponse.json({ error: 'missing' }, { status: 404 });
   const session = await getServerSession(authOptions);

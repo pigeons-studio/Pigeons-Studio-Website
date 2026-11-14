@@ -1,9 +1,11 @@
 'use client';
 
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect, useRef, FormEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { signIn } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
+import { poserCookieCgu } from '@/lib/cgu';
 import styles from './LoginModal.module.css';
 
 type LoginModalProps = {
@@ -14,10 +16,16 @@ type LoginModalProps = {
 export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const t = useTranslations('auth');
   const tRegister = useTranslations('auth.register');
+  const tContact = useTranslations('contact');
+  const locale = useLocale();
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [slider, setSlider] = useState(0);
+  const [honeypot, setHoneypot] = useState('');
+  const [acceptCgu, setAcceptCgu] = useState(false);
+  const startedAt = useRef(Date.now());
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -33,6 +41,10 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
       setEmail('');
       setPassword('');
       setName('');
+      setSlider(0);
+      setHoneypot('');
+      setAcceptCgu(false);
+      startedAt.current = Date.now();
       setError('');
       setSuccess('');
     }
@@ -53,7 +65,11 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         redirect: false,
       });
 
-      if (result?.error) {
+      if (result?.error === 'RATE_LIMIT') {
+        setError(t('rateLimit'));
+      } else if (result?.error === 'EMAIL_NOT_VERIFIED') {
+        setError(t('emailNotVerified'));
+      } else if (result?.error) {
         setError(t('invalidCredentials'));
       } else {
         onClose();
@@ -83,13 +99,29 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           email,
           password,
           name,
+          locale,
+          acceptCgu,
+          antiBot: {
+            sliderValue: slider,
+            honeypot,
+            elapsedMs: Date.now() - startedAt.current,
+          },
         }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || tRegister('allFieldsRequired'));
+        const erreurs: Record<string, string> = {
+          emailExists: tRegister('emailExists'),
+          invalidEmail: tRegister('invalidEmail'),
+          passwordTooShort: tRegister('passwordTooShort'),
+          allFieldsRequired: tRegister('allFieldsRequired'),
+          antiBot: tContact('form.humanCheckError'),
+          cgu: tRegister('cguRequired'),
+          rate: tRegister('rate'),
+        };
+        setError(erreurs[data.error] || t('error'));
       } else {
         setSuccess(tRegister('success'));
         // Basculer vers le mode connexion après 2 secondes
@@ -106,6 +138,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   };
 
   const handleGoogleSignIn = () => {
+    if (!acceptCgu) return;
+    poserCookieCgu();
     signIn('google', { callbackUrl: window.location.href });
   };
 
@@ -162,12 +196,35 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             />
             {isSignUp && (
               <span className={styles.helpText}>
-                Minimum 8 caractères
+                {tRegister('passwordTooShort')}
               </span>
             )}
           </div>
 
-          <button type="submit" className={styles.submitButton} disabled={isLoading}>
+          {isSignUp && (
+            <>
+              <div className={styles.honeypot} aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
+              </div>
+              <div className={styles.field}>
+                <label htmlFor="signup-slider">{tContact('form.humanCheckLabel')}</label>
+                <span className={styles.helpText}>{tContact('form.humanCheckHint')}</span>
+                <input id="signup-slider" className={styles.slider} type="range" min={0} max={100} value={slider} onChange={(e) => setSlider(Number(e.target.value))} />
+                <span className={styles.helpText}>{slider >= 100 ? tContact('form.humanCheckReady') : tContact('form.humanCheckProgress', { value: slider })}</span>
+              </div>
+              <div className={styles.cguLigne}>
+                <label className={styles.notice}>
+                  <input type="checkbox" aria-label={`${tRegister('acceptCgu')} ${tRegister('cguLink')}`} checked={acceptCgu} onChange={(e) => setAcceptCgu(e.target.checked)} />
+                  <span className={styles.case} aria-hidden="true" />
+                  <span>{tRegister('acceptCgu')}</span>
+                </label>
+                <Link href="/cgu">{tRegister('cguLink')}</Link>
+              </div>
+            </>
+          )}
+
+          <button type="submit" className={styles.submitButton} disabled={isLoading || (isSignUp && (slider < 100 || !acceptCgu))}>
             {isLoading 
               ? (isSignUp ? t('signingUp') : t('signingIn'))
               : (isSignUp ? t('signUp') : t('signIn'))
@@ -196,12 +253,20 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         </div>
 
         {!isSignUp && (
-          <>
+          <div className={styles.googleBlock}>
             <div className={styles.divider}>
               <span>ou</span>
             </div>
 
-            <button onClick={handleGoogleSignIn} className={styles.googleButton}>
+            <div className={styles.cguLigne}>
+              <label className={styles.notice}>
+                <input type="checkbox" aria-label={`${tRegister('acceptCgu')} ${tRegister('cguLink')}`} checked={acceptCgu} onChange={(e) => setAcceptCgu(e.target.checked)} />
+                <span className={styles.case} aria-hidden="true" />
+                <span>{tRegister('acceptCgu')}</span>
+              </label>
+              <Link href="/cgu">{tRegister('cguLink')}</Link>
+            </div>
+            <button onClick={handleGoogleSignIn} className={styles.googleButton} disabled={!acceptCgu}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -210,7 +275,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
               </svg>
               {t('signInWithGoogle')}
             </button>
-          </>
+          </div>
         )}
       </div>
     </div>,
