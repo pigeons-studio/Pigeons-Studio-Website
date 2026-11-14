@@ -60,7 +60,7 @@
 }
 
 .infoCard {
-  background: var(--surface);
+  background: #000;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 24px;
@@ -143,7 +143,7 @@
 .emptyState {
   text-align: center;
   padding: 64px 24px;
-  background: var(--surface);
+  background: #000;
   border: 1px solid var(--border);
   border-radius: 12px;
   opacity: 0.7;
@@ -162,7 +162,7 @@
 }
 
 .orderCard {
-  background: var(--surface);
+  background: #000;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 24px;
@@ -367,7 +367,7 @@
 }
 
 .exportCard {
-  background: var(--surface);
+  background: #000;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 24px;

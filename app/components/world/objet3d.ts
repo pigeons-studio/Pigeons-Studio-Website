@@ -36,7 +36,7 @@ export function lancerObjet (canvas, url, css) {
   // glisser pour tourner ; sinon, l'objet tourne lentement et flotte, comme les étages du site
   let theta = 0.6; let phi = 0.32; let tire = null; let repos = 0;
   const bas = (e) => { tire = [e.clientX, e.clientY, theta, phi]; canvas.setPointerCapture?.(e.pointerId); };
-  const bouge = (e) => { if (!tire) return; theta = tire[2] + (e.clientX - tire[0]) * 0.01; phi = Math.max(-0.6, Math.min(1.2, tire[3] + (e.clientY - tire[1]) * 0.006)); repos = 0; };
+  const bouge = (e) => { if (!tire) return; theta = tire[2] - (e.clientX - tire[0]) * 0.01; phi = Math.max(-0.6, Math.min(1.2, tire[3] + (e.clientY - tire[1]) * 0.006)); repos = 0; };
   const haut = () => { tire = null; };
   canvas.addEventListener('pointerdown', bas); canvas.addEventListener('pointermove', bouge);
   canvas.addEventListener('pointerup', haut); canvas.addEventListener('pointercancel', haut);
