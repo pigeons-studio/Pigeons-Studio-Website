@@ -1500,15 +1500,37 @@ const K3 = {
 };
 const GCLES = Object.keys(SIG);
 function orbite (w, h, cx, cy, cz, R, haut, ang, fov = 1.0) { return camera3d([cx + Math.cos(ang) * R, haut, cz + Math.sin(ang) * R], [cx, cy, cz], w, h, fov); }
-// une orbite qui recule jusqu'à ce que toute la scène tienne dans le cadre (le sol mis à part)
-function orbiteC (L, w, h, cx, cy, cz, R, haut, ang, fov = 1.0) {
-  const marge = 14; const hautMin = 30; let cam = null;
-  for (let k = 0; k < 10; k++) {
-    cam = orbite(w, h, cx, cy, cz, R, haut, ang, fov); let ok = true;
-    for (const p of L) { if (p.onde || p.r === 'sombre' || (p.a ?? 1) < 0.15) continue; const q = cam.p(p.x, p.y, p.z); if (!q || q[0] < marge || q[0] > w - marge || q[1] < hautMin || q[1] > h - marge) { ok = false; break; } }
-    if (ok) break; R *= 1.12; haut = cy + (haut - cy) * 1.12;
+// une orbite qui recule jusqu'à ce que toute la scène tienne dans le cadre.
+// Le recul est lissé : un bras, une pièce qui tombe ou un point au bord ne fait plus zoomer et dézoomer à chaque image.
+let cadreMemo = null;
+function orbiteC (L, w, h, cx, cy, cz, R0, haut0, ang, fov = 1.0) {
+  const marge = 14; const hautMin = 30;
+  const tient = (s) => {
+    const cam = orbite(w, h, cx, cy, cz, R0 * s, cy + (haut0 - cy) * s, ang, fov);
+    for (const p of L) {
+      if (p.onde || p.r === 'sombre' || (p.a ?? 1) < 0.15) continue;
+      const q = cam.p(p.x, p.y, p.z);
+      if (!q || q[0] < marge || q[0] > w - marge || q[1] < hautMin || q[1] > h - marge) return false;
+    }
+    return true;
+  };
+  let voulu = 1;
+  if (!tient(1)) {
+    let lo = 1; let hi = 1.12;
+    while (hi < 4 && !tient(hi)) { lo = hi; hi *= 1.12; }
+    for (let i = 0; i < 6; i++) { const mid = (lo + hi) / 2; if (tient(mid)) hi = mid; else lo = mid; }
+    voulu = hi;
   }
-  return cam;
+  const cle = [w, h, cx, cy, cz, R0, haut0, fov].join('|');
+  const now = performance.now();
+  if (!cadreMemo || cadreMemo.cle !== cle) cadreMemo = { cle, s: voulu, t: now };
+  else {
+    const dt = Math.min(0.05, (now - cadreMemo.t) / 1000); cadreMemo.t = now;
+    const diff = voulu - cadreMemo.s;
+    if (Math.abs(diff) > 0.03) cadreMemo.s += diff * (1 - Math.exp(-dt * (diff > 0 ? 1.6 : 0.55)));
+  }
+  const s = cadreMemo.s;
+  return orbite(w, h, cx, cy, cz, R0 * s, cy + (haut0 - cy) * s, ang, fov);
 }
 function rendre3d (ctx, cam, L, css, o = {}) {
   etiq.largeur = cam.w;
