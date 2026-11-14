@@ -778,13 +778,13 @@
        "sous": "Remise à neuf, réparation, recalibrage et modifications",
        "statut": "sur devis",
        "texte": [
-        "On répare les synthétiseurs analogiques, les amplis et le matériel hi-fi. À chaque intervention, quelle que soit la panne, on remet à neuf les composants qui vieillissent avec le temps, comme les condensateurs électrolytiques.",
+        "On répare les synthétiseurs analogiques, les amplis et le matériel hi-fi. À chaque intervention, quelle que soit la panne, on remplace les condensateurs électrolytiques qui vieillissent, et on répare ou on remplace les potentiomètres.",
         "Puis on diagnostique la panne et on la répare, avant de tout recalibrer. Sur les synthés, on peut aussi faire des modifications et des upgrades : les midifier, leur ajouter des fonctions."
        ],
        "reperes": [
         [
          "Systématique",
-         "Remise à neuf des composants qui vieillissent (condensateurs électrolytiques, etc.), quelle que soit la panne"
+         "Remplacement des condensateurs électrolytiques, réparation ou remplacement des potentiomètres, quelle que soit la panne"
         ],
         [
          "Réparation",
@@ -1990,13 +1990,13 @@
        "sous": "Overhaul, repair, recalibration and mods",
        "statut": "on request",
        "texte": [
-        "We repair analogue synthesizers, amplifiers and hi-fi gear. Every time, whatever the fault, we renew the parts that age over time, such as electrolytic capacitors.",
+        "We repair analogue synthesizers, amplifiers and hi-fi gear. Every time, whatever the fault, we replace the electrolytic capacitors that age, and we repair or replace the potentiometers.",
         "Then we diagnose and repair the fault, before recalibrating everything. On synths we can also do mods and upgrades: adding MIDI, adding functions."
        ],
        "reperes": [
         [
          "Every time",
-         "Renewal of ageing parts (electrolytic capacitors, etc.), whatever the fault"
+         "Replacement of electrolytic capacitors, and repair or replacement of potentiometers, whatever the fault"
         ],
         [
          "Repair",
