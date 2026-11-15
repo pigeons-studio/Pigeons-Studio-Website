@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notice ORCA//GLYPH</title>
+<style>
+@font-face { font-family: 'IBM Plex Mono'; font-weight: 400; src: url(ibm-plex-mono-latin-400-normal.woff2) format('woff2'); font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; font-weight: 400; font-style: italic; src: url(ibm-plex-mono-latin-400-italic.woff2) format('woff2'); font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; font-weight: 500; src: url(ibm-plex-mono-latin-500-normal.woff2) format('woff2'); font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; font-weight: 600; src: url(ibm-plex-mono-latin-600-normal.woff2) format('woff2'); font-display: swap; }
+html, body { margin: 0; }
+</style>
+</head>
+<body>
+
+<style>
+/* Mise en page : la notice d'un logiciel de Pigeons Studio — fond noir, une seule fonte machine, les glyphes As-Simt comme illustrations ; un sommaire à gauche, le texte à droite */
+:root {
+  --fond: #000; --carte: #0b0b0a; --trait: #2c2b29; --encre: #f2f0ea; --gris: #8f8b82; --sombre: #55534e;
+  --op: #4fe0c0; --io: #ff5fae; --bang: #f0c14b; --etage: #9fd8ff;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--fond); color: var(--encre); font: 15px/1.65 var(--mono); }
+a { color: var(--bang); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--bang); outline-offset: 2px; }
+.page { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 48px; max-width: 1180px; margin: 0 auto; padding-block: 40px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+nav.sommaire { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; font-size: 12px; max-height: calc(100vh - 48px); overflow: auto; }
+nav.sommaire .marque { letter-spacing: .3em; font-size: 11px; margin-bottom: 18px; }
+nav.sommaire ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; counter-reset: s; }
+nav.sommaire li a { display: grid; grid-template-columns: 26px 1fr; color: var(--gris); text-decoration: none; padding: 3px 0; }
+nav.sommaire li a span { color: var(--sombre); }
+nav.sommaire li a:hover { color: var(--encre); }
+nav.sommaire .partie { color: var(--sombre); font-size: 10px; letter-spacing: .2em; margin: 14px 0 4px; }
+main { min-width: 0; }
+header.titre { border: 1px solid var(--trait); padding: 28px; display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: center; margin-bottom: 56px; }
+header.titre h1 { margin: 0; font-size: clamp(28px, 5vw, 46px); font-weight: 600; letter-spacing: .04em; line-height: 1.1; }
+header.titre p { margin: 10px 0 0; color: var(--gris); max-width: 60ch; }
+.surtitre { font-size: 11px; letter-spacing: .25em; color: var(--op); margin-bottom: 8px; }
+section { padding-top: 12px; margin-bottom: 64px; scroll-margin-top: 20px; }
+h2 { font-size: 22px; font-weight: 600; margin: 0 0 6px; text-wrap: balance; display: flex; gap: 14px; align-items: baseline; }
+h2 .num { color: var(--sombre); font-size: 13px; font-weight: 400; }
+h3 { font-size: 15px; font-weight: 600; margin: 32px 0 6px; letter-spacing: .02em; }
+p, li { max-width: 68ch; }
+p { margin: 10px 0; }
+.chapeau { color: var(--gris); margin-bottom: 18px; }
+code, kbd { font-family: var(--mono); font-size: .92em; }
+code { color: var(--op); background: #0f1a18; padding: 1px 5px; }
+kbd { border: 1px solid var(--trait); border-bottom-width: 2px; padding: 0 6px; color: var(--encre); white-space: nowrap; }
+.encadre { border-left: 2px solid var(--bang); padding: 6px 0 6px 16px; color: var(--encre); margin: 18px 0; max-width: 68ch; }
+.encadre.etage { border-color: var(--etage); }
+ul.liste { padding-left: 18px; } ul.liste li { margin: 4px 0; }
+/* les grilles d'exemple : chaque case porte son glyphe */
+.exemple { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 22px; align-items: start; margin: 18px 0 26px; }
+.exemple .legende { color: var(--gris); font-size: 13px; }
+.exemple .legende b { color: var(--encre); font-weight: 500; }
+.grille-boite { border: 1px solid var(--trait); background: var(--carte); padding: 12px; overflow-x: auto; max-width: 100%; }
+.grille-boite .nom { font-size: 10px; letter-spacing: .2em; color: var(--sombre); margin-bottom: 8px; }
+.grille { display: grid; gap: 2px; width: max-content; }
+.case { width: 32px; height: 46px; display: grid; grid-template-rows: 28px 14px; justify-items: center; align-items: center; gap: 2px; position: relative; color: var(--sombre); font-size: 11px; }
+.case svg { width: 24px; height: 24px; display: block; }
+.case .lettre { color: var(--gris); line-height: 1; font-size: 11px; }
+.case.vide::before { content: ''; width: 2px; height: 2px; background: var(--trait); }
+.case.op { color: var(--op); } .case.io { color: var(--io); } .case.bang { color: var(--bang); } .case.val { color: var(--encre); } .case.etg { color: var(--etage); } .case.com { color: var(--sombre); }
+.case.sortie { background: #16140c; } .case.marque { outline: 1px dashed var(--bang); outline-offset: -2px; }
+.bascule { display: flex; gap: 0; border: 1px solid var(--trait); width: max-content; margin: 0 0 20px; }
+.bascule button { background: none; border: 0; color: var(--gris); font: 12px var(--mono); padding: 6px 12px; cursor: pointer; }
+.bascule button[aria-pressed="true"] { background: var(--encre); color: var(--fond); }
+.tape { display: inline-flex; align-items: center; gap: 5px; vertical-align: -6px; white-space: nowrap; }
+.tape .k { border: 1px solid var(--trait); border-bottom-width: 2px; padding: 0 5px; color: var(--encre); font-size: .9em; line-height: 1.5; }
+.tape .vers { color: var(--sombre); font-size: .85em; }
+.tape .gl { display: inline-flex; gap: 1px; }
+.tape .gl svg { width: 17px; height: 17px; }
+.tape .gl .sp { width: 6px; }
+.alphabet { display: grid; grid-template-columns: repeat(auto-fill, minmax(66px, 1fr)); gap: 6px; margin: 10px 0 22px; }
+.alphabet .t { border: 1px solid var(--trait); background: var(--carte); padding: 8px 4px 6px; display: grid; justify-items: center; gap: 4px; }
+.alphabet .t svg { width: 26px; height: 26px; }
+.alphabet .t .k { border: 1px solid var(--trait); border-bottom-width: 2px; padding: 0 6px; font-size: 12px; color: var(--encre); }
+.alphabet .t .m { font-size: 10px; color: var(--gris); text-align: center; line-height: 1.2; }
+.code-couleurs { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12px; color: var(--gris); margin: -8px 0 20px; }
+.code-couleurs i { display: inline-block; width: 9px; height: 9px; margin-right: 6px; vertical-align: 0; }
+/* le tableau des opérateurs */
+.tab { overflow-x: auto; max-width: 100%; border: 1px solid var(--trait); }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--trait); }
+th { font-weight: 500; color: var(--gris); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; background: var(--carte); position: sticky; top: 0; }
+tr:last-child td { border-bottom: 0; }
+td.g { width: 64px; }
+td.g .duo { display: flex; gap: 8px; align-items: center; }
+td.g svg { width: 30px; height: 30px; }
+td .ch { font-size: 18px; font-weight: 600; color: var(--encre); width: 16px; display: inline-block; }
+td .mot { color: var(--op); } td .lien { color: var(--gris); font-style: italic; display: block; margin-top: 3px; }
+td .ports { color: var(--bang); white-space: nowrap; }
+.table-num td, .table-num th { text-align: center; font-variant-numeric: tabular-nums; padding: 6px 8px; }
+.table-num td:first-child, .table-num th:first-child { text-align: left; color: var(--gris); }
+.cles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 0 32px; }
+.cles dl { margin: 0 0 18px; }
+.cles dt { font-size: 11px; letter-spacing: .2em; color: var(--sombre); margin: 14px 0 6px; }
+.cles dd { margin: 0; display: grid; grid-template-columns: minmax(0, 150px) minmax(0, 1fr); gap: 12px; padding: 5px 0; border-bottom: 1px solid #141412; font-size: 13px; }
+.cles dd span:last-child { color: var(--gris); }
+.pied { border-top: 1px solid var(--trait); padding-top: 24px; color: var(--gris); font-size: 13px; }
+@media (max-width: 860px) {
+  .page { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-block: 20px 60px; }
+  nav.sommaire { position: static; max-height: none; border: 1px solid var(--trait); padding: 14px; }
+  nav.sommaire ol { grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); }
+  header.titre { grid-template-columns: 1fr; padding: 20px; }
+  .exemple { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .cles dd { grid-template-columns: minmax(0, 120px) minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<div class="page">
+<nav class="sommaire" aria-label="Sommaire">
+  <div class="marque"><a href="/fr" style="color:inherit;text-decoration:none">PIGEONS//STUDIO</a></div>
+  <div style="margin:-8px 0 14px"><a href="manual.html">English version</a></div>
+  <div class="partie">PREMIERS PAS</div>
+  <ol>
+    <li><a href="#cest-quoi"><span>01</span>C'est quoi</a></li>
+    <li><a href="#clavier-glyphes"><span>02</span>Taper, voir</a></li>
+    <li><a href="#grille"><span>03</span>La grille et le temps</a></li>
+    <li><a href="#operateur"><span>04</span>Écrire un opérateur</a></li>
+    <li><a href="#ports"><span>05</span>Les ports</a></li>
+    <li><a href="#bang"><span>06</span>Le bang</a></li>
+    <li><a href="#note"><span>07</span>Jouer une note</a></li>
+    <li><a href="#base36"><span>08</span>Compter en base 36</a></li>
+    <li><a href="#melodie"><span>09</span>Une mélodie</a></li>
+    <li><a href="#rythme"><span>10</span>Un rythme</a></li>
+    <li><a href="#variables"><span>11</span>Les variables</a></li>
+    <li><a href="#etages"><span>12</span>Les étages</a></li>
+    <li><a href="#son"><span>13</span>Brancher le son</a></li>
+  </ol>
+  <div class="partie">ALLER PLUS LOIN</div>
+  <ol>
+    <li><a href="#voir"><span>14</span>Regarder le volume</a></li>
+    <li><a href="#menu"><span>15</span>Le menu en glyphes</a></li>
+    <li><a href="#partition"><span>16</span>La partition</a></li>
+    <li><a href="#sessions"><span>17</span>Sessions et fichiers</a></li>
+  </ol>
+  <div class="partie">RÉFÉRENCE</div>
+  <ol>
+    <li><a href="#operateurs"><span>18</span>Tous les opérateurs</a></li>
+    <li><a href="#clavier"><span>19</span>Clavier et souris</a></li>
+    <li><a href="#commandes"><span>20</span>Commandes</a></li>
+    <li><a href="#tables"><span>21</span>Tables</a></li>
+    <li><a href="#lignee"><span>22</span>Lignée et liens</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="titre">
+  <div class="grille-boite" aria-hidden="true"><div class="grille" data-src="ORCA//\nGLYPH." data-cols="6"></div></div>
+  <div>
+    <div class="surtitre">NOTICE · VERSION FRANÇAISE</div>
+    <h1>ORCA//GLYPH</h1>
+    <p>Un langage de live coding en volume. Chaque lettre est une opération, chaque opération est un glyphe, et la grille d'Orca devient un immeuble d'étages qu'on code au clavier et qu'on regarde en 3D. Cette notice part de zéro : pas besoin de connaître Orca pour commencer.</p>
+  </div>
+</header>
+
+<div class="encadre">Dans ORCA//GLYPH, on tape des caractères au clavier, et chacun apparaît à l'écran sous la forme d'un glyphe. Partout dans cette notice, les exemples montrent les deux : <b>le glyphe qui apparaît</b>, et en petit dessous, <b>la touche à taper</b>. Dans le texte, <span class="tape-exemple"></span> se lit « on tape D, on voit ce glyphe ». La table complète est à l'étape <a href="#clavier-glyphes">02</a>.</div>
+<div class="code-couleurs">
+  <span><i style="background:var(--op)"></i>opérateur</span>
+  <span><i style="background:var(--io)"></i>sortie MIDI / OSC</span>
+  <span><i style="background:var(--etage)"></i>opérateur d'étage</span>
+  <span><i style="background:var(--bang)"></i>bang</span>
+  <span><i style="background:var(--encre)"></i>valeur</span>
+  <span><i style="background:#16140c;outline:1px solid var(--trait)"></i>case écrite par l'opérateur</span>
+</div>
+
+<section id="cest-quoi">
+  <h2><span class="num">01</span>C'est quoi, ORCA//GLYPH</h2>
+  <p class="chapeau">Un séquenceur qu'on écrit avec des lettres, qui ne fait pas de son lui-même mais pilote vos instruments.</p>
+  <p>ORCA//GLYPH descend d'<a href="https://100r.co/site/orca.html" target="_blank" rel="noopener">Orca</a>, le langage de programmation ésotérique créé par Hundred Rabbits. Le principe est le même : sur une grille, chaque lettre de l'alphabet est une opération. Les opérations se lisent, s'additionnent, se déclenchent les unes les autres et finissent par envoyer des notes MIDI, des messages OSC ou UDP à vos synthés, à Ableton, à VCV Rack, à SuperCollider ou à un Monome Norns.</p>
+  <p>Ce que ORCA//GLYPH ajoute :</p>
+  <ul class="liste">
+    <li><b>Des étages.</b> La grille d'Orca est empilée en plusieurs niveaux, et six opérateurs font passer les valeurs et les bangs d'un étage à l'autre.</li>
+    <li><b>Des glyphes.</b> Chaque caractère est un glyphe de l'alphabet As-Simt, extrudé en 3D. Chaque opérateur majuscule est dessiné avec le signe de sa définition poétique : <code>T</code>, le séquenceur, est « tisser ».</li>
+    <li><b>Une vue en volume.</b> On code au clavier comme dans Orca, et on tourne autour du code, on le traverse, on le passe en nuage de points ou en glitch.</li>
+    <li><b>Une partition.</b> Ce qui est joué peut s'écrire en partition, pour être rejoué par des musiciens.</li>
+  </ul>
+  <div class="encadre">Un fichier <code>.orca</code> classique s'ouvre dans ORCA//GLYPH, sur l'étage 0, et une session d'ORCA//GLYPH s'ouvre dans Orca. Tout ce que vous apprenez ici vaut aussi pour Orca.</div>
+</section>
+
+<section id="clavier-glyphes">
+  <h2><span class="num">02</span>Ce que vous tapez, ce que vous voyez</h2>
+  <p class="chapeau">Le clavier est le clavier ordinaire. L'écran, lui, écrit tout en glyphes As-Simt.</p>
+  <p>Chaque touche correspond à un glyphe. Les <b>majuscules</b> prennent le signe de leur définition poétique : taper <span class="tape" data-t="T"></span>, c'est écrire « tisser ». Les <b>minuscules</b>, les chiffres et les signes prennent la lettre correspondante de l'alphabet As-Simt. Une case vide (<span class="tape" data-t="."></span>) reste un petit point.</p>
+  <h3>Les majuscules : les 26 opérateurs</h3>
+  <div class="alphabet" data-jeu="ABCDEFGHIJKLMNOPQRSTUVWXYZ" data-mots="1"></div>
+  <h3>Les minuscules</h3>
+  <div class="alphabet" data-jeu="abcdefghijklmnopqrstuvwxyz"></div>
+  <h3>Les chiffres</h3>
+  <div class="alphabet" data-jeu="0123456789"></div>
+  <h3>Les signes</h3>
+  <div class="alphabet" data-jeu="*#:%!?;=$" data-noms="bang|commentaire|note MIDI|note mono|contrôle CC|pitch bend|UDP|OSC|commande"></div>
+  <h3>Les opérateurs d'étage</h3>
+  <div class="alphabet" data-jeu="',()&quot;-" data-noms="monte|descend|écoute|envoie|relais|glitch"></div>
+  <div class="encadre">Pour savoir ce que fait la case sous le pigeon, allumez <b>NOMS</b> : une étiquette donne le nom de l'opérateur et ce que valent ses ports. Le guide (<kbd>F1</kbd>) montre aussi chaque signe avec son nom.</div>
+</section>
+
+<section id="grille">
+  <h2><span class="num">03</span>La grille et le temps</h2>
+  <p class="chapeau">Une grille de cases, une horloge qui avance d'une image à la fois.</p>
+  <p>À l'ouverture, la grille est vide : des points sur un fond noir. Le curseur est le <b>pigeon d'or</b>. On le déplace avec les flèches, on tape un caractère pour l'écrire dans la case, <kbd>Retour arrière</kbd> pour l'effacer.</p>
+  <p>Le temps avance par <b>images</b> (frames). À chaque image, ORCA//GLYPH lit toute la grille, de gauche à droite et de haut en bas, et fait agir chaque opérateur une fois. Le compteur d'images est affiché en bas de l'écran, avec le tempo.</p>
+  <ul class="liste">
+    <li><kbd>Espace</kbd> lance ou arrête l'horloge. À l'arrêt, le pigeon clignote.</li>
+    <li><kbd>Ctrl</kbd>+<kbd>F</kbd> avance d'une seule image : pratique pour comprendre ce qui se passe.</li>
+    <li><kbd>&gt;</kbd> et <kbd>&lt;</kbd> montent et baissent le tempo (en BPM). Par défaut, 4 images font un temps.</li>
+  </ul>
+</section>
+
+<section id="operateur">
+  <h2><span class="num">04</span>Écrire un opérateur</h2>
+  <p class="chapeau">Majuscule : il agit à chaque image. Minuscule : il attend qu'on le déclenche.</p>
+  <p>Tapez <code>1A2</code> : le <code>A</code> additionne la valeur à sa gauche et la valeur à sa droite, et écrit le résultat juste en dessous de lui. Au bout d'une image, un <code>3</code> apparaît.</p>
+  <div class="exemple">
+    <div class="grille-boite"><div class="nom">ADDITIONNER</div><div class="grille" data-src="1A2\n.3." data-sortie="1,1"></div></div>
+    <div class="legende"><b>A</b> se dit <i>essaim</i> dans la langue des images : un essaim grossit en s'ajoutant. Changez le <code>2</code> en <code>5</code> : la sortie devient <code>6</code> à l'image suivante.</div>
+  </div>
+  <p>En majuscule, un opérateur agit à <b>chaque image</b>. En minuscule (<code>a</code>), le même opérateur ne fait rien tant qu'il n'a pas reçu de <b>bang</b> (voir l'étape 06). C'est la règle la plus importante du langage.</p>
+  <p>Dans ORCA//GLYPH, les majuscules sont dessinées avec leur signe poétique, et les minuscules gardent l'alphabet ordinaire : on voit tout de suite ce qui tourne en continu et ce qui attend.</p>
+</section>
+
+<section id="ports">
+  <h2><span class="num">05</span>Les ports</h2>
+  <p class="chapeau">À gauche les réglages, à droite les entrées, en dessous la sortie.</p>
+  <p>Chaque opérateur lit des cases autour de lui, ses <b>ports</b> :</p>
+  <ul class="liste">
+    <li><b>à gauche</b>, les réglages (on dit aussi « haste ») : ils sont lus avant que l'opérateur agisse, par exemple la vitesse d'une horloge ;</li>
+    <li><b>à droite</b>, les entrées : les valeurs sur lesquelles il travaille ;</li>
+    <li><b>en dessous</b>, la sortie : la case où il écrit.</li>
+  </ul>
+  <p>Une case vide (<code>.</code>) vaut 0, ou la valeur par défaut du port. Quand le pigeon est sur un opérateur, l'option <b>NOMS</b> affiche ce que fait chaque port, par exemple <code>vitesse 4 · modulo 8 → 3</code> pour une horloge.</p>
+  <div class="exemple">
+    <div class="grille-boite"><div class="nom">UNE HORLOGE</div><div class="grille" data-src="4C8\n.3." data-sortie="1,1"></div></div>
+    <div class="legende"><b>C</b> (<i>battement</i>) compte de <code>0</code> à <code>7</code> puis recommence : le <code>8</code> à droite est le modulo, le <code>4</code> à gauche dit qu'il avance d'un cran toutes les 4 images. La sortie change sous vos yeux.</div>
+  </div>
+  <p>Les sorties d'un opérateur deviennent les entrées d'un autre : il suffit de placer le second juste à côté. Tout Orca est fait de ces chaînes.</p>
+</section>
+
+<section id="bang">
+  <h2><span class="num">06</span>Le bang</h2>
+  <p class="chapeau">Un <code>*</code> qui apparaît une image et déclenche ses voisins.</p>
+  <p>Le <b>bang</b> est un signal d'une image : un <code>*</code> qui apparaît, réveille les opérateurs qui le touchent (au-dessus, en dessous, à gauche, à droite), puis disparaît. C'est lui qui déclenche les minuscules et les sorties.</p>
+  <div class="exemple">
+    <div class="grille-boite"><div class="nom">UN BANG RÉGULIER</div><div class="grille" data-src=".D4\n.*." data-sortie="1,1"></div></div>
+    <div class="legende"><b>D</b> (<i>pluie</i>) fait tomber un bang sous lui toutes les 4 images, comme une goutte qui tombe en rythme. Avec <code>2D4</code>, il en fait tomber un toutes les 8 images (2 × 4).</div>
+  </div>
+  <p>D'autres opérateurs produisent des bangs : <code>F</code> quand deux valeurs sont égales, <code>U</code> en rythme euclidien, et <code>E</code>, <code>N</code>, <code>S</code>, <code>W</code> quand ils se cognent contre quelque chose. Vous pouvez aussi écrire un <code>*</code> à la main, ou déclencher l'opérateur sous le pigeon avec <kbd>Ctrl</kbd>+<kbd>P</kbd>.</p>
+</section>
+
+<section id="note">
+  <h2><span class="num">07</span>Jouer une note</h2>
+  <p class="chapeau">Le <code>:</code> envoie une note MIDI quand il reçoit un bang.</p>
+  <p>Le <code>:</code> lit cinq cases à sa droite : <b>canal</b>, <b>octave</b>, <b>note</b>, puis, si on veut, <b>vélocité</b> et <b>durée</b>. Placez-le à côté du bang d'un <code>D</code> :</p>
+  <div class="exemple">
+    <div class="grille-boite"><div class="nom">UNE NOTE TOUTES LES 4 IMAGES</div><div class="grille" data-src=".D4...\n.*:03C" data-sortie="1,1"></div></div>
+    <div class="legende"><code>:03C</code> joue un <b>do</b>, à l'<b>octave 3</b>, sur le <b>canal 1</b> (les canaux commencent à <code>0</code>). Les notes s'écrivent <code>C D E F G A B</code> ; une minuscule fait le dièse : <code>c</code> est un do dièse.</div>
+  </div>
+  <ul class="liste">
+    <li><b>Vélocité</b> : de <code>0</code> à <code>g</code> (16 = 127). Sans rien, c'est <code>f</code>, un jeu fort.</li>
+    <li><b>Durée</b> : le nombre d'images pendant lequel la note reste tenue. Sans rien, une image.</li>
+    <li><code>%</code> fait pareil, mais en <b>monophonique</b> : chaque nouvelle note coupe la précédente, idéal pour les synthés analogiques qui n'aiment pas les accords.</li>
+  </ul>
+  <div class="encadre">Pas de son ? ORCA//GLYPH n'est pas un synthé. Choisissez un instrument dans <b>SORTIES ▸ MIDI</b> (voir l'étape 13), puis le bouton <b>TEST</b> joue un do pour vérifier.</div>
+</section>
+
+<section id="base36">
+  <h2><span class="num">08</span>Compter en base 36</h2>
+  <p class="chapeau">Une case ne contient qu'un caractère : les lettres servent aussi de nombres.</p>
+  <p>Orca compte de <code>0</code> à <code>z</code> : <code>0</code>–<code>9</code> valent 0 à 9, puis <code>a</code> vaut 10, <code>b</code> 11… jusqu'à <code>z</code>, 35. Ainsi <code>Do</code> fait tomber un bang toutes les 24 images. La table complète est dans la <a href="#tables">référence</a>.</p>
+  <p>Un calcul qui dépasse 35 recommence à 0 : <code>zA1</code> donne <code>0</code>. C'est ce qui fait boucler les horloges et les compteurs.</p>
+</section>
+
+<section id="melodie">
+  <h2><span class="num">09</span>Une mélodie</h2>
+  <p class="chapeau"><code>T</code>, <i>tisser</i>, lit une valeur parmi une rangée : c'est le séquenceur.</p>
+  <p><code>T</code> a deux réglages à gauche : la <b>position</b> (la clé) et la <b>longueur</b> de la rangée à lire. Il écrit sous lui la valeur trouvée à cette position. En lui donnant une horloge comme position, il parcourt la rangée comme une navette sur un métier à tisser.</p>
+  <div class="exemple">
+    <div class="grille-boite"><div class="nom">HUIT NOTES EN BOUCLE</div><div class="grille" data-src="..1C8.........\n1D238TCDEGAcdg\n.*:14G........" data-sortie="3,1;5,2" data-marque="3,1"></div></div>
+    <div class="legende">
+      <b>1C8</b> compte de 0 à 7 et écrit le compte dans la case marquée, qui est la position de <b>T</b>.<br>
+      <b>8T</b> lit donc une à une les huit notes <code>CDEGAcdg</code> et écrit la note du moment sous lui.<br>
+      <b>1D2</b> fait tomber un bang toutes les 2 images, à côté de <b>:14</b> (canal 2, octave 4), dont la troisième case est justement la sortie de <b>T</b>.
+    </div>
+  </div>
+  <p>Changez les lettres de la rangée pendant que ça joue : la mélodie change à la volée. C'est tout l'esprit du live coding.</p>
+</section>
+
+<section id="rythme">
+  <h2><span class="num">10</span>Un rythme</h2>
+  <p class="chapeau"><code>U</code>, <i>cercle</i>, répartit des coups sur un cycle.</p>
+  <div class="exemple">
+    <div class="grille-boite"><div class="nom">3 COUPS SUR 8</div><div class="grille" data-src="3U8...\n.*:02C" data-sortie="1,1"></div></div>
+    <div class="legende"><b>3U8</b> donne un rythme euclidien : 3 bangs répartis le plus régulièrement possible sur 8 pas. Essayez <code>5U8</code>, <code>3U4</code>, <code>7Ug</code>. Sur un canal de batterie, deux ou trois <b>U</b> superposés suffisent à faire un groove.</div>
+  </div>
+  <p>Pour ralentir un rythme, mettez une horloge à gauche du <code>D</code> ou du <code>U</code> ; pour le décaler, utilisez <code>H</code> (<i>silence</i>), qui bloque la case sous lui, ou <code>F</code> (<i>double</i>) pour ne garder que certains pas.</p>
+</section>
+
+<section id="variables">
+  <h2><span class="num">11</span>Les variables</h2>
+  <p class="chapeau"><code>V</code>, <i>je le porte en moi</i>, garde une valeur sous un nom.</p>
+  <div class="exemple">
+    <div class="grille-boite"><div class="nom">ÉCRIRE PUIS LIRE</div><div class="grille" data-src="aV5....\n.......\n....Va.\n....5.." data-sortie="4,3"></div></div>
+    <div class="legende"><b>aV5</b> range <code>5</code> dans la variable <code>a</code>. Plus loin, <b>Va</b> (sans rien à gauche) lit la variable <code>a</code> et écrit <code>5</code> sous lui. Les variables se partagent dans toute la grille, et dans tous les étages.</div>
+  </div>
+  <p><code>K</code> (<i>nuée</i>) lit plusieurs variables d'un coup : <code>3Kabc</code> écrit sous <code>a</code>, <code>b</code> et <code>c</code> leurs valeurs. Comme la grille se lit de haut en bas, une variable écrite en haut peut être réécrite plus bas dans la même image : l'ordre compte.</p>
+</section>
+
+<section id="etages">
+  <h2><span class="num">12</span>Les étages</h2>
+  <p class="chapeau">Plusieurs grilles empilées, et six opérateurs pour passer de l'une à l'autre.</p>
+  <p>Tous les opérateurs d'Orca agissent dans leur étage. <kbd>Page ↑</kbd> et <kbd>Page ↓</kbd> déplacent le pigeon d'un étage à l'autre ; <kbd>Ctrl</kbd>+<kbd>Maj</kbd>+<kbd>Page ↑</kbd> ajoute un étage. L'étage 0 est le rez-de-chaussée. Les étages au-dessus du pigeon s'assombrissent, ceux du dessous restent clairs.</p>
+  <p>Les six opérateurs d'étage se tapent sans <kbd>Maj</kbd> sur un clavier AZERTY. Devant eux, <code>L</code> est un numéro d'étage ; s'il est vide, c'est l'étage juste au-dessus.</p>
+  <div class="tab"><table>
+    <thead><tr><th>Glyphe · touche</th><th>Nom</th><th>Ce qu'il fait</th></tr></thead>
+    <tbody>
+      <tr><td class="g" data-ch="'"></td><td><span class="mot">monte</span></td><td>Monte d'un étage à chaque image ; bang s'il est bloqué (tout en haut, ou contre un glyphe).</td></tr>
+      <tr><td class="g" data-ch=","></td><td><span class="mot">descend</span></td><td>Descend d'un étage à chaque image ; bang s'il est bloqué.</td></tr>
+      <tr><td class="g" data-ch="("></td><td><span class="mot">écoute</span> <span class="ports">L(</span></td><td>Lit en continu la case sous lui à l'étage L, et la recopie sous lui.</td></tr>
+      <tr><td class="g" data-ch=")"></td><td><span class="mot">envoie</span> <span class="ports">L)v</span></td><td>Quand on le bang, écrit v dans la case sous lui à l'étage L. Un <code>'</code> ou un <code>,</code> envoyé part aussitôt.</td></tr>
+      <tr><td class="g" data-ch='"'></td><td><span class="mot">relais</span> <span class="ports">L"</span></td><td>Quand on le bang, déclenche la case sous lui à l'étage L.</td></tr>
+      <tr><td class="g" data-ch="-"></td><td><span class="mot">glitch</span> <span class="ports">t-v</span></td><td>Quand on le bang, déchire la 3D autour de lui : taille t, vision v (0 au hasard, 1 nuage, 2 tirets, 3 arêtes).</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Exemple : une mélodie qui écoute l'étage du dessous</h3>
+  <div class="exemple">
+    <div style="display:grid;gap:10px">
+      <div class="grille-boite"><div class="nom">ÉTAGE 1</div><div class="grille" data-src="..0(..........\n1D238TCDEGAcdg\n.*:14G........" data-sortie="3,1;5,2"></div></div>
+      <div class="grille-boite"><div class="nom">ÉTAGE 0</div><div class="grille" data-src="..4C8.........\n...3.........." data-sortie="3,1"></div></div>
+    </div>
+    <div class="legende">À l'étage 0, une horloge <b>4C8</b>. À l'étage 1, <b>0(</b> écoute la case sous lui à l'étage 0 : c'est la sortie de l'horloge, recopiée juste à gauche de <b>8T</b>. La mélodie de l'étage 1 avance au rythme de l'étage 0. Dans la 3D, un faisceau relie les deux cases.</div>
+  </div>
+  <div class="encadre etage">Les variables (<code>V</code>) sont communes à tous les étages : c'est l'autre façon de faire passer une valeur d'un étage à l'autre.</div>
+</section>
+
+<section id="son">
+  <h2><span class="num">13</span>Brancher le son</h2>
+  <p class="chapeau">ORCA//GLYPH parle MIDI, OSC et UDP. Tout se règle dans le glyphe <b>SORTIES</b> du menu (le signe <i>signal</i>).</p>
+  <h3>MIDI</h3>
+  <p>Choisissez l'instrument qui reçoit les notes de <code>:</code>, <code>%</code>, les contrôles de <code>!</code> et le pitch bend de <code>?</code>. Un instrument branché est reconnu tout seul en deux secondes, et retrouvé par son nom au lancement suivant. <kbd>Ctrl</kbd>+<kbd>.</kbd> passe à la sortie suivante.</p>
+  <ul class="liste">
+    <li><b>Vers un logiciel sur le même ordinateur</b> (Ableton, Bitwig, VCV Rack) : il faut un câble MIDI virtuel. Sous Windows, <a href="https://www.tobias-erichsen.de/software/loopmidi.html" target="_blank" rel="noopener">loopMIDI</a> ; sur Mac, le bus IAC (Configuration audio et MIDI) ; sous Linux, ALSA ou JACK.</li>
+    <li><b>Dans Ableton Live</b> : une piste d'instrument MIDI, entrée sur le câble virtuel, et le bouton <b>In</b> activé.</li>
+    <li><b>Dans VCV Rack</b> : un module MIDI-CV réglé sur le câble virtuel, puis <code>:03c88</code> pour envoyer une note et un gate.</li>
+    <li><b>Un synthé en USB</b> : il apparaît directement. Sous Windows, les appareils MIDI en Bluetooth ne sont pas vus : passez par un câble USB ou un port virtuel.</li>
+  </ul>
+  <p><b>HORLOGE</b> permet de suivre l'horloge MIDI d'une autre machine ; sinon, c'est l'horloge interne.</p>
+  <h3>OSC</h3>
+  <p><code>=</code> envoie un message OSC quand on le bang : le premier caractère est le chemin, les suivants sont envoyés comme nombres. <code>=a123</code> envoie <code class="txt">1 2 3</code> sur <code>/a</code>. Réglez l'adresse et le port dans SORTIES : par exemple <b>57120</b> pour SuperCollider, <b>4560</b> pour Sonic Pi, <b>10111</b> pour le Norns, ou l'adresse IP d'une autre machine. Le port par défaut d'Orca est 49162.</p>
+  <h3>UDP</h3>
+  <p><code>;</code> envoie le texte écrit à sa droite, par défaut sur le port 49161 de l'ordinateur. <code>;03Cff</code> joue une note dans <a href="https://github.com/hundredrabbits/pilot" target="_blank" rel="noopener">Pilot</a>, le petit synthé de Hundred Rabbits qui marche sans réglage.</p>
+  <h3>Contrôles et pitch bend</h3>
+  <ul class="liste">
+    <li><code>!</code> (canal, contrôle, valeur) envoie un CC entre 0 et 127, calculé sur 36 : <code>!008</code> envoie 28 sur le premier contrôle (CC 64 par défaut, réglable avec la commande <code class="txt">cc:0</code>).</li>
+    <li><code>?</code> (canal, lsb, msb) envoie un pitch bend.</li>
+    <li>La commande <code class="txt">pg:canal;msb;lsb;programme</code> change de son (program change, bank select).</li>
+  </ul>
+  <p>Le bouton <b>TEST</b> envoie un do sur le canal 1 et <code>/orcaglyph/test 1</code> en OSC : le plus simple pour vérifier un branchement.</p>
+</section>
+
+<section id="voir">
+  <h2><span class="num">14</span>Regarder le volume</h2>
+  <p class="chapeau">Le code est un lieu : on tourne autour, on entre dedans.</p>
+  <h3>Souris et caméras</h3>
+  <ul class="liste">
+    <li><b>Clic gauche</b> : pose le pigeon sur la case visée, sur n'importe quel étage visible ; glisser sélectionne.</li>
+    <li><b>Clic droit glissé</b> : tourner autour. <b>Molette</b> : zoomer. <b>Maj + clic droit</b> : déplacer la vue.</li>
+    <li><kbd>F3</kbd> : caméra suivante (3/4, dessus, face, orbite, AUTO). En <b>AUTO</b>, la caméra dérive lentement autour du pigeon ; la molette zoome pendant la dérive.</li>
+    <li><kbd>F2</kbd> : la balade, à la première personne (ZQSD ou WASD, Espace monte, C descend, Maj accélère). <kbd>Origine</kbd> recadre.</li>
+  </ul>
+  <h3>2D et 3D</h3>
+  <p><kbd>Ctrl</kbd>+<kbd>D</kbd> aplatit le volume en un Orca 2D vu de dessus : la caméra recule en refermant son angle, les autres étages se replient sur celui du pigeon. On y code exactement comme dans Orca. Le même raccourci redéploie les étages.</p>
+  <h3>Visions</h3>
+  <p><kbd>Tab</kbd> passe d'une vision à l'autre : <b>NORMALE</b> (glyphes pleins), <b>NUAGE</b> (points façon Kinect, la couleur donne la profondeur), <b>TIRETS</b>, <b>ARÊTES</b>, <b>GLITCH</b> (la 3D déchirée par morceaux). <kbd>F7</kbd> lance une rafale de glitch. L'opérateur <code>-</code> déclenche un glitch localisé depuis le code.</p>
+  <h3>Disposition</h3>
+  <ul class="liste">
+    <li><kbd>F8</kbd> : <b>PLAN</b> (étages empilés, glyphes couchés) ou <b>IMMEUBLES</b> (le plan se relève comme un pont-levis, chaque colonne devient une tour).</li>
+    <li><kbd>F4</kbd> : la coupe, qui cache les étages au-dessus du pigeon.</li>
+    <li><kbd>F10</kbd> : une texture par étage (carrés, tirets, points), pour lire les étages superposés.</li>
+    <li><kbd>F9</kbd> : les liens. Quand plusieurs étages bangent dans la même image, un éclair de pixels relie les bangs d'étage en étage.</li>
+    <li><kbd>F11</kbd> : plein écran. <kbd>F6</kbd> : mode perf, il ne reste que la 3D.</li>
+  </ul>
+  <h3>Tracking et noms</h3>
+  <p><b>TRACKING</b> pose un petit réticule sur chaque bang, avec ce qu'il déclenche (<code class="txt">MIDI do3</code>, <code class="txt">RELAIS</code>…). <b>NOMS</b> affiche au pigeon ce que fait la case touchée : le nom d'un opérateur et ses valeurs, le réglage d'une case d'entrée, la valeur d'un nombre en base 36.</p>
+</section>
+
+<section id="menu">
+  <h2><span class="num">15</span>Le menu en glyphes</h2>
+  <p class="chapeau">Dix glyphes debout au bord des étages. Au repos, ce sont des signes ; ouverts, ils montrent leurs réglages.</p>
+  <p>Près de la souris, un glyphe s'allume. Un clic l'ouvre : il se pose à plat devant vous, et ses réglages apparaissent, gravés en pixels. Une bascule a son pixel devant le mot ; une valeur se règle à la molette, ou d'un clic sur sa moitié gauche (−) ou droite (+). <kbd>Échap</kbd> referme. Le bouton « – » range tout le menu dans le pigeon d'or.</p>
+  <div class="tab"><table>
+    <thead><tr><th>Signe</th><th>Catégorie</th><th>Contenu</th></tr></thead>
+    <tbody>
+      <tr><td><b>signal</b></td><td>SORTIES</td><td>MIDI, horloge, OSC, test</td></tr>
+      <tr><td><b>chant</b></td><td>PARTITION</td><td>afficher, REC, effacer, exports, dossier</td></tr>
+      <tr><td><b>yeux</b></td><td>VISION</td><td>normale, nuage, tirets, arêtes, glitch</td></tr>
+      <tr><td><b>peau</b></td><td>TEXTURES</td><td>une texture par étage, superposer, teintes, relief</td></tr>
+      <tr><td><b>regard</b></td><td>CAMÉRA</td><td>3/4, dessus, face, orbite, AUTO, vitesse</td></tr>
+      <tr><td><b>profond</b></td><td>ÉTAGES</td><td>nombre, écart, croix, plan / immeubles</td></tr>
+      <tr><td><b>orage</b></td><td>EFFETS</td><td>liens, tracking, lignes, pixels, épaisseur, effervescent</td></tr>
+      <tr><td><b>graine</b></td><td>SESSIONS</td><td>dernière session, sauver, charger, dossier</td></tr>
+      <tr><td><b>ombre</b></td><td>MODE 2D / 3D</td><td>aplatir ou redéployer le volume</td></tr>
+      <tr><td><b>entier</b></td><td>PLEIN ÉCRAN</td><td>plein écran ou fenêtre</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="partition">
+  <h2><span class="num">16</span>La partition</h2>
+  <p class="chapeau">Ce qui est joué s'écrit, pour être rejoué par des musiciens.</p>
+  <ol class="liste">
+    <li>Ouvrez le panneau avec <kbd>F5</kbd> (ou le glyphe <i>chant</i>).</li>
+    <li>Pour chaque canal MIDI joué, donnez un nom d'instrument et un type : mélodique aigu (clé de sol), mélodique grave (clé de fa), percussions, ou auto (le canal 10 est la batterie).</li>
+    <li>Lancez l'enregistrement : <kbd>Ctrl</kbd>+<kbd>F5</kbd>, le bouton <b>● REC</b>, ou <code>$rec</code> depuis la grille. Jouez. Arrêtez de la même façon.</li>
+    <li>Relisez la prise en <b>PORTÉES</b> (la partition) ou en <b>PHRASES</b> (chaque note dite dans la langue des images).</li>
+  </ol>
+  <p>Chaque partie a deux lignes : au-dessus, les glyphes du mode de jeu (<i>chant</i>, <i>bourdon</i>, <i>murmure</i>, <i>cri</i>, <i>clic</i>, <i>battement</i>) ; en dessous, les notes et leur nuance. Le temps se compte ainsi : <b>1 image = une double croche</b>, 4 images = un temps, 16 images = une mesure en 4/4. Les percussions s'écrivent sur une portée de batterie, chaque élément à sa place.</p>
+  <h3>Partager</h3>
+  <ul class="liste">
+    <li><b>EXPORT SVG</b> (à imprimer), <b>MUSICXML</b> (pour MuseScore, Sibelius ou Dorico), <b>TEXTE</b> (les phrases).</li>
+    <li><b>PAGE</b> : un seul fichier <code>.html</code> avec l'instrumentation, la clé de lecture, la partition et les phrases.</li>
+    <li><b>PARTAGER</b> : un dossier prêt à envoyer, avec un PDF pour WhatsApp et des images 1080 × 1350 pour un carrousel Instagram.</li>
+    <li><b>PUPITRE</b> : la partition page par page, en grand, qu'on tourne au clavier ou avec une pédale.</li>
+    <li><b>VIDÉO</b> : la partition qui défile au tempo, en vidéo verticale.</li>
+  </ul>
+  <p>L'enregistreur écoute ce qui part vers le MIDI sans rien changer au son.</p>
+</section>
+
+<section id="sessions">
+  <h2><span class="num">17</span>Sessions et fichiers</h2>
+  <ul class="liste">
+    <li>Pendant que vous jouez, la grille s'enregistre toute seule. Le logiciel démarre sur une grille vide ; la session d'avant se rouvre avec <b>SESSIONS ▸ DERNIÈRE SESSION</b>.</li>
+    <li><kbd>Ctrl</kbd>+<kbd>S</kbd> sauve la grille sous le nom tapé, ou sous la date et l'heure. La liste du panneau SESSIONS recharge n'importe quelle session.</li>
+    <li>Avant chaque chargement, la grille du moment est gardée : on ne perd rien en chargeant par erreur.</li>
+    <li>Les sessions sont des fichiers <code>.orca</code> : les étages du bas vers le haut, séparés par une ligne vide. Ils s'ouvrent aussi dans Orca.</li>
+    <li><kbd>Ctrl</kbd>+<kbd>Maj</kbd>+<kbd>D</kbd> charge le patch de démonstration, sur quatre étages : RYTHME, ÉCHO, MÉLODIE, CIEL. Lisez-le de bas en haut, c'est la meilleure suite à cette notice.</li>
+  </ul>
+</section>
+
+<section id="operateurs">
+  <h2><span class="num">18</span>Tous les opérateurs</h2>
+  <p class="chapeau">Les 26 lettres, leurs signes, leur mot dans la langue des images, et les opérateurs spéciaux. Entre parenthèses, les ports : <span class="ports" style="color:var(--bang)">à gauche</span> de l'opérateur, puis à droite.</p>
+  <div class="tab"><table id="table-ops">
+    <thead><tr><th>Glyphe · touche</th><th>Mot</th><th>Orca</th><th>Ce qu'il fait</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <h3>Opérateurs spéciaux et sorties</h3>
+  <div class="tab"><table id="table-spe">
+    <thead><tr><th>Glyphe · touche</th><th>Orca</th><th>Ce qu'il fait</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+</section>
+
+<section id="clavier">
+  <h2><span class="num">19</span>Clavier et souris</h2>
+  <div class="cles">
+    <dl>
+      <dt>HORLOGE</dt>
+      <dd><span><kbd>Espace</kbd></span><span>lecture / pause</span></dd>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>F</kbd></span><span>avancer d'une image</span></dd>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>Maj</kbd>+<kbd>R</kbd></span><span>revenir à l'image 0</span></dd>
+      <dd><span><kbd>&gt;</kbd> <kbd>&lt;</kbd></span><span>tempo + / −</span></dd>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>&gt;</kbd> <kbd>Ctrl</kbd>+<kbd>&lt;</kbd></span><span>tempo + / − par 10</span></dd>
+      <dt>DÉPLACER LE PIGEON</dt>
+      <dd><span>flèches</span><span>une case</span></dd>
+      <dd><span><kbd>Ctrl</kbd>+flèches</span><span>sauter d'un repère</span></dd>
+      <dd><span><kbd>Page ↑</kbd> <kbd>Page ↓</kbd></span><span>étage du dessus / du dessous</span></dd>
+      <dd><span><kbd>Maj</kbd>+flèches</span><span>agrandir la sélection</span></dd>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>A</kbd></span><span>tout sélectionner</span></dd>
+      <dt>ÉDITER</dt>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Maj</kbd>+<kbd>Z</kbd></span><span>annuler / rétablir</span></dd>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>C</kbd> <kbd>X</kbd> <kbd>V</kbd></span><span>copier, couper, coller</span></dd>
+      <dd><span><kbd>Retour arrière</kbd></span><span>effacer la sélection</span></dd>
+      <dd><span><kbd>Alt</kbd>+flèches</span><span>déplacer la sélection</span></dd>
+      <dd><span><kbd>Alt</kbd>+<kbd>Page ↑</kbd> <kbd>Page ↓</kbd></span><span>emporter la sélection d'un étage</span></dd>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>Maj</kbd>+<kbd>U</kbd> / <kbd>L</kbd></span><span>majuscules / minuscules</span></dd>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>I</kbd></span><span>mode insertion (le pigeon devient cyan)</span></dd>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>/</kbd></span><span>commenter la sélection</span></dd>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>P</kbd></span><span>déclencher l'opérateur sous le pigeon</span></dd>
+    </dl>
+    <dl>
+      <dt>VOLUME</dt>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>Maj</kbd>+<kbd>Page ↑</kbd> / <kbd>↓</kbd></span><span>ajouter / retirer un étage</span></dd>
+      <dd><span><kbd>]</kbd> <kbd>[</kbd></span><span>une colonne de plus / de moins</span></dd>
+      <dd><span><kbd>}</kbd> <kbd>{</kbd></span><span>une rangée de plus / de moins</span></dd>
+      <dt>VOIR</dt>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>D</kbd></span><span>2D / 3D</span></dd>
+      <dd><span><kbd>F1</kbd> ou <kbd>Ctrl</kbd>+<kbd>G</kbd></span><span>guide des opérateurs</span></dd>
+      <dd><span><kbd>F2</kbd></span><span>balade</span></dd>
+      <dd><span><kbd>F3</kbd></span><span>caméra suivante</span></dd>
+      <dd><span><kbd>F4</kbd></span><span>coupe</span></dd>
+      <dd><span><kbd>F5</kbd> / <kbd>Ctrl</kbd>+<kbd>F5</kbd></span><span>partition / REC</span></dd>
+      <dd><span><kbd>F6</kbd></span><span>mode perf</span></dd>
+      <dd><span><kbd>F7</kbd></span><span>rafale de glitch</span></dd>
+      <dd><span><kbd>F8</kbd></span><span>plan / immeubles</span></dd>
+      <dd><span><kbd>F9</kbd></span><span>liens entre les étages</span></dd>
+      <dd><span><kbd>F10</kbd></span><span>une texture par étage</span></dd>
+      <dd><span><kbd>F11</kbd></span><span>plein écran</span></dd>
+      <dd><span><kbd>Tab</kbd></span><span>vision suivante</span></dd>
+      <dd><span><kbd>Origine</kbd></span><span>recadrer</span></dd>
+      <dd><span><kbd>Échap</kbd></span><span>fermer, sortir de la balade ou du mode perf</span></dd>
+      <dt>FICHIERS ET COMMANDES</dt>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>N</kbd> / <kbd>O</kbd> / <kbd>S</kbd></span><span>nouveau / ouvrir / sauver la session</span></dd>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>Maj</kbd>+<kbd>S</kbd></span><span>exporter la sélection en <code>.orca</code></span></dd>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>Maj</kbd>+<kbd>D</kbd></span><span>patch de démonstration</span></dd>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>K</kbd></span><span>ligne de commande</span></dd>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>J</kbd> / <kbd>Ctrl</kbd>+<kbd>B</kbd></span><span>chercher / injecter un fichier</span></dd>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>L</kbd></span><span>charger des modules <code>.orca</code></span></dd>
+      <dd><span><kbd>Ctrl</kbd>+<kbd>.</kbd></span><span>sortie MIDI suivante</span></dd>
+    </dl>
+  </div>
+</section>
+
+<section id="commandes">
+  <h2><span class="num">20</span>Commandes</h2>
+  <p class="chapeau"><kbd>Ctrl</kbd>+<kbd>K</kbd> ouvre la ligne de commande. Les mêmes commandes s'envoient depuis la grille avec <code>$</code> : un bang sur <code>$bpm:140</code> change le tempo en jouant. Chaque commande a un raccourci de deux lettres (<code>wr</code> pour <code>write</code>).</p>
+  <div class="cles">
+    <dl>
+      <dt>HÉRITÉES D'ORCA</dt>
+      <dd><span><code>play</code> · <code>stop</code> · <code>run</code></span><span>lancer, arrêter, jouer une image</span></dd>
+      <dd><span><code>bpm:140</code></span><span>tempo à 140</span></dd>
+      <dd><span><code>apm:160</code></span><span>glisser jusqu'à 160</span></dd>
+      <dd><span><code>frame:0</code> · <code>skip:2</code> · <code>rewind:2</code></span><span>régler, avancer, reculer le compteur</span></dd>
+      <dd><span><code>find:aV</code></span><span>envoyer le pigeon sur un texte</span></dd>
+      <dd><span><code>select:3;4;5;6</code></span><span>aller en 3,4 et sélectionner 5 × 6</span></dd>
+      <dd><span><code>inject:motif;12;34</code></span><span>coller le fichier <code>motif.orca</code> en 12,34</span></dd>
+      <dd><span><code>write:H;12;34</code></span><span>écrire <code>H</code> en 12,34</span></dd>
+      <dd><span><code>time</code></span><span>temps écoulé depuis l'image 0</span></dd>
+      <dd><span><code>midi:1;2</code></span><span>sortie et entrée MIDI</span></dd>
+      <dd><span><code>osc:57120</code> · <code>udp:1234</code> · <code>ip:192.168.0.12</code></span><span>ports et adresse de destination</span></dd>
+      <dd><span><code class="txt">cc:0</code></span><span>décalage des numéros de CC</span></dd>
+      <dd><span><code>pg:0;;;63</code></span><span>program change</span></dd>
+    </dl>
+    <dl>
+      <dt>PROPRES À ORCA//GLYPH</dt>
+      <dd><span><code>size:w;h;d</code></span><span>taille du volume</span></dd>
+      <dd><span><code>layers:n</code> · <code>floor:n</code></span><span>nombre d'étages, aller à l'étage n</span></dd>
+      <dd><span><code>spread:n</code></span><span>écart entre étages (en dixièmes)</span></dd>
+      <dd><span><code>vision:nuage</code></span><span>normale, nuage, tirets, aretes, glitch, next</span></dd>
+      <dd><span><code>glitch:0-100</code> · <code>burst</code></span><span>intensité du glitch, rafale</span></dd>
+      <dd><span><code>cam:orbite</code></span><span>3/4, dessus, face, orbite, auto, next, suivi</span></dd>
+      <dd><span><code>immeubles</code> · <code>plan</code> · <code>coupe</code> · <code>perf</code></span><span>dispositions et modes</span></dd>
+      <dd><span><code>plat:1</code> · <code>plat:0</code></span><span>mode 2D, mode 3D</span></dd>
+      <dd><span><code>textures:1</code> · <code>superpose:1</code> · <code>relief:50</code></span><span>textures par étage</span></dd>
+      <dd><span><code>croix:8</code></span><span>espacement des croix de repère</span></dd>
+      <dd><span><code>liens:1</code> · <code>tracking:1</code> · <code>lignes:1</code> · <code>noms:1</code></span><span>effets et étiquettes</span></dd>
+      <dd><span><code>pixels:6</code> · <code>epaisseur:4</code> · <code>effervescent:1</code></span><span>l'allure des éclairs</span></dd>
+      <dd><span><code>vitesse:5</code></span><span>vitesse de la caméra AUTO</span></dd>
+      <dd><span><code>rec</code> · <code>rec:0</code></span><span>lancer, arrêter la partition</span></dd>
+    </dl>
+  </div>
+</section>
+
+<section id="tables">
+  <h2><span class="num">21</span>Tables</h2>
+  <h3>Base 36</h3>
+  <div class="tab"><table class="table-num" id="table-36"></table></div>
+  <h3>Notes et transposition</h3>
+  <p>Pour <code>:</code> et <code>%</code>, une lettre au-delà de la gamme se transpose : <code>3H</code> vaut <code>4A</code>. Les minuscules sont les dièses.</p>
+  <div class="tab"><table class="table-num" id="table-tr"></table></div>
+  <h3>Ports par défaut</h3>
+  <div class="tab"><table class="table-num">
+    <thead><tr><th>Sens</th><th>UDP</th><th>OSC</th></tr></thead>
+    <tbody><tr><td>entrée</td><td>49160</td><td>—</td></tr><tr><td>sortie</td><td>49161</td><td>49162</td></tr></tbody>
+  </table></div>
+</section>
+
+<section id="lignee">
+  <h2><span class="num">22</span>Lignée et liens</h2>
+  <p>ORCA//GLYPH prolonge <a href="https://100r.co/site/orca.html" target="_blank" rel="noopener">Orca</a> de <a href="https://100r.co" target="_blank" rel="noopener">Hundred Rabbits</a>, un langage de programmation ésotérique sous licence MIT, et reprend son moteur (Orca Ts) : les opérateurs, l'horloge, le MIDI, l'OSC et l'UDP marchent comme dans Orca. Les glyphes viennent de l'alphabet As-Simt, partagé avec ARCHI//SIMT et OPI//NET ; aucun signe n'a été inventé pour l'occasion, chacun est pris pour son sens.</p>
+  <p>Le projet est né d'une réflexion sur la créolisation du langage informatique, commencée pendant une résidence de Koo Des à la Villa Albertine, à La Nouvelle-Orléans : écrire du code avec des signes qui nous appartiennent.</p>
+  <ul class="liste">
+    <li><a href="https://github.com/hundredrabbits/Orca" target="_blank" rel="noopener">Orca, la documentation d'origine</a> (en anglais)</li>
+    <li><a href="https://git.sr.ht/~rabbits/orca-examples" target="_blank" rel="noopener">Exemples et gabarits Orca</a></li>
+    <li><a href="http://makingsound.fr/blog/orca-sequenceur-modulaire/" target="_blank" rel="noopener">Un tutoriel Orca en français</a></li>
+    <li><a href="https://llllllll.co/t/orca-live-coding-tool/17689" target="_blank" rel="noopener">Le forum lines, où la communauté Orca échange</a></li>
+  </ul>
+  <p class="pied">ORCA//GLYPH · Pigeons Studio · bientôt en téléchargement sur <a href="https://pigeons.studio" target="_blank" rel="noopener">pigeons.studio</a></p>
+</section>
+</main>
+</div>
+
+<script>
+const DATA = {"A":{"!":"da1b9113d11b9ada","\"":"9bc012809bc0d2db","#":"93d940d353d99b99","$":"cbdb829a8adbdbd3","%":"111b081b091b1312","&":"d8189010d01898d8","'":"5bc110c25ac3d29b","(":"d35802d0d358da5b",")":"82c3008282c3c3c3","*":"c9db809b89dbdbd2","+":"1319081b0b191311",",":"58c010c058c0d098","-":"92db40d353d99b9b",".":"c34002c0c340c243","/":"dacb819391dbd2da","0":"121b081a0a1b1313","1":"9bc110829ac3d2db","2":"90d800d0d058d8d8","3":"db4900dbdb49db49","4":"4adb01db49dbda92","5":"da0b8012d21b93db","6":"dbc190829ac3d2db","7":"93db0a9a8adbd3d3","8":"9bc802d8db48dacb","9":"d25b01dbd94bda5a",":":"c2038002c20383c3",";":"1b191012121b1a1b","<":"dbc190839bc1d3d9","=":"8bd802d8cb58dad3",">":"d84800d8d848d848","?":"d90b8013d11b93da","@":"13190012121b1a1b","A":"db59109393d99bd9","B":"d3d88a988bd8d2d3","C":"98c0108098c0d0d8","D":"9bcb02d2d25bd3db","E":"d35900d2d25bda5b","F":"1319001b1b091b19","G":"dacb809b9bc9dbcb","H":"8bd802988bd8dad3","I":"53db0ada4adbd393","J":"d94310c3d943d35a","K":"9bd910d3d359dbd9","L":"c341008282c382c3","M":"1318021013181a1b","N":"58c800d858c8d888","O":"9acb009292dbd3db","P":"dbd9909393d9dbd9","Q":"9bc110c2da43d2db","R":"d15b009b99cb9bda","S":"5bcb02da5acbdb8b","T":"121b0012121b1b1b","U":"9adb109393d9dbdb","V":"d3d9889a8adbd2d3","W":"db4110839bc193d9","X":"4bdb02da4adbdb93","Y":"1a0b001a1a0b1b0b","Z":"81c3008381c3c3c2","[":"d0d8889888d8d0d0","\\":"93d940da5acb9a9b","]":"da43118399c392da","^":"5bc900db5bc9db89","_":"9adb10d2d25bdbdb","`":"d3db829292dbdbdb","a":"d0188018d80898d8","b":"c340028083c082c3","c":"d94b00dbd94bdb4a","d":"9adb109292dbdbdb","e":"1b0312021a03131b","f":"d2db819391dbdada","g":"c341008383c183c1","h":"9bc802d0d358d2db","i":"98d850d050d89898","j":"52db00da5acbdb9b","k":"92db009393d9dbdb","l":"c34302c2c243c343","m":"db009200db0092db","n":"db49009a9acb9acb","o":"92db40da5acb9b9b","p":"90d8009090d8d8d8","q":"9bdb12d2d25bdbdb","r":"53d908db4bd9d391","s":"c243018381c382c2","t":"d25b00dada4bdb5b","u":"8bd940da4adb9a93","v":"98c010c0d840d0d8","w":"1b1b1212121b1b1b","x":"d25b019391db9ada","y":"d25b08daca5bd353","z":"43c002c043c0c283","{":"9bc150c35bc19399","|":"90d800d8d848d8d8","}":"d15b009391db9bda","~":"d35b0adaca5bd353"},"O":{"A":{"h":"9acb40db5bc99b8b","mot":"essaim","fait":"additionne","lien":"un essaim grossit en s’ajoutant"},"B":{"h":"8bd842d84bd89a93","mot":"disparaître","fait":"soustrait","lien":"ce qui disparaît s’enlève"},"C":{"h":"52db08da4adbd393","mot":"battement","fait":"compte en boucle","lien":"un cœur bat et recommence"},"D":{"h":"9bc9009b9bc9dbc9","mot":"pluie","fait":"bang tous les N pas","lien":"la pluie tombe goutte à goutte, en rythme"},"E":{"h":"121b091b091b1212","mot":"aube","fait":"va vers l'est","lien":"le jour se lève à l’est"},"F":{"h":"d94b009391db93da","mot":"double","fait":"bang si égaux","lien":"deux choses pareilles se reconnaissent"},"G":{"h":"190b001b190b1b0a","mot":"naître","fait":"écrit plusieurs cases","lien":"naître, c’est faire apparaître"},"H":{"h":"9bcb029a9acbdbcb","mot":"silence","fait":"arrête la case du dessous","lien":"le silence suspend ce qui suit"},"I":{"h":"92db009a9acbdbdb","mot":"arbre","fait":"incrémente","lien":"l’arbre grandit d’un cran"},"J":{"h":"93d900d3d359dbd9","mot":"rivière","fait":"copie vers le sud","lien":"l’eau coule vers le bas"},"K":{"h":"db4b029292db93db","mot":"nuée","fait":"lit des variables","lien":"une nuée rassemble ce qui est dispersé"},"L":{"h":"c34100c2c243c243","mot":"petit","fait":"garde le plus petit","lien":"il ne garde que le plus petit"},"M":{"h":"5bc012c05bc0d29b","mot":"lichen","fait":"multiplie","lien":"le lichen se multiplie sur la pierre"},"N":{"h":"9bc110839bc1d3d9","mot":"oiseau","fait":"va vers le nord","lien":"l’oiseau monte"},"O":{"h":"da4b009393d993db","mot":"je le lis sur toi","fait":"lit une case","lien":"lire ce que porte l’autre"},"P":{"h":"d35908dbcb59d351","mot":"donner","fait":"pousse une valeur","lien":"donner, c’est poser une valeur"},"Q":{"h":"d31b821ada0b9bdb","mot":"je te demande","fait":"lit plusieurs cases","lien":"demander plusieurs choses à la fois"},"R":{"h":"1b0802101318121b","mot":"vent","fait":"hasard","lien":"le vent ne prévient pas"},"S":{"h":"42c300c242c3c383","mot":"racine","fait":"va vers le sud","lien":"la racine descend"},"T":{"h":"da4b019b99cb9aca","mot":"tisser","fait":"séquenceur","lien":"tisser, c’est passer d’un fil à l’autre"},"U":{"h":"93d9089b8bd9d3d1","mot":"cercle","fait":"rythme euclidien","lien":"des coups répartis autour d’un cercle"},"V":{"h":"da4b009b9bc99bcb","mot":"je le porte en moi","fait":"variable","lien":"garder une valeur en soi"},"W":{"h":"c858009888d898d0","mot":"nuit","fait":"va vers l'ouest","lien":"le jour se couche à l’ouest"},"X":{"h":"d3d882989bc8dadb","mot":"toucher","fait":"écrit à distance","lien":"toucher là-bas, à distance"},"Y":{"h":"81c300c3c143c3c2","mot":"écho","fait":"copie vers l'est","lien":"l’écho répète à côté"},"Z":{"h":"92db49db49db9292","mot":"lent","fait":"glisse vers une valeur","lien":"aller doucement vers une valeur"}}};
+// un glyphe : 8 rangées de 8 pixels, codées en hexadécimal
+function svgGlyphe (hex, coul) {
+  if (!hex) return '';
+  let d = '';
+  for (let r = 0; r < 8; r++) { const v = parseInt(hex.substr(r * 2, 2), 16); for (let c = 0; c < 8; c++) if (v & (128 >> c)) d += `M${c} ${r}h1v1h-1z`; }
+  return `<svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><path d="${d}" fill="${coul || 'currentColor'}"/></svg>`;
+}
+// la forme d'un caractère dans ORCA//GLYPH : une majuscule prend le signe de son opérateur, le reste l'alphabet As-Simt
+const hexDe = (ch) => (/[A-Z]/.test(ch) && DATA.O[ch]) ? DATA.O[ch].h : DATA.A[ch];
+const IO = ':%!?;=$'; const ETG = "'\",()-";
+function classe (ch) {
+  if (ch === '.') return 'vide';
+  if (ch === '*') return 'bang';
+  if (ch === '#') return 'com';
+  if (IO.includes(ch)) return 'io';
+  if (ETG.includes(ch)) return 'etg';
+  if (/[A-Z]/.test(ch)) return 'op';
+  return 'val';
+}
+document.querySelectorAll('.grille').forEach((g) => {
+  const lignes = g.dataset.src.split('\\n'); const cols = Math.max(...lignes.map((l) => l.length));
+  const sorties = (g.dataset.sortie || '').split(';').filter(Boolean).map((s) => s.trim());
+  const marques = (g.dataset.marque || '').split(';').filter(Boolean).map((s) => s.trim());
+  g.style.gridTemplateColumns = `repeat(${cols}, 32px)`;
+  let html = '';
+  lignes.forEach((l, y) => { for (let x = 0; x < cols; x++) { const ch = l[x] || '.'; const k = classe(ch);
+    const extra = (sorties.includes(x + ',' + y) ? ' sortie' : '') + (marques.includes(x + ',' + y) ? ' marque' : '');
+    const nom = ch === '.' ? 'case vide' : ch;
+    html += `<div class="case ${k}${extra}" title="${nom.replace(/"/g, '&quot;')}">${ch === '.' ? '' : svgGlyphe(hexDe(ch)) + '<span class="lettre">' + ch.replace(/</g, '&lt;') + '</span>'}</div>`; } });
+  g.innerHTML = html;
+});
+// dans le texte : « on tape ceci → on voit cela »
+function tape (txt) {
+  const gl = [...txt].map((c) => c === ' ' ? '<span class="sp"></span>' : `<span style="color:var(--${{ op: 'op', io: 'io', bang: 'bang', etg: 'etage', com: 'gris', val: 'encre', vide: 'sombre' }[classe(c)]})">${svgGlyphe(hexDe(c))}</span>`).join('');
+  return `<span class="k">${txt.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</span><span class="vers" aria-hidden="true">→</span><span class="gl" role="img" aria-label="glyphes de ${txt.replace(/"/g, '')}">${gl}</span>`;
+}
+const horsGrille = (el) => el.closest('#commandes, #clavier, table, .cles, .code-couleurs');
+document.querySelectorAll('main code:not(.txt)').forEach((c) => {
+  const t = c.textContent; if (horsGrille(c)) return;
+  const simple = /^[A-Za-z0-9.*#:%!?;=$'",()\-]{1,16}$/.test(t) || /^(\S )+\S$/.test(t);
+  if (!simple || /\//.test(t) || /^\.[a-z]/.test(t) || /^[a-z]{2,}[:;]/.test(t)) return;
+  const sp = document.createElement('span'); sp.className = 'tape'; sp.innerHTML = tape(t); c.replaceWith(sp);
+});
+document.querySelectorAll('.tape[data-t]').forEach((sp) => { sp.innerHTML = tape(sp.dataset.t); });
+document.querySelectorAll('.tape-exemple').forEach((sp) => { sp.className = 'tape'; sp.innerHTML = tape('D'); });
+// les tableaux de l'alphabet : la touche, puis le glyphe qui apparaît
+document.querySelectorAll('.alphabet').forEach((a) => {
+  const noms = (a.dataset.noms || '').split('|');
+  a.innerHTML = [...a.dataset.jeu].map((c, i) => { const mot = a.dataset.mots ? (DATA.O[c] || {}).mot : noms[i];
+    return `<div class="t"><span class="k">${c}</span><span style="color:var(--${{ op: 'op', io: 'io', bang: 'bang', etg: 'etage', com: 'gris', val: 'encre' }[classe(c)] || 'encre'})">${svgGlyphe(hexDe(c))}</span>${mot ? `<span class="m">${mot}</span>` : ''}</div>`; }).join('');
+});
+// le tableau des opérateurs d'étage
+document.querySelectorAll('td.g[data-ch]').forEach((td) => { const ch = td.dataset.ch; td.innerHTML = `<div class="duo" style="color:var(--etage)">${svgGlyphe(DATA.A[ch])}<span class="ch">${ch}</span></div>`; });
+// les 26 opérateurs
+const OPS = {
+  A: ['add', 'a b', 'Additionne a et b, écrit la somme dessous.'],
+  B: ['subtract', 'a b', 'Écrit dessous la différence entre a et b.'],
+  C: ['clock', 'vitesse mod', 'Compte de 0 à mod − 1, en avançant d\'un cran toutes les « vitesse » images.'],
+  D: ['delay', 'vitesse mod', 'Fait tomber un bang dessous toutes les vitesse × mod images.'],
+  E: ['east', '', 'Avance d\'une case vers l\'est à chaque image ; bang s\'il est bloqué.'],
+  F: ['if', 'a b', 'Bang dessous si a et b sont égaux.'],
+  G: ['generator', 'x y long', 'Recopie les « long » cases à sa droite à x, y de lui (y compté sous lui).'],
+  H: ['halt', '', 'Bloque l\'opérateur placé sous lui.'],
+  I: ['increment', 'pas mod', 'Ajoute « pas » à la valeur sous lui, en boucle sur mod.'],
+  J: ['jumper', '', 'Recopie la valeur au-dessus de lui, sous lui.'],
+  K: ['konkat', 'long', 'Lit les variables dont les noms sont à sa droite et écrit leurs valeurs dessous.'],
+  L: ['lesser', 'a b', 'Écrit dessous la plus petite des deux valeurs.'],
+  M: ['multiply', 'a b', 'Multiplie a par b.'],
+  N: ['north', '', 'Avance vers le nord à chaque image ; bang s\'il est bloqué.'],
+  O: ['read', 'x y', 'Lit la case placée à x, y à sa droite, et l\'écrit dessous.'],
+  P: ['push', 'clé long · val', 'Écrit val dans une rangée de « long » cases sous lui, à la position « clé ».'],
+  Q: ['query', 'x y long', 'Lit « long » cases placées à x, y, et les recopie dessous, à sa gauche.'],
+  R: ['random', 'min max', 'Écrit dessous une valeur au hasard entre min et max.'],
+  S: ['south', '', 'Avance vers le sud à chaque image ; bang s\'il est bloqué.'],
+  T: ['track', 'clé long', 'Le séquenceur : lit la « clé »-ième des « long » cases à sa droite, et l\'écrit dessous.'],
+  U: ['uclid', 'pas max', 'Rythme euclidien : « pas » bangs répartis sur « max » pas.'],
+  V: ['variable', 'nom · val', 'Avec un nom à gauche, range la valeur de droite. Sans rien à gauche, lit la variable nommée à droite et l\'écrit dessous.'],
+  W: ['west', '', 'Avance vers l\'ouest à chaque image ; bang s\'il est bloqué.'],
+  X: ['write', 'x y · val', 'Écrit val à x, y de lui (y compté sous lui).'],
+  Y: ['jymper', '', 'Recopie la valeur à sa gauche, à sa droite.'],
+  Z: ['lerp', 'vitesse cible', 'Fait glisser la valeur sous lui vers la cible, de « vitesse » par image.'],
+};
+const tb = document.querySelector('#table-ops tbody');
+Object.keys(OPS).forEach((k) => { const [nom, ports, fait] = OPS[k]; const o = DATA.O[k] || {};
+  tb.insertAdjacentHTML('beforeend', `<tr><td class="g"><div class="duo" style="color:var(--op)">${svgGlyphe(o.h)}<span class="ch">${k}</span></div></td><td><span class="mot">${o.mot || ''}</span>${o.lien ? `<span class="lien">${o.lien}</span>` : ''}</td><td><b>${nom}</b>${ports ? ` <span class="ports">(${ports})</span>` : ''}</td><td>${fait}</td></tr>`); });
+const SPE = [
+  ['*', 'bang', 'Déclenche les opérateurs qui le touchent, puis disparaît.', 'bang'],
+  ['#', 'comment', 'Tout ce qui est entre deux # est ignoré : pour écrire des titres et des notes.', 'sombre'],
+  [':', 'midi (canal octave note vél durée)', 'Envoie une note MIDI quand on le bang.', 'io'],
+  ['%', 'mono (canal octave note vél durée)', 'Note MIDI monophonique : chaque note coupe la précédente.', 'io'],
+  ['!', 'cc (canal contrôle valeur)', 'Envoie un contrôle MIDI (CC).', 'io'],
+  ['?', 'pb (canal lsb msb)', 'Envoie un pitch bend MIDI.', 'io'],
+  [';', 'udp', 'Envoie le texte à sa droite en UDP.', 'io'],
+  ['=', 'osc (chemin valeurs)', 'Envoie un message OSC.', 'io'],
+  ['$', 'self', 'Envoie une commande au logiciel lui-même (voir Commandes).', 'io'],
+];
+const ts = document.querySelector('#table-spe tbody');
+SPE.forEach(([ch, nom, fait, c]) => ts.insertAdjacentHTML('beforeend', `<tr><td class="g"><div class="duo" style="color:var(--${c === 'sombre' ? 'gris' : c})">${svgGlyphe(DATA.A[ch])}<span class="ch">${ch}</span></div></td><td><b>${nom.split(' ')[0]}</b> <span class="ports">${nom.split(' ').slice(1).join(' ')}</span></td><td>${fait}</td></tr>`));
+// les tables : base 36, transposition
+const sym = '0123456789abcdefghijklmnopqrstuvwxyz';
+let h = ''; for (let r = 0; r < 3; r++) { h += '<tr><th>caractère</th>' + [...sym.slice(r * 12, r * 12 + 12)].map((c) => `<th>${c}</th>`).join('') + '</tr><tr><td>valeur</td>' + [...Array(12)].map((_, i) => `<td>${r * 12 + i}</td>`).join('') + '</tr>'; }
+document.getElementById('table-36').innerHTML = h;
+const TR = { A: 'A0', B: 'B0', C: 'C0', D: 'D0', E: 'E0', F: 'F0', G: 'G0', H: 'A0', I: 'B0', J: 'C1', K: 'D1', L: 'E1', M: 'F1', N: 'G1', O: 'A1', P: 'B1', Q: 'C2', R: 'D2', S: 'E2', T: 'F2', U: 'G2', V: 'A2', W: 'B2', X: 'C3', Y: 'D3', Z: 'E3' };
+const kt = Object.keys(TR); h = ''; for (let r = 0; r < 3; r++) { const part = kt.slice(r * 9, r * 9 + 9); h += '<tr><th>lettre</th>' + part.map((c) => `<th>${c}</th>`).join('') + '</tr><tr><td>note</td>' + part.map((c) => `<td>${TR[c]}</td>`).join('') + '</tr>'; }
+document.getElementById('table-tr').innerHTML = h;
+</script>
+
+</body>
+</html>
