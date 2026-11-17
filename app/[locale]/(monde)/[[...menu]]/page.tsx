@@ -56,7 +56,7 @@ export default async function HomePage({
         '@id': `${baseUrl}/#organization`,
         name: 'Pigeons Studio',
         url: baseUrl,
-        email: 'contact@punkhazard.org',
+        email: 'contact@pigeons.studio',
         description: t('subtitle'),
         founder: [
           { '@type': 'Person', name: t('sections.duo.koo.name') },

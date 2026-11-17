@@ -52,7 +52,7 @@ aBc123XyZ456DeF789GhI012JkL345MnO678PqR901StU234VwX567YzA890=
 2. Sélectionnez **"Internal"** (pour Google Workspace uniquement) ou **"External"** (si vous voulez permettre à des utilisateurs externes)
 3. Remplissez les informations :
    - **App name** : `Punk Hazard`
-   - **User support email** : Votre email (ex: `contact@punkhazard.org`)
+   - **User support email** : Votre email (ex: `contact@pigeons.studio`)
    - **Developer contact information** : Votre email
 4. Cliquez sur **"Save and Continue"**
 5. Pour les scopes, vous pouvez laisser les valeurs par défaut

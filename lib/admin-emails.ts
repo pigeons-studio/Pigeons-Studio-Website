@@ -16,6 +16,6 @@ export function orderEmails() {
   if (listed.length) return listed;
   const admins = [...adminEmails()];
   if (admins.length) return admins;
-  const fallback = clean(process.env.RESEND_TO_EMAIL) || 'contact@punkhazard.org';
+  const fallback = clean(process.env.RESEND_TO_EMAIL) || 'contact@pigeons.studio';
   return [fallback];
 }

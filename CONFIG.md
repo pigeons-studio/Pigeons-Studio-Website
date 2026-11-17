@@ -7,11 +7,11 @@ Créez un fichier `.env.local` à la racine du projet avec les variables suivant
 ```env
 # Resend API Configuration
 RESEND_API_KEY=re_your_api_key_here
-RESEND_FROM_EMAIL=contact@punkhazard.org
-RESEND_TO_EMAIL=contact@punkhazard.org
+RESEND_FROM_EMAIL=contact@pigeons.studio
+RESEND_TO_EMAIL=contact@pigeons.studio
 
 # Contact Email (fallback)
-NEXT_PUBLIC_CONTACT_EMAIL=contact@punkhazard.org
+NEXT_PUBLIC_CONTACT_EMAIL=contact@pigeons.studio
 
 # NextAuth.js Configuration
 NEXTAUTH_SECRET=your-secret-key-here-generate-with-openssl-rand-base64-32

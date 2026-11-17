@@ -147,7 +147,7 @@ export async function sendEventConfirmation(mail: EventMail, locale: 'fr' | 'en'
     : 'To cancel, open this link and confirm. Opening it does not cancel by itself.';
   const resend = new Resend(process.env.RESEND_API_KEY);
   await resend.emails.send({
-    from: process.env.RESEND_FROM_EMAIL || 'contact@punkhazard.org',
+    from: process.env.RESEND_FROM_EMAIL || 'contact@pigeons.studio',
     to: mail.email,
     subject: fr ? `Inscription confirmée · ${mail.titleFr}` : `You’re registered · ${mail.titleEn}`,
     html: `<!DOCTYPE html><html><body style="margin:0;background:#000;">

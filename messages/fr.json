@@ -723,7 +723,7 @@
     "sections": {
       "seller": {
         "title": "1. Vendeur",
-        "content": "PUNK HAZARD, SAS au capital de 1 000 €, siège 27 rue de Chinon, 94110 Arcueil, France. RCS Créteil 944 151 141. SIRET 944 151 141 00016. TVA FR85944151141. Contact : contact@punkhazard.org. Le site est présenté sous la marque Pigeons Studio."
+        "content": "PUNK HAZARD, SAS au capital de 1 000 €, siège 27 rue de Chinon, 94110 Arcueil, France. RCS Créteil 944 151 141. SIRET 944 151 141 00016. TVA FR85944151141. Contact : contact@pigeons.studio. Le site est présenté sous la marque Pigeons Studio."
       },
       "object": {
         "title": "2. Objet",
@@ -755,7 +755,7 @@
       },
       "contact": {
         "title": "9. Contact",
-        "content": "Pour toute question concernant les présentes CGV : contact@punkhazard.org, ou par courrier au siège, 27 rue de Chinon, 94110 Arcueil."
+        "content": "Pour toute question concernant les présentes CGV : contact@pigeons.studio, ou par courrier au siège, 27 rue de Chinon, 94110 Arcueil."
       }
     }
   },
@@ -766,7 +766,7 @@
     "sections": {
       "publisher": {
         "title": "Éditeur du site",
-        "content": "PUNK HAZARD\nSAS, société par actions simplifiée au capital de 1 000 €\nSiège : 27 rue de Chinon, 94110 Arcueil, France\nRCS Créteil 944 151 141\nSIRET : 944 151 141 00016\nTVA : FR85944151141\nActivité : autres activités informatiques (NAF 62.09Z)\nDirecteur de la publication : Julien Thomas, président\nContact : contact@punkhazard.org\nLe site est présenté sous la marque Pigeons Studio."
+        "content": "PUNK HAZARD\nSAS, société par actions simplifiée au capital de 1 000 €\nSiège : 27 rue de Chinon, 94110 Arcueil, France\nRCS Créteil 944 151 141\nSIRET : 944 151 141 00016\nTVA : FR85944151141\nActivité : autres activités informatiques (NAF 62.09Z)\nDirecteur de la publication : Julien Thomas, président\nContact : contact@pigeons.studio\nLe site est présenté sous la marque Pigeons Studio."
       },
       "hosting": {
         "title": "Hébergement",
@@ -786,7 +786,7 @@
       },
       "contact": {
         "title": "Contact",
-        "content": "Pour toute question concernant les mentions légales : contact@punkhazard.org, ou par courrier au siège, 27 rue de Chinon, 94110 Arcueil."
+        "content": "Pour toute question concernant les mentions légales : contact@pigeons.studio, ou par courrier au siège, 27 rue de Chinon, 94110 Arcueil."
       }
     }
   },
@@ -881,7 +881,7 @@
     "deleteAccount": {
       "title": "Supprimer le compte",
       "message": "Cette action supprime le compte, les jetons de confirmation et les inscriptions aux événements liées à cet email. Les commandes sont conservées sans le nom ni l’email. Le panier de ce navigateur est vidé.",
-      "error": "La suppression n’a pas abouti. Réessayez, ou écrivez à contact@punkhazard.org.",
+      "error": "La suppression n’a pas abouti. Réessayez, ou écrivez à contact@pigeons.studio.",
       "confirm": "Oui, supprimer mon compte",
       "cancel": "Annuler",
       "deleting": "Suppression en cours...",
@@ -894,7 +894,7 @@
     "sections": {
       "controller": {
         "title": "Responsable",
-        "content": "PUNK HAZARD, SAS au capital de 1 000 €, 27 rue de Chinon, 94110 Arcueil, France. RCS Créteil 944 151 141. Contact : contact@punkhazard.org. Le site est présenté sous la marque Pigeons Studio."
+        "content": "PUNK HAZARD, SAS au capital de 1 000 €, 27 rue de Chinon, 94110 Arcueil, France. RCS Créteil 944 151 141. Contact : contact@pigeons.studio. Le site est présenté sous la marque Pigeons Studio."
       },
       "purposes": {
         "title": "Données et finalités",
@@ -918,7 +918,7 @@
       },
       "rights": {
         "title": "Vos droits",
-        "content": "Vous pouvez accéder à vos données, les rectifier, les effacer, en demander la portabilité, et vous opposer à un traitement. Depuis votre profil : modifier le nom, télécharger un export JSON, supprimer le compte. Pour le reste : contact@punkhazard.org. Vous pouvez aussi saisir la CNIL, 3 place de Fontenoy, TSA 80715, 75334 Paris Cedex 07, www.cnil.fr."
+        "content": "Vous pouvez accéder à vos données, les rectifier, les effacer, en demander la portabilité, et vous opposer à un traitement. Depuis votre profil : modifier le nom, télécharger un export JSON, supprimer le compte. Pour le reste : contact@pigeons.studio. Vous pouvez aussi saisir la CNIL, 3 place de Fontenoy, TSA 80715, 75334 Paris Cedex 07, www.cnil.fr."
       },
       "cookies": {
         "title": "Cookies",
@@ -932,7 +932,7 @@
     "sections": {
       "object": {
         "title": "Objet",
-        "content": "Ces conditions régissent l’usage du site pigeons.studio, édité par PUNK HAZARD, SAS, 27 rue de Chinon, 94110 Arcueil. La marque affichée est Pigeons Studio. Contact : contact@punkhazard.org."
+        "content": "Ces conditions régissent l’usage du site pigeons.studio, édité par PUNK HAZARD, SAS, 27 rue de Chinon, 94110 Arcueil. La marque affichée est Pigeons Studio. Contact : contact@pigeons.studio."
       },
       "account": {
         "title": "Compte",

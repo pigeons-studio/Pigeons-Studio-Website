@@ -69,7 +69,7 @@ async function envoyerMails(order: OrderView) {
   const sorte = order.kind === 'preorder' ? (fr ? 'Précommande' : 'Pre-order') : (fr ? 'Commande' : 'Order');
   const lien = `${baseUrl.replace(/\/$/, '')}/${locale}/profile`;
   const resend = new Resend(key);
-  const from = process.env.RESEND_FROM_EMAIL || 'contact@punkhazard.org';
+  const from = process.env.RESEND_FROM_EMAIL || 'contact@pigeons.studio';
   await resend.emails.send({
     from,
     to: orderEmails(),

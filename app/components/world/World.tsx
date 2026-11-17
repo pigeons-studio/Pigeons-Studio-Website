@@ -26,7 +26,7 @@ type LigneCommande = { productId: string; nameFr: string; nameEn: string; color?
 type Bloc = { t: string; p?: string; titre?: string; sur?: string; duo?: string; legende?: string; signe?: string; code?: string; vide?: string; items?: unknown[]; fiches?: unknown[] };
 type Famille = { id: string; nom: string; code: string; signe: string; pourquoi: string; teinte: number; css: string; blocs: Bloc[] };
 
-const EMAIL = 'contact@punkhazard.org';
+const EMAIL = 'contact@pigeons.studio';
 
 // les petits patchs Orca de chaque étage ; les commentaires suivent la langue
 const PATCHS: Record<Locale, Record<string, string[]>> = {

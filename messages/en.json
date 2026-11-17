@@ -723,7 +723,7 @@
     "sections": {
       "seller": {
         "title": "1. Seller",
-        "content": "PUNK HAZARD, a simplified joint-stock company (SAS) with a share capital of €1,000, registered office at 27 rue de Chinon, 94110 Arcueil, France. RCS Créteil 944 151 141. SIRET 944 151 141 00016. VAT FR85944151141. Contact: contact@punkhazard.org. The site is presented under the name Pigeons Studio."
+        "content": "PUNK HAZARD, a simplified joint-stock company (SAS) with a share capital of €1,000, registered office at 27 rue de Chinon, 94110 Arcueil, France. RCS Créteil 944 151 141. SIRET 944 151 141 00016. VAT FR85944151141. Contact: contact@pigeons.studio. The site is presented under the name Pigeons Studio."
       },
       "object": {
         "title": "2. Purpose",
@@ -755,7 +755,7 @@
       },
       "contact": {
         "title": "9. Contact",
-        "content": "For any question about these terms: contact@punkhazard.org, or by post at the registered office, 27 rue de Chinon, 94110 Arcueil, France."
+        "content": "For any question about these terms: contact@pigeons.studio, or by post at the registered office, 27 rue de Chinon, 94110 Arcueil, France."
       }
     }
   },
@@ -766,7 +766,7 @@
     "sections": {
       "publisher": {
         "title": "Site publisher",
-        "content": "PUNK HAZARD\nSAS, a simplified joint-stock company with a share capital of €1,000\nRegistered office: 27 rue de Chinon, 94110 Arcueil, France\nRCS Créteil 944 151 141\nSIRET: 944 151 141 00016\nVAT: FR85944151141\nActivity: other information technology activities (NAF 62.09Z)\nPublication director: Julien Thomas, president\nContact: contact@punkhazard.org\nThe site is presented under the name Pigeons Studio."
+        "content": "PUNK HAZARD\nSAS, a simplified joint-stock company with a share capital of €1,000\nRegistered office: 27 rue de Chinon, 94110 Arcueil, France\nRCS Créteil 944 151 141\nSIRET: 944 151 141 00016\nVAT: FR85944151141\nActivity: other information technology activities (NAF 62.09Z)\nPublication director: Julien Thomas, president\nContact: contact@pigeons.studio\nThe site is presented under the name Pigeons Studio."
       },
       "hosting": {
         "title": "Hosting",
@@ -786,7 +786,7 @@
       },
       "contact": {
         "title": "Contact",
-        "content": "For any question about this legal notice: contact@punkhazard.org, or by post at the registered office, 27 rue de Chinon, 94110 Arcueil, France."
+        "content": "For any question about this legal notice: contact@pigeons.studio, or by post at the registered office, 27 rue de Chinon, 94110 Arcueil, France."
       }
     }
   },
@@ -881,7 +881,7 @@
     "deleteAccount": {
       "title": "Delete account",
       "message": "This deletes the account, confirmation tokens and event registrations tied to this email. Orders are kept without the name or email. The cart in this browser is cleared.",
-      "error": "Deletion did not go through. Try again, or write to contact@punkhazard.org.",
+      "error": "Deletion did not go through. Try again, or write to contact@pigeons.studio.",
       "confirm": "Yes, delete my account",
       "cancel": "Cancel",
       "deleting": "Deleting...",
@@ -894,7 +894,7 @@
     "sections": {
       "controller": {
         "title": "Controller",
-        "content": "PUNK HAZARD, a SAS with a share capital of €1,000, 27 rue de Chinon, 94110 Arcueil, France. RCS Créteil 944 151 141. Contact: contact@punkhazard.org. The site is presented under the name Pigeons Studio."
+        "content": "PUNK HAZARD, a SAS with a share capital of €1,000, 27 rue de Chinon, 94110 Arcueil, France. RCS Créteil 944 151 141. Contact: contact@pigeons.studio. The site is presented under the name Pigeons Studio."
       },
       "purposes": {
         "title": "Data and purposes",
@@ -918,7 +918,7 @@
       },
       "rights": {
         "title": "Your rights",
-        "content": "You can access your data, correct it, erase it, ask for a portable copy, and object to processing. From your profile: edit your name, download a JSON export, delete the account. Otherwise: contact@punkhazard.org. You can also contact the CNIL, 3 place de Fontenoy, TSA 80715, 75334 Paris Cedex 07, France, www.cnil.fr."
+        "content": "You can access your data, correct it, erase it, ask for a portable copy, and object to processing. From your profile: edit your name, download a JSON export, delete the account. Otherwise: contact@pigeons.studio. You can also contact the CNIL, 3 place de Fontenoy, TSA 80715, 75334 Paris Cedex 07, France, www.cnil.fr."
       },
       "cookies": {
         "title": "Cookies",
@@ -932,7 +932,7 @@
     "sections": {
       "object": {
         "title": "Purpose",
-        "content": "These terms govern use of pigeons.studio, published by PUNK HAZARD, SAS, 27 rue de Chinon, 94110 Arcueil, France. The name on the site is Pigeons Studio. Contact: contact@punkhazard.org."
+        "content": "These terms govern use of pigeons.studio, published by PUNK HAZARD, SAS, 27 rue de Chinon, 94110 Arcueil, France. The name on the site is Pigeons Studio. Contact: contact@pigeons.studio."
       },
       "account": {
         "title": "Account",

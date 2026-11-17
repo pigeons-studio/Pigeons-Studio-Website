@@ -261,7 +261,7 @@ export default function ContactPage() {
               <h2 className={styles.infoTitle}>{t('other.title')}</h2>
               <div className={styles.infoItem}>
                 <strong>{t('other.email')}</strong>
-                <a href="mailto:contact@punkhazard.org">contact@punkhazard.org</a>
+                <a href="mailto:contact@pigeons.studio">contact@pigeons.studio</a>
               </div>
               <div className={styles.infoItem}>
                 <strong>{t('other.response')}</strong>

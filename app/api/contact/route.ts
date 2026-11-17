@@ -206,8 +206,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const fromEmail = process.env.RESEND_FROM_EMAIL || 'contact@punkhazard.org';
-    const toEmail = process.env.RESEND_TO_EMAIL || 'contact@punkhazard.org';
+    const fromEmail = process.env.RESEND_FROM_EMAIL || 'contact@pigeons.studio';
+    const toEmail = process.env.RESEND_TO_EMAIL || 'contact@pigeons.studio';
     const safeName = echap(normalizedName);
     const safeEmail = echap(normalizedEmail);
     const safeSubject = echap(normalizedSubject);

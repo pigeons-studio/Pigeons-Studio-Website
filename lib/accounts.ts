@@ -83,7 +83,7 @@ export async function sendConfirmationEmail(email: string, token: string, locale
   const expire = fr ? 'Le lien expire dans 24 h.' : 'This link expires in 24 hours.';
   const resend = new Resend(process.env.RESEND_API_KEY);
   await resend.emails.send({
-    from: process.env.RESEND_FROM_EMAIL || 'contact@punkhazard.org',
+    from: process.env.RESEND_FROM_EMAIL || 'contact@pigeons.studio',
     to: email,
     subject: changement
       ? (fr ? 'Confirme ta nouvelle adresse Pigeons Studio' : 'Confirm your new Pigeons Studio address')
