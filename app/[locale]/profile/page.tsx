@@ -30,6 +30,7 @@ export default function ProfilePage() {
   const t = useTranslations('profile');
   const locale = useLocale();
   const tInfo = useTranslations('profile.sections.info');
+  const tNews = useTranslations('profile.sections.newsletter');
   const tOrders = useTranslations('profile.sections.orders');
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [admin, setAdmin] = useState(false);
@@ -43,6 +44,10 @@ export default function ProfilePage() {
   const [messageEmail, setMessageEmail] = useState('');
   const [sauveEmail, setSauveEmail] = useState(false);
   const [adresseConfirmee, setAdresseConfirmee] = useState(false);
+  const [newsEtat, setNewsEtat] = useState<'none' | 'pending' | 'subscribed' | 'unsubscribed'>('none');
+  const [newsConsent, setNewsConsent] = useState(false);
+  const [newsMessage, setNewsMessage] = useState('');
+  const [newsBusy, setNewsBusy] = useState(false);
   const recherche = useSearchParams();
   
   // Rediriger si non connecté
@@ -56,6 +61,9 @@ export default function ProfilePage() {
     if (status !== 'authenticated') return;
     fetch('/api/admin/me').then((r) => setAdmin(r.ok)).catch(() => setAdmin(false));
     fetch('/api/orders').then((r) => r.ok ? r.json() : { orders: [] }).then((d) => setCommandes(d.orders || [])).catch(() => setCommandes([]));
+    fetch('/api/newsletter/me').then((r) => r.ok ? r.json() : null).then((d) => {
+      if (d?.status === 'pending' || d?.status === 'subscribed' || d?.status === 'unsubscribed') setNewsEtat(d.status);
+    }).catch(() => {});
   }, [status]);
 
   const emailConfirme = recherche.get('email') === 'confirme';
@@ -125,6 +133,56 @@ export default function ProfilePage() {
 
   const exporter = () => {
     window.location.href = '/api/account/export';
+  };
+
+  const inscrireNews = async () => {
+    if (!newsConsent) {
+      setNewsMessage(tNews('consentMissing'));
+      return;
+    }
+    setNewsBusy(true);
+    setNewsMessage('');
+    try {
+      const reponse = await fetch('/api/newsletter/me', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'subscribe', consent: true, locale }),
+      });
+      const data = await reponse.json().catch(() => ({}));
+      if (!reponse.ok) {
+        setNewsMessage(data.error === 'rate' ? tNews('rate') : tNews('error'));
+        return;
+      }
+      setNewsEtat(data.status === 'already' ? 'subscribed' : 'pending');
+      setNewsMessage(data.status === 'already' ? tNews('subscribed') : tNews('sent'));
+      setNewsConsent(false);
+    } catch {
+      setNewsMessage(tNews('error'));
+    } finally {
+      setNewsBusy(false);
+    }
+  };
+
+  const retirerNews = async () => {
+    setNewsBusy(true);
+    setNewsMessage('');
+    try {
+      const reponse = await fetch('/api/newsletter/me', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'unsubscribe' }),
+      });
+      if (!reponse.ok) {
+        setNewsMessage(tNews('error'));
+        return;
+      }
+      setNewsEtat('unsubscribed');
+      setNewsMessage(tNews('unsubscribed'));
+    } catch {
+      setNewsMessage(tNews('error'));
+    } finally {
+      setNewsBusy(false);
+    }
   };
 
   if (status === 'loading') {
@@ -251,6 +309,31 @@ export default function ProfilePage() {
                     {tInfo('deleteAccount')}
                   </button>
                 </div>
+              </div>
+            </section>
+
+            <section className={styles.section}>
+              <h2 className={styles.sectionTitle}>{tNews('title')}</h2>
+              <div className={styles.infoCard}>
+                <p className={styles.exportText}>{tNews('intro')}</p>
+                {newsEtat === 'subscribed' ? (
+                  <>
+                    <p className={styles.exportText}>{tNews('subscribed')}</p>
+                    <button type="button" className={styles.textButton} onClick={retirerNews} disabled={newsBusy}>{tNews('unsubscribe')}</button>
+                  </>
+                ) : (
+                  <>
+                    {newsEtat === 'pending' && <p className={styles.exportText}>{tNews('pending')}</p>}
+                    <label className={styles.newsConsent}>
+                      <input type="checkbox" checked={newsConsent} onChange={(e) => setNewsConsent(e.target.checked)} />
+                      <span>{tNews('consent')}</span>
+                    </label>
+                    <button type="button" className={styles.textButton} onClick={inscrireNews} disabled={newsBusy}>
+                      {newsBusy ? tNews('sending') : tNews('subscribe')}
+                    </button>
+                  </>
+                )}
+                {newsMessage && <p className={styles.exportText}>{newsMessage}</p>}
               </div>
             </section>
 

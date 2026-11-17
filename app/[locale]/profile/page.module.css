@@ -386,6 +386,17 @@
   opacity: 0.85;
 }
 
+.newsConsent {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+
+.newsConsent input {
+  margin-top: 4px;
+}
+
 .textButton {
   background: none;
   border: 1px solid var(--border);

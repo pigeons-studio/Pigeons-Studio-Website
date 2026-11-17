@@ -890,6 +890,21 @@
         "deleteAccountWarning": "Cette action est irréversible",
         "dangerZone": "Zone de danger"
       },
+      "newsletter": {
+        "title": "Newsletter",
+        "intro": "Des nouvelles du studio, à l’adresse de ce compte. Rien n’est envoyé tant que le lien reçu par email n’est pas ouvert.",
+        "consent": "J’accepte de recevoir la newsletter de Pigeons Studio. Je peux me désinscrire à tout moment.",
+        "subscribe": "S’inscrire",
+        "sending": "Envoi...",
+        "sent": "Un email de confirmation vient de partir. L’inscription n’est active qu’après ce lien.",
+        "pending": "En attente du lien de confirmation.",
+        "subscribed": "Cette adresse reçoit la newsletter.",
+        "unsubscribe": "Me désinscrire",
+        "unsubscribed": "Cette adresse ne reçoit plus la newsletter.",
+        "consentMissing": "Cochez la case pour vous inscrire.",
+        "error": "L’inscription n’a pas abouti. Réessayez.",
+        "rate": "Trop d’essais. Réessayez dans quelques minutes."
+      },
       "orders": {
         "title": "Mes commandes",
         "empty": "Aucune commande pour le moment",
