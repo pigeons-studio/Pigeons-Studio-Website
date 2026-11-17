@@ -9,6 +9,7 @@ Créez un fichier `.env.local` à la racine du projet avec les variables suivant
 RESEND_API_KEY=re_your_api_key_here
 RESEND_FROM_EMAIL=contact@pigeons.studio
 RESEND_TO_EMAIL=contact@pigeons.studio
+NEWSLETTER_FROM_EMAIL=newsletter@pigeons.studio
 
 # Contact Email (fallback)
 NEXT_PUBLIC_CONTACT_EMAIL=contact@pigeons.studio

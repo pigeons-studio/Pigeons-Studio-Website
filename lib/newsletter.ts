@@ -31,16 +31,20 @@ function racine() {
   return origin.replace(/\/$/, '');
 }
 
+function adresseNewsletter() {
+  const raw = (process.env.NEWSLETTER_FROM_EMAIL || 'newsletter@pigeons.studio').trim();
+  const entre = raw.match(/<([^>]+)>/);
+  return (entre?.[1] || raw).trim();
+}
+
 export function expediteur() {
-  const raw = (process.env.RESEND_FROM_EMAIL || 'contact@pigeons.studio').trim();
+  const raw = (process.env.NEWSLETTER_FROM_EMAIL || '').trim();
   if (raw.includes('<')) return raw;
-  return `Pigeons Studio <${raw}>`;
+  return `Pigeons Studio <${adresseNewsletter()}>`;
 }
 
 function reponse() {
-  const raw = (process.env.RESEND_FROM_EMAIL || 'contact@pigeons.studio').trim();
-  const entre = raw.match(/<([^>]+)>/);
-  return (entre?.[1] || raw).trim();
+  return adresseNewsletter();
 }
 
 function langue(valeur: string): LangueLettre {

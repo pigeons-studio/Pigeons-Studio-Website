@@ -40,16 +40,31 @@
   color: inherit;
 }
 
-.form button {
+.form button,
+.bouton {
   align-self: flex-start;
+  width: auto;
   padding: 10px 16px;
-  border: 1px solid currentColor;
+  border: 1px solid var(--accent-or);
   background: transparent;
-  color: inherit;
+  color: var(--accent-or);
   font: inherit;
   letter-spacing: .12em;
   text-transform: uppercase;
   font-size: 12px;
+  cursor: url('/cursor/pigeon.png') 9 6, pointer;
+}
+
+.form button:hover:not(:disabled),
+.bouton:hover:not(:disabled) {
+  background: var(--accent-or);
+  color: #000;
+}
+
+.form button:disabled,
+.bouton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .piege {

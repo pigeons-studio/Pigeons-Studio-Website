@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import styles from '../../legal/page.module.css';
+import news from '../page.module.css';
 
 export default function LeaveForm({ token }: { token: string }) {
   const t = useTranslations('newsletter');
@@ -32,7 +33,7 @@ export default function LeaveForm({ token }: { token: string }) {
           <>
             <p>{token ? t('leaveIntro') : t('leaveMissing')}</p>
             {token && (
-              <button type="button" onClick={confirmer} disabled={etat === 'loading'}>
+              <button className={news.bouton} type="button" onClick={confirmer} disabled={etat === 'loading'}>
                 {etat === 'loading' ? t('leaveWorking') : t('leaveConfirm')}
               </button>
             )}
