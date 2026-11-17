@@ -13,8 +13,8 @@ import './world/orca.css';
 import styles from "./Header.module.css";
 
 const PIED = {
-  fr: { droits: '© 2026 Pigeons Studio - Tous droits réservés.', legal: 'mentions légales', privacy: 'confidentialité', cgu: 'CGU', cgv: 'CGV' },
-  en: { droits: '© 2026 Pigeons Studio - All rights reserved.', legal: 'legal notice', privacy: 'privacy', cgu: 'terms of use', cgv: 'terms' },
+  fr: { droits: '© 2026 Pigeons Studio - Tous droits réservés.', newsletter: 'newsletter', legal: 'mentions légales', privacy: 'confidentialité', cgu: 'CGU', cgv: 'CGV' },
+  en: { droits: '© 2026 Pigeons Studio - All rights reserved.', newsletter: 'newsletter', legal: 'legal notice', privacy: 'privacy', cgu: 'terms of use', cgv: 'terms' },
 };
 
 const NOMS: Record<'fr' | 'en', Record<string, string>> = {
@@ -32,7 +32,9 @@ const NOMS: Record<'fr' | 'en', Record<string, string>> = {
 
 function nomDePage(pathname: string, locale: 'fr' | 'en') {
   if (pathname.startsWith('/admin/users')) return locale === 'fr' ? 'comptes' : 'accounts';
+  if (pathname.startsWith('/admin/newsletter')) return 'newsletter';
   if (pathname.startsWith('/admin')) return 'events';
+  if (pathname.startsWith('/newsletter')) return 'newsletter';
   const cle = pathname.split('/').filter(Boolean)[0] ?? '';
   return NOMS[locale][cle] ?? '';
 }
@@ -167,6 +169,7 @@ export default function Header() {
       {nom && <div className={`${styles.coinBas} ${styles.coinGauche}`}>{nom}</div>}
       <div className={`${styles.coinBas} ${styles.coinDroite}`}>
         <span>{pied.droits}</span>
+        <Link href="/newsletter">{pied.newsletter}</Link>
         <Link href="/legal">{pied.legal}</Link>
         <Link href="/privacy">{pied.privacy}</Link>
         <Link href="/cgu">{pied.cgu}</Link>

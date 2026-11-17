@@ -415,8 +415,37 @@
       "title": "Autres moyens de contact",
       "email": "Email:",
       "response": "Réponse:",
-      "responseTime": "Généralement sous 24-48h"
+      "responseTime": "Généralement sous 24-48h",
+      "newsletter": "Newsletter :",
+      "newsletterLink": "S’inscrire"
     }
+  },
+  "newsletter": {
+    "title": "Newsletter",
+    "metaDescription": "Inscription à la newsletter de Pigeons Studio. Le consentement est confirmé par email, et la désinscription se fait en un clic.",
+    "intro": "Des nouvelles du studio, de temps en temps. Pas de lettre sans confirmation, et une désinscription dans chaque envoi.",
+    "email": "Email",
+    "consent": "J’accepte de recevoir la newsletter de Pigeons Studio. Je peux me désinscrire à tout moment.",
+    "privacy": "Les détails sont dans la",
+    "privacyLink": "politique de confidentialité",
+    "submit": "S’inscrire",
+    "sending": "Envoi...",
+    "sent": "Un email de confirmation vient de partir. L’inscription n’est active qu’après ce lien.",
+    "already": "Cette adresse est déjà inscrite.",
+    "error": "L’inscription n’a pas abouti. Réessayez.",
+    "invalid": "Cette adresse n’est pas valable.",
+    "rate": "Trop d’essais. Réessayez dans quelques minutes.",
+    "consentMissing": "Cochez la case pour vous inscrire.",
+    "confirmTitle": "Inscription confirmée",
+    "confirmOk": "C’est confirmé. La prochaine lettre arrivera à cette adresse.",
+    "confirmInvalid": "Ce lien n’est plus valable. Recommencez depuis la page newsletter.",
+    "leaveTitle": "Se désinscrire",
+    "leaveIntro": "Ce bouton retire l’adresse de la newsletter. Ouvrir la page ne désinscrit pas tout seul.",
+    "leaveConfirm": "Me désinscrire",
+    "leaveWorking": "Désinscription...",
+    "leaveOk": "C’est fait. Cette adresse ne recevra plus la newsletter.",
+    "leaveMissing": "Le lien est incomplet.",
+    "leaveError": "La désinscription n’a pas abouti. Réessayez."
   },
   "shop": {
     "title": "Boutique",
@@ -898,15 +927,15 @@
       },
       "purposes": {
         "title": "Données et finalités",
-        "content": "Formulaire de contact : nom, email, sujet et message, pour répondre.\nCompte : nom, email et mot de passe haché, ou l’identifiant Google si vous choisissez cette connexion, pour ouvrir et tenir le compte.\nDemandes de commande ou de précommande : nom, email et contenu de la demande, pour y donner suite.\nInscriptions aux événements : nom et email, pour gérer la place et envoyer la confirmation, y compris le lien de désinscription."
+        "content": "Formulaire de contact : nom, email, sujet et message, pour répondre.\nCompte : nom, email et mot de passe haché, ou l’identifiant Google si vous choisissez cette connexion, pour ouvrir et tenir le compte.\nDemandes de commande ou de précommande : nom, email et contenu de la demande, pour y donner suite.\nInscriptions aux événements : nom et email, pour gérer la place et envoyer la confirmation, y compris le lien de désinscription.\nNewsletter : email et langue, pour envoyer les lettres acceptées. L’adresse d’une personne désinscrite est conservée pour ne plus lui écrire."
       },
       "bases": {
         "title": "Bases",
-        "content": "Le compte, les demandes et les inscriptions reposent sur les démarches que vous engagez. Le message de contact aussi. La conservation d’une trace de commande, une fois qu’elle existe, peut aussi répondre à une obligation de suivi. Vous pouvez vous opposer à un traitement fondé sur l’intérêt légitime."
+        "content": "Le compte, les demandes et les inscriptions reposent sur les démarches que vous engagez. Le message de contact aussi. La newsletter repose sur le consentement, confirmé par un lien reçu par email. La conservation d’une trace de commande, une fois qu’elle existe, peut aussi répondre à une obligation de suivi. L’adresse désinscrite est gardée pour ne plus écrire. Vous pouvez vous opposer à un traitement fondé sur l’intérêt légitime."
       },
       "retention": {
         "title": "Durées",
-        "content": "Le compte est conservé jusqu’à sa suppression. Les jetons de confirmation d’email expirent au bout de 24 heures. Les commandes sont conservées, et anonymisées (nom et email retirés) si le compte est supprimé. Les inscriptions à un événement sont supprimées avec le compte, ou lorsque vous vous désinscrivez, ou lorsque l’événement est supprimé."
+        "content": "Le compte est conservé jusqu’à sa suppression. Les jetons de confirmation d’email expirent au bout de 24 heures. Les commandes sont conservées, et anonymisées (nom et email retirés) si le compte est supprimé. Les inscriptions à un événement sont supprimées avec le compte, ou lorsque vous vous désinscrivez, ou lorsque l’événement est supprimé. L’inscription à la newsletter dure jusqu’à la désinscription. L’adresse désinscrite est gardée à cette seule fin. La suppression du compte désinscrit aussi cette adresse."
       },
       "recipients": {
         "title": "Destinataires",

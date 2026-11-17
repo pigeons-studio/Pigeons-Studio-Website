@@ -1,0 +1,58 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 520px;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form input[type="email"] {
+  font: inherit;
+  padding: 10px;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+}
+
+.consent {
+  flex-direction: row;
+  align-items: flex-start;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.consent input {
+  margin-top: 4px;
+}
+
+.note {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.note a {
+  color: inherit;
+}
+
+.form button {
+  align-self: flex-start;
+  padding: 10px 16px;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.piege {
+  position: absolute;
+  left: -9999px;
+}

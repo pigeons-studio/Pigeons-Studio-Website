@@ -13,6 +13,7 @@ const publicPaths = [
   'logiciels',
   'about',
   'contact',
+  'newsletter',
   'legal',
   'terms',
   'privacy',

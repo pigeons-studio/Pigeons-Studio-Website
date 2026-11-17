@@ -108,8 +108,10 @@ export default function World() {
   const trkRef = useRef<HTMLDivElement>(null);
   const pageRef = useRef<HTMLElement>(null);
   const mondeRef = useRef<Monde | null>(null);
-  const [mode, setMode] = useState<Mode>('3d');
-  const [etage, setEtage] = useState(0);
+  const depart = FAMILLES.findIndex((g) => g.id === menu[0]);
+  const ouvre = depart >= 0;
+  const [mode, setMode] = useState<Mode>(ouvre ? 'vers2d' : '3d');
+  const [etage, setEtage] = useState(ouvre ? depart : 0);
   const [visible, setVisible] = useState(false);
   const [tiroir, setTiroir] = useState<Tiroir>(null);
   const [survol, setSurvol] = useState<number | null>(null);
@@ -119,9 +121,8 @@ export default function World() {
   const { data: session } = useSession();
   const menuKey = menu.join('/');
   const menuRef = useRef(menuKey);
-  const modeRef = useRef<Mode>('3d');
+  const modeRef = useRef<Mode>(ouvre ? 'vers2d' : '3d');
   const skipRef = useRef<string | null>(null);
-  const premierRef = useRef(true);
   menuRef.current = menuKey;
 
   const pousser = (floor: string | null, fiche?: string) => {
@@ -149,6 +150,7 @@ export default function World() {
         etages,
         patchs: PATCHS[locale],
         textes: { entrer: ui.entrer, toucher: ui.toucher },
+        ouverture: FAMILLES.findIndex((g) => g.id === menuRef.current.split('/')[0]),
         onMode: (m, e) => {
           modeRef.current = m;
           setMode(m); setEtage(e);
@@ -170,14 +172,13 @@ export default function World() {
       });
       mondeRef.current = monde;
       if (!annule) {
-        premierRef.current = true;
         setPret(true);
         // un ancien lien ?etage=services : on l'ouvre dans le routeur, puis on descend
         const voulu = new URLSearchParams(window.location.search).get('etage');
         const n = voulu ? FAMILLES.findIndex((g) => g.id === voulu) : -1;
-        if (n >= 0 && voulu) {
+        if (n >= 0 && voulu && menuRef.current.split('/')[0] !== voulu) {
           pousserRef.current(voulu);
-          window.setTimeout(() => { if (!annule) monde?.descendre(n, true); }, 400);
+          window.setTimeout(() => { if (!annule) monde?.descendre(n); }, 400);
         }
       }
     });
@@ -194,16 +195,16 @@ export default function World() {
       return;
     }
     const [floor] = menu;
-    const direct = premierRef.current;
-    premierRef.current = false;
     if (!floor) {
       if (modeRef.current === '2d' || modeRef.current === 'vers2d') m.remonter();
       return;
     }
     const idx = FAMILLES.findIndex((g) => g.id === floor);
     if (idx < 0) return;
-    if (modeRef.current === '3d' || modeRef.current === 'vers3d') m.descendre(idx, direct);
-    else if (idx !== etage) m.changer(idx);
+    // la descente du premier affichage est déjà lancée dans le moteur ; on ne la coupe pas
+    if (modeRef.current === '3d' || modeRef.current === 'vers3d') m.descendre(idx);
+    else if (modeRef.current === '2d' && idx !== etage) m.changer(idx);
+    else if (modeRef.current === 'vers2d' && idx !== etage) m.descendre(idx);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [menuKey, pret, locale]);
 

@@ -415,8 +415,37 @@
       "title": "Other ways to contact",
       "email": "Email:",
       "response": "Response:",
-      "responseTime": "Usually within 24-48h"
+      "responseTime": "Usually within 24-48h",
+      "newsletter": "Newsletter:",
+      "newsletterLink": "Subscribe"
     }
+  },
+  "newsletter": {
+    "title": "Newsletter",
+    "metaDescription": "Subscribe to the Pigeons Studio newsletter. Consent is confirmed by email, and unsubscribing takes one click.",
+    "intro": "News from the studio, now and then. No letter without a confirmation, and an unsubscribe link in every send.",
+    "email": "Email",
+    "consent": "I agree to receive the Pigeons Studio newsletter. I can unsubscribe at any time.",
+    "privacy": "The details are in the",
+    "privacyLink": "privacy policy",
+    "submit": "Subscribe",
+    "sending": "Sending...",
+    "sent": "A confirmation email has been sent. The subscription starts only after that link.",
+    "already": "This address is already subscribed.",
+    "error": "The subscription did not go through. Try again.",
+    "invalid": "This address is not valid.",
+    "rate": "Too many attempts. Try again in a few minutes.",
+    "consentMissing": "Tick the box to subscribe.",
+    "confirmTitle": "Subscription confirmed",
+    "confirmOk": "Confirmed. The next letter will come to this address.",
+    "confirmInvalid": "This link is no longer valid. Start again from the newsletter page.",
+    "leaveTitle": "Unsubscribe",
+    "leaveIntro": "This button removes the address from the newsletter. Opening the page does not unsubscribe by itself.",
+    "leaveConfirm": "Unsubscribe me",
+    "leaveWorking": "Unsubscribing...",
+    "leaveOk": "Done. This address will no longer receive the newsletter.",
+    "leaveMissing": "The link is incomplete.",
+    "leaveError": "Unsubscribing did not go through. Try again."
   },
   "shop": {
     "title": "Shop",
@@ -898,15 +927,15 @@
       },
       "purposes": {
         "title": "Data and purposes",
-        "content": "Contact form: name, email, subject and message, so we can reply.\nAccount: name, email and a hashed password, or the Google identifier if you choose that sign-in, to open and keep the account.\nOrder or pre-order requests: name, email and the request, so we can follow up.\nEvent registration: name and email, to hold the seat and send the confirmation, including the cancellation link."
+        "content": "Contact form: name, email, subject and message, so we can reply.\nAccount: name, email and a hashed password, or the Google identifier if you choose that sign-in, to open and keep the account.\nOrder or pre-order requests: name, email and the request, so we can follow up.\nEvent registration: name and email, to hold the seat and send the confirmation, including the cancellation link.\nNewsletter: email and language, to send the letters you accepted. An unsubscribed address is kept so we do not write again."
       },
       "bases": {
         "title": "Legal bases",
-        "content": "The account, the requests and the registrations rest on the steps you take. So does a contact message. Keeping a record of an order, once one exists, may also meet a duty to follow it. You can object to processing based on legitimate interest."
+        "content": "The account, the requests and the registrations rest on the steps you take. So does a contact message. The newsletter rests on consent, confirmed by a link received by email. Keeping a record of an order, once one exists, may also meet a duty to follow it. An unsubscribed address is kept so we do not write again. You can object to processing based on legitimate interest."
       },
       "retention": {
         "title": "Retention",
-        "content": "The account is kept until you delete it. Email confirmation tokens expire after 24 hours. Orders are kept, and anonymised (name and email removed) if the account is deleted. Event registrations are deleted with the account, when you cancel, or when the event is deleted."
+        "content": "The account is kept until you delete it. Email confirmation tokens expire after 24 hours. Orders are kept, and anonymised (name and email removed) if the account is deleted. Event registrations are deleted with the account, when you cancel, or when the event is deleted. The newsletter subscription lasts until you unsubscribe. The unsubscribed address is kept only for that purpose. Deleting the account also unsubscribes that address."
       },
       "recipients": {
         "title": "Recipients",

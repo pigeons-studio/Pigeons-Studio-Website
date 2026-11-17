@@ -13,6 +13,7 @@ export type WorldOptions = {
   patchs: Record<string, string[]>;
   textes: { entrer: (e: number) => string; toucher?: (e: number) => string };
   onMode: (mode: '3d' | 'vers2d' | '2d' | 'vers3d', etage: number) => void;
+  ouverture?: number;
 };
 
 export type World = {
@@ -64,7 +65,7 @@ const TEINTES = { com: [0x777777, 0.05], op: [0xeeeeee, 0.22], val: [0xaaaaaa, 0
 const b36 = (ch) => { const n = parseInt(ch, 36); return isNaN(n) ? 0 : n; };
 
 export function createWorld (opts: WorldOptions): World {
-  const { canvas, tracker, etages: FAMILLES, patchs, textes, onMode } = opts;
+  const { canvas, tracker, etages: FAMILLES, patchs, textes, onMode, ouverture } = opts;
   const N = FAMILLES.length;
   const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const trkTxt = tracker.querySelector('span');
@@ -362,12 +363,16 @@ export function createWorld (opts: WorldOptions): World {
   // ---------------------------------------------------------------- transitions
   function anim (vers, fin) { etat.de = etat.k; etat.vers = vers; etat.t = 0; etat.fin = fin; etat.duree = reduit ? 0.01 : 1.3; }
   function descendre (e, immediat) {
-    survol = -1; etat.etage = e; focCible = N - e; foc = focCible;
+    survol = -1; etat.etage = e;
     if (immediat) {
+      focCible = N - e; foc = focCible;
       etat.mode = '2d'; etat.k = 1; etat.t = 1; etat.de = 1; etat.vers = 1; etat.fin = null;
       onMode('2d', e);
       return;
     }
+    // déjà en train de viser un étage : on descend depuis cette vue.
+    // au chargement, foc est encore à 0 : la pile entière se rapproche, puis se pose.
+    if (foc > 0.6) { focCible = N - e; foc = focCible; }
     etat.mode = 'vers2d'; onMode('vers2d', e);
     anim(1, () => { etat.mode = '2d'; onMode('2d', e); });
   }
@@ -395,6 +400,8 @@ export function createWorld (opts: WorldOptions): World {
     etages.forEach((x, e) => { x.y0 = e * GAP * etir; });
   }
   const ro = new ResizeObserver(taille); ro.observe(canvas.parentElement); taille();
+  // la première image est déjà le début de la descente, pas un flash de la vue d'ensemble coupé net
+  if (typeof ouverture === 'number' && ouverture >= 0 && ouverture < N) descendre(ouverture);
   const horloge = new THREE.Clock(); let temps = 0; let raf = 0;
   const vue = new THREE.Vector3(); const haut = new THREE.Vector3();
   function boucle () {

@@ -2,6 +2,7 @@ import { eq, or } from 'drizzle-orm';
 import { findUserByEmail } from '@/lib/accounts';
 import { getDb } from '@/lib/db';
 import { events, invites, orders, registrations, users } from '@/lib/db/schema';
+import { desinscrireEmail, etatNewsletter } from '@/lib/newsletter';
 import { listOrders } from '@/lib/orders';
 
 const NOM_ANONYME = '—';
@@ -47,6 +48,7 @@ export async function exporterCompte(email: string, userId?: string) {
     },
     orders: commandes ?? [],
     registrations: inscriptions,
+    newsletter: await etatNewsletter(user.email),
   };
 }
 
@@ -55,6 +57,7 @@ export async function supprimerCompte(email: string) {
   if (!db) return { error: 'unavailable' as const };
   const user = await findUserByEmail(email);
   if (!user) return { error: 'missing' as const };
+  await desinscrireEmail(user.email);
   await db.delete(registrations).where(eq(registrations.email, user.email));
   await db.update(orders).set({
     name: NOM_ANONYME,

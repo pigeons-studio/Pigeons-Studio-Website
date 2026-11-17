@@ -15,6 +15,8 @@ export default function robots(): MetadataRoute.Robots {
           '/*/profile',
           '/*/bios',
           '/*/events/leave',
+          '/*/newsletter/confirm',
+          '/*/newsletter/leave',
         ],
       },
     ],

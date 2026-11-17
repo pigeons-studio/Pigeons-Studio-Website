@@ -224,6 +224,12 @@ export default function ProfilePage() {
                           ? 'Regarder les animations du site et copier leur identifiant pour l’attacher à un event.'
                           : 'Watch the site animations and copy an id to attach one to an event.'}</small>
                       </Link>
+                      <Link href="/admin/newsletter" className={styles.adminLink}>
+                        <span>newsletter</span>
+                        <small>{locale === 'fr'
+                          ? 'Rédiger les lettres, voir les inscrits et envoyer.'
+                          : 'Write the letters, see the subscribers and send.'}</small>
+                      </Link>
                       <Link href="/admin/orders" className={styles.adminLink}>
                         <span>{locale === 'fr' ? 'commandes' : 'orders'}</span>
                         <small>{locale === 'fr'

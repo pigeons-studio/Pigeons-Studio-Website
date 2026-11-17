@@ -264,6 +264,10 @@ export default function ContactPage() {
                 <a href="mailto:contact@pigeons.studio">contact@pigeons.studio</a>
               </div>
               <div className={styles.infoItem}>
+                <strong>{t('other.newsletter')}</strong>
+                <Link href="/newsletter">{t('other.newsletterLink')}</Link>
+              </div>
+              <div className={styles.infoItem}>
                 <strong>{t('other.response')}</strong>
                 <span>{t('other.responseTime')}</span>
               </div>

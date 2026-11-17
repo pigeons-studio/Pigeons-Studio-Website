@@ -91,6 +91,49 @@ export const rateLimits = pgTable('rate_limits', {
   windowStart: timestamp('window_start', { withTimezone: true }).notNull(),
 });
 
+export const subscribers = pgTable('subscribers', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  email: text('email').notNull().unique(),
+  locale: text('locale').notNull().default('fr'),
+  status: text('status').notNull().default('pending'),
+  source: text('source'),
+  consentAt: timestamp('consent_at', { withTimezone: true }),
+  confirmedAt: timestamp('confirmed_at', { withTimezone: true }),
+  unsubscribedAt: timestamp('unsubscribed_at', { withTimezone: true }),
+  confirmTokenHash: text('confirm_token_hash').unique(),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+});
+
+export const newsletters = pgTable('newsletters', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  subjectFr: text('subject_fr').notNull().default(''),
+  subjectEn: text('subject_en').notNull().default(''),
+  previewFr: text('preview_fr').notNull().default(''),
+  previewEn: text('preview_en').notNull().default(''),
+  bodyFr: text('body_fr').notNull().default(''),
+  bodyEn: text('body_en').notNull().default(''),
+  status: text('status').notNull().default('draft'),
+  sentAt: timestamp('sent_at', { withTimezone: true }),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+});
+
+export const newsletterDeliveries = pgTable(
+  'newsletter_deliveries',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    newsletterId: uuid('newsletter_id')
+      .notNull()
+      .references(() => newsletters.id, { onDelete: 'cascade' }),
+    subscriberId: uuid('subscriber_id')
+      .notNull()
+      .references(() => subscribers.id, { onDelete: 'cascade' }),
+    status: text('status').notNull().default('queued'),
+    error: text('error'),
+    sentAt: timestamp('sent_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [unique('newsletter_delivery_once').on(table.newsletterId, table.subscriberId)]
+);
+
 export const invites = pgTable('invites', {
   id: uuid('id').defaultRandom().primaryKey(),
   eventId: uuid('event_id')
