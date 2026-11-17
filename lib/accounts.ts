@@ -74,8 +74,8 @@ export async function sendConfirmationEmail(email: string, token: string, locale
     : (fr ? 'Confirme ton compte' : 'Confirm your account');
   const phrase = changement
     ? (fr
-      ? 'Confirme cette adresse pour l’utiliser à la place de l’ancienne. Tant que tu n’as pas cliqué, l’ancienne reste active.'
-      : 'Confirm this address to use it instead of the previous one. Until you click, the previous address stays active.')
+      ? 'Confirme cette nouvelle adresse. L’ancienne reste active jusque-là.'
+      : 'Confirm this new address. The previous one stays active until then.')
     : (fr
       ? 'Confirme ton adresse pour activer le compte Pigeons Studio.'
       : 'Confirm your address to activate your Pigeons Studio account.');

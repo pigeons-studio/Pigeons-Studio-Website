@@ -37,11 +37,10 @@ const COPY = {
     bot: 'Veuillez compléter la vérification anti-robot.',
     antiBot: 'Veuillez compléter la vérification anti-robot.',
     robot: 'Vérification anti-robot',
-    glisser: 'Faites glisser le curseur complètement vers la droite pour activer l’envoi.',
+    glisser: 'Glisse jusqu’au bout.',
     progres: (n: number) => `Progression : ${n}%`,
     pret: 'Vérification validée.',
-    notice: 'Un email de confirmation contient un lien pour se désinscrire. Il ne retire rien tant qu’on ne confirme pas.',
-    donnees: 'Nom et email servent à tenir la place. Détail :',
+    notice: 'Un mail de confirmation suit.',
     confidentialite: 'politique de confidentialité',
     erreur: 'L’inscription n’a pas abouti.',
     rate: 'Trop d’inscriptions. Réessayez dans quelques minutes.',
@@ -71,11 +70,10 @@ const COPY = {
     bot: 'Please complete the anti-bot verification.',
     antiBot: 'Please complete the anti-bot verification.',
     robot: 'Anti-bot verification',
-    glisser: 'Slide all the way to the right to unlock sending.',
+    glisser: 'Slide all the way.',
     progres: (n: number) => `Progress: ${n}%`,
     pret: 'Verification complete.',
-    notice: 'The confirmation email has a cancellation link. It cancels nothing until you confirm.',
-    donnees: 'Name and email are used to hold the seat. Details:',
+    notice: 'A confirmation email follows.',
     confidentialite: 'privacy policy',
     erreur: 'Registration didn’t go through.',
     rate: 'Too many registrations. Try again in a few minutes.',
@@ -349,7 +347,7 @@ export default function EventsPanel({
               <span className={humain ? 'ok' : undefined}>{humain ? t.pret : t.progres(curseur)}</span>
             </label>
             <p className="note">{t.notice}</p>
-            <p className="note">{t.donnees} <Link href="/privacy">{t.confidentialite}</Link></p>
+            <p className="note"><Link href="/privacy">{t.confidentialite}</Link></p>
             <button type="submit" className="btn plein" disabled={charge || !humain}>{charge ? t.envoi : t.envoyer}</button>
             {msg && <p className={msg === t.ok ? 'ok' : 'erreur'}>{msg}</p>}
           </form>

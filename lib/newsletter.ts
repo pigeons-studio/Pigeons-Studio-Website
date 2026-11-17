@@ -113,8 +113,8 @@ async function envoyerConfirmation(email: string, locale: LangueLettre, token: s
   const lien = `${racine()}/${locale}/newsletter/confirm?token=${encodeURIComponent(token)}`;
   const sujet = fr ? 'Confirme ton inscription à la newsletter' : 'Confirm your newsletter subscription';
   const phrase = fr
-    ? 'Confirme ton inscription pour recevoir la newsletter de Pigeons Studio. Sans ce lien, rien n’est envoyé.'
-    : 'Confirm your subscription to receive the Pigeons Studio newsletter. Nothing is sent without this link.';
+    ? 'Confirme ton inscription à la newsletter.'
+    : 'Confirm your subscription to the newsletter.';
   const bouton = fr ? 'Confirmer' : 'Confirm';
   const ignore = fr
     ? 'Si tu n’as pas demandé cette inscription, ignore ce message.'

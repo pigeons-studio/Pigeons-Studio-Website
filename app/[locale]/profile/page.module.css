@@ -332,17 +332,6 @@
   border-top: 1px solid var(--border);
 }
 
-.dangerZoneHeader {
-  margin-bottom: 16px;
-}
-
-.dangerZoneTitle {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0 0 4px 0;
-  color: #f44336;
-}
-
 .dangerZoneWarning {
   font-size: 12px;
   opacity: 0.7;

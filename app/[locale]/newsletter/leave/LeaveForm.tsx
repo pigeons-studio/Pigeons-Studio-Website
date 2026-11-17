@@ -31,7 +31,7 @@ export default function LeaveForm({ token }: { token: string }) {
       <div className={styles.content}>
         {etat === 'ok' ? <p>{t('leaveOk')}</p> : (
           <>
-            <p>{token ? t('leaveIntro') : t('leaveMissing')}</p>
+            {!token && <p>{t('leaveMissing')}</p>}
             {token && (
               <button className={news.bouton} type="button" onClick={confirmer} disabled={etat === 'loading'}>
                 {etat === 'loading' ? t('leaveWorking') : t('leaveConfirm')}

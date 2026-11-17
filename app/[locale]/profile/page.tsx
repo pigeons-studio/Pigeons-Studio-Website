@@ -298,10 +298,6 @@ export default function ProfilePage() {
                   </div>
                 )}
                 <div className={styles.dangerZone}>
-                  <div className={styles.dangerZoneHeader}>
-                    <h3 className={styles.dangerZoneTitle}>{tInfo('dangerZone')}</h3>
-                    <p className={styles.dangerZoneWarning}>{tInfo('deleteAccountWarning')}</p>
-                  </div>
                   <button
                     onClick={() => setIsDeleteModalOpen(true)}
                     className={styles.deleteAccountButton}

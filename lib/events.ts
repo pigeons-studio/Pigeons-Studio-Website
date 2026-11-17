@@ -142,9 +142,7 @@ export async function sendEventConfirmation(mail: EventMail, locale: 'fr' | 'en'
     ? 'Ton inscription à cet event est confirmée.'
     : 'Your registration for this event is confirmed.';
   const bouton = fr ? 'Voir l’event' : 'See the event';
-  const retrait = fr
-    ? 'Pour te désinscrire, ouvre ce lien puis confirme. Il ne retire rien tout seul.'
-    : 'To cancel, open this link and confirm. Opening it does not cancel by itself.';
+  const retrait = fr ? 'Se désinscrire' : 'Cancel registration';
   const resend = new Resend(process.env.RESEND_API_KEY);
   await resend.emails.send({
     from: process.env.RESEND_FROM_EMAIL || 'contact@pigeons.studio',
