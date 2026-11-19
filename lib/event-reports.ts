@@ -52,7 +52,7 @@ const REPORTS: Report[] = [
       en: ['Report', 'Performance', 'Acousmonium', 'Robotics', 'Spatial sound'],
     },
     description: {
-      fr: `Pigeons Studio a joué pendant les trois jours d’écoute organisés par Mateo Garcia Audio au bâtiment Kennedy, à Paris, un bâtiment encore en construction.
+      fr: `Pigeons Studio a donné une performance, une seule fois, lors des séances d’écoute organisées par Mateo Garcia Audio au bâtiment Kennedy, à Paris, un bâtiment encore en construction.
 
 Pigeons Studio est attaché à l’idée de mouvement. L’enjeu : activer physiquement les enceintes conçues par Mateo Garcia, et rendre physique le déplacement du son.
 
@@ -71,7 +71,7 @@ Pigeons Studio est attaché à l’idée de mouvement. L’enjeu : activer physi
 - **Avec** — Mateo Garcia Audio (@mateogarcia_audio)
 - **Photos** — Thi-Lea (@penal_thi)
 - **Pigeons Studio** — Koo Des (NSDOS) · Julien Thomas`,
-      en: `Pigeons Studio performed during the three days of listening organised by Mateo Garcia Audio at the Kennedy building in Paris, a building still under construction.
+      en: `Pigeons Studio gave a single performance during the listening sessions organised by Mateo Garcia Audio at the Kennedy building in Paris, a building still under construction.
 
 Pigeons Studio is attached to the idea of movement. The aim: physically activating the speakers designed by Mateo Garcia, and making the movement of sound physical.
 
