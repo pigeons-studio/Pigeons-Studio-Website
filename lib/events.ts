@@ -27,7 +27,10 @@ export type EventPublic = {
   /** date affichée à la place de la période exacte */
   dateLabel?: string | null;
   videoUrl?: string | null;
+  /** version 16:9 de la vidéo, montrée sur ordinateur */
+  videoWideUrl?: string | null;
   posterUrl?: string | null;
+  posterWideUrl?: string | null;
 };
 
 type Locale = 'fr' | 'en';

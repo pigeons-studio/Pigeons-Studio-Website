@@ -15,7 +15,10 @@ type Report = {
   place: string;
   imageUrl: string;
   posterUrl: string;
+  posterWideUrl: string;
   videoUrl: Record<Locale, string>;
+  /** version 16:9 pour ordinateur et plein écran */
+  videoWideUrl: Record<Locale, string>;
   title: Record<Locale, string>;
   subtitle: Record<Locale, string>;
   dateLabel: Record<Locale, string>;
@@ -31,9 +34,14 @@ const REPORTS: Report[] = [
     place: 'Bâtiment Kennedy, Paris',
     imageUrl: '/events/acousmonium-kennedy-poster.jpg',
     posterUrl: '/events/acousmonium-kennedy-poster.jpg',
+    posterWideUrl: '/events/acousmonium-kennedy-poster-16x9.jpg',
     videoUrl: {
       fr: '/events/acousmonium-kennedy-fr.mp4',
       en: '/events/acousmonium-kennedy-en.mp4',
+    },
+    videoWideUrl: {
+      fr: '/events/acousmonium-kennedy-fr-16x9.mp4',
+      en: '/events/acousmonium-kennedy-en-16x9.mp4',
     },
     title: {
       fr: 'ACOUSMONIUM // EN MOUVEMENT',
@@ -52,7 +60,7 @@ const REPORTS: Report[] = [
       en: ['Report', 'Performance', 'Acousmonium', 'Robotics', 'Spatial sound'],
     },
     description: {
-      fr: `Pigeons Studio a donné une performance, une seule fois, lors des séances d’écoute organisées par Mateo Garcia Audio au bâtiment Kennedy, à Paris, un bâtiment encore en construction.
+      fr: `Pigeons Studio a performé lors de l’événement de Mateo Garcia Audio au bâtiment Kennedy, à Paris, un bâtiment encore en construction.
 
 Pigeons Studio est attaché à l’idée de mouvement. L’enjeu : activer physiquement les enceintes conçues par Mateo Garcia, et rendre physique le déplacement du son.
 
@@ -71,7 +79,7 @@ Pigeons Studio est attaché à l’idée de mouvement. L’enjeu : activer physi
 - **Avec** — Mateo Garcia Audio (@mateogarcia_audio)
 - **Photos** — Thi-Lea (@penal_thi)
 - **Pigeons Studio** — Koo Des (NSDOS) · Julien Thomas`,
-      en: `Pigeons Studio gave a single performance during the listening sessions organised by Mateo Garcia Audio at the Kennedy building in Paris, a building still under construction.
+      en: `Pigeons Studio performed at Mateo Garcia Audio’s event at the Kennedy building in Paris, a building still under construction.
 
 Pigeons Studio is attached to the idea of movement. The aim: physically activating the speakers designed by Mateo Garcia, and making the movement of sound physical.
 
@@ -111,7 +119,9 @@ function toPublic(report: Report, locale: Locale): EventPublic {
     past: true,
     dateLabel: report.dateLabel[locale],
     videoUrl: report.videoUrl[locale],
+    videoWideUrl: report.videoWideUrl[locale],
     posterUrl: report.posterUrl,
+    posterWideUrl: report.posterWideUrl,
   };
 }
 

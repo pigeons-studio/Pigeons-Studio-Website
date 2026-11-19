@@ -373,14 +373,26 @@ export default function EventsPanel({
               </figure>
             )}
             {event.videoUrl ? (
-              <video
-                className="ex-video"
-                src={event.videoUrl}
-                poster={event.posterUrl ?? undefined}
-                controls
-                playsInline
-                preload="metadata"
-              />
+              <>
+                <video
+                  className={event.videoWideUrl ? 'ex-video ex-video-portrait' : 'ex-video'}
+                  src={event.videoUrl}
+                  poster={event.posterUrl ?? undefined}
+                  controls
+                  playsInline
+                  preload="metadata"
+                />
+                {event.videoWideUrl && (
+                  <video
+                    className="ex-video ex-video-large"
+                    src={event.videoWideUrl}
+                    poster={event.posterWideUrl ?? undefined}
+                    controls
+                    playsInline
+                    preload="metadata"
+                  />
+                )}
+              </>
             ) : event.imageUrl && <img className="ex-image" src={event.imageUrl} alt={event.title} />}
             {event.tags.length > 0 && <div className="tags">{event.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>}
             <div className="md"><ReactMarkdown rehypePlugins={[rehypeSanitize]}>{event.description}</ReactMarkdown></div>
