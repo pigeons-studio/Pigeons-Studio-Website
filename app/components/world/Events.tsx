@@ -45,6 +45,7 @@ const COPY = {
     erreur: 'L’inscription n’a pas abouti.',
     rate: 'Trop d’inscriptions. Réessayez dans quelques minutes.',
     charge: 'chargement',
+    passe: 'retour',
   },
   en: {
     vide: 'No dates yet.',
@@ -78,6 +79,7 @@ const COPY = {
     erreur: 'Registration didn’t go through.',
     rate: 'Too many registrations. Try again in a few minutes.',
     charge: 'loading',
+    passe: 'report',
   },
 };
 
@@ -308,7 +310,7 @@ export default function EventsPanel({
           <p className="vide">{ready ? t.missing : t.hors}</p>
         ) : ficheEtat !== 'ok' || !event ? (
           <Chargeur label={t.charge} />
-        ) : etape === 'form' ? (
+        ) : etape === 'form' && !event.past ? (
           invite && emailCompte ? (
             <div className="fenetre-invitation">
               <p className="invitation">{t.invitation}</p>
@@ -355,21 +357,34 @@ export default function EventsPanel({
         ) : (
           <>
             <header>
-              <Periode debut={event.startsAt} fin={event.endsAt} locale={locale} />
+              {event.past && event.dateLabel ? (
+                <div className="ex-code"><span>{event.dateLabel}</span></div>
+              ) : (
+                <Periode debut={event.startsAt} fin={event.endsAt} locale={locale} />
+              )}
               <h2>{event.title}</h2>
               {event.subtitle && <p className="ex-sous">{event.subtitle}</p>}
               <p className="ex-sous">{event.place}</p>
-              <p className="ex-places">{t.places(event.remaining, event.capacity)}</p>
+              {!event.past && <p className="ex-places">{t.places(event.remaining, event.capacity)}</p>}
             </header>
             {event.scene && isEventScene(event.scene) && (
               <figure className="ex-scene">
                 <Scene id={event.scene} css={css} locale={locale} />
               </figure>
             )}
-            {event.imageUrl && <img className="ex-image" src={event.imageUrl} alt={event.title} />}
+            {event.videoUrl ? (
+              <video
+                className="ex-video"
+                src={event.videoUrl}
+                poster={event.posterUrl ?? undefined}
+                controls
+                playsInline
+                preload="metadata"
+              />
+            ) : event.imageUrl && <img className="ex-image" src={event.imageUrl} alt={event.title} />}
             {event.tags.length > 0 && <div className="tags">{event.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>}
             <div className="md"><ReactMarkdown rehypePlugins={[rehypeSanitize]}>{event.description}</ReactMarkdown></div>
-            {!moiPret ? null : emailCompte && inscrit ? (
+            {event.past ? null : !moiPret ? null : emailCompte && inscrit ? (
               <div className="ligne-inscrit">
                 <span className="marque"><i />{t.inscrit}</span>
                 <button type="button" className="btn doux" onClick={desinscrire} disabled={charge}>{t.desinscrire}</button>
@@ -403,7 +418,7 @@ export default function EventsPanel({
         <div className="ex-liste" role="list">
           {events.map((item) => (
             <button key={item.slug} type="button" onClick={() => onFiche(item.slug)}>
-              <span className="ex-code">{quand(item.startsAt, locale)}</span>
+              <span className="ex-code">{item.past && item.dateLabel ? item.dateLabel : quand(item.startsAt, locale)}</span>
               <span className="ex-corps">
                 {item.imageUrl && <img className="ex-visuel" src={item.imageUrl} alt="" />}
                 <span>
@@ -411,7 +426,7 @@ export default function EventsPanel({
                   <span className="ex-lieu">{item.place}</span>
                 </span>
               </span>
-              <span className="ex-places">{t.places(item.remaining, item.capacity)}</span>
+              <span className="ex-places">{item.past ? t.passe : t.places(item.remaining, item.capacity)}</span>
             </button>
           ))}
         </div>

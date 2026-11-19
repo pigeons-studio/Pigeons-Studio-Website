@@ -7,6 +7,7 @@ import { isEventScene } from '@/lib/event-scenes';
 import { signerDesinscription } from '@/lib/event-cancel';
 import { echap } from '@/lib/html';
 import { baseUrl } from '@/lib/seo';
+import { getReport, listReports } from '@/lib/event-reports';
 
 export type EventPublic = {
   slug: string;
@@ -21,6 +22,12 @@ export type EventPublic = {
   scene: string | null;
   capacity: number;
   remaining: number;
+  /** retour d'un événement passé : pas d'inscription */
+  past?: boolean;
+  /** date affichée à la place de la période exacte */
+  dateLabel?: string | null;
+  videoUrl?: string | null;
+  posterUrl?: string | null;
 };
 
 type Locale = 'fr' | 'en';
@@ -81,18 +88,21 @@ async function takenByEvent() {
 }
 
 export async function listEvents(localeInput?: string | null) {
-  const db = getDb();
-  if (!db) return [];
   const locale = asLocale(localeInput);
+  const reports = listReports(locale);
+  const db = getDb();
+  if (!db) return reports;
   const rows = await db.select().from(events).where(eq(events.hidden, false)).orderBy(asc(events.startsAt));
   const taken = await takenByEvent();
-  return rows.map((row) => toPublic(row, taken.get(row.id) ?? 0, locale));
+  return [...rows.map((row) => toPublic(row, taken.get(row.id) ?? 0, locale)), ...reports];
 }
 
 export async function getEvent(slug: string, localeInput?: string | null) {
+  const locale = asLocale(localeInput);
+  const report = getReport(slug, locale);
+  if (report) return report;
   const db = getDb();
   if (!db) return null;
-  const locale = asLocale(localeInput);
   const [row] = await db.select().from(events).where(eq(events.slug, slug)).limit(1);
   if (!row || row.hidden) return null;
   const taken = await takenByEvent();

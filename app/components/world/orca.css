@@ -551,6 +551,7 @@
 .orca .events.fiche { display: flex; flex-direction: column; gap: 16px; border: 1px solid var(--trait); background: rgba(0,0,0,.82); padding: 18px 20px 22px; }
 .orca .events.fiche > .btn { align-self: flex-start; }
 .orca .events.fiche header { display: flex; flex-direction: column; gap: 6px; }
+.orca .events.fiche .ex-video { display: block; width: min(100%, 420px); aspect-ratio: 9 / 16; height: auto; max-height: 78vh; object-fit: contain; background: #000; border: 1px solid var(--trait); }
 .orca .events.fiche h2 { font-size: 20px; letter-spacing: .14em; text-transform: uppercase; margin: 0; }
 .orca .events.fiche .ex-code { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: .45em; row-gap: 4px; color: var(--c); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
 .orca .events.fiche .ex-code span { white-space: nowrap; }
