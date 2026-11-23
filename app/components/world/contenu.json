@@ -1003,6 +1003,58 @@
        "prix": "coming",
        "tarif": "300 € · pré-commande",
        "commande": "pré-commander"
+      },
+      {
+       "id": "bomber-vava-dudu",
+       "nom": "BOMBERS // CHANT",
+       "sens": "Un bombers kaki brodé de mots et de dessins par Vava Dudu : une pièce unique punk, qui protège, qui résiste et qui porte une culture.",
+       "image": "/boutique/bomber-vava-dudu.jpg",
+       "alt": "Le bombers kaki brodé de mots et de dessins, porté",
+       "glyphes": [
+        [
+         "E1DA",
+         "bombers"
+        ],
+        [
+         "E126",
+         "chant"
+        ]
+       ],
+       "glyphesSens": "« BOMBERS // CHANT » en glyphes As-Simt : bombers (protège · résiste · culture) · chant",
+       "collab": {
+        "texte": "Une collaboration : ce bombers a été imaginé avec",
+        "nom": "@vava.dudu",
+        "lien": "https://www.instagram.com/vava.dudu"
+       },
+       "details": [
+        [
+         "Pièce exposée",
+         "Pièce unique punk · broderies"
+        ],
+        [
+         "Pré-commande",
+         "Un bombers de la lignée BOMBERS // CHANT"
+        ],
+        [
+         "Histoire",
+         "Pièce de l’exposition « S’habiller en artiste. L’artiste et le vêtement » au Louvre-Lens (2025), où Vava Dudu était invitée par la commissaire Annabelle Ténèze ; revisitée ensuite par Vava Dudu pour la collaboration avec Pigeons Studio"
+        ],
+        [
+         "Collaboration",
+         "Pigeons Studio × Vava Dudu"
+        ],
+        [
+         "Vava Dudu",
+         "Vava Dudu, artiste et songwriter : « Le textile est mon chant d’expression. J’y brode les paroles des chansons écrites pour mon groupe LA CHATTE : paroles d’amour, d’espoir, de vie, de liberté, de paix. »"
+        ],
+        [
+         "À venir",
+         "D’autres collaborations Pigeons Studio × Vava Dudu arrivent : coming soon"
+        ]
+       ],
+       "prix": "coming",
+       "tarif": "1600 € · pré-commande",
+       "commande": "pré-commander"
       }
      ]
     },
@@ -2276,6 +2328,58 @@
        ],
        "prix": "coming",
        "tarif": "€300 · pre-order",
+       "commande": "pre-order"
+      },
+      {
+       "id": "bomber-vava-dudu",
+       "nom": "BOMBERS // CHANT",
+       "sens": "A khaki bombers jacket embroidered with words and drawings by Vava Dudu: a one-of-a-kind punk piece that protects, resists and carries a culture.",
+       "image": "/boutique/bomber-vava-dudu.jpg",
+       "alt": "The khaki bombers jacket embroidered with words and drawings, being worn",
+       "glyphes": [
+        [
+         "E1DA",
+         "bombers"
+        ],
+        [
+         "E126",
+         "chant"
+        ]
+       ],
+       "glyphesSens": "“BOMBERS // CHANT” in As-Simt glyphs: bombers (protect · resist · culture) · chant",
+       "collab": {
+        "texte": "A collaboration: this bombers jacket was imagined with",
+        "nom": "@vava.dudu",
+        "lien": "https://www.instagram.com/vava.dudu"
+       },
+       "details": [
+        [
+         "Exhibited piece",
+         "One-of-a-kind punk piece · embroidery"
+        ],
+        [
+         "Pre-order",
+         "A bombers jacket from the BOMBERS // CHANT lineage"
+        ],
+        [
+         "Story",
+         "A piece from the exhibition “S’habiller en artiste. L’artiste et le vêtement” (The Art of Dressing) at the Louvre-Lens (2025), where Vava Dudu was invited by curator Annabelle Ténèze; then revisited by Vava Dudu for the collaboration with Pigeons Studio"
+        ],
+        [
+         "Collaboration",
+         "Pigeons Studio × Vava Dudu"
+        ],
+        [
+         "Vava Dudu",
+         "Vava Dudu, artist and songwriter: “Textile is my song of expression. I embroider on it the lyrics of the songs I write for my band LA CHATTE: words of love, hope, life, freedom and peace.”"
+        ],
+        [
+         "Coming soon",
+         "More Pigeons Studio × Vava Dudu collaborations are on the way: coming soon"
+        ]
+       ],
+       "prix": "coming",
+       "tarif": "€1600 · pre-order",
        "commande": "pre-order"
       }
      ]
