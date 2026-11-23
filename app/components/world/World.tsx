@@ -50,8 +50,8 @@ const PATCHS: Record<Locale, Record<string, string[]>> = {
 
 // les signes de l'alphabet partagé, et leur mot
 const MOTS: Record<Locale, Record<string, string>> = {
-  fr: { E113: 'double', E132: 'faire', E140: 'donner', E0EE: 'graine', E083: 'paume', E130: 'signal', E082: 'peau', E119: 'machine', E11C: 'vibration', E167: 'petit', E16C: 'doux', E0CA: 'montagne', E0E8: 'cercle' },
-  en: { E113: 'double', E132: 'make', E140: 'give', E0EE: 'seed', E083: 'palm', E130: 'signal', E082: 'skin', E119: 'machine', E11C: 'vibration', E167: 'small', E16C: 'soft', E0CA: 'mountain', E0E8: 'circle' },
+  fr: { E113: 'double', E132: 'faire', E140: 'donner', E0EE: 'graine', E083: 'paume', E130: 'signal', E082: 'peau', E119: 'machine', E11C: 'vibration', E167: 'petit', E16C: 'doux', E0CA: 'montagne', E0E8: 'cercle', E1B0: 'bomber' },
+  en: { E113: 'double', E132: 'make', E140: 'give', E0EE: 'seed', E083: 'palm', E130: 'signal', E082: 'skin', E119: 'machine', E11C: 'vibration', E167: 'small', E16C: 'soft', E0CA: 'mountain', E0E8: 'circle', E1B0: 'bomber' },
 };
 
 const UI = {
@@ -610,7 +610,7 @@ function Carte({ it, code, i, ui, locale, ouvrirContact, ouvrirCommande }: { it:
         </div>
       )}
       <p>{it.sens}</p>
-      {it.collab && <p className="collab">{it.collab.texte} <a href={it.collab.lien} target="_blank" rel="noopener noreferrer">{it.collab.nom}</a></p>}
+      {it.collab && <p className="collab">{it.collab.texte} {it.collab.lien ? <a href={it.collab.lien} target="_blank" rel="noopener noreferrer">{it.collab.nom}</a> : <strong>{it.collab.nom}</strong>}</p>}
       {it.details && <dl className="details">{it.details.flatMap(([k, v]) => [<dt key={`t${k}`}>{k}</dt>, <dd key={`d${k}`}>{v}</dd>])}</dl>}
       {it.tags && <div className="tags">{it.tags.map((x) => <span key={x}>{x}</span>)}</div>}
       {it.prix && (

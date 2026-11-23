@@ -1003,6 +1003,38 @@
        "prix": "coming",
        "tarif": "300 € · pré-commande",
        "commande": "pré-commander"
+      },
+      {
+       "id": "bomber-vava-dudu",
+       "nom": "Bomber",
+       "sens": "Un bomber kaki couvert de mots et de dessins brodés. Une pièce qui protège, qui résiste et qui porte une culture.",
+       "image": "/boutique/bomber-vava-dudu.jpg",
+       "alt": "Le bomber kaki brodé de mots et de dessins, porté",
+       "glyphes": [
+        [
+         "E1B0",
+         "bomber"
+        ]
+       ],
+       "glyphesSens": "« bomber » en glyphe As-Simt : protège · résiste · culture",
+       "collab": {
+        "texte": "Une collaboration : ce bomber a été imaginé avec",
+        "nom": "Vava Dudu",
+        "lien": ""
+       },
+       "details": [
+        [
+         "Pièce",
+         "Bomber kaki brodé de mots et de dessins"
+        ],
+        [
+         "Collaboration",
+         "Vava Dudu × Pigeons Studio"
+        ]
+       ],
+       "prix": "coming",
+       "tarif": "prix à venir · pré-commande",
+       "commande": "pré-commander"
       }
      ]
     },
@@ -2276,6 +2308,38 @@
        ],
        "prix": "coming",
        "tarif": "€300 · pre-order",
+       "commande": "pre-order"
+      },
+      {
+       "id": "bomber-vava-dudu",
+       "nom": "Bomber jacket",
+       "sens": "A khaki bomber jacket covered with embroidered words and drawings. A piece that protects, resists and carries a culture.",
+       "image": "/boutique/bomber-vava-dudu.jpg",
+       "alt": "The khaki bomber jacket embroidered with words and drawings, being worn",
+       "glyphes": [
+        [
+         "E1B0",
+         "bomber"
+        ]
+       ],
+       "glyphesSens": "“bomber” as an As-Simt glyph: protect · resist · culture",
+       "collab": {
+        "texte": "A collaboration: this bomber jacket was imagined with",
+        "nom": "Vava Dudu",
+        "lien": ""
+       },
+       "details": [
+        [
+         "Piece",
+         "Khaki bomber jacket embroidered with words and drawings"
+        ],
+        [
+         "Collaboration",
+         "Vava Dudu × Pigeons Studio"
+        ]
+       ],
+       "prix": "coming",
+       "tarif": "price to come · pre-order",
        "commande": "pre-order"
       }
      ]
