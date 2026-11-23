@@ -1033,7 +1033,7 @@
         ]
        ],
        "prix": "coming",
-       "tarif": "prix à venir · pré-commande",
+       "tarif": "1600 € · pré-commande",
        "commande": "pré-commander"
       }
      ]
@@ -2339,7 +2339,7 @@
         ]
        ],
        "prix": "coming",
-       "tarif": "price to come · pre-order",
+       "tarif": "€1600 · pre-order",
        "commande": "pre-order"
       }
      ]
